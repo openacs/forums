@@ -34,13 +34,28 @@ element create message subject \
     -label Subject \
     -datatype text \
     -widget text \
-    -html {size 60}
+    -html {size 60} \
+    -validate { {expr ![empty_string_p [string trim $value]]} {Please enter a subject} }
+
+# we use ns_queryget to get the value of html_p because it won't be defined
+# until the next element -DaveB
 
 element create message content \
     -label Body \
     -datatype text \
     -widget textarea \
-    -html {rows 20 cols 60 wrap soft}
+    -html {rows 20 cols 60 wrap soft} \
+    -validate {
+	empty {expr ![empty_string_p [string trim $value]]} {Please enter a message}
+	html { expr {( [string match [set l_html_p [ns_queryget html_p f]] "t"] && [empty_string_p [set v_message [ad_html_security_check $value]]] ) || [string match $l_html_p "f"] } }
+	     {}	
+	}
+
+element create message html_p \
+    -label Format \
+    -datatype text \
+    -widget select \
+    -options {{text f} {html t}}
 
 element create message parent_id \
     -label "parent ID" \
@@ -52,12 +67,6 @@ element create message forum_id \
     -label "forum ID" \
     -datatype integer \
     -widget hidden
-
-element create message html_p \
-    -label Format \
-    -datatype text \
-    -widget select \
-    -options {{text f} {html t}}
 
 element create message confirm_p \
     -label "Confirm?" \
@@ -161,7 +170,7 @@ if {[form is_valid message]} {
 }
 
 set message_id [db_nextval acs_object_id_seq]
-set subject ""
+#set subject ""
 
 if {![empty_string_p $parent_id]} {
     # get the parent message information
@@ -179,7 +188,10 @@ forum::get -forum_id $forum_id -array forum
 element set_properties message forum_id -value $forum_id
 element set_properties message parent_id -value $parent_id
 element set_properties message message_id -value $message_id
-element set_properties message subject -value $subject
+# only set subject is this is a reply to a previous message
+if {[info exists subject]} {
+    element set_properties message subject -value $subject
+}
 element set_properties message confirm_p -value 0
 element set_properties message subscribe_p -value 0
 
