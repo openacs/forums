@@ -1,4 +1,3 @@
-
 ad_page_contract {
     a message attachment chunk to be included to display attachments
 

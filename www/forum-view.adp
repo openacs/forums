@@ -35,7 +35,7 @@
 
     <tr>
       <td colspan="4">
-        @notification_chunk@
+        <nobr>@notification_chunk@</nobr>
         <br><br>
         <if @post_p@>
           <nobr><small>[ <a href="message-post?forum_id=@forum_id@">Post a New Message</a> ]</small></nobr>

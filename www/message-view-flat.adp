@@ -7,7 +7,7 @@
   <table cellpadding="5" width="95%">
     <tr>
       <td colspan="4">
-        @notification_chunk@
+        <nobr>@notification_chunk@</nobr>
 <if @post_p@>
         <nobr><small>[
           <a href="message-post?forum_id=@forum_id@">Post a New Message</a>
