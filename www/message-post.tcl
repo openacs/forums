@@ -48,7 +48,7 @@ element create message content \
     -html {rows 20 cols 60 wrap soft} \
     -validate {
 	empty {expr ![empty_string_p [string trim $value]]} {Please enter a message}
-	html { expr {( [string match [set l_html_p [ns_queryget html_p f]] "t"] && [empty_string_p [set v_message [ad_html_security_check $value]]] ) || [string match $l_html_p "f"] } }
+	html { expr {( [string match [set l_html_p [ns_queryget html_p f]] "t"] && [empty_string_p [set v_message [ad_quotehtml [ad_html_security_check $value]]]] ) || [string match $l_html_p "f"] } }
 	     {}	
 	}
 
