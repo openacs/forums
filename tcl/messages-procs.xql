@@ -19,14 +19,6 @@
         </querytext>
     </fullquery>
 
-    <fullquery name="forum::message::set_state.update_message_state">
-        <querytext>
-            update forums_messages
-            set state = :state
-            where message_id = :message_id
-        </querytext>
-    </fullquery>
-
     <fullquery name="forum::message::new.message_exists_p">
         <querytext>
 	  select count(message_id)

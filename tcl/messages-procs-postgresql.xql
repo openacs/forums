@@ -46,12 +46,6 @@
         </querytext>
     </fullquery>
 
-    <fullquery name="forum::message::delete.delete_message">
-        <querytext>
-            select forums_message__delete_thread(:message_id);
-        </querytext>
-    </fullquery>
-
     <fullquery name="forum::message::close.thread_close">
         <querytext>
             select forums_message__thread_close(:message_id);

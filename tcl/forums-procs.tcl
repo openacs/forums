@@ -20,12 +20,14 @@ ad_proc -public forum::new {
 } {
     create a new forum
 } {
-    # Prepare the variables for instantiation
-    set extra_vars [ns_set create]
-    oacs_util::vars_to_ns_set -ns_set $extra_vars -var_list {forum_id name charter presentation_type posting_policy package_id}
-
-    # Instantiate the forum
-    return [package_instantiate_object -extra_vars $extra_vars forums_forum]
+    set var_list [list \
+        [list forum_id $forum_id] \
+        [list name $name] \
+        [list charter $charter] \
+        [list presentation_type $presentation_type] \
+        [list posting_policy $posting_policy] \
+        [list package_id $package_id]]
+    return [package_instantiate_object -var_list $var_list forums_forum]
 }
 
 ad_proc -public forum::edit {

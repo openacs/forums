@@ -11,11 +11,10 @@ ad_page_contract {
 # Get forum data
 forum::get -forum_id $forum_id -array forum
 
-set query messages_select
 if { $moderate_p } {
-    set replies_view forums_messages
+    set replies reply_count
 } else {
-    set replies_view forums_messages_approved
+    set replies approved_reply_count
 }
 
 set actions [list]

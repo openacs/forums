@@ -1,21 +1,68 @@
+alter table forums_forums add column thread_count integer;
+alter table forums_forums alter thread_count set default 0;
 
---
--- The Forums Package
---
--- @author gwong@orchardlabs.com,ben@openforce.biz
--- @creation-date 2002-05-16
--- @cvs-id $Id$
---
--- The Package for Messages
---
--- This code is newly concocted by Ben, but with heavy concepts and heavy code
--- chunks lifted from Gilbert. Thanks Orchard Labs!
---
+alter table forums_forums add column approved_thread_count integer;
+alter table forums_forums alter approved_thread_count set default 0;
+
+update forums_forums
+set approved_thread_count = (select count(message_id)
+                             from forums_messages_approved fm
+                             where fm.forum_id=forums_forums.forum_id
+                               and fm.parent_id is null),
+    thread_count = (select count(message_id)
+                    from forums_messages fm
+                    where fm.forum_id=forums_forums.forum_id
+                      and fm.parent_id is null);
+
+alter table forums_messages add column reply_count integer;
+alter table forums_messages alter reply_count set default 0;
+
+alter table forums_messages add column approved_reply_count integer;
+alter table forums_messages alter approved_reply_count set default 0;
+
+-- Need to drop and recreate because Postgres doesn't allow one to change the
+-- number of columns in a view when you do a "replace".
+
+drop view forums_forums_enabled;
+create view forums_forums_enabled
+as
+    select *
+    from forums_forums
+    where enabled_p = 't';
+
+drop view forums_messages_approved;
+create or replace view forums_messages_approved
+as
+    select *
+    from forums_messages
+    where state = 'approved';
+
+drop view forums_messages_pending;
+create or replace view forums_messages_pending
+as
+    select *
+    from forums_messages
+    where state= 'pending';
+
+update forums_messages
+set approved_reply_count = (select count(*)
+                            from forums_messages_approved fm1
+                            where fm1.tree_sortkey
+                              between tree_left(forums_messages.tree_sortkey)
+                              and tree_right(forums_messages.tree_sortkey)),
+     reply_count = (select count(*)
+                    from forums_messages fm1
+                    where fm1.tree_sortkey
+                      between tree_left(forums_messages.tree_sortkey)
+                      and tree_right(forums_messages.tree_sortkey))
+where parent_id is null;
 
 select define_function_args ('forums_message__new', 'message_id,object_type;forums_message,forum_id,subject,content,format,user_id,state,parent_id,creation_date,creation_user,creation_ip,context_id');
 
 -- Get rid of the old version so we'll throw an error if the admin forgets to reboot
 -- OpenACS after the upgrade (package_instantiate_object caches param lists)
+
+drop function forums_message__new (integer,varchar,integer,varchar,text,char,integer,timestamptz,varchar,integer,timestamptz,integer,varchar,integer);
 
 create or replace function forums_message__new (integer,varchar,integer,varchar,text,char,integer,varchar,integer,timestamptz,integer,varchar,integer)
 returns integer as '
@@ -100,85 +147,6 @@ begin
 
 end;' language 'plpgsql';
 
-select define_function_args ('forums_message__root_message_id', 'message_id');
-
-create function forums_message__root_message_id (integer)
-returns integer as '
-declare
-    p_message_id                    alias for $1;
-    v_message_id                    forums_messages.message_id%TYPE;
-    v_forum_id                      forums_messages.forum_id%TYPE;
-    v_sortkey                       forums_messages.tree_sortkey%TYPE;
-begin
-    select forum_id, tree_sortkey
-    into v_forum_id, v_sortkey
-    from forums_messages
-    where message_id = p_message_id;
-
-    select message_id
-    into v_message_id
-    from forums_messages
-    where forum_id = v_forum_id
-    and tree_sortkey = tree_ancestor_key(v_sortkey, 1);
-
-    return v_message_id;
-end;
-' language 'plpgsql' stable strict;
-
-select define_function_args ('forums_message__thread_open', 'message_id');
-
-create function forums_message__thread_open (integer)
-returns integer as '
-declare
-    p_message_id                    alias for $1;
-    v_forum_id                      forums_messages.forum_id%TYPE;
-    v_sortkey                       forums_messages.tree_sortkey%TYPE;
-begin
-    select forum_id, tree_sortkey
-    into v_forum_id, v_sortkey
-    from forums_messages
-    where message_id = p_message_id;
-
-    update forums_messages
-    set open_p = ''t''
-    where tree_sortkey between tree_left(v_sortkey) and tree_right(v_sortkey)
-    and forum_id = v_forum_id;
-
-    update forums_messages
-    set open_p = ''t''
-    where message_id = p_message_id;
-
-    return 0;
-end;
-' language 'plpgsql';
-
-select define_function_args ('forums_message__thread_close', 'message_id');
-
-create function forums_message__thread_close (integer)
-returns integer as '
-declare
-    p_message_id                    alias for $1;
-    v_forum_id                      forums_messages.forum_id%TYPE;
-    v_sortkey                       forums_messages.tree_sortkey%TYPE;
-begin
-    select forum_id, tree_sortkey
-    into v_forum_id, v_sortkey
-    from forums_messages
-    where message_id = p_message_id;
-
-    update forums_messages
-    set open_p = ''f''
-    where tree_sortkey between tree_left(v_sortkey) and tree_right(v_sortkey)
-    and forum_id = v_forum_id;
-
-    update forums_messages
-    set open_p = ''f''
-    where message_id = p_message_id;
-
-    return 0;
-end;
-' language 'plpgsql';
-
 select define_function_args ('forums_message__set_state', 'message_id,state');
 
 create or replace function forums_message__set_state(integer,varchar) returns integer as '
@@ -221,8 +189,6 @@ begin
   return 0;
 
 end;' language 'plpgsql';
-
-select define_function_args ('forums_message__delete', 'message_id');
 
 create or replace function forums_message__delete (integer)
 returns integer as '
@@ -304,14 +270,3 @@ begin
     return 0;
 end;' language 'plpgsql';
 
-
-select define_function_args('forums_message__name','message_id');
-
-create function forums_message__name (integer)
-returns varchar as '
-declare
-    p_message_id                    alias for $1;
-begin
-    return subject from forums_messages where message_id = p_message_id;
-end;
-' language 'plpgsql';
