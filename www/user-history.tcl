@@ -17,20 +17,25 @@ set package_id [ad_conn package_id]
 set dimensional_list {
     {
         view "View:" date {
-            {date "by Date" { order by date desc } }
-            {forum "by Forum" { order by forums_forums.name, date desc } }
+            {date "by Date" {}}
+            {forum "by Forum" {}}
         }
     }
 }
 
-set sql_order_by [ad_dimensional_sql $dimensional_list]
+set query select_messages
+if {[string equal $view forum]} {
+    set query select_messages_by_forum
+}
 
 # Select the postings
-db_multirow messages select_messages {}
+db_multirow messages $query {}
 
 # Get user information
 oacs::user::get -user_id $user_id -array user
 
 set dimensional_chunk [ad_dimensional $dimensional_list]
+
 set context_bar {{Posting History}}
+
 ad_return_template
