@@ -81,7 +81,8 @@ if {[form is_request message]} {
         html_p \
         confirm_p \
         subscribe_p \
-        anonymous_p 
+        anonymous_p \
+        attach_p
     
     set action [template::form::get_button message]
     set displayed_user_id [ad_decode \
@@ -151,8 +152,6 @@ if {[form is_request message]} {
 
       # Wrap the attachments URL
       if {$attachments_enabled_p} {
-          form get_values message attach_p
-
           if { ![empty_string_p $attach_p] && $attach_p} {
               set redirect_url [attachments::add_attachment_url -object_id $message_id -return_url $redirect_url -pretty_name "[_ forums.Forum_Posting] \"$subject\""]
           }
