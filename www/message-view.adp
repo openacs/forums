@@ -9,6 +9,14 @@
 <table width="95%">
   <tr style="white-space: normal">
     <td align=left>
+      <a href="forum-view?forum_id=@message.forum_id@">Back</a> to @forum.name@
+    </td>
+    <td>
+       &nbsp;
+    </td>
+  </tr>
+  <tr style="white-space: normal">
+    <td align=left>
       @notification_chunk@
     </td>
     <td align=right>
@@ -39,7 +47,7 @@
     <% set width [expr 100 - [expr $responses(tree_level) - 1] * 3] %>
   
     <tr style="padding-top: 1em">
-      <td>
+      <td alighn="left">
         <table align="right" bgcolor="@table_border_color@" width="@width@%">
           <if @responses.rownum@ odd>
             <include src="message-chunk" 

@@ -6,6 +6,14 @@
 
   <table cellpadding="5" width="95%">
     <tr>
+      <td align=left colspan="4">
+        <a href="forum-view?forum_id=@message.forum_id@">Back</a> to @forum.name@
+      </td>
+      <td>
+         &nbsp;
+      </td>
+    </tr>
+    <tr>
       <td colspan="4">
         <nobr>@notification_chunk@</nobr>
       </td>
