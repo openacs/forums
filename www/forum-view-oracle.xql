@@ -14,11 +14,13 @@
                     from forums_messages_approved fm1
                     where fm1.forum_id = :forum_id
                     and fm1.tree_sortkey between tree.left(fm.tree_sortkey) and tree.right(fm.tree_sortkey)) as n_messages,
-                   to_char(fm.last_child_post, 'Mon DD YYYY HH24:MI:SS') as last_child_post,
-                   case when fm.last_child_post > (sysdate - 1) then 't' else 'f' end as new_p                   
-            from forums_messages_approved fm
+                   to_char(acs_objects.last_modified, 'Mon DD YYYY HH24:MI:SS') as last_modified,
+                   case when acs_objects.last_modified > (sysdate - 1) then 't' else 'f' end as new_p                   
+            from forums_messages_approved fm,
+                 acs_objects
             where fm.forum_id = :forum_id
             and fm.parent_id is null
+            and fm.message_id = acs_objects.object_id
             order by fm.posting_date desc
         </querytext>
     </fullquery>
@@ -35,11 +37,13 @@
                     from forums_messages fm1
                     where fm1.forum_id = :forum_id
                     and fm1.tree_sortkey between tree.left(fm.tree_sortkey) and tree.right(fm.tree_sortkey)) as n_messages,
-                   to_char(fm.last_child_post, 'Mon DD YYYY HH24:MI:SS') as last_child_post,
-                   case when fm.last_child_post > (sysdate - 1) then 't' else 'f' end as new_p                   
-            from forums_messages fm
+                   to_char(acs_objects.last_modified, 'Mon DD YYYY HH24:MI:SS') as last_modified,
+                   case when acs_objects.last_modified > (sysdate - 1) then 't' else 'f' end as new_p                   
+            from forums_messages fm,
+                 acs_objects
             where fm.forum_id = :forum_id
             and fm.parent_id is null
+            and fm.message_id = acs_objects.object_id
             order by fm.posting_date desc
         </querytext>
     </fullquery>
