@@ -25,10 +25,10 @@ element create forum presentation_type \
         -label [_ forums.Presentation] -datatype text -widget select -options {{Flat flat} {Threaded threaded}}
 
 element create forum posting_policy \
-        -label [_ forums.Posting_Policy] -datatype text -widget select -options {{open open} {moderated moderated} {closed closed}}
+        -label [_ forums.Posting_Policy] -datatype text -widget select -options {{Open open} {Moderated moderated} {Closed closed}}
 
 element create forum new_threads_p \
-        -label [_ forums.lt_Users_Can_Create_New_] -datatype integer -widget radio -options {{yes 1} {no 0}}
+        -label [_ forums.lt_Users_Can_Create_New_] -datatype integer -widget radio -options {{Yes 1} {No 0}}
 
 if {[form is_valid forum]} {
     template::form get_values forum forum_id name charter presentation_type posting_policy new_threads_p

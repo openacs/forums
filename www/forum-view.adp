@@ -2,8 +2,6 @@
 <property name="title">#forums.Forum_1# @forum.name;noquote@</property>
 <property name="context">@context;noquote@</property>
 
-<center>
-
   <table width="95%">
     <tr>
       <td style="white-space: nowrap; font-size: x-small; line-height: 150%">
@@ -88,5 +86,3 @@
       </else>
   
     </table>
-
-</center>

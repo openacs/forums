@@ -18,7 +18,7 @@ ad_page_contract {
     }
 }
 
-set user_id [ad_verify_and_get_user_id]
+set user_id [ad_conn user_id]
 
 # get the colors from the params
 set table_border_color [parameter::get -parameter table_border_color]
@@ -82,6 +82,20 @@ element create message subscribe_p \
     -widget hidden \
     -optional
 
+# We show the anonymous checkbox if you're logged in, and user_id 0 is allowed to post
+set anonymous_allowed_p [expr [ad_conn user_id] != 0 && \
+                             ([empty_string_p $forum_id] || \
+                                  [forum::security::can_post_forum_p -forum_id $forum_id -user_id 0]) && \
+                             ([empty_string_p $parent_id] || \
+                                  [forum::security::can_post_message_p -message_id $parent_id -user_id 0])]
+
+element create message anonymous_p \
+    -label "Anonymous" \
+    -datatype integer \
+    -widget [ad_decode $anonymous_allowed_p 0 "hidden" "checkbox"] \
+    -options { { "Post anonymously" "1" } } \
+    -optional
+
 set attachments_enabled_p [forum::attachments_enabled_p]
 
 if {$attachments_enabled_p} {
@@ -94,18 +108,25 @@ if {$attachments_enabled_p} {
 
 if {[form is_valid message]} {
     form get_values message \
-        message_id forum_id parent_id subject content html_p confirm_p subscribe_p
-
+        message_id forum_id parent_id subject content html_p confirm_p subscribe_p anonymous_p
+    
+    if { !$anonymous_allowed_p } {
+        set anonymous_p 0
+    }
+    
     if {!$confirm_p} {
         forum::get -forum_id $forum_id -array forum
 
         set confirm_p 1
         set content [string trimright $content]
-        set exported_vars [export_form_vars message_id forum_id parent_id subject content html_p confirm_p]
+        set exported_vars [export_form_vars message_id forum_id parent_id subject content html_p confirm_p anonymous_p]
         
         set message(html_p) $html_p
         set message(subject) $subject
         set message(content) $content
+        if { $anonymous_p } {
+            set user_id 0
+        }
         set message(user_id) $user_id
         set message(user_name) [db_string select_name {}]
         set message(posting_date_ansi) [db_string select_date {}]
@@ -131,13 +152,23 @@ if {[form is_valid message]} {
         return
     }
 
+    if { [empty_string_p $anonymous_p] } {
+        set anonymous_p 0
+    }
+    if { $anonymous_p } {
+        set post_as_user_id 0
+    } else {
+        set post_as_user_id $user_id
+    }
+    
     forum::message::new \
         -forum_id $forum_id \
         -message_id $message_id \
         -parent_id $parent_id \
         -subject $subject \
         -content $content \
-        -html_p $html_p
+        -html_p $html_p \
+        -user_id $post_as_user_id
 
     if {[empty_string_p $parent_id]} {
         set redirect_url "[ad_conn package_url]message-view?message_id=$message_id"

@@ -25,7 +25,7 @@ namespace eval forum::security {
         {-user_id ""}
         {-forum_id:required}
     } {
-        return [permission::permission_p -party_id $user_id -object_id $forum_id -privilege forum_read]
+        return [permission::permission_p -party_id $user_id -object_id $forum_id -privilege read]
     }
 
     ad_proc -public require_read_forum {
@@ -41,7 +41,7 @@ namespace eval forum::security {
         {-user_id ""}
         {-message_id:required}
     } {
-        return [permission::permission_p -party_id $user_id -object_id $message_id -privilege forum_read]
+        return [permission::permission_p -party_id $user_id -object_id $message_id -privilege read]
     }
 
     ad_proc -public require_read_message {
@@ -57,7 +57,7 @@ namespace eval forum::security {
         {-user_id ""}
         {-forum_id:required}
     } {
-        return [permission::permission_p -party_id $user_id -object_id $forum_id -privilege forum_create]
+        return [permission::permission_p -party_id $user_id -object_id $forum_id -privilege create]
     }
 
     ad_proc -public require_post_forum {
@@ -73,7 +73,7 @@ namespace eval forum::security {
         {-user_id ""}
         {-message_id:required}
     } {
-        return [permission::permission_p -party_id $user_id -object_id $message_id -privilege forum_write]
+        return [permission::permission_p -party_id $user_id -object_id $message_id -privilege write]
     }
 
     ad_proc -public require_post_message {

@@ -15,6 +15,7 @@
 <li> [<if @forums.enabled_p@ eq t><a href="forum-disable?forum_id=@forums.forum_id@">#forums.disable#</a></if>
 <else><a href="forum-enable?forum_id=@forums.forum_id@">#forums.enable#</a></else>]
 <a href="forum-edit?forum_id=@forums.forum_id@">@forums.name@</a>
+(<a href="permissions?object_id=@forums.forum_id@">Permissions</a>)
 </group>
 
 </multiple>
