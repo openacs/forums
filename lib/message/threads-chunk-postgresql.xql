@@ -2,6 +2,23 @@
 <queryset>
     <rdbms><type>postgresql</type><version>7.1</version></rdbms>
 
+    <fullquery name="messages_select_paginate">
+        <querytext>
+            select fm.message_id,
+                   fm.subject,
+                   person__name(fm.user_id) as user_name,
+                   (select count(*)
+                    from $replies_view fm1
+                    where fm1.forum_id = :forum_id
+                    and fm1.tree_sortkey between tree_left(fm.tree_sortkey) and tree_right(fm.tree_sortkey)) as n_messages,
+                   to_char(fm.posting_date, 'YYYY-MM-DD HH24:MI:SS') as posting_date_ansi
+            from forums_messages_approved fm
+            where fm.forum_id = :forum_id
+            and fm.parent_id is null
+            [template::list::orderby_clause -orderby -name messages]
+        </querytext>
+    </fullquery>
+
     <fullquery name="messages_select">
         <querytext>
             select fm.message_id,
