@@ -29,11 +29,7 @@ ad_proc -public forum::email::create_forward_email {
     append new_body "[_ forums.email_alert_body_header]
 [_ forums.Forum_1] $message(forum_name)
 Thread: $message(root_subject)\n\n"
-    if {$message(html_p)} {
-        append new_body "[ad_html_to_text -- $message(content)]"
-    } else {
-        append new_body $message(content)
-    }
+    append new_body [ad_html_text_convert -from $message(format) -to text/plain -- $message(content)]
 
     append new_body "\n\n-- \n[ad_url][ad_conn package_url]message-view?[export_vars -anchor $message(message_id) [list [list message_id $message(root_message_id)]]]\n"
 
