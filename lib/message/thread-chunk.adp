@@ -18,7 +18,7 @@
   </if>
   <else>
   <table width="95%">
-  </if>
+  </else>
 
     <multiple name="responses">
     
