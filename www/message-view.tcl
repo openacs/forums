@@ -19,7 +19,6 @@ set table_other_bgcolor [parameter::get -parameter table_other_bgcolor]
 
 # Load up the message information
 forum::message::get -message_id $message_id -array message
-set message(subject) [ad_quotehtml $message(subject)]
 
 # Check if the user has admin on the message
 set moderate_p [forum::security::can_moderate_message_p -message_id $message_id]
@@ -90,7 +89,6 @@ if {[string equal $forum(presentation_type) flat]} {
 }
 
 db_multirow -extend { posting_date_pretty } responses $query {} {
-    set subject [ad_quotehtml $subject]
     set posting_date_pretty [lc_time_fmt $posting_date_ansi "%x %X"]
 }
 
@@ -140,6 +138,4 @@ if {[string equal $forum(presentation_type) flat]} {
 } else {
     ad_return_template
 }
-
-
 

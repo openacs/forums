@@ -4,7 +4,7 @@
   <td align=left style="padding-left: 1em">
     <strong>
       <if @preview@ nil>
-        <a href="message-view?message_id=@message.message_id@">@message.subject;noquote@</a>
+        <a href="message-view?message_id=@message.message_id@">@message.subject@</a>
       </if>
       <else>
         @message.subject@

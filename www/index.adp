@@ -52,7 +52,7 @@
             </strong>
           </if>
           <if @forums.charter@ not nil>
-            <br><em>@forums.charter@</em>
+            <br><em>@forums.charter;noquote@</em>
           </if>
         </td>
         <td align="center">

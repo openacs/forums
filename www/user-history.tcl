@@ -38,7 +38,7 @@ oacs::user::get -user_id $user_id -array user
 
 set dimensional_chunk [ad_dimensional $dimensional_list]
 
-set context "[_ forums.Posting_History]"
+set context [list [_ forums.Posting_History]]
 
 ad_return_template
 

@@ -65,7 +65,7 @@ forum::message::get -message_id $message_id -array message
 element set_properties message subject -value "\[[_ forums.Fwd] $message(subject)\]"
 element set_properties message message_id -value $message_id
 
-set message(subject) [ad_quotehtml $message(subject)]
+set message(subject)
 
 set context [list [list "./forum-view?forum_id=$message(forum_id)" "$message(forum_name)"]]
 if {![empty_string_p $message(parent_id)]} {

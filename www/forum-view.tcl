@@ -69,10 +69,10 @@ if {$moderate_p} {
 
 db_multirow -extend { last_child_post_pretty } messages $query {} {
     set last_child_post_pretty [lc_time_fmt $last_child_post_ansi "%x %X"]
-    set subject [ad_quotehtml $subject]
-    set user_name [ad_quotehtml $user_name]
 }
 
+# Need to quote forum(name) since it is noquoted on display as part of an 
+# HTML fragment.
 set notification_chunk [notification::display::request_widget \
     -type forums_forum_notif \
     -object_id $forum_id \

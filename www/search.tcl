@@ -39,14 +39,13 @@ if {[form is_valid search]} {
 
     db_multirow messages $query {} {
         set posting_date_pretty [lc_time_fmt $posting_date_ansi "%x %X"]
-        set subject [ad_quotehtml $subject]
     }
 
 } else {
     set messages:rowcount 0
 }
 
-set context "[_ forums.Search]"
+set context [list [_ forums.Search_1]]
 
 ad_return_template
 
