@@ -53,14 +53,9 @@
     <td align="left" colspan="3" style="padding: 1em">  
   </else>
 
-    <if @message.html_p@ false>
     <div align="left">
       @message.content;noquote@
     </div>
-    </if>
-    <else>
-      @message.content;noquote@
-    </else>
   </td>
 </tr>
 
