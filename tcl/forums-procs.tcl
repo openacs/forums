@@ -42,7 +42,9 @@ namespace eval forum {
     }
 
     ad_proc -public attachments_enabled_p {} {
-        return [apm_package_registered_p attachments]
+        set package_id [site_nodes::child_package_exists_p \
+            -package_key attachments
+        ]
     }
 
     ad_proc -public list_forums {
