@@ -1,7 +1,7 @@
     <tr bgcolor="@bgcolor@">
       <td><b><a href="message-view?message_id=@message.message_id@">@message.subject@</a></b></td>
       <td width="15%"><a href="user-history?user_id=@message.user_id@">@message.user_name@</a></td>
-      <td width="20%">@message.posting_date@</td>
+      <td align="center" width="20%">@message.posting_date@</td>
       <td align="right" width="25%">
         <nobr><small>
           [

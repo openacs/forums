@@ -1,12 +1,18 @@
 <master src="master">
-<property name="title">Forums: Posting History for @user.full_name@</property>
+<property name="title">Forums: Posting history for @user.full_name@</property>
 <property name="context_bar">@context_bar@</property>
 
 <p>
-  You are viewing Forums posting information for
+  Posting history for
   <b>
-    <%= [acs_community_member_link -user_id $user(user_id)] %>
-  </b>.
+    <%
+        if {![permission::permission_p -object_id [acs_magic_object security_context_root] -privilege admin]} {
+            adp_puts [acs_community_member_link -user_id $user(user_id)]
+        } else {
+            adp_puts [acs_community_member_admin_link -user_id $user(user_id)]
+        }
+    %>
+  </b>
 </p>
 
 <p>
@@ -24,7 +30,7 @@
     <tr>
       <th align="left" width="30%">Forum</th>
       <th align="left">Subject</th>
-      <th align="left" width="20%">Posted</th>
+      <th align="center" width="20%">Posted</th>
     </tr>
 
 <if @messages:rowcount@ gt 0>
@@ -39,7 +45,7 @@
 
       <td><a href="forum-view?forum_id=@messages.forum_id@">@messages.forum_name@</a></td>
       <td><a href="message-view?message_id=@messages.message_id@">@messages.subject@</a></td>
-      <td>@messages.posting_date@</td>
+      <td align="center">@messages.posting_date@</td>
 
     </tr>
 
@@ -69,7 +75,7 @@
 
     <tr>
       <th align="left">Subject</th>
-      <th align="left" width="20%">Posted</th>
+      <th align="center" width="20%">Posted</th>
     </tr>
 
 <group column="forum_name">
@@ -82,7 +88,7 @@
   </else>
 
       <td><a href="message-view?message_id=@messages.message_id@">@messages.subject@</a></td>
-      <td>@messages.posting_date@</td>
+      <td align="center">@messages.posting_date@</td>
 
     </tr>
 

@@ -22,8 +22,8 @@
 
     <tr>
       <th align="left" width="70%">Forum Name</th>
-      <th align="left" width="10%">Threads</th>
-      <th align="left" width="20%">Last Post</th>
+      <th align="center" width="10%">Threads</th>
+      <th align="center" width="20%">Last Post</th>
     </tr>
 
 <if @forums:rowcount@ gt 0>
@@ -40,8 +40,8 @@
         <a href="forum-view?forum_id=@forums.forum_id@">@forums.name@</a>
         <if @forums.charter@ not nil><br><i>@forums.charter@</i></if>
       </td>
-      <td>@forums.n_threads@</td>
-      <td><if @forums.n_threads@ gt 0>@forums.last_modified@</if></td>
+      <td align="center">@forums.n_threads@</td>
+      <td align="center"><if @forums.n_threads@ gt 0>@forums.last_modified@</if></td>
 
     </tr>
 

@@ -45,9 +45,9 @@
 
     <tr>
       <th align="left" width="55%">Subject</th>
-      <th align="left" width="5%">Replies</th>
       <th align="left" width="20%">Author</th>
-      <th align="left" width="20%">Last Post</th>
+      <th align="center" width="5%">Replies</th>
+      <th align="center" width="20%">Last Post</th>
     </tr>
 
 <if @messages:rowcount@ gt 0>
@@ -66,9 +66,9 @@
         <small>(@messages.state@)</small>
 </if>
       </td>
-      <td>@messages.n_messages@</td>
       <td><a href="user-history?user_id=@messages.user_id@">@messages.user_name@</a></td>
-      <td>@messages.last_modified@</td>
+      <td align="center">@messages.n_messages@</td>
+      <td align="center">@messages.last_modified@</td>
     </tr>
 
 </multiple>
