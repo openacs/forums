@@ -31,7 +31,7 @@ create table forums_messages (
     state                           varchar(100)
                                     constraint forum_mess_state_ck
                                     check (state in ('pending','approved','rejected')),
-    format                          varchar2(30)
+    format                          varchar(30)
                                     default 'text/plain',
     -- Hierarchy of messages
     parent_id                       integer
