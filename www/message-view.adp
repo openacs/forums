@@ -10,12 +10,6 @@
   <tr style="white-space: normal">
     <td align=left>
       @notification_chunk@
-      <br>
-      <if @post_p@>
-        <small>
-          [&nbsp;<a href="message-post?forum_id=@forum_id@">#forums.Post_a_New_Message#</a>.&nbsp;]
-        </small>
-      </if>
     </td>
     <td align=right>
       <formtemplate id="search">
@@ -42,7 +36,7 @@
 
     <multiple name="responses">
     
-    <% set width [expr 100 - $responses(tree_level) * 3] %>
+    <% set width [expr 100 - $responses(tree_level)] %>
   
     <tr style="padding-top: 1em">
       <td>
