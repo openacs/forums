@@ -10,6 +10,6 @@ ad_page_contract {
     {name ""}
 }
 
-set context [_ forums.Create_New_Forum]
+set context [list [_ forums.Create_New_Forum]]
 
 ad_return_template
