@@ -10,6 +10,7 @@
   <msg key="Attachments">Attachments:</msg>
   <msg key="Author">Author</msg>
   <msg key="Back_to_thread_label">Back to %forum.name%</msg>
+  <msg key="Back_to_thread_link">&lt;a href=&quot;%thread_url%&quot;&gt;Back&lt;/a&gt; to %forum.name%</msg>
   <msg key="Body">Body</msg>
   <msg key="by_Date">by Date</msg>
   <msg key="by_Forum">by Forum</msg>
