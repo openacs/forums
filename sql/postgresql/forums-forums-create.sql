@@ -70,7 +70,7 @@ create table forums_forums (
     package_id                      integer
                                     constraint forums_package_id_nn
                                     not null,
-    last_post                       timestamp
+    last_post                       timestamptz
 );
 
 create view forums_forums_enabled

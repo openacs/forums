@@ -1,10 +1,10 @@
-alter table forums_forums add column last_post timestamp;
-alter table forums_messages add column last_child_post timestamp;
+alter table forums_forums add column last_post timestamptz;
+alter table forums_messages add column last_child_post timestamptz;
 
 create or replace function t () returns integer as '
 declare
   v_record record;
-  v_timestamp timestamp; 
+  v_timestamp timestamptz; 
 begin
 
   for v_record in select forum_id
@@ -68,7 +68,7 @@ as
     from forums_forums
     where enabled_p = 't';
 
-create or replace function forums_message__new (integer,varchar,integer,varchar,text,char,integer,timestamp,varchar,integer,timestamp,integer,varchar,integer)
+create or replace function forums_message__new (integer,varchar,integer,varchar,text,char,integer,timestamptz,varchar,integer,timestamptz,integer,varchar,integer)
 returns integer as '
 declare
     p_message_id                    alias for $1;
@@ -137,7 +137,7 @@ begin
 end;
 ' language 'plpgsql';
 
-create or replace function forums_forum__new (integer,varchar,varchar,varchar,varchar,varchar,integer,timestamp,integer,varchar,integer)
+create or replace function forums_forum__new (integer,varchar,varchar,varchar,varchar,varchar,integer,timestamptz,integer,varchar,integer)
 returns integer as '
 declare
     p_forum_id                      alias for $1;
