@@ -28,7 +28,7 @@ if { ![empty_string_p [ns_queryget formbutton:post]] } {
     set action ""
 }
 
-set user_id [ad_conn user_id]
+set user_id [auth::refresh_login]
 
 # get the colors from the params
 set table_border_color [parameter::get -parameter table_border_color]
