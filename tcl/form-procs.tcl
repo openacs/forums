@@ -154,7 +154,7 @@ ad_proc -public forums::form::forum {
     template::element create $form_name ${prefix}charter \
       -label [_ forums.Charter] \
       -datatype text \
-      -widget textarea \
+      -widget richtext \
       -html {cols 60 rows 10 wrap soft} \
       -optional
 
