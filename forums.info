@@ -7,7 +7,7 @@
     <initial-install-p>f</initial-install-p>
     <singleton-p>f</singleton-p>
 
-    <version name="0.4" url="http://openacs.org/repository/download/apm/forums-0.4.apm">
+    <version name="1.0d1" url="http://openacs.org/repository/download/apm/forums-1.0d1.apm">
     <database-support>
         <database>oracle</database>
         <database>postgresql</database>
@@ -16,9 +16,9 @@
         <summary>Online discussion boards with many configuration options.</summary>
         <description format="text/plain">This online discussion board software is the successor of the original bboard package. The biggest improvement is the new scalable datamodel. This package supports threaded and flat view, moderation, a stand alone search function as well as integration with the OpenACS search package and integration with the notifications package for email alerts. It also supports automatic posting of incoming email.</description>
 
-        <provides url="forums" version="0.4"/>
+        <provides url="forums" version="1.0d1"/>
         <requires url="acs-mail-lite" version="0.1d"/>
-        <requires url="notifications" version="0.1"/>
+        <requires url="notifications" version="4.6.2"/>
 
         <parameters>
             <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="table_border_color"  default="#dddddd" description="The color of the table borders and between the cells, try #ffffff for a cool look"/>

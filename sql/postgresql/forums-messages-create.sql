@@ -59,9 +59,9 @@ create table forums_messages (
 -- ordered so it's useful for them
 create unique index forums_mess_forum_sk_un on forums_messages(forum_id, tree_sortkey);
 -- Need these two for RI checks 
-create index forums_messages_user_id_idx ON forums_messages(user_id);
-create index forums_messages_parent_id_idx ON forums_messages(parent_id);
-
+create index forums_messages_user_id_idx on forums_messages(user_id);
+create index forums_messages_parent_id_idx on forums_messages(parent_id);
+create index forum_messages_date_idx on forums_messages (forum_id, posting_date);
 
 create view forums_messages_approved
 as
