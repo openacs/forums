@@ -112,6 +112,7 @@ ${url}message-view?message_id=$message(root_message_id)
         -short_name forums_forum_notif] \
         -object_id $message(forum_id) \
         -response_id $message(message_id) \
+        -notif_user $message(user_id) \
         -notif_subject $message(subject) \
         -notif_text $new_content
     
@@ -121,6 +122,7 @@ ${url}message-view?message_id=$message(root_message_id)
         -short_name forums_message_notif] \
         -object_id $message(root_message_id) \
         -response_id $message(message_id) \
+        -notif_user $message(user_id) \
         -notif_subject $message(subject) \
         -notif_text $new_content
 }
