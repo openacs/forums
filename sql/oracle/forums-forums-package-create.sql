@@ -70,6 +70,8 @@ as
            (forum_id, name, charter, presentation_type, posting_policy, package_id) values
            (v_forum_id, name, charter, presentation_type, posting_policy, package_id);
 
+            acs_object.update_last_modified(nvl(context_id, package_id));
+
            return v_forum_id;
         end new;
 

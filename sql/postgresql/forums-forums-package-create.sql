@@ -48,6 +48,8 @@ BEGIN
         (forum_id, name, charter, presentation_type, posting_policy, package_id) values
         (v_forum_id, p_name, p_charter, p_presentation_type, p_posting_policy, p_package_id);
 
+        select acs_object__update_last_modified(p_context_id);
+
 	return v_forum_id;
 END;
 ' language 'plpgsql';

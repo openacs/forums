@@ -105,6 +105,8 @@ as
            values
            (v_message_id, forum_id, subject, content, html_p, user_id, posting_date, parent_id, v_state);
 
+            acs_object.update_last_modified(forum_id);
+
            return v_message_id;
         end new;
         
