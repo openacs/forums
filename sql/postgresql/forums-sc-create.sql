@@ -55,3 +55,41 @@ for each row execute procedure forums_message_search__dtrg ();
 create trigger forums_message_search__utrg after update on forums_messages
 for each row execute procedure forums_message_search__utrg (); 
 
+
+
+-- forums_forums indexing trigger
+create or replace function forums_forums_search__itrg ()
+returns opaque as '
+begin
+    perform search_observer__enqueue(new.forum_id,''INSERT'');
+
+    return new;
+end;' language 'plpgsql';
+
+create or replace function forums_forums_search__utrg ()
+returns opaque as '
+begin
+    perform search_observer__enqueue(new.forum_id,''UPDATE'');
+
+    return new;
+end;' language 'plpgsql';
+
+create or replace function forums_forums_search__dtrg ()
+returns opaque as '
+begin
+    perform search_observer__enqueue(old.forum_id,''DELETE'');
+
+    return old;
+end;' language 'plpgsql';
+
+
+
+create trigger forums_forums_search__itrg after insert on forums_forums
+for each row execute procedure forums_forums_search__itrg (); 
+
+create trigger forums_forums_search__utrg after update on forums_forumss
+for each row execute procedure forums_forums_search__utrg (); 
+
+create trigger forums_forums_search__dtrg after delete on forums_forums
+for each row execute procedure forums_forums_search__dtrg (); 
+

@@ -107,7 +107,8 @@ ad_proc -private forum::forum::datasource {
           name as title,
           charter as content,
           'text/plain' as mime,
-          'text' as storage_type
+          'text' as storage_type,
+          '' as keywords
         from forums_forums
         where forum_id = :forum_id
     } -column_array datasource]} {
