@@ -42,7 +42,7 @@ namespace eval forum::security {
         {-message_id:required}
     } {
         # if the user is a guest, they can't see any forum messages at all
-        if { ![acs_privacy::user_can_read_private_data_p -user_id $user_id -object_id [dotlrn::get_package_id]] } {
+        if { ![acs_privacy::user_can_read_private_data_p -user_id $user_id -object_id [ad_conn package_id]] } {
             return 0
         } else {
             return [permission::permission_p -party_id $user_id -object_id $message_id -privilege read]
