@@ -74,7 +74,7 @@
 </tr>
 
 <if @message.n_attachments@ not nil and @message.n_attachments@ gt 0>
-<tr bgcolor="@bgcolor@">
+<tr bgcolor=@table_bgcolor;noquote@>
   <td colspan="4">
     #forums.Attachments#
     <include src="attachment-list" &message="message" bgcolor=@table_bgcolor;noquote@>
