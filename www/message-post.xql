@@ -2,6 +2,14 @@
 
 <queryset>
 
+    <fullquery name="select_name">
+        <querytext>
+          select first_names || ' ' || last_name
+          from persons
+          where person_id = :user_id
+        </querytext>
+    </fullquery>
+
     <fullquery name="select_forum_id">
         <querytext>
             select forum_id
