@@ -32,7 +32,6 @@
             <file type="data_model" db_type="oracle" path="sql/oracle/forums-messages-package-drop.sql"/>
             <file type="data_model" db_type="oracle" path="sql/oracle/forums-notifications-init.sql"/>
             <file type="data_model" db_type="oracle" path="sql/oracle/forums-tree-create.sql"/>
-            <file type="data_model" db_type="oracle" path="sql/oracle/tree-create.sql"/>
             <file type="tcl_procs" path="tcl/forums-procs.tcl"/>
             <file type="query_file" path="tcl/forums-procs.xql"/>
             <file type="tcl_procs" path="tcl/forums-security-procs.tcl"/>

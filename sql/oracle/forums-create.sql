@@ -14,7 +14,6 @@
 @ forums-forums-package-create.sql
 
 -- The messages
-@ tree-create.sql
 @ forums-messages-create.sql
 @ forums-messages-package-create.sql
 
