@@ -55,7 +55,7 @@
 
     <if @message.html_p@ false>
     <div align="left">
-      <%= [ad_text_to_html --  "$message(content)"] %>
+      @message.content@
     </div>
     </if>
     <else>
@@ -67,6 +67,3 @@
 <if @message.n_attachments@ not nil and @message.n_attachments@ gt 0>
   <include src="message-attachment-chunk" &message="message" bgcolor=@table_bgcolor@>
 </if>
-
-
-
