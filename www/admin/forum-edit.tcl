@@ -61,7 +61,7 @@ if {$package_id != $forum(package_id)} {
     ad_script_abort
 }
 
-set context_bar [list "Edit forum"]
+set context [list "Edit forum"]
     
 if { [form is_request forum] } {
     element set_properties forum forum_id -value $forum_id

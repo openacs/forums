@@ -1,6 +1,6 @@
 <master src="../master">
 <property name="title">Forums Administration</property>
-<property name="context_bar"></property>
+<property name="context"></property>
 
 <h3>Forums</h3>
 <ul>

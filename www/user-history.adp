@@ -1,6 +1,6 @@
 <master src="master">
 <property name="title">Forums: Posting history for @user.full_name@</property>
-<property name="context_bar">@context_bar@</property>
+<property name="context">@context@</property>
 
 <p>
   Posting history for

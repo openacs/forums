@@ -1,6 +1,6 @@
 <master src="master">
 <property name="title">Email Message: @message.forum_name@ - @message.subject@</property>
-<property name="context_bar">@context_bar@</property>
+<property name="context">@context@</property>
 
 <p>Email a copy of the following message:</p>
 

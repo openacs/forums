@@ -65,11 +65,11 @@ forum::message::get -message_id $message_id -array message
 element set_properties message subject -value "\[Fwd: $message(subject)\]"
 element set_properties message message_id -value $message_id
 
-set context_bar [list [list "./forum-view?forum_id=$message(forum_id)" "$message(forum_name)"]]
+set context [list [list "./forum-view?forum_id=$message(forum_id)" "$message(forum_name)"]]
 if {![empty_string_p $message(parent_id)]} {
-    lappend context_bar [list "./message-view?message_id=$message(root_message_id)" "Entire Thread"]
+    lappend context [list "./message-view?message_id=$message(root_message_id)" "Entire Thread"]
 }
-lappend context_bar [list "./message-view?message_id=$message(message_id)" "$message(subject)"]
-lappend context_bar {Email to a friend}
+lappend context [list "./message-view?message_id=$message(message_id)" "$message(subject)"]
+lappend context {Email to a friend}
 
 ad_return_template

@@ -73,7 +73,7 @@ if {[form is_valid forum]} {
     ad_script_abort
 }
 
-set context_bar [list "Create New Forum"]
+set context [list "Create New Forum"]
 
 if { [form is_request forum] } {
     # Pre-fetch the forum_id

@@ -43,6 +43,6 @@ if {[form is_valid search]} {
     set messages:rowcount 0
 }
 
-set context_bar {Search}
+set context {Search}
 
 ad_return_template

@@ -1,6 +1,6 @@
 <master src="../master">
 <property name="title">Confirm Delete: @message.subject@</property>
-<property name="context_bar"></property>
+<property name="context">delete</property>
 
 <table width="95%">
   
@@ -8,7 +8,7 @@
   <p>
   
   <table style="color: black; background-color: @table_border_color@;" width="100%">
-    <include src="../message-chunk" &message="message" preview=1>
+    <include src="../message-chunk" &message="message" preview="1">
   </table>
   
   <p>

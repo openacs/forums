@@ -70,6 +70,6 @@ set notification_chunk [notification::display::request_widget \
     -url [ad_conn url]?forum_id=$forum_id \
 ]
 
-set context_bar [list $forum(name)]
+set context [list $forum(name)]
 
 ad_return_template

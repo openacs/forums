@@ -111,8 +111,8 @@ if {[form is_valid message]} {
             }
         }
 
-        set context_bar [list [list "./forum-view?forum_id=$forum_id" "$forum(name)"]]
-        lappend context_bar {Post a Message}
+        set context [list [list "./forum-view?forum_id=$forum_id" "$forum(name)"]]
+        lappend context {Post a Message}
 
         ad_return_template message-post-confirm
         return
@@ -183,12 +183,12 @@ element set_properties message subject -value $subject
 element set_properties message confirm_p -value 0
 element set_properties message subscribe_p -value 0
 
-set context_bar [list [list "./forum-view?forum_id=$forum_id" "$forum(name)"]]
+set context [list [list "./forum-view?forum_id=$forum_id" "$forum(name)"]]
 if {![empty_string_p $parent_id]} {
-    lappend context_bar [list "./message-view?message_id=$parent_message(message_id)" "$parent_message(subject)"]
-    lappend context_bar {Post a Reply}
+    lappend context [list "./message-view?message_id=$parent_message(message_id)" "$parent_message(subject)"]
+    lappend context {Post a Reply}
 } else {
-    lappend context_bar {Post a Message}
+    lappend context {Post a Message}
 }
 
 ad_return_template

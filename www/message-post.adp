@@ -1,6 +1,6 @@
 <master src="master">
 <property name="title">Post to Forum: @forum.name@</property>
-<property name="context_bar">@context_bar@</property>
+<property name="context">@context@</property>
 <property name="focus">message.subject</property>
 
 <if @parent_id@ ne "">

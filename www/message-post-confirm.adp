@@ -1,6 +1,6 @@
 <master src="master">
 <property name="title">Confirm Post to Forum: @forum.name@</property>
-<property name="context_bar">@context_bar@</property>
+<property name="context">@context@</property>
 
 <p>Please confirm the following post:</p>
 

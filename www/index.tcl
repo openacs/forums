@@ -32,6 +32,6 @@ element create search forum_id \
 
 db_multirow forums select_forums {}
 
-set context_bar {}
+set context {}
 
 ad_return_template

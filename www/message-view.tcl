@@ -102,11 +102,11 @@ if {[empty_string_p $message(parent_id)]} {
     set notification_chunk ""
 }
 
-set context_bar [list [list "./forum-view?forum_id=$message(forum_id)" "$message(forum_name)"]]
+set context [list [list "./forum-view?forum_id=$message(forum_id)" "$message(forum_name)"]]
 if {![empty_string_p $message(parent_id)]} {
-    lappend context_bar [list "./message-view?message_id=$message(root_message_id)" "Entire Thread"]
+    lappend context [list "./message-view?message_id=$message(root_message_id)" "Entire Thread"]
 }
-lappend context_bar {One Message}
+lappend context {One Message}
 
 if {[string equal $forum(presentation_type) flat]} {
     ad_return_template "message-view-flat"

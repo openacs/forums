@@ -1,6 +1,6 @@
 <master src="../master">
 <property name="title">Manage Forum: @forum.name@</property>
-<property name="context_bar"></property>
+<property name="context">Manage</property>
 
 <h3>Pending Threads</h3>
 

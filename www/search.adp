@@ -1,6 +1,6 @@
 <master src="master">
 <property name="title">Search Forums</property>
-<property name="context_bar">@context_bar@</property>
+<property name="context">@context@</property>
 
 <center>
 
