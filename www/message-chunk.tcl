@@ -13,3 +13,4 @@ if {![array exists message]} {
 }
 if {![exists_and_not_null bgcolor]} { set bgcolor "#ffffff" }
 if {![exists_and_not_null moderate_p]} { set moderate_p 0 }
+if {![exists_and_not_null forum_moderated_p]} {set forum_moderated_p 0}

@@ -20,7 +20,7 @@
   <br>
 
   <table bgcolor="#cccccc" cellpadding="5" width="95%">
-<include src="message-chunk" bgcolor="#eeeeee" moderate_p=@moderate_p@ &message="message">
+<include src="message-chunk" bgcolor="#eeeeee" forum_moderated_p=@forum_moderated_p@ moderate_p=@moderate_p@ &message="message">
   </table>
 
 <if @responses:rowcount@ gt 0>
@@ -36,10 +36,10 @@
       <td>
         <table align="right" bgcolor="#cccccc" cellpadding="5" width="@width@%">
 <if @responses.rownum@ odd>
-  <include src="message-chunk" bgcolor="#d9e4f9" moderate_p=@moderate_p@ &message="responses">
+  <include src="message-chunk" bgcolor="#d9e4f9" forum_moderated_p=@forum_moderated_p@ moderate_p=@moderate_p@ &message="responses">
 </if>
 <else>
-  <include src="message-chunk" bgcolor="#eeeeee" moderate_p=@moderate_p@ &message="responses">
+  <include src="message-chunk" bgcolor="#eeeeee" forum_moderated_p=@forum_moderated_p@ moderate_p=@moderate_p@ &message="responses">
 </else>
         </table>
       </td>

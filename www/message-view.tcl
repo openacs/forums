@@ -38,6 +38,12 @@ if {$forum(enabled_p) != "t"} {
     ad_script_abort
 }
 
+if {$forum(posting_policy) == "moderated"} {
+    set forum_moderated_p 1
+} else {
+    set forum_moderated_p 0
+}
+
 # Check preferences for user
 
 # Set some variables for easy SQL access
