@@ -42,7 +42,7 @@ if {[form is_valid message]} {
 
 if {[template::form is_request message]} {
   element set_properties message message_id -value $message_id
-  element set_properties message subject -value $subject
+  element set_properties message subject -value $message(subject)
 }
 
 set context [list [list "./forum-view?forum_id=$message(forum_id)" "$message(forum_name)"]]
