@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <message_catalog package_key="forums" package_version="1.0.5" locale="en_US" charset="ISO-8859-1">
 
+  <msg key="Admin_for_all">Administrative options for all forums.</msg>
   <msg key="Administer">Administer</msg>
   <msg key="Administration">Administration</msg>
   <msg key="Anonymous">Anonymous</msg>
@@ -29,6 +30,7 @@
   <msg key="edit">Edit</msg>
   <msg key="Edit_again">Edit again</msg>
   <msg key="Edit_forum">Edit forum</msg>
+  <msg key="Edit_forum_name">Edit forum &quot;%name%&quot;</msg>
   <msg key="Edit_Message">Edit Message:</msg>
   <msg key="Email">Email</msg>
   <msg key="email_alert_body_header">On %posting_date%, %user_name% wrote:</msg>
@@ -87,6 +89,8 @@
   <msg key="Parameters">Parameters</msg>
   <msg key="parent_ID">parent ID</msg>
   <msg key="Pending">Pending</msg>
+  <msg key="Permissions_for_all">Permissions for all forums.</msg>
+  <msg key="Permission_forum_name">Permissions for &quot;%name%&quot;</msg>
   <msg key="Pending_Threads">Pending Threads</msg>
   <msg key="Post">Post</msg>
   <msg key="Post_a_Message">Post a Message</msg>
