@@ -292,11 +292,13 @@ as
         update forums_messages
         set approved_reply_count = approved_reply_count - 1,
           reply_count = reply_count - 1
-        where message_id = forums_message.root_message_id(v_cur.message_id);
+        where forum_id = v_cur.forum_id
+          and tree_sortkey = tree.ancestor_key(v_cur.tree_sortkey, 1);
       else
         update forums_messages
         set reply_count = reply_count - 1
-        where message_id = forums_message.root_message_id(v_cur.message_id);
+        where forum_id = v_cur.forum_id
+          and tree_sortkey = tree.ancestor_key(v_cur.tree_sortkey, 1);
       end if;
 
       acs_object.del(message_id);
