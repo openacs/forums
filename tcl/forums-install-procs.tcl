@@ -20,7 +20,7 @@ ad_proc -private forum::install::package_uninstall {} {
     forum::sc::unregister_implementations
 }
 
-ad_proc -private forum::install::package_upgrade {} {
+ad_proc -private forum::install::package_upgrade {
     {-from_version_name:required}
     {-to_version_name:required}
 } {
