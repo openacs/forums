@@ -3,11 +3,13 @@
 
   <msg key="Administer">Beheer</msg>
   <msg key="Administration">Beheer</msg>
+  <msg key="Anonymous">Anoniem</msg>
   <msg key="approve">Goedkeuren</msg>
   <msg key="Are_you_sure_you_want_to_delete_lt">Weet je zeker dat u dit bericht wilt verwijderen? &lt;strong&gt;Alle reacties op dit bericht worden tevens verwijderd!&lt;/strong&gt;</msg>
   <msg key="Attach">Bijvoegen?</msg>
   <msg key="Attachments">Bijlagen:</msg>
   <msg key="Author">Auteur</msg>
+  <msg key="Back_to_thread_label">Terug naar %forum.name%</msg>
   <msg key="Back_to_thread_link">&lt;a href='%thread_url'&gt;Terug&lt;/a&gt; naar %forum.name%.</msg>
   <msg key="Body">Inhoud</msg>
   <msg key="by_Date">op Datum</msg>
@@ -43,7 +45,7 @@
   <msg key="Forum_1">Forum:</msg>
   <msg key="Forum_ID">Forum ID</msg>
   <msg key="forum_ID">forum ID</msg>
-  <msg key="Forum_Name">Forumnaam</msg>
+  <msg key="Forum_Name">Forum</msg>
   <msg key="Forum_Posting">Forumbericht</msg>
   <msg key="ForumID">ForumID</msg>
   <msg key="Forums">Forums</msg>
@@ -51,7 +53,7 @@
   <msg key="forward">Duursturen</msg>
   <msg key="Fwd">Doorgestuurd:</msg>
   <msg key="html">html</msg>
-  <msg key="Last_Post">Laatste bericht.</msg>
+  <msg key="Last_Post">Laatste bericht</msg>
   <msg key="Last_post_in_subject">Laatste bericht in onderwerp</msg>
   <msg key="lt_Email_a_copy_of_the_f">E-mail een kopie van het volgende bericht:</msg>
   <msg key="lt_First_post_in_subject">Eerste bericht in onderwerp</msg>

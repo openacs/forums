@@ -3,11 +3,13 @@
 
   <msg key="Administer">관리하다</msg>
   <msg key="Administration">관리</msg>
+  <msg key="Anonymous">무명의</msg>
   <msg key="approve">승인</msg>
   <msg key="Are_you_sure_you_want_to_delete_lt">이 메시지와 &lt;strong&gt;모든 응답메시지&lt;/strong&gt;를 삭제하시겠습니까?</msg>
   <msg key="Attach">첨부하시겠습니까?</msg>
   <msg key="Attachments">첨부:</msg>
   <msg key="Author">글쓴이</msg>
+  <msg key="Back_to_thread_label">%forum.name%으로 복귀</msg>
   <msg key="Back_to_thread_link">%forum.name%으로 &lt;a href=&quot;%thread_url%&quot;&gt;돌아가기&lt;/a&gt; </msg>
   <msg key="Body">본문</msg>
   <msg key="by_Date">일자에 의해</msg>
