@@ -89,6 +89,7 @@ if {[form is_valid message]} {
         set confirm_p 1
         set exported_vars [export_form_vars message_id forum_id parent_id subject content html_p confirm_p]
         
+        set message(html_p) $html_p
         set message(subject) $subject
         set message(content) $content
         set message(user_id) $user_id
