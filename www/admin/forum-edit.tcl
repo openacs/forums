@@ -57,7 +57,7 @@ forum::get -forum_id $forum_id -array forum
 
 # Proper scoping?
 if {$package_id != $forum(package_id)} {
-    ns_log Error [_ [ad_conn locale] forums.bad_scoping_lt "Forum Administration: Bad Scoping of Forum #%forum_id% in Forum Editing" [list forum_id $forum_id] ]
+    ns_log Error "Forum Administration: Bad Scoping of Forum #$forum_id in Forum Editing"
     ad_returnredirect "./"
     ad_script_abort
 }
@@ -74,6 +74,3 @@ if { [form is_request forum] } {
 }
 
 ad_return_template
-
-
-

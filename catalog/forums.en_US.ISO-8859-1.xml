@@ -91,7 +91,6 @@
   <msg key="On">On</msg>
   <msg key="Forum_ID">Forum ID</msg>
   <msg key="Edit_forum">Edit forum</msg>
-  <msg key="bad_scoping_lt">Forum Administration: Bad Scoping of Forum #%forum_id% in Forum Editing</msg>
   <msg key="email">email</msg>
   <msg key="disabled">disabled</msg>
   <msg key="lt_need_to_provide_a_mes">need to provide a message to display attachments!</msg>
@@ -103,5 +102,11 @@
   <msg key="approve">approve</msg>
   <msg key="Confirm_Post_to_Forum">Confirm Post to Forum:</msg>
   <msg key="Search">Search:</msg>
+  <msg key="Search_1">Search</msg>
   <msg key="Posted">Posted</msg>
+  <msg key="Fwd">Fwd:</msg>
+  <msg key="text">text</msg>
+  <msg key="lt_Please_enter_a_subjec">Please enter a subject</msg>
+  <msg key="lt_Please_enter_a_messag">Please enter a message</msg>
+  <msg key="Forum_1">Forum:</msg>
 </message_catalog>
