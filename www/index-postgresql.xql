@@ -18,7 +18,7 @@
             and (
                     forums_forums_enabled.posting_policy = 'open'
                  or forums_forums_enabled.posting_policy = 'moderated'
-                 or 't' = acs_permission__permission_p(:user_id, forums_forums_enabled.forum_id, 'forum_read')
+                 or 't' = acs_permission__permission_p(forums_forums_enabled.forum_id, :user_id,'forum_read')
                 )
             and forums_forums_enabled.forum_id = acs_objects.object_id
             order by forums_forums_enabled.name
