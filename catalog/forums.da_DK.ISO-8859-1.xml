@@ -12,7 +12,7 @@
   <msg key="by_Date">efter Dato</msg>
   <msg key="by_Forum">efter Forum</msg>
   <msg key="Charter">Dokument</msg>
-  <msg key="closed">lukket</msg>
+  <msg key="closed">Lukket</msg>
   <msg key="Confirm">Bekræft?</msg>
   <msg key="Confirm_Delete">Bekræft Sletning:</msg>
   <msg key="Confirm_Post_to_Forum">Beræft Insendelse til Forum:</msg>
@@ -65,7 +65,7 @@
   <msg key="Manage_Forum">Administrér Forum</msg>
   <msg key="ManageModerate">Administrér/Moderér</msg>
   <msg key="Message_ID">Besked ID</msg>
-  <msg key="moderated">modereret</msg>
+  <msg key="moderated">Modereret</msg>
   <msg key="Name">Navn</msg>
   <msg key="New_Forum">Nyt Forum</msg>
   <msg key="No">Nej</msg>
@@ -75,7 +75,7 @@
   <msg key="None">Ingen</msg>
   <msg key="One_Message">Èn Besked</msg>
   <msg key="One_Thread">Èn Tråd</msg>
-  <msg key="open">åbn</msg>
+  <msg key="open">Åben</msg>
   <msg key="parent_ID">parent ID</msg>
   <msg key="Pending_Threads">Foreliggende Tråde</msg>
   <msg key="Post_a_Message">Indsend en Besked</msg>
