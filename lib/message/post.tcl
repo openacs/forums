@@ -117,7 +117,7 @@ if {[form is_request message]} {
             }
         }
 
-        ad_return_template "/message/post-confirm"
+        ad_return_template "/packages/forums/lib/message/post-confirm"
         return
     }
 
