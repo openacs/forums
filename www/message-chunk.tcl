@@ -25,7 +25,7 @@ if {![exists_and_not_null moderate_p]} { set moderate_p 0 }
 if {![exists_and_not_null forum_moderated_p]} {set forum_moderated_p 0}
 
 if { [string is false $message(html_p)] } {
-    set message(content) [ad_text_to_html $message(content)]
+    set message(content) [ad_text_to_html -- $message(content)]
 }
 
 # convert emoticons to images if the parameter is set
