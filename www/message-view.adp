@@ -33,8 +33,8 @@
 <% set width [expr 100 - $responses(tree_level) * 3] %>
 
     <tr>
-      <td align="right">
-        <table bgcolor="#cccccc" cellpadding="5" width="@width@%">
+      <td>
+        <table align="right" bgcolor="#cccccc" cellpadding="5" width="@width@%">
 <if @responses.rownum@ odd>
   <include src="message-chunk" bgcolor="#d9e4f9" moderate_p=@moderate_p@ &message="responses">
 </if>
