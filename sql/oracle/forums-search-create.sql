@@ -57,7 +57,7 @@ end;
 show errors
 
 -- as ctxsys
-connect ctxsys/catssuck;
+connect ctxsys/ctxsys;
 
 create or replace procedure s_index_message (
     rid                             in rowid,
@@ -65,16 +65,16 @@ create or replace procedure s_index_message (
 )
 is
 begin
-    openacs_4_ora.index_message(rid, tlob);
+    yon.index_message(rid, tlob);
 end;
 /
 show errors
 
-grant execute on s_index_message to openacs_4_ora;
-grant execute on ctx_ddl to openacs_4_ora;
+grant execute on s_index_message to yon;
+grant execute on ctx_ddl to yon;
 
 -- as normal user
-connect openacs_4_ora/catssuck;
+connect yon/yon;
 
 execute ctx_ddl.create_preference('forums_user_datastore', 'user_datastore');
 execute ctx_ddl.set_attribute('forums_user_datastore', 'procedure', 's_index_message');
@@ -97,7 +97,7 @@ end;
 show errors
 
 -- as normal user
-connect openacs_4_ora/catssuck;
+connect yon/yon;
 
 -- ripped off from site-wide-search
 
@@ -264,8 +264,3 @@ begin
 end;
 /
 show errors;
-
-
--- LARS TODO:
--- update apm_parameters ... set UseIntermediaForSearchP = 1 for all forums instances ?
--- or set some other flag somehow
