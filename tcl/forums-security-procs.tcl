@@ -57,7 +57,7 @@ namespace eval forum::security {
         {-user_id ""}
         {-forum_id:required}
     } {
-        return [permission::permission_p -party_id $user_id -object_id $forum_id -privilege forum_write]
+        return [permission::permission_p -party_id $user_id -object_id $forum_id -privilege forum_create]
     }
 
     ad_proc -public require_post_forum {

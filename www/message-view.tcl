@@ -17,17 +17,17 @@ set table_border_color [parameter::get -parameter table_border_color]
 set table_bgcolor [parameter::get -parameter table_bgcolor]
 set table_other_bgcolor [parameter::get -parameter table_other_bgcolor]
 
-# Check if the user has admin on the message
-set moderate_p [forum::security::can_moderate_message_p -message_id $message_id]
-if {!${moderate_p}} {
-    set post_p [forum::security::can_post_message_p -message_id $message_id]
-} else {
-    set post_p 1
-}
-
 # Load up the message information
 forum::message::get -message_id $message_id -array message
 set message(subject) [ad_quotehtml $message(subject)]
+
+# Check if the user has admin on the message
+set moderate_p [forum::security::can_moderate_message_p -message_id $message_id]
+if {!${moderate_p}} {
+    set post_p [forum::security::can_post_forum_p -forum_id $message(forum_id)]
+} else {
+    set post_p 1
+}
 
 form create search -action search
 
