@@ -17,9 +17,9 @@ declare
 begin
         -- the notification type impl
         impl_id := acs_sc_impl.new (
-                      'NotificationType',
-                      'forums_forum_notif_type',
-                      'forums'
+                      impl_contract_name => 'NotificationType',
+                      impl_name => 'forums_forum_notif_type',
+                      impl_owner_name => 'forums'
                    );
 
         v_foo := acs_sc_impl.new_alias (
@@ -65,9 +65,9 @@ begin
 
         -- the notification type impl
         impl_id := acs_sc_impl.new (
-                      'NotificationType',
-                      'forums_message_notif_type',
-                      'forums'
+                      impl_contract_name => 'NotificationType',
+                      impl_name => 'forums_message_notif_type',
+                      impl_owner_name => 'forums'
                    );
 
         v_foo := acs_sc_impl.new_alias (
