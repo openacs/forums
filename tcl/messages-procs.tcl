@@ -262,12 +262,12 @@ ${url}message-view?message_id=$message(root_message_id)
         set toggle_url "[ad_conn url]?${export_vars}"
         if { [string equal $order_by posting_date] } {
             # subject selected
-            set subject_link "$subject_label"
+            set subject_link "<b>$subject_label</b>"
             set child_link "<a href=\"$toggle_url\">$child_label</a>"
         } else {
             # child selected
             set subject_link "<a href=\"$toggle_url\">$subject_label</a>"
-            set child_link "$child_label"
+            set child_link "<b>$child_label</b>"
         }
         set sort_filter "$subject_link | $child_link"
 
