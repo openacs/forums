@@ -22,13 +22,19 @@ element create message subject \
     -label Subject \
     -datatype text \
     -widget text \
-    -html {size 60}
+    -html {size 60} \
+    -validate { {expr ![empty_string_p [string trim $value]]} {Please enter a subject} }
 
 element create message content \
     -label Body \
     -datatype text \
     -widget textarea \
-    -html {rows 20 cols 60 wrap soft}
+    -html {rows 20 cols 60 wrap soft} \
+    -validate {
+	empty {expr ![empty_string_p [string trim $value]]} {Please enter a message}
+	html { expr {( [string match [set l_html_p [ns_queryget html_p f]] "t"] && [empty_string_p [set v_message [ad_html_security_check $value]]] ) || [string match $l_html_p "f"] } }
+        {}	
+    }
 
 element create message html_p \
     -label Format \
