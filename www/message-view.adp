@@ -9,7 +9,9 @@
 <table width="95%">
   <tr style="white-space: normal">
     <td align=left>
-      <a href="@thread_url@" class="action">#forums.Back_to_thread_label#</a>
+      <ul class="action-links">
+        <li><a href="@thread_url@">#forums.Back_to_thread_label#</a></li>
+      </ul>
     </td>
     <td>
        &nbsp;
