@@ -4,16 +4,4 @@
 
 <h3>#forums.Pending_Threads#</h3>
 
-<ul>
-<if @pending_threads:rowcount@ eq 0>
-<i>#forums.None#</i>
-</if>
-<else>
-<multiple name="pending_threads">
-<li> @pending_threads.tree_level@ <b><a href="../message-view?message_id=@pending_threads.message_id@">@pending_threads.subject@</a></b>
-</multiple>
-</else>
-</ul>
-
-
-
+<include src="/packages/forums/lib/message/pending-list-chunk" forum_id="@forum_id@">

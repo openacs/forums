@@ -4,7 +4,7 @@
 
 <h3>#forums.Forums#</h3>
 
-<p><listtemplate name="forums"></listtemplate></p>
+<p><include src="/packages/forums/lib/forums/admin-forums-chunk"></p>
 
 <p>
   <b>&raquo;</b> <a href="forum-new">#forums.Create_a_New_Forum#</a>

@@ -74,5 +74,10 @@
 </tr>
 
 <if @message.n_attachments@ not nil and @message.n_attachments@ gt 0>
-  <include src="message-attachment-chunk" &message="message" bgcolor=@table_bgcolor;noquote@>
+<tr bgcolor="@bgcolor@">
+  <td colspan="4">
+    #forums.Attachments#
+    <include src="attachment-list" &message="message" bgcolor=@table_bgcolor;noquote@>
+  </td>
+</tr>
 </if>

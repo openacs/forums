@@ -39,7 +39,8 @@ ad_proc -public forum::message::new {
         if {[info exists message(state)] && [string equal $message(state) approved]} {
             do_notifications -message_id $message_id
         }
-    } on_error {
+    }  on_error {
+
         db_abort_transaction
         
         # Check to see if the message with a message_id matching the
@@ -272,4 +273,30 @@ ad_proc -public forum::message::subject_sort_filter {
     set sort_filter "$subject_link | $child_link"
 
     return $sort_filter
+}
+
+ad_proc -public forum::message::initial_message {
+    {-forum_id {}}
+    {-parent {}}
+    {-message:required}
+} {
+    Create an array with values initialised for a new message.
+} {
+    upvar $message init_msg
+
+    if { [empty_string_p $forum_id] && [empty_string_p $parent] } {
+        return -code error [_ forums.lt_You_either_have_to]
+    } 
+
+    if { ![empty_string_p $parent] } {
+        upvar $parent parent_msg
+
+        set init_msg(parent_id) $parent_msg(message_id)
+        set init_msg(forum_id) $parent_msg(forum_id)
+        set init_msg(subject) \
+            [forum::format::reply_subject $parent_msg(subject)]
+    } else {
+        set init_msg(forum_id) $forum_id
+        set init_msg(parent_id) ""
+    }
 }

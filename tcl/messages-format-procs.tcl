@@ -4,6 +4,19 @@ ad_library {
 
 namespace eval forum::format {
 
+    ad_proc -public reply_subject { parent_subject } {
+    
+        Generates a subject string for a reply to an existing message.
+
+    } {
+        set subject "[_ forums.Re] $parent_subject"
+        
+        # trim multiple leading Re:
+        regsub "^(\s*Re:\s*)*" $subject {Re: } subject
+
+        return $subject
+    }
+
     ad_proc emoticons {
         {-content:required}
     } {
@@ -35,4 +48,5 @@ namespace eval forum::format {
         }
         return [string map $emoticons_map $content]
     }
+
 }

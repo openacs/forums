@@ -1,6 +1,3 @@
-    <tr bgcolor="@bgcolor@">
-      <td colspan="4">
-        #forums.Attachments#
         <ul>
 <% 
     foreach attachment $attachments {
@@ -8,8 +5,3 @@
     }
 %>
         </ul>
-      </td>
-    </tr>
-
-
-

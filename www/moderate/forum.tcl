@@ -16,10 +16,4 @@ forum::security::require_moderate_forum -forum_id $forum_id
 # Get forum data
 forum::get -forum_id $forum_id -array forum
 
-# Get the threads that need approval
-db_multirow pending_threads select_pending_threads {}
-
 ad_return_template
-
-
-

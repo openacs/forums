@@ -11,18 +11,11 @@ ad_page_contract {
 
 }
 
-if {![array exists message]} {
-    ad_return_complaint 1 "[_ forums.lt_Need_to_provide_a_mes]"
-}
-
 if {![exists_and_not_null bgcolor]} { 
     set table_bgcolor [parameter::get -parameter table_bgcolor]
 } else {
     set table_bgcolor $bgcolor
 }
-
-if {![exists_and_not_null moderate_p]} { set moderate_p 0 }
-if {![exists_and_not_null forum_moderated_p]} {set forum_moderated_p 0}
 
 if { [string is false $message(html_p)] } {
     set message(content) [ad_text_to_html -- $message(content)]
@@ -39,4 +32,8 @@ if {![info exists root_subject]} {
 } else {
     regsub {^(Response to |\s*Re:\s*)*} $message(subject) {} subject
     set display_subject_p [expr ![string equal $subject $root_subject]]
+}
+
+if {[exists_and_not_null alt_template]} {
+  ad_return_template $alt_template
 }

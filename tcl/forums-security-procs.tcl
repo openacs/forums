@@ -138,7 +138,24 @@ namespace eval forum::security {
         }
     }
 
+    ad_proc -public permissions {
+        {-forum_id:required}
+        array_name
+    } {
+      upvar $array_name array
+
+      array set array [list admin_p [forum::security::can_admin_forum_p -forum_id $forum_id]]
+
+      if { !$array(admin_p) } {
+        array set array [list moderate_p [forum::security::can_moderate_forum_p -forum_id $forum_id]]
+        if { !$array(moderate_p) } {
+          array set array [list post_p [expr { [ad_conn user_id] == 0 || [forum::security::can_post_forum_p -forum_id $forum_id] }]]
+        } else {
+          array set array [list post_p 1]
+        }
+      } else {
+        array set array [list moderate_p 1]
+        array set array [list post_p 1]
+      }
+    }
 }
-
-
-
