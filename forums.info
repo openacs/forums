@@ -51,6 +51,9 @@
             <file type="data_model" db_type="postgresql" path="sql/postgresql/forums-tree-drop.sql"/>
             <file type="tcl_procs" path="tcl/forum-message-reply-procs.tcl"/>
             <file type="tcl_procs" path="tcl/forum-reply-procs.tcl"/>
+            <file type="query_file" path="tcl/forum-reply-procs.xql"/>
+            <file type="query_file" db_type="oracle" path="tcl/forum-reply-procs-oracle.xql"/>
+            <file type="query_file" db_type="postgresql" path="tcl/forum-reply-procs-postgresql.xql"/>
             <file type="tcl_procs" path="tcl/forums-procs.tcl"/>
             <file type="query_file" path="tcl/forums-procs.xql"/>
             <file type="tcl_procs" path="tcl/forums-security-procs.tcl"/>
