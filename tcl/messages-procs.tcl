@@ -77,7 +77,6 @@ namespace eval forum::message {
         append new_content "Forum:  <a href=\"${url}forum-view?forum_id=$message(forum_id)\">$message(forum_name)</a><br>\n"
         append new_content "Thread: <a href=\"${url}message-view?message_id=$message(root_message_id)\">$message(root_subject)</a><br>\n"
         append new_content "Author: <a href=\"mailto:$message(user_email)\">$message(user_name)</a><br>\n"
-        append new_content "Posted: $message(posting_date)<br>"
         append new_content "\n<br>\n"
         append new_content $message(content)
 	append new_content "<p>-------------------<br>"
@@ -87,25 +86,24 @@ namespace eval forum::message {
         set html_version $new_content
 
 	set text_version ""
-	append text_version "
-Forum: $message(forum_name)
-Thread: $message(root_message_id)
-Author: $message(user_name) ($message(user_email))
-Posted: $message(posting_date)
-----------------------------------
-[ad_html_to_text $message(content)]
----------------------------------
+	
+        append text_version "Forum: $message(forum_name)
+Thread: $message(root_subject)
+Author: $message(user_name) ($message(user_email))\n\n"
+
+
+         if { $message(html_p) } {
+             append text_version [ad_html_to_text $message(content)]
+         } else {
+             append text_version [wrap_string $message(content)]
+         }
+         append text_version "\n\n-- 
 To post a reply to this email or view this message go to: 
 ${url}message-view?message_id=$message(root_message_id)
-
-To view Forum $message(forum_name) go to:
-${url}forum-view?forum_id=$message(forum_id)
-
-To email the author($message(user_name)) privately: 
-mailto:$message(user_email)
 "
+
         set new_content $text_version
-        ns_log notice "requesting a notification with subject $message(forum_name) $message(subject)" 
+        ns_log debug "forums: requesting a notification forum $message(forum_name) subject $message(subject)" 
 
 
         # Do the notification for the forum
