@@ -13,7 +13,6 @@
 create function inline_0 ()
 returns integer as '
 begin
-
     -- moderate and post are new privileges
     -- the rest are obvious inheritance
     -- forum creation on a package allows a user to create forums
@@ -58,34 +57,35 @@ drop function inline_0 ();
 
 create table forums_forums (
     forum_id                        integer
+                                    constraint forums_forum_id_nn
+                                    not null
                                     constraint forums_forum_id_fk
-                                    references acs_objects(object_id)
+                                    references acs_objects (object_id)
                                     constraint forums_forum_id_pk
                                     primary key,
     name                            varchar(200)
-                                    constraint forum_name_nn
+                                    constraint forums_name_nn
                                     not null,
     charter                         varchar(2000),
     presentation_type               varchar(100) 
-                                    constraint forum_type_nn
+                                    constraint forums_presentation_type_nn
                                     not null
-                                    constraint forum_type_ck
+                                    constraint forums_presentation_type_ck
                                     check (presentation_type in ('flat','threaded')),
     posting_policy                  varchar(100)
-                                    constraint forum_policy_nn
+                                    constraint forums_posting_policy_nn
                                     not null
-                                    constraint forum_policy_ck
+                                    constraint forums_posting_policy_ck
                                     check (posting_policy in ('open','moderated','closed')),
     max_child_sortkey               varbit,
-    enabled_p                       char(1) default 't'
-                                    constraint forum_enabled_p_nn
+    enabled_p                       char(1)
+                                    default 't'
+                                    constraint forums_enabled_p_nn
                                     not null
-                                    constraint forum_enabled_p_ck
-                                    check (enabled_p in ('t', 'f')),
+                                    constraint forums_enabled_p_ck
+                                    check (enabled_p in ('t','f')),
     package_id                      integer
-                                    constraint forum_package_id_fk
-                                    references apm_packages (package_id)
-                                    constraint forum_package_id_nn
+                                    constraint forums_package_id_nn
                                     not null
 );
 

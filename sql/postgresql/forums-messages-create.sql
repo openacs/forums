@@ -1,4 +1,3 @@
-
 --
 -- The Forums Package
 --
@@ -9,19 +8,11 @@
 -- lifted from Gilbert. Thanks Orchard Labs!
 --
 
--- privileges
--- NO PRIVILEGES FOR MESSAGES
--- we don't individually permission messages
-
---
--- The Data Model
---
-
 create table forums_messages (
     message_id                      integer
                                     constraint forums_message_id_fk
                                     references acs_objects (object_id)
-                                    constraint forums_message_id_pk
+                                    constraint forums_messages_pk
                                     primary key,
     forum_id                        integer
                                     constraint forums_mess_forum_id_fk
@@ -37,7 +28,7 @@ create table forums_messages (
                                     not null,
     user_id                         integer
                                     constraint forums_mess_user_id_fk
-                                    references users (user_id)
+                                    references users(user_id)
                                     constraint forums_mess_user_id_nn
                                     not null,
     posting_date                    timestamp
@@ -51,7 +42,8 @@ create table forums_messages (
     parent_id                       integer
                                     constraint forum_mess_parent_id_fk
                                     references forums_messages (message_id),
-    open_p                          char(1) default 't'
+    open_p                          char(1)
+                                    default 't'
                                     constraint forum_mess_open_p_nn
                                     not null
                                     constraint forum_mess_open_p_ck

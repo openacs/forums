@@ -58,7 +58,6 @@ begin
     new.tree_sortkey := v_parent_sortkey || v_max_child_sortkey;
 
     return new;
-  
 end;' language 'plpgsql';
 
 create trigger forums_mess_insert_tr
