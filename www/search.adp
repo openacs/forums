@@ -1,6 +1,6 @@
 <master>
 <property name="title">#forums.Search_Forums#</property>
-<property name="context">@context@</property>
+<property name="context">@context;noquote@</property>
 
 <center>
 

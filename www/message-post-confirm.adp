@@ -1,6 +1,6 @@
 <master>
-<property name="title">#forums.Confirm_Post_to_Forum# @forum.name@</property>
-<property name="context">@context@</property>
+<property name="title">#forums.Confirm_Post_to_Forum# @forum.name;noquote@</property>
+<property name="context">@context;noquote@</property>
 
 <p>#forums.lt_Please_confirm_the_fo#</p>
 
@@ -14,7 +14,7 @@
 
 <form action="message-post" method="post">
   <input type="hidden" name="form:id" value="message">
-  @exported_vars@
+  @exported_vars;noquote@
 
   <br>
 

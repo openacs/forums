@@ -1,6 +1,6 @@
 <master>
-<property name="title">#forums.Forum# @forum.name@: @message.subject@</property>
-<property name="context">@context@</property>
+<property name="title">#forums.Forum# @forum.name;noquote@: @message.subject;noquote@</property>
+<property name="context">@context;noquote@</property>
 
 <br>
 
@@ -9,7 +9,7 @@
 <table width="95%">
   <tr style="white-space: normal">
     <td align=left>
-      @notification_chunk@
+      @notification_chunk;noquote@
     </td>
     <td align=right>
       <formtemplate id="search">
@@ -24,9 +24,9 @@
 
 <table bgcolor="@table_border_color@" width="95%">
   <include src="message-chunk" 
-           bgcolor="@table_bgcolor@" 
-           forum_moderated_p=@forum_moderated_p@ 
-           moderate_p=@moderate_p@ 
+           bgcolor="@table_bgcolor;noquote@" 
+           forum_moderated_p=@forum_moderated_p;noquote@ 
+           moderate_p=@moderate_p;noquote@ 
            &message="message">
 </table>
 
@@ -43,16 +43,16 @@
         <table align="right" bgcolor="@table_border_color@" width="@width@%">
           <if @responses.rownum@ odd>
             <include src="message-chunk" 
-                     bgcolor="@table_other_bgcolor@" 
-                     forum_moderated_p=@forum_moderated_p@ 
-                     moderate_p=@moderate_p@ 
+                     bgcolor="@table_other_bgcolor;noquote@" 
+                     forum_moderated_p=@forum_moderated_p;noquote@ 
+                     moderate_p=@moderate_p;noquote@ 
                      &message="responses">
           </if>
           <else>
             <include src="message-chunk" 
-                     bgcolor="@table_bgcolor@"
-                     forum_moderated_p=@forum_moderated_p@
-                     moderate_p=@moderate_p@
+                     bgcolor="@table_bgcolor;noquote@"
+                     forum_moderated_p=@forum_moderated_p;noquote@
+                     moderate_p=@moderate_p;noquote@
                      &message="responses">
           </else>
         </table>

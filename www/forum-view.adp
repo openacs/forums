@@ -1,6 +1,6 @@
 <master>
-<property name="title">#forums.Forum_1# @forum.name@</property>
-<property name="context">@context@</property>
+<property name="title">#forums.Forum_1# @forum.name;noquote@</property>
+<property name="context">@context;noquote@</property>
 
 <center>
 
@@ -18,7 +18,7 @@
 
         <br>
   
-        @notification_chunk@
+        @notification_chunk;noquote@
   
         <br>
   
@@ -29,7 +29,7 @@
         <br>
         <br>
         
-        Sort by: [ @sort_filter@ ]
+        Sort by: [ @sort_filter;noquote@ ]
 
       </td>
       <td align="right">

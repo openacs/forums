@@ -4,7 +4,7 @@
   <td align=left style="padding-left: 1em">
     <strong>
       <if @preview@ nil>
-        <a href="message-view?message_id=@message.message_id@">@message.subject@</a>
+        <a href="message-view?message_id=@message.message_id@">@message.subject;noquote@</a>
       </if>
       <else>
         @message.subject@
@@ -55,15 +55,15 @@
 
     <if @message.html_p@ false>
     <div align="left">
-      @message.content@
+      @message.content;noquote@
     </div>
     </if>
     <else>
-      @message.content@
+      @message.content;noquote@
     </else>
   </td>
 </tr>
 
 <if @message.n_attachments@ not nil and @message.n_attachments@ gt 0>
-  <include src="message-attachment-chunk" &message="message" bgcolor=@table_bgcolor@>
+  <include src="message-attachment-chunk" &message="message" bgcolor=@table_bgcolor;noquote@>
 </if>

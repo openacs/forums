@@ -1,5 +1,5 @@
 <master>
-<property name="title">#forums.Confirm_Delete# @message.subject@</property>
+<property name="title">#forums.Confirm_Delete# @message.subject;noquote@</property>
 <property name="context">#forums.delete#</property>
 
 <table width="95%">

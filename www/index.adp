@@ -1,6 +1,6 @@
 <master>
 <property name="title">#forums.Forums#</property>
-<property name="context">@context@</property>
+<property name="context">@context;noquote@</property>
 
 <center>
   <table width="95%">

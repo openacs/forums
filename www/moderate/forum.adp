@@ -1,5 +1,5 @@
 <master>
-<property name="title">#forums.Manage_Forum# @forum.name@</property>
+<property name="title">#forums.Manage_Forum# @forum.name;noquote@</property>
 <property name="context">#forums.Manage#</property>
 
 <h3>#forums.Pending_Threads#</h3>

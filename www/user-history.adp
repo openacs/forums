@@ -1,6 +1,6 @@
 <master>
-<property name="title">#forums.Forums_Posting_hist_lt# @user.full_name@</property>
-<property name="context">@context@</property>
+<property name="title">#forums.Forums_Posting_hist_lt# @user.full_name;noquote@</property>
+<property name="context">@context;noquote@</property>
 
 <p>
   #forums.Posting_history_for#
@@ -17,7 +17,7 @@
 
 <p>
 <center>
-@dimensional_chunk@
+@dimensional_chunk;noquote@
 </center>
 </p>
 
