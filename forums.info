@@ -32,6 +32,17 @@
             <file type="data_model" db_type="oracle" path="sql/oracle/forums-messages-package-drop.sql"/>
             <file type="data_model" db_type="oracle" path="sql/oracle/forums-notifications-init.sql"/>
             <file type="data_model" db_type="oracle" path="sql/oracle/forums-tree-create.sql"/>
+            <file type="data_model_create" db_type="postgresql" path="sql/postgresql/forums-create.sql"/>
+            <file type="data_model_create" db_type="postgresql" path="sql/postgresql/forums-forums-create.sql"/>
+            <file type="data_model_drop" db_type="postgresql" path="sql/postgresql/forums-forums-drop.sql"/>
+            <file type="data_model" db_type="postgresql" path="sql/postgresql/forums-forums-package-create.sql"/>
+            <file type="data_model" db_type="postgresql" path="sql/postgresql/forums-forums-package-drop.sql"/>
+            <file type="data_model" db_type="postgresql" path="sql/postgresql/forums-messages-create.sql"/>
+            <file type="data_model" db_type="postgresql" path="sql/postgresql/forums-messages-drop.sql"/>
+            <file type="data_model" db_type="postgresql" path="sql/postgresql/forums-messages-package-create.sql"/>
+            <file type="data_model" db_type="postgresql" path="sql/postgresql/forums-messages-package-drop.sql"/>
+            <file type="data_model" db_type="postgresql" path="sql/postgresql/forums-notifications-init.sql"/>
+            <file type="data_model" db_type="postgresql" path="sql/postgresql/forums-tree-create.sql"/>
             <file type="tcl_procs" path="tcl/forums-procs.tcl"/>
             <file type="query_file" path="tcl/forums-procs.xql"/>
             <file type="tcl_procs" path="tcl/forums-security-procs.tcl"/>
@@ -57,9 +68,11 @@
             <file type="content_page" path="www/master.tcl"/>
             <file type="content_page" path="www/message-email.adp"/>
             <file type="content_page" path="www/message-email.tcl"/>
+            <file type="content_page" path="www/message-post-confirm.adp"/>
             <file type="content_page" path="www/message-post.adp"/>
             <file type="content_page" path="www/message-post.tcl"/>
             <file type="query_file" path="www/message-post.xql"/>
+            <file type="content_page" path="www/message-view-flat.adp"/>
             <file type="query_file" db_type="oracle" path="www/message-view-oracle.xql"/>
             <file type="query_file" db_type="postgresql" path="www/message-view-postgresql.xql"/>
             <file type="content_page" path="www/message-view.adp"/>
