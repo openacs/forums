@@ -1,6 +1,19 @@
 <?xml version="1.0"?>
+
 <queryset>
    <rdbms><type>oracle</type><version>8.1.6</version></rdbms>
+
+    <fullquery name="select_message_ordering">
+        <querytext>
+            select fma.message_id
+            from   forums_messages fm,
+                   forums_messages_approved fma
+            where  fm.message_id = :root_message_id
+            and    fma.forum_id = :forum_id
+            and    fma.tree_sortkey between fm.tree_sortkey and tree.right(fm.tree_sortkey)
+            order  by $order_by
+        </querytext>
+    </fullquery>
 
     <fullquery name="select_message_responses">
         <querytext>
@@ -13,10 +26,11 @@
                    to_char(posting_date, 'YYYY-MM-DD HH24:MI:SS') as posting_date_ansi,
                    tree.tree_level(tree_sortkey) as tree_level,
                    state,
-                   user_id
-            from $table_name
+                   user_id,
+                   parent_id
+            from  $table_name
             where forum_id = :forum_id
-            and tree_sortkey between tree.left(:tree_sortkey) and tree.right(:tree_sortkey)
+            and   tree_sortkey between tree.left(:tree_sortkey) and tree.right(:tree_sortkey)
             order by $order_by
         </querytext>
     </fullquery>
@@ -32,11 +46,12 @@
                    to_char(posting_date, 'YYYY-MM-DD HH24:MI:SS') as posting_date_ansi,
                    tree.tree_level(tree_sortkey) as tree_level,
                    state,
-                   user_id
-            from $table_name
-            where forum_id = :forum_id
-            and tree_sortkey between tree.left(:tree_sortkey) and tree.right(:tree_sortkey)
-            order by $order_by
+                   user_id,
+                   parent_id
+            from   $table_name
+            where  forum_id = :forum_id
+            and    tree_sortkey between tree.left(:tree_sortkey) and tree.right(:tree_sortkey)
+            order  by $order_by
         </querytext>
     </fullquery>
 

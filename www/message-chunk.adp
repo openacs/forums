@@ -1,24 +1,35 @@
 
 <tr style="color: black; background-color: @table_bgcolor@;">
-<if @display_subject_p@>
-  <td align=left style="padding-left: 1em">
-    <strong>
-      <if @preview@ nil>
-        <a href="message-view?message_id=@message.message_id@">@message.subject@</a>
-      </if>
-      <else>
-        @message.subject@
-      </else>
-    </strong>  
-  </td>
-</if>
+  <if @display_subject_p@>
+    <td align=left style="padding-left: 1em">
+      <strong>
+        <if @preview@ nil>
+          <a name="@message.message_id@"><a href="@message.direct_url@" title="Direct link to this post">@message.number@</a></a>:
+          <a href="message-view?message_id=@message.message_id@" title="Link to this post on a separate page">@message.subject@</a>
+        </if>
+        <else>
+          @message.subject@
+        </else>
+      </strong>  
+    </td>
+  </if>
+  <else>
+    <td align=left style="padding-left: 1em">
+      <strong>
+        <a name="@message.message_id@"><a href="@message.direct_url@" title="Direct link to this post">@message.number@</a></a>
+      </strong>
+    </td>
+  </else>
   <td align="left">
-    <a href="user-history?user_id=@message.user_id@">@message.user_name@</a></td>
+    <if @message.parent_number@ not nil>
+      In response to <a href="@message.parent_direct_url@">@message.parent_number@</a>
+    </if>
+  </td> 
   <td align="left">@message.posting_date_pretty@</td>
 
   <if @preview@ nil>
   
-    <td align=right style="padding-right: 1em; padding-left: 1em;">
+    <td align="right" style="padding-right: 1em; padding-left: 1em;">
       <div style="white-space: nowrap; font-size: x-small">
         [ <a href="message-post?parent_id=@message.message_id@">#forums.reply#</a>
         | <a href="message-email?message_id=@message.message_id@">#forums.forward#</a>
@@ -55,6 +66,9 @@
 
     <div align="left">
       @message.content;noquote@
+      <p style="color: #999999;">
+        #forums.Posted_by# <a href="user-history?user_id=@message.user_id@">@message.user_name@</a>
+      </p>
     </div>
   </td>
 </tr>

@@ -274,4 +274,3 @@ ad_proc -public forum::message::subject_sort_filter {
 
     return $sort_filter
 }
-

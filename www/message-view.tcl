@@ -10,6 +10,8 @@ ad_page_contract {
     message_id:integer,notnull
 }
 
+set top_message_id $message_id
+
 forum::security::require_read_message -message_id $message_id
 
 # get the colors from the params
@@ -19,6 +21,9 @@ set table_other_bgcolor [parameter::get -parameter table_other_bgcolor]
 
 # Load up the message information
 forum::message::get -message_id $message_id -array message
+
+set direct_url_base [export_vars -base [ad_conn url] { message_id }]
+set message(direct_url) "$direct_url_base\#$message_id"
 
 # Check if the user has admin on the message
 set moderate_p [forum::security::can_moderate_message_p -message_id $message_id]
@@ -75,26 +80,64 @@ if {[forum::attachments_enabled_p]} {
 }
 
 # We set a Tcl variable for moderation now (Ben)
-if {$moderate_p} {
+if { $moderate_p } {
     set table_name "forums_messages"
 } else {
     set table_name "forums_messages_approved"
 }
 
+#####
+#
+# Find ordering of messages
+#
+#####
+
+if { [string equal $forum(presentation_type) flat] } {
+    set order_by "fma.posting_date, fma.tree_sortkey"
+} else {
+    set order_by "fma.tree_sortkey"
+}
+
+set forum_id $message(forum_id)
+set root_message_id $message(root_message_id)
+set message_id_list [db_list select_message_ordering {}]
+
+ds_comment $message_id_list
+
+set message(number) [expr [lsearch $message_id_list $message(message_id)] + 1]
+set message(parent_number) {}
+
+
+
+
+#####
+#
+# Find responses
+#
+#####
+
 # More Tcl vars (we might as well use them - Ben)
-if {[string equal $forum(presentation_type) flat]} {
+if { [string equal $forum(presentation_type) flat] } {
     set order_by "$table_name.posting_date, tree_sortkey"
 } else {
     set order_by "tree_sortkey"
 }
 
-db_multirow -extend { posting_date_pretty } responses $query {} {
+set last_message_id $message(message_id)
+db_multirow -extend { posting_date_pretty direct_url number parent_number parent_direct_url } responses $query {} {
     set posting_date_pretty [lc_time_fmt $posting_date_ansi "%x %X"]
+    set direct_url "$direct_url_base\#$message_id"
+    set number [expr [lsearch $message_id_list $message_id] + 1]
+    set parent_number [expr [lsearch $message_id_list $parent_id] + 1]
+    set parent_direct_url "$direct_url_base\#$parent_id"
+
+    # Note that this variable is purposefully not part of the multirow
+    set last_message_id $message_id
 }
 
 
 # If this is a top-level thread, we allow subscriptions here
-if {[empty_string_p $message(parent_id)]} {
+if { [empty_string_p $message(parent_id)] } {
     set notification_chunk [notification::display::request_widget \
         -type forums_message_notif \
         -object_id $message_id \
@@ -114,23 +157,7 @@ if {![empty_string_p $message(parent_id)]} {
 }
 
 if { $post_p || [ad_conn user_id] == 0 } {
-    set rowcount ${responses:rowcount}
-    if { $rowcount > 0 } {
-        set last_message_id [set "responses:${rowcount}(message_id)"]
-    } else {
-        set last_message_id $message(message_id)
-    }
-    set reply_url "message-post?[export_vars { { parent_id $last_message_id } }]"
-}
-
-if { $post_p || [ad_conn user_id] == 0 } {
-    set rowcount ${responses:rowcount}
-    if { $rowcount > 0 } {
-        set last_message_id [set "responses:${rowcount}(message_id)"]
-    } else {
-        set last_message_id $message(message_id)
-    }
-    set reply_url "message-post?[export_vars { { parent_id $last_message_id } }]"
+    set reply_url [export_vars -base message-post { { parent_id $last_message_id } }]
 }
 
 set thread_url [export_vars -base forum-view { { forum_id $message(forum_id) } }]

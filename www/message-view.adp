@@ -31,7 +31,7 @@
 <br>
 
 <table bgcolor="@table_border_color@" width="95%">
-  <include src="message-chunk" 
+  <include src="message-chunk" l
            bgcolor="@table_bgcolor;noquote@" 
            forum_moderated_p=@forum_moderated_p;noquote@ 
            moderate_p=@moderate_p;noquote@ 
@@ -79,3 +79,7 @@
     <a href="@reply_url@"><b>#forums.Post_a_Reply#</b></a>
   </blockquote>
 </if>
+
+<blockquote>
+  #forums.Back_to_thread_link#
+</blockquote>
