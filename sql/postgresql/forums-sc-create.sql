@@ -87,7 +87,7 @@ end;' language 'plpgsql';
 create trigger forums_forums_search__itrg after insert on forums_forums
 for each row execute procedure forums_forums_search__itrg (); 
 
-create trigger forums_forums_search__utrg after update on forums_forumss
+create trigger forums_forums_search__utrg after update on forums_forums
 for each row execute procedure forums_forums_search__utrg (); 
 
 create trigger forums_forums_search__dtrg after delete on forums_forums
