@@ -109,11 +109,16 @@ element create message anonymous_p \
 set attachments_enabled_p [forum::attachments_enabled_p]
 
 if {$attachments_enabled_p} {
+    if { ![info exists attach_p] } {
+        set attach_p 0
+    }
+
     element create message attach_p \
             -label [_ forums.Attach] \
             -datatype text \
-            -widget hidden \
-            -optional
+            -widget radio \
+            -value $attach_p \
+            -options [list [list [_ forums.No] 0] [list [_ forums.Yes] 1]]
 }
 
 if {[form is_valid message]} {
@@ -131,7 +136,7 @@ if {[form is_valid message]} {
 	set subject.spellcheck ":nospell:"
 	set content.spellcheck ":nospell:"
         set content [string trimright $content]
-        set exported_vars [export_form_vars message_id forum_id parent_id subject content html_p confirm_p subject.spellcheck content.spellcheck anonymous_p]
+        set exported_vars [export_form_vars message_id forum_id parent_id subject content html_p confirm_p subject.spellcheck content.spellcheck anonymous_p attach_p]
         
         set message(html_p) $html_p
         set message(subject) $subject

@@ -30,13 +30,6 @@
     <br>
   </if>
 
-  <if @attachments_enabled_p@ eq 1>
-  #forums.lt_Would_you_like_to_att#
-    <input type="radio" name="attach_p" value="0" checked>#forums.No#</input>
-    <input type="radio" name="attach_p" value="1">#forums.Yes#</input>
-<br>  
-  </if>
-
   <input type="submit" name="formbutton:post" value="#forums.Post#">
   <input type="submit" name="formbutton:edit" value="#forums.Edit_again#">
 </form>
