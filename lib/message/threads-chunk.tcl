@@ -18,7 +18,12 @@ if { $moderate_p } {
 
 set actions [list]
 
-if { [template::util::is_true $permissions(post_p)] &&  ($forum(posting_policy) == "open" || $forum(posting_policy) == "moderated" ||  [template::util::is_true $permissions(admin_p)] ||  [template::util::is_true $permissions(moderate_p)] )  } {
+# new postings are allowed if
+
+# 1. Users can create new threads AND the posting policy is open or moderated
+# 2. User is a moderator or adminsitrator
+
+if {([forum::new_questions_allowed_p -forum_id $forum_id] && ($forum(posting_policy) == "open" || $forum(posting_policy) == "moderated")) ||  [template::util::is_true $permissions(admin_p)] ||  [template::util::is_true $permissions(moderate_p)]  } {
     lappend actions [_ forums.Post_a_New_Message] [export_vars -base "message-post" { forum_id }] {}
 }
 
