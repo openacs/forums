@@ -41,6 +41,7 @@ create table forums_messages (
                                     constraint forums_mess_user_id_nn
                                     not null,
     posting_date                    timestamp
+                                    default now()
                                     constraint forum_mess_post_date_nn
                                     not null,
     state                           varchar(100)
@@ -58,7 +59,7 @@ create table forums_messages (
     tree_sortkey                    varbit,
     max_child_sortkey               varbit,
     constraint forums_mess_sk_forum_un
-    unique (tree_sortkey,forum_id)
+    unique (tree_sortkey, forum_id)
 );
 
 create view forums_messages_approved

@@ -16,7 +16,7 @@
 create function forums_mess_insert_tr ()
 returns opaque as '
 declare
-    v_max_child_sortkey             forums_messages.max_child_sortkey%TYPE;
+    v_max_child_sortkey             forums_forums.max_child_sortkey%TYPE;
     v_parent_sortkey                forums_messages.tree_sortkey%TYPE;
 begin
     if new.parent_id is null
@@ -26,7 +26,7 @@ begin
         into v_max_child_sortkey
         from forums_forums
         where forum_id = new.forum_id
-        for update of max_child_sortkey;
+        for update;
 
         v_parent_sortkey = null;
     else
@@ -36,11 +36,11 @@ begin
         into v_parent_sortkey, v_max_child_sortkey
         from forums_messages
         where message_id = new.parent_id
-        for update of max_child_sortkey;
+        for update;
     end if;
 
     -- increment the sortkey
-    v_max_child_sortkey := lpad(tree.increment_key(v_max_child_sortkey), 6, ''0'');
+    v_max_child_sortkey := tree_increment_key(v_max_child_sortkey);
 
     if new.parent_id is null
     then

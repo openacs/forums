@@ -26,9 +26,9 @@
 
     <fullquery name="forum::get.select_forum">      
         <querytext>
-            select *
+            select forums_forums.*
             from forums_forums
-            where forum_id = :forum_id
+            where forums_forums.forum_id = :forum_id
         </querytext>
     </fullquery>
 

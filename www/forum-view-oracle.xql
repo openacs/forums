@@ -15,7 +15,7 @@
                     where fm1.forum_id = :forum_id
                     and fm1.tree_sortkey between tree.left(fm.tree_sortkey) and tree.right(fm.tree_sortkey)) as n_messages,
                    to_char(acs_objects.last_modified, 'Mon DD YYYY HH24:MI:SS') as last_modified,
-                   case when last_modified > (sysdate - 1) then 't' else 'f' end as new_p                   
+                   case when acs_objects.last_modified > (sysdate - 1) then 't' else 'f' end as new_p                   
             from forums_messages_approved fm,
                  acs_objects
             where fm.forum_id = :forum_id
@@ -38,7 +38,7 @@
                     where fm1.forum_id = :forum_id
                     and fm1.tree_sortkey between tree.left(fm.tree_sortkey) and tree.right(fm.tree_sortkey)) as n_messages,
                    to_char(acs_objects.last_modified, 'Mon DD YYYY HH24:MI:SS') as last_modified,
-                   case when last_modified > (sysdate - 1) then 't' else 'f' end as new_p                   
+                   case when acs_objects.last_modified > (sysdate - 1) then 't' else 'f' end as new_p                   
             from forums_messages fm,
                  acs_objects
             where fm.forum_id = :forum_id
