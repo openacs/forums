@@ -19,45 +19,38 @@ declare
     v_max_child_sortkey             forums_forums.max_child_sortkey%TYPE;
     v_parent_sortkey                forums_messages.tree_sortkey%TYPE;
 begin
+
     if new.parent_id is null
-    then 
-        -- get the max from the forum
-        select max_child_sortkey
-        into v_max_child_sortkey
+    then
+
+        select '''', max_child_sortkey
+        into v_parent_sortkey, v_max_child_sortkey
         from forums_forums
         where forum_id = new.forum_id
         for update;
 
-        v_parent_sortkey = null;
+        v_max_child_sortkey := tree_increment_key(v_max_child_sortkey);
+
+        update forums_forums
+        set max_child_sortkey = v_max_child_sortkey
+        where forum_id = new.forum_id;
+
     else
-        -- get the max child sortkey from parent
-        -- grab the lock
-        select tree_sortkey, max_child_sortkey
+
+        select coalesce(tree_sortkey, ''''), max_child_sortkey
         into v_parent_sortkey, v_max_child_sortkey
         from forums_messages
         where message_id = new.parent_id
         for update;
-    end if;
 
-    -- increment the sortkey
-    v_max_child_sortkey := tree_increment_key(v_max_child_sortkey);
+        v_max_child_sortkey := tree_increment_key(v_max_child_sortkey);
 
-    if new.parent_id is null
-    then
-        update forums_forums
-        set max_child_sortkey = v_max_child_sortkey
-        where forum_id = new.forum_id;
-    else
-        -- update the parent
         update forums_messages
         set max_child_sortkey = v_max_child_sortkey
         where message_id = new.parent_id;
+
     end if;
 
-    -- generate the current sortkey
-    if v_parent_sortkey is null then
-        v_parent_sortkey := '''';
-    end if;
     new.tree_sortkey := v_parent_sortkey || v_max_child_sortkey;
 
     return new;
@@ -66,4 +59,4 @@ end;' language 'plpgsql';
 create trigger forums_mess_insert_tr
 before insert on forums_messages
 for each row
-execute procedure forums_mess_insert_tr ();
+execute procedure forums_mess_insert_tr();
