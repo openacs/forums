@@ -60,7 +60,7 @@
   <msg key="lt_Forums_Administration">Amministrazione Forum</msg>
   <msg key="lt_Need_to_provide_a_mes">Occorre un messaggio per visualizzare</msg>
   <msg key="lt_need_to_provide_a_mes">Occorre un messaggio per visualizzare l'allegato!</msg>
-  <msg key="lt_Note_that_you_are_alr">(Nota che tu hai gi&amp;agrave; sottoscritto il forum per intero. Potresti ricevere notifiche doppie)</msg>
+  <msg key="lt_Note_that_you_are_alr">(Nota che tu hai già sottoscritto il forum per intero. Potresti ricevere notifiche doppie)</msg>
   <msg key="lt_Please_confirm_the_fo">Conferma il seguente messaggio:</msg>
   <msg key="lt_Please_enter_a_messag">Inserisci un messaggio</msg>
   <msg key="lt_Please_enter_a_subjec">Inserisci un oggetto</msg>
@@ -115,11 +115,11 @@
   <msg key="Subject">Oggetto</msg>
   <msg key="Subscribe">Sottoscrivi?</msg>
   <msg key="text">testo</msg>
-  <msg key="This_forum_is">Questo forum &amp;egrave;</msg>
+  <msg key="This_forum_is">Questo forum è</msg>
   <msg key="Threaded">Ramificato</msg>
   <msg key="Threads">Discussioni</msg>
   <msg key="View">Vedi</msg>
-  <msg key="Yes">S&amp;igrave;</msg>
+  <msg key="Yes">Sì</msg>
   <msg key="You_may">Puoi</msg>
   <msg key="Your_Note">Tua nota</msg>
 </message_catalog>
