@@ -13,6 +13,7 @@ ad_page_contract {
 
 # Either forum_id or parent_id has to be non-null
 if {[empty_string_p $forum_id] && [empty_string_p $parent_id]} {
+    ns_log Notice "BMA: both are null!"
     # error!
     return -code error
 }
@@ -42,7 +43,7 @@ element create message confirm_p \
         -label "Confirm?" -datatype text -widget hidden
 
 element create message subscribe_p \
-        -label "Subscribe?" -datatype text -widget hidden
+        -label "Subscribe?" -datatype text -widget hidden -optional
 
 if {[form is_valid message]} {
     template::form get_values message message_id forum_id parent_id subject content html_p confirm_p subscribe_p
@@ -79,7 +80,7 @@ if {[form is_valid message]} {
 
     set message_view_url "[ad_conn package_url]message-view?message_id=$message_id"
 
-    if {$subscribe_p && [empty_string_p $parent_id]} {
+    if {![empty_string_p $subscribe_p] && $subscribe_p && [empty_string_p $parent_id]} {
         set notification_url [notification::display::subscribe_url -type forums_message_notif -object_id $message_id -url $message_view_url -user_id [ad_conn user_id]]
 
         # redirect to notification stuff
