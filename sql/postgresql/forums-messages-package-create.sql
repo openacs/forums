@@ -16,8 +16,7 @@ select define_function_args ('forums_message__new', 'message_id,object_type;foru
 
 -- Get rid of the old version so we'll throw an error if the admin forgets to reboot
 -- OpenACS after the upgrade (package_instantiate_object caches param lists)
-
-create or replace function forums_message__new (integer,varchar,integer,varchar,text,char,integer,varchar,varchar,integer,timestamptz,integer,varchar,integer)
+create or replace function forums_message__new (integer,varchar,integer,varchar,text,char,integer,varchar,integer,timestamptz,integer,varchar,integer)
 returns integer as '
 declare
     p_message_id                    alias for $1;
