@@ -70,7 +70,7 @@
           </td>
           <td style="padding: 4px;"><a href="user-history?user_id=@messages.user_id@">@messages.user_name@</a></td>
           <td align="center" style="padding: 4px;">@messages.n_messages@</td>
-          <td align="center" style="padding: 4px;">@messages.last_modified@</td>
+          <td align="center" style="padding: 4px;">@messages.last_child_post@</td>
           
             </tr>
         </multiple>

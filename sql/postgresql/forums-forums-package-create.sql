@@ -43,8 +43,6 @@ begin
     values
     (v_forum_id, p_name, p_charter, p_presentation_type, p_posting_policy, p_package_id);
 
-    perform acs_object__update_last_modified(coalesce(p_context_id, p_package_id));
-
     return v_forum_id;
 end;
 ' language 'plpgsql';

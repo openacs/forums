@@ -7,7 +7,7 @@
     <initial-install-p>f</initial-install-p>
     <singleton-p>f</singleton-p>
 
-    <version name="0.1d" url="http://openacs.org/repository/download/apm/forums-0.1d.apm">
+    <version name="0.2d" url="http://openacs.org/repository/download/apm/forums-0.2d.apm">
     <database-support>
         <database>oracle</database>
         <database>postgresql</database>

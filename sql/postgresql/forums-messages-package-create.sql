@@ -69,9 +69,16 @@ begin
     values
     (v_message_id, p_forum_id, p_subject, p_content, p_html_p, p_user_id, v_posting_date, p_parent_id, v_state);
 
-    perform acs_object__update_last_modified(p_forum_id);
+    update forums_forums
+    set last_post = v_posting_date
+    where forum_id = p_forum_id;
 
+    update forums_messages
+    set last_child_post = v_posting_date
+    where message_id = forums_message__root_message_id(v_message_id);
+ 
     return v_message_id;
+
 end;
 ' language 'plpgsql';
 
