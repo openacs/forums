@@ -116,3 +116,7 @@
 .right {
   float: right;
 }
+
+.details img {
+  border-style: none;
+}
