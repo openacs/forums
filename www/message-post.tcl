@@ -178,6 +178,8 @@ if {![empty_string_p $parent_id]} {
     set forum_id $parent_message(forum_id)
     set subject "Re: $parent_message(subject)"
 
+    # trim multiple leading Re:
+    regsub {^(\s*Re:\s*)*} $subject {Re: } subject
 }
 
 forum::security::require_post_forum -forum_id $forum_id
