@@ -64,4 +64,5 @@ element set_properties message subject -value $message(subject)
 element set_properties message content -value $message(content)
 element set_properties message html_p -value $message(html_p)
 
+set message(subject) [ad_quotehtml $message(subject)]
 ad_return_template

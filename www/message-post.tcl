@@ -103,7 +103,7 @@ if {[form is_valid message]} {
         set exported_vars [export_form_vars message_id forum_id parent_id subject content html_p confirm_p]
         
         set message(html_p) $html_p
-        set message(subject) $subject
+        set message(subject) [ad_quotehtml $subject]
         set message(content) $content
         set message(user_id) $user_id
         set message(user_name) [db_string select_name {}]
@@ -179,6 +179,7 @@ if {![empty_string_p $parent_id]} {
     forum::message::get -message_id $parent_id -array parent_message
     set forum_id $parent_message(forum_id)
     set subject "Re: $parent_message(subject)"
+    set parent_message(subject) [ad_quotehtml $parent_message(subject)]
 
     # trim multiple leading Re:
     regsub {^(\s*Re:\s*)*} $subject {Re: } subject

@@ -27,6 +27,7 @@ if {!${moderate_p}} {
 
 # Load up the message information
 forum::message::get -message_id $message_id -array message
+set message(subject) [ad_quotehtml $message(subject)]
 
 form create search -action search
 
@@ -88,7 +89,7 @@ if {[string equal $forum(presentation_type) flat]} {
     set order_by "tree_sortkey"
 }
 
-db_multirow responses $query {}
+db_multirow responses $query {} {set subject [ad_quotehtml $subject]}
 
 # If this is a top-level thread, we allow subscriptions here
 if {[empty_string_p $message(parent_id)]} {

@@ -66,7 +66,7 @@ if {$moderate_p} {
     set query messages_select_moderator
 }
 
-db_multirow messages $query {}
+db_multirow messages $query {} {set subject [ad_quotehtml $subject]}
 
 set notification_chunk [notification::display::request_widget \
     -type forums_forum_notif \
