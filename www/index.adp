@@ -38,6 +38,7 @@
 
       <td>
         <a href="forum-view?forum_id=@forums.forum_id@">@forums.name@</a>
+<if @forums.new_p@ eq t><b><small>(new postings!)</small></b></if>
         <if @forums.charter@ not nil><br><i>@forums.charter@</i></if>
       </td>
       <td align="center">@forums.n_threads@</td>

@@ -61,7 +61,8 @@
   </else>
 
       <td>
-        <a href="message-view?message_id=@messages.message_id@">@messages.subject@</a>
+        <a href="message-view?message_id=@messages.message_id@">@messages.subject@</a> 
+<if @messages.new_p@ eq t><b><small>(new!)</small></b></if>
 <if @moderate_p@ and @messages.state@ ne approved>
         <small>(@messages.state@)</small>
 </if>
