@@ -36,3 +36,21 @@ ad_proc -private forum::install::package_upgrade {
             }
         }
 }
+
+ad_proc -private ::install::xml::action::forum-create { node } {
+    Create a forum instance from an install.xml file
+} {
+    set url [apm_required_attribute_value $node url]
+    set name [apm_required_attribute_value $node name]
+    set presentation [apm_attribute_value -default "flat" $node presentation]
+    set posting_policy [apm_attribute_value -default "open" $node posting-policy]
+
+
+    set charter_node [lindex [xml_node_get_children_by_name [lindex $node 0] charter] 0]
+    set charter [xml_node_get_content $charter_node]
+
+    set package_id [site_node::get_element -url $url -element package_id]
+
+    forum::new -name $name -charter $charter -presentation_type $presentation \
+        -posting_policy $posting_policy -package_id $package_id
+}
