@@ -55,6 +55,9 @@ begin
     end if;
 
     -- generate the current sortkey
+    if v_parent_sortkey is null then
+        v_parent_sortkey := '''';
+    end if;
     new.tree_sortkey := v_parent_sortkey || v_max_child_sortkey;
 
     return new;
