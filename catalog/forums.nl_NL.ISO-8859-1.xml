@@ -8,6 +8,7 @@
   <msg key="Attach">Bijvoegen?</msg>
   <msg key="Attachments">Bijlagen:</msg>
   <msg key="Author">Auteur</msg>
+  <msg key="Back_to_thread_link">&lt;a href='%thread_url'&gt;Terug&lt;/a&gt; naar %forum.name%.</msg>
   <msg key="Body">Inhoud</msg>
   <msg key="by_Date">op Datum</msg>
   <msg key="by_Forum">op Forum</msg>
@@ -24,9 +25,11 @@
   <msg key="disabled">geblokeerd</msg>
   <msg key="Edit">Wijzig</msg>
   <msg key="edit">wijzig</msg>
+  <msg key="Edit_again">Opnieuw wijzigen</msg>
   <msg key="Edit_forum">Forum wijzigen</msg>
   <msg key="Edit_Message">Bericht wijzigen</msg>
   <msg key="Email">E-mail</msg>
+  <msg key="email_alert_body_header">Op %posting_date%, schreef %user_name%:</msg>
   <msg key="Email_Message">E-mailbericht:</msg>
   <msg key="Email_to_a_friend">Email een friend</msg>
   <msg key="enable">inschakelen</msg>
@@ -45,6 +48,7 @@
   <msg key="ForumID">ForumID</msg>
   <msg key="Forums">Forums</msg>
   <msg key="Forums_Posting_hist_lt">Forums: Berichten overzicht voor:</msg>
+  <msg key="forward">Duursturen</msg>
   <msg key="Fwd">Doorgestuurd:</msg>
   <msg key="html">html</msg>
   <msg key="Last_Post">Laatste bericht.</msg>
@@ -66,6 +70,7 @@
   <msg key="Manage_Forum">Beheer Forum:</msg>
   <msg key="ManageModerate">Beheren/Recenseren</msg>
   <msg key="Message_ID">Bericht ID</msg>
+  <msg key="Moderate">Gerecenseerd</msg>
   <msg key="moderated">gerecenseerd</msg>
   <msg key="Name">Naam</msg>
   <msg key="New_Forum">Nieuw forum</msg>
@@ -77,22 +82,30 @@
   <msg key="One_Message">Eén Bericht</msg>
   <msg key="One_Thread">Eén Discussie</msg>
   <msg key="open">open</msg>
+  <msg key="Parameters">Instellingen</msg>
   <msg key="parent_ID">Ouder ID</msg>
+  <msg key="Pending">In afwachting van</msg>
   <msg key="Pending_Threads">Hangende Discussies</msg>
+  <msg key="Post">Plaatsen</msg>
   <msg key="Post_a_Message">Plaats een bericht</msg>
   <msg key="Post_a_New_Message">Een nieuw bericht plaatsen</msg>
   <msg key="Post_a_Reply">Plaats een reaktie</msg>
   <msg key="Post_to_Forum">Plaatsen op forum</msg>
   <msg key="Posted">Gepubliceerd</msg>
+  <msg key="Posted_by">Ingestuurd door</msg>
   <msg key="Posting_Date">Plaatsingsdatum</msg>
   <msg key="Posting_History">Publicatiegeschiedenis</msg>
   <msg key="Posting_history_for">Publicatie overzicht van</msg>
   <msg key="Posting_Policy">Publicatie Regelingen</msg>
   <msg key="Presentation">Presentatie</msg>
+  <msg key="Preview">Voorvertoning</msg>
   <msg key="Re">Betr:</msg>
   <msg key="reject">Weiger</msg>
+  <msg key="Rejected">Afgewezen</msg>
   <msg key="Replies">Reacties</msg>
   <msg key="reply">reageer</msg>
+  <msg key="Reply_to_first_post_in_thread">Beantwoord het eerste bericht in deze discussie</msg>
+  <msg key="Reply_to_first_post_on_page_label">Beantwoord het eerste bericht op deze pagina</msg>
   <msg key="Search">Zoek:</msg>
   <msg key="Search_1">Zoek</msg>
   <msg key="Search_colon">Zoek:</msg>

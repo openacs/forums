@@ -8,6 +8,7 @@
   <msg key="Attach">Vedhæft?</msg>
   <msg key="Attachments">Vedhæftelser:</msg>
   <msg key="Author">Forfatter</msg>
+  <msg key="Back_to_thread_link">&lt;a href=&quot;%thread_url%&quot;&gt;Tilbage&lt;/a&gt; til %forum.name%</msg>
   <msg key="Body">Tekst</msg>
   <msg key="by_Date">efter Dato</msg>
   <msg key="by_Forum">efter Forum</msg>
@@ -24,9 +25,11 @@
   <msg key="disabled">deaktiveret</msg>
   <msg key="Edit">Rediger</msg>
   <msg key="edit">rediger</msg>
+  <msg key="Edit_again">Rediger igen</msg>
   <msg key="Edit_forum">Rediger Forum</msg>
   <msg key="Edit_Message">Rediger Indlæg:</msg>
   <msg key="Email">E-mail</msg>
+  <msg key="email_alert_body_header">%user_name% skrev på %posting_date%:</msg>
   <msg key="Email_Message">E-mail Besked:</msg>
   <msg key="Email_to_a_friend">Send til en ven</msg>
   <msg key="enable">aktivér</msg>
@@ -45,6 +48,7 @@
   <msg key="ForumID">Forum ID</msg>
   <msg key="Forums">Fora</msg>
   <msg key="Forums_Posting_hist_lt">Fora: Indlæg for</msg>
+  <msg key="forward">Frem</msg>
   <msg key="Fwd">Fwd:</msg>
   <msg key="html">html</msg>
   <msg key="Last_Post">Seneste Indlæg</msg>
@@ -66,6 +70,7 @@
   <msg key="Manage_Forum">Administrér Forum</msg>
   <msg key="ManageModerate">Administrér/Moderér</msg>
   <msg key="Message_ID">Besked ID</msg>
+  <msg key="Moderate">Moderer</msg>
   <msg key="moderated">modereret</msg>
   <msg key="Name">Navn</msg>
   <msg key="New_Forum">Nyt Forum</msg>
@@ -77,7 +82,9 @@
   <msg key="One_Message">Et Indlæg</msg>
   <msg key="One_Thread">En Tråd</msg>
   <msg key="open">åbn</msg>
+  <msg key="Parameters">Parametre</msg>
   <msg key="parent_ID">parent ID</msg>
+  <msg key="Pending">Afventer</msg>
   <msg key="Pending_Threads">Afventende Tråde</msg>
   <msg key="Post">Indlæg</msg>
   <msg key="Post_a_Message">Indsend et indlæg</msg>
@@ -85,13 +92,16 @@
   <msg key="Post_a_Reply">Indsend et Svar</msg>
   <msg key="Post_to_Forum">Indsend til Forum:</msg>
   <msg key="Posted">Indsendt</msg>
+  <msg key="Posted_by">Indsendt af</msg>
   <msg key="Posting_Date">Indsendelsesdato</msg>
   <msg key="Posting_History">Indsendelseshistorik</msg>
   <msg key="Posting_history_for">Indsendelseshistorik for</msg>
   <msg key="Posting_Policy">Indsendelsespolitik</msg>
   <msg key="Presentation">Præsentation</msg>
+  <msg key="Preview">Vis</msg>
   <msg key="Re">Re:</msg>
   <msg key="reject">afvis</msg>
+  <msg key="Rejected">Afvist</msg>
   <msg key="Replies">Svar</msg>
   <msg key="reply">svar</msg>
   <msg key="Reply_to_first_post_in_thread">Besvar det første indlæg i tråden</msg>
