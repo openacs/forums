@@ -162,17 +162,20 @@ ad_proc -public forums::form::forum {
       -label [_ forums.Presentation] \
       -datatype text \
       -widget select \
+      -help_text [_ forums.help_presentation] \
       -options [list [list [_ forums.Flat] flat] [list [_ forums.Threaded] threaded]]
 
     template::element create $form_name ${prefix}posting_policy \
       -label [_ forums.Posting_Policy] \
       -datatype text \
       -widget select \
+      -help_text [_ forums.help_posting_policy] \
       -options [list [list [_ forums.open] open] [list [_ forums.moderated] moderated] [list [_ forums.closed] closed] ]
 
     template::element create $form_name ${prefix}new_threads_p \
       -label [_ forums.lt_Users_Can_Create_New_] \
       -datatype integer \
       -widget radio \
+      -help_text [_ forums.help_new_threads] \
       -options [list [list [_ forums.Yes] 1] [list [_ forums.No] 0] ] 
 }
