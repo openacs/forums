@@ -60,12 +60,14 @@ if {$package_id != $forum(package_id)} {
     ad_returnredirect "./"
     ad_script_abort
 }
-
-element set_properties forum forum_id -value $forum_id
-element set_properties forum name -value $forum(name)
-element set_properties forum charter -value $forum(charter)
-element set_properties forum presentation_type -value $forum(presentation_type)
-element set_properties forum posting_policy -value $forum(posting_policy)
-element set_properties forum new_threads_p -value [forum::new_questions_allowed_p -forum_id $forum_id]
+    
+if { [form is_request forum] } {
+    element set_properties forum forum_id -value $forum_id
+    element set_properties forum name -value $forum(name)
+    element set_properties forum charter -value $forum(charter)
+    element set_properties forum presentation_type -value $forum(presentation_type)
+    element set_properties forum posting_policy -value $forum(posting_policy)
+    element set_properties forum new_threads_p -value [forum::new_questions_allowed_p -forum_id $forum_id]
+}
 
 ad_return_template
