@@ -18,7 +18,7 @@ if { $moderate_p } {
 
 set actions [list]
 
-if { [template::util::is_true $permissions(post_p)] } {
+if { [template::util::is_true $permissions(post_p)] &&  ($forum(posting_policy) == "open" ||  [template::util::is_true $permissions(admin_p)] ||   [template::util::is_true $permissions(moderate_p)] )  } {
     lappend actions [_ forums.Post_a_New_Message] [export_vars -base "message-post" { forum_id }] {}
 }
 
