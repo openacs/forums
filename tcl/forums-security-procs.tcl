@@ -13,8 +13,12 @@ namespace eval forum::security {
     ad_proc -private do_abort {} {
         do an abort if security violation
     } {
-        ad_returnredirect "not-allowed"
-        return -code error
+        if { [ad_conn user_id] == 0 } { 
+            ad_redirect_for_registration
+        } else {
+            ad_returnredirect "not-allowed"
+        }
+        ad_script_abort
     }    
 
     ad_proc -public can_read_forum_p {
