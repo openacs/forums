@@ -50,6 +50,7 @@ if { [form is_request forum] } {
     # Pre-fetch the forum_id
     set forum_id [db_nextval acs_object_id_seq]
     element set_properties forum forum_id -value $forum_id
+    element set_value forum new_threads_p 1
 }
 
 if {[exists_and_not_null alt_template]} {
