@@ -12,9 +12,9 @@
     </strong>  
   </td>
 </if>
-  <td align=center>
+  <td align="left">
     <a href="user-history?user_id=@message.user_id@">@message.user_name@</a></td>
-  <td align=center>@message.posting_date@</td>
+  <td align="left">@message.posting_date@</td>
 
   <if @preview@ nil>
   
@@ -47,10 +47,10 @@
 
 <tr style="color: black; background-color: @table_bgcolor@">
   <if @preview@ nil>
-    <td colspan="4" style="padding: 1em">
+    <td align="left" colspan="4" style="padding: 1em">
   </if>
   <else>
-    <td colspan="3" align="left" style="padding: 1em">  
+    <td align="left" colspan="3" style="padding: 1em">  
   </else>
 
     <if @message.html_p@ false>
