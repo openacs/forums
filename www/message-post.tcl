@@ -124,7 +124,7 @@ if {[form is_valid message]} {
         set message(html_p) $html_p
         set message(subject) $subject
         set message(content) $content
-        if { $anonymous_p } {
+        if { [template::util::is_true $anonymous_p] } {
             set user_id 0
         }
         set message(user_id) $user_id
