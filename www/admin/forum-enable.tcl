@@ -12,7 +12,7 @@ ad_page_contract {
 
 forum::enable -forum_id $forum_id
 
-ad_returnredirect "./forum-edit?forum_id=$forum_id"
+ad_returnredirect "."
 
 
 

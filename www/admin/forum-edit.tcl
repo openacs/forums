@@ -8,9 +8,13 @@ ad_page_contract {
 
 } {
     forum_id:integer,notnull
+    {return_url "."}
 }
 
 form create forum
+
+element create forum return_url \
+        -datatype text -widget hidden -optional
 
 element create forum forum_id \
         -label [_ forums.Forum_ID] -datatype integer -widget hidden
@@ -31,7 +35,7 @@ element create forum new_threads_p \
         -label [_ forums.lt_Users_Can_Create_New_] -datatype integer -widget radio -options {{Yes 1} {No 0}}
 
 if {[form is_valid forum]} {
-    template::form get_values forum forum_id name charter presentation_type posting_policy new_threads_p
+    template::form get_values forum return_url forum_id name charter presentation_type posting_policy new_threads_p
 
     forum::edit -forum_id $forum_id \
             -name $name \
@@ -49,7 +53,7 @@ if {[form is_valid forum]} {
         forum::new_questions_deny -forum_id $forum_id
     }    
 
-    ad_returnredirect "../forum-view?forum_id=$forum_id"
+    ad_returnredirect $return_url
     ad_script_abort
 }
 
@@ -67,6 +71,7 @@ if {$package_id != $forum(package_id)} {
 set context [list [_ forums.Edit_forum]]
     
 if { [form is_request forum] } {
+    element set_properties forum return_url -value $return_url
     element set_properties forum forum_id -value $forum_id
     element set_properties forum name -value $forum(name)
     element set_properties forum charter -value $forum(charter)
@@ -74,5 +79,3 @@ if { [form is_request forum] } {
     element set_properties forum posting_policy -value $forum(posting_policy)
     element set_properties forum new_threads_p -value [forum::new_questions_allowed_p -forum_id $forum_id]
 }
-
-ad_return_template

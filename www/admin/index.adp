@@ -3,28 +3,18 @@
 <property name="context"></property>
 
 <h3>#forums.Forums#</h3>
-<ul>
-<li> <a href="forum-new">#forums.Create_a_New_Forum#</a> </li>
-<li> <a href="@parameters_url@">#forums.Parameters#</a> </li>
+
+<p><listtemplate name="forums"></listtemplate></p>
 
 <p>
+  <b>&raquo;</b> <a href="forum-new">#forums.Create_a_New_Forum#</a>
+</p>
 
-<multiple name="forums">
+<p>
+  <b>&raquo;</b> <a href="@parameters_url@">#forums.Parameters#</a>
+</p>
 
-  <if @forums.enabled_p@ eq t><h3>#forums.Active_Forums#</h3></if>
-  <else><h3>#forums.Disabled_Forums#</h3></else>
+<p>
+  <b>&raquo;</b> <a href="@permissions_url@">#acs-subsite.Permissions#</a>
+</p>
 
-  <group column="enabled_p">
-    <li> 
-      [
-        <if @forums.enabled_p@ eq t><a href="forum-disable?forum_id=@forums.forum_id@">#forums.disable#</a></if>
-        <else><a href="forum-enable?forum_id=@forums.forum_id@">#forums.enable#</a></else>
-      ]
-      <a href="forum-edit?forum_id=@forums.forum_id@">@forums.name@</a>
-      (<a href="../forum-view?forum_id=@forums.forum_id@">View</a>)
-      (<a href="permissions?object_id=@forums.forum_id@">Permissions</a>)
-    </li>
-  </group>
-
-</multiple>
-</ul>

@@ -8,9 +8,12 @@ ad_page_contract {
     object_id:integer
 }
 
-forum::get -forum_id $object_id -array forum
-
-set page_title "$forum(name) Permissions"
+if { $object_id == [ad_conn package_id] } {
+    set page_title "Permissions"
+} else {
+    forum::get -forum_id $object_id -array forum
+    set page_title "$forum(name) Permissions"
+}
 
 set context [list $page_title]
 

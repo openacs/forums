@@ -8,7 +8,7 @@
                    fm.subject,
                    fm.user_id,
                    person.name(fm.user_id) as user_name,
-                   fm.posting_date,
+                   to_char(fm.posting_date, 'YYYY-MM-DD HH24:MI:SS') as posting_date_ansi,
                    fm.state,
                    (select count(*)
                     from forums_messages_approved fm1
@@ -19,7 +19,7 @@
             from forums_messages_approved fm
             where fm.forum_id = :forum_id
             and fm.parent_id is null
-            order by fm.${order_by} desc
+            [template::list::orderby_clause -orderby -name "messages"]
         </querytext>
     </fullquery>
 
@@ -29,7 +29,7 @@
                    fm.subject,
                    fm.user_id,
                    person.name(fm.user_id) as user_name,
-                   fm.posting_date,
+                   to_char(fm.posting_date, 'YYYY-MM-DD HH24:MI:SS') as posting_date_ansi,
                    fm.state,
                    (select count(*)
                     from forums_messages fm1
@@ -40,7 +40,7 @@
             from forums_messages fm
             where fm.forum_id = :forum_id
             and fm.parent_id is null
-            order by fm.${order_by} desc
+            [template::list::orderby_clause -orderby -name "messages"]
         </querytext>
     </fullquery>
 
