@@ -8,6 +8,7 @@
            bgcolor="@table_bgcolor;noquote@" 
            forum_moderated_p=@forum_moderated_p;noquote@ 
            moderate_p=@permissions.moderate_p;noquote@ 
+           presentation_type=@forum.presentation_type;noquote@
            &message="message">
 </table>
 
@@ -32,6 +33,7 @@
                      bgcolor="@table_other_bgcolor;noquote@" 
                      forum_moderated_p=@forum_moderated_p;noquote@ 
                      moderate_p=@permissions.moderate_p;noquote@ 
+		     presentation_type=@forum.presentation_type;noquote@
                      &message="responses">
           </if>
           <else>
@@ -39,6 +41,7 @@
                      bgcolor="@table_bgcolor;noquote@"
                      forum_moderated_p=@forum_moderated_p;noquote@
                      moderate_p=@permissions.moderate_p;noquote@
+		     presentation_type=@forum.presentation_type;noquote@
                      &message="responses">
           </else>
     <if @forum.presentation_type@ ne "flat">
