@@ -7,7 +7,7 @@
     <tr>
       <td style="font-size: x-small; white-space: nowrap; align=right;">
         <if @admin_p@>
-          [ <a href="admin/forum-new">New Forum</a> ]
+          [ <a href="admin/forum-new">New Forum</a> | <a href="admin/">Administration</a> ]
         </if>
         <else>
           &nbsp;
