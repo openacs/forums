@@ -1,11 +1,11 @@
-
 ad_page_contract {
 
     Delete a Message
 
     @author Ben Adida (ben@openforce)
     @creation-date 2002-05-24
-    @cvs-id $Id$
+    @version $Id$
+
 } {
     message_id:integer,notnull
     {return_url ""}

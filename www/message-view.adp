@@ -2,36 +2,50 @@
 <property name="title">Forum @forum.name@: @message.subject@</property>
 <property name="context_bar">@context_bar@</property>
 
-<p>
-@notification_chunk@
-</p>
+<center>
 
-<if @message.parent_id@ not nil>
-<i>response to <a href="message-view?message_id=@message.root_message_id@">@message.root_subject@</a></i><p>
+  <table cellpadding="5" width="95%">
+    <tr>
+      <td colspan="4">
+        @notification_chunk@
+<if @post_p@>
+        <nobr><small>[
+          <a href="message-post?forum_id=@forum_id@">Post a New Message</a>
+        ]</nobr></small>
 </if>
+      </td>
+    </tr>
+  </table>
 
-<b>@message.subject@</b>
+  <br>
 
-<p>
+  <table bgcolor="#cccccc" cellpadding="5" width="95%">
+<include src="message-chunk" bgcolor="#eeeeee" moderate_p=@moderate_p@ &message="message">
+  </table>
 
-<blockquote>
-@message.content@
-</blockquote>
+  <br>
 
-<p>
-<if @post_p@ eq 1><a href="message-post?parent_id=@message_id@">Respond!</a></if>
-&nbsp; | &nbsp;
-<a href="message-email?message_id=@message_id@">Email</a>
+  <table cellpadding="5" width="96%">
 
-<if @moderate_p@ eq 1>
-<p>
-<b>Administration:</b> [@message.state@] [ <a href="moderate/message-delete?message_id=@message_id@">delete</a><if @message.state@ ne approved> | <a href="moderate/message-approve?message_id=@message_id@">approve</a></if><if @message.state@ ne rejected> | <a href="moderate/message-reject?message_id=@message_id@">reject</a></if> | <a href="moderate/message-edit?message_id=@message_id@">edit</a>]
-</if>
-
-<h3>Responses</h3>
-
-<ul>
 <multiple name="responses">
-<li> <if @moderate_p@ eq 1 and @responses.state@ ne approved><b><i>(@responses.state@)</i></b> &nbsp;</if> @responses.tree_level@ <a href="message-view?message_id=@responses.message_id@">@responses.subject@</a>, by <a href="user-history?user_id=@responses.user_id@">@responses.user_name@</a> on @responses.posting_date@
+
+<% set width [expr 100 - $responses(tree_level) * 3] %>
+
+    <tr>
+      <td align="right">
+        <table bgcolor="#cccccc" cellpadding="5" width="@width@%">
+<if @responses.rownum@ odd>
+  <include src="message-chunk" bgcolor="#d9e4f9" moderate_p=@moderate_p@ &message="responses">
+</if>
+<else>
+  <include src="message-chunk" bgcolor="#eeeeee" moderate_p=@moderate_p@ &message="responses">
+</else>
+        </table>
+      </td>
+    </tr>
+
 </multiple>
-</ul>
+
+  </table>
+
+</center>

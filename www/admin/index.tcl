@@ -1,12 +1,11 @@
-
 ad_page_contract {
 
     Forums Administration
 
     @author Ben Adida (ben@openforce)
     @creation-date 2002-05-24
-    @cvs-id $Id$
-} {
+    @version $Id$
+
 }
 
 # scoping 
@@ -16,4 +15,3 @@ set package_id [ad_conn package_id]
 db_multirow forums select_forums {}
 
 ad_return_template
-

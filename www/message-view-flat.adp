@@ -2,43 +2,42 @@
 <property name="title">Forum @forum.name@: @message.subject@</property>
 <property name="context_bar">@context_bar@</property>
 
-<p>
-@notification_chunk@
-</p>
+<center>
 
-<h3>Message</h3>
-<blockquote>
-<if @message.parent_id@ not nil>
-<i>response to <a href="message-view?message_id=@message.root_message_id@">@message.root_subject@</a></i><p>
+  <table cellpadding="5" width="95%">
+    <tr>
+      <td colspan="4">
+        @notification_chunk@
+<if @post_p@>
+        <nobr><small>[
+          <a href="message-post?forum_id=@forum_id@">Post a New Message</a>
+        ]</nobr></small>
 </if>
+      </td>
+    </tr>
+  </table>
 
-<b>@message.subject@</b>
+  <br>
 
-<p>
+  <table bgcolor="#cccccc" cellpadding="5" width="95%">
+<include src="message-chunk" bgcolor="#eeeeee" moderate_p=@moderate_p@ &message="message">
+  </table>
 
-@message.content@
+  <br>
 
-<p>
--- <a href="user-history?user_id=@message.user_id@">@message.user_name@</a> on <%= [util_AnsiDatetoPrettyDate $message(posting_date)] %><p>
-
-<if @post_p@ eq 1><a href="message-post?parent_id=@message_id@">Respond!</a></if>
-&nbsp; | &nbsp;
-<a href="message-email?message_id=@message_id@">Email</a>
-
-<if @moderate_p@ eq 1>
-<p>
-<b>Administration:</b> [@message.state@] [ <a href="moderate/message-delete?message_id=@message_id@">delete</a><if @message.state@ ne approved> | <a href="moderate/message-approve?message_id=@message_id@">approve</a></if><if @message.state@ ne rejected> | <a href="moderate/message-reject?message_id=@message_id@">reject</a></if> | <a href="moderate/message-edit?message_id=@message_id@">edit</a>]
-</if>
-</blockquote>
-
-<h3>Responses</h3>
+  <table bgcolor="#cccccc" cellpadding="5" width="95%">
 
 <multiple name="responses">
-<blockquote>
-<if @moderate_p@ eq 1 and @responses.state@ ne approved><b><i>(@responses.state@)</i></b><br></if>
-<b>@responses.subject@</b><p>
-@responses.content@<p>
--- <a href="user-history?user_id=@responses.user_id@">@responses.user_name@</a> on <%= [util_AnsiDatetoPrettyDate $responses(posting_date)] %><p><hr width=40%><p>
-</blockquote>
+
+<if @responses.rownum@ odd>
+  <include src="message-chunk" bgcolor="#d9e4f9" moderate_p=@moderate_p@ &message="responses">
+</if>
+<else>
+  <include src="message-chunk" bgcolor="#eeeeee" moderate_p=@moderate_p@ &message="responses">
+</else>
+
 </multiple>
-</ul>
+
+  </table>
+
+</center>

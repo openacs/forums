@@ -1,11 +1,11 @@
-
 ad_page_contract {
     
     Create a Forum
 
     @author Ben Adida (ben@openforce)
     @creation-date 2002-05-25
-    @cvs-id $id: Exp $
+    @version $Id$
+
 } {
     {name ""}
 }

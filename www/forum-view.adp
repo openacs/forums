@@ -2,20 +2,76 @@
 <property name="title">Forum: @forum.name@</property>
 <property name="context_bar">@context_bar@</property>
 
-<if @admin_p@ eq 1>
-[<a href="admin/forum-edit?forum_id=@forum_id@">Administer this Forum</a>] &nbsp;
-</if>
-<if @moderate_p@ eq 1>
-[<a href="moderate/forum?forum_id=@forum_id@">Manage/Moderate this Forum</a>]
+<center>
+
+  <table cellpadding="5" width="95%">
+
+<if @moderate_p@>
+    <tr>
+      <td colspan="4">
+        <nobr><small>[
 </if>
 
-<p>
-@notification_chunk@
-</p>
+<if @admin_p@>
+          <a href="admin/forum-edit?forum_id=@forum_id@">Administer</a>] | 
+</if>
 
-<ul>
-<if @post_p@ eq 1><li> <a href="message-post?forum_id=@forum_id@">Post a New Message</a><p></if>
+<if @moderate_p@>
+          <a href="moderate/forum?forum_id=@forum_id@">Manage/Moderate</a>
+</if>
+
+<if @moderate_p@>
+        ]</small></nobr>
+        <br><br>
+      </td>
+    </tr>
+</if>
+
+    <tr>
+      <td colspan="4">
+        @notification_chunk@
+        <br><br>
+        <if @post_p@>
+          <nobr><small>[ <a href="message-post?forum_id=@forum_id@">Post a New Message</a> ]</small></nobr>
+        </if>
+      </td>
+    </tr>
+
+  </table>
+
+  <br>
+
+  <table bgcolor="#cccccc" cellpadding="5" width="95%">
+
+    <tr>
+      <th align="left" width="55%">Subject</th>
+      <th align="left" width="5%">Replies</th>
+      <th align="left" width="20%">Author</th>
+      <th align="left" width="20%">Last Post</th>
+    </tr>
+
 <multiple name="messages">
-<li> <if @moderate_p@ eq 1 and @messages.state@ ne approved><b><i>(@messages.state@)</i></b> &nbsp;</if> <a href="message-view?message_id=@messages.message_id@">@messages.subject@</a>, by <a href="user-history?user_id=@messages.user_id@">@messages.user_name@</a> on <%= [util_AnsiDatetoPrettyDate $messages(posting_date)] %>
+
+  <if @messages.rownum@ odd>
+    <tr bgcolor="#eeeeee">
+  </if>
+  <else>
+    <tr bgcolor="#d9e4f9">
+  </else>
+
+      <td>
+        <a href="message-view?message_id=@messages.message_id@">@messages.subject@</a>
+<if @moderate_p@ and @messages.state@ ne approved>
+        <small>(@messages.state@)</small>
+</if>
+      </td>
+      <td>@messages.n_messages@</td>
+      <td><a href="user-history?user_id=@messages.user_id@">@messages.user_name@</a></td>
+      <td>@messages.last_modified@</td>
+    </tr>
+
 </multiple>
-</ul>
+
+  </table>
+
+</center>

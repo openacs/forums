@@ -1,30 +1,40 @@
-
 ad_page_contract {
     
     Form to edit a message
 
     @author Ben Adida (ben@openforce)
     @creation-date 2002-05-25
-    @cvs-id $id: Exp $
+    @version $Id$
+
 } {
     message_id:integer,notnull
     {return_url "../message-view"}
 }
 
-# We would use the nice ad_form construct if we could
 form create message
 
 element create message message_id \
-        -label "Message ID" -datatype integer -widget hidden
+    -label "Message ID" \
+    -datatype integer \
+    -widget hidden
 
 element create message subject \
-        -label "Subject" -datatype text -widget text -html {size 60}
+    -label Subject \
+    -datatype text \
+    -widget text \
+    -html {size 60}
 
 element create message content \
-        -label "Body" -datatype text -widget textarea -html {rows 30 cols 60 wrap soft}
+    -label Body \
+    -datatype text \
+    -widget textarea \
+    -html {rows 20 cols 60 wrap soft}
 
 element create message html_p \
-        -label "Format" -datatype text -widget select -options {{text f} {html t}}
+    -label Format \
+    -datatype text \
+    -widget select \
+    -options {{text f} {html t}}
 
 if {[form is_valid message]} {
     template::form get_values message message_id subject content html_p

@@ -1,52 +1,74 @@
-
 ad_page_contract {
     
     Form to create message and insert it
 
-    @author Ben Adida (ben@openforce)
+    @author Ben Adida (ben@openforce.net)
     @creation-date 2002-05-25
-    @cvs-id $id: Exp $
-} {
+    @version $Id$
+
+} -query {
     {forum_id ""}
     {parent_id ""}
+} -validate {
+    forum_id_or_parent_id {
+        if {[empty_string_p $forum_id] && [empty_string_p $parent_id]} {
+            ad_complain "You either have to post to a forum or in reply to another message"
+        }
+    }
 }
 
-# Either forum_id or parent_id has to be non-null
-if {[empty_string_p $forum_id] && [empty_string_p $parent_id]} {
-    ns_log Notice "BMA: both are null!"
-    # error!
-    return -code error
-}
+set user_id [ad_verify_and_get_user_id]
 
-# We would use the nice ad_form construct if we could
 form create message
 
 element create message message_id \
-        -label "Message ID" -datatype integer -widget hidden
+    -label "Message ID" \
+    -datatype integer \
+    -widget hidden
 
 element create message subject \
-        -label "Subject" -datatype text -widget text -html {size 60}
+    -label Subject \
+    -datatype text \
+    -widget text \
+    -html {size 60}
 
 element create message content \
-        -label "Body" -datatype text -widget textarea -html {rows 30 cols 60 wrap soft}
+    -label Body \
+    -datatype text \
+    -widget textarea \
+    -html {rows 20 cols 60 wrap soft}
 
 element create message parent_id \
-        -label "parent ID" -datatype integer -widget hidden -optional
+    -label "parent ID" \
+    -datatype integer \
+    -widget hidden \
+    -optional
 
 element create message forum_id \
-        -label "forum ID" -datatype integer -widget hidden
+    -label "forum ID" \
+    -datatype integer \
+    -widget hidden
 
 element create message html_p \
-        -label "Format" -datatype text -widget select -options {{text f} {html t}}
+    -label Format \
+    -datatype text \
+    -widget select \
+    -options {{text f} {html t}}
 
 element create message confirm_p \
-        -label "Confirm?" -datatype text -widget hidden
+    -label "Confirm?" \
+    -datatype text \
+    -widget hidden
 
 element create message subscribe_p \
-        -label "Subscribe?" -datatype text -widget hidden -optional
+    -label "Subscribe?" \
+    -datatype text \
+    -widget hidden \
+    -optional
 
 if {[form is_valid message]} {
-    template::form get_values message message_id forum_id parent_id subject content html_p confirm_p subscribe_p
+    form get_values message \
+        message_id forum_id parent_id subject content html_p confirm_p subscribe_p
 
     if {!$confirm_p} {
         forum::get -forum_id $forum_id -array forum
@@ -67,16 +89,20 @@ if {[form is_valid message]} {
             }
         }
 
+        set context_bar [list [list "./forum-view?forum_id=$forum_id" "$forum(name)"]]
+        lappend context_bar {Post a Message}
+
         ad_return_template message-post-confirm
         return
     }
 
-    forum::message::new -forum_id $forum_id \
-            -message_id $message_id \
-            -parent_id $parent_id \
-            -subject $subject \
-            -content $content \
-            -html_p $html_p
+    forum::message::new \
+        -forum_id $forum_id \
+        -message_id $message_id \
+        -parent_id $parent_id \
+        -subject $subject \
+        -content $content \
+        -html_p $html_p
 
     if {[empty_string_p $parent_id]} {
         set message_view_url "[ad_conn package_url]message-view?message_id=$message_id"
@@ -98,12 +124,17 @@ if {[form is_valid message]} {
 }
 
 set message_id [db_nextval acs_object_id_seq]
+set subject ""
 
-if {[empty_string_p $forum_id]} {
+if {![empty_string_p $parent_id]} {
     # get the parent message information
     forum::message::get -message_id $parent_id -array parent_message
     set forum_id $parent_message(forum_id)
+    set subject "Re: $parent_message(subject)"
+
 }
+
+forum::security::require_post_forum -forum_id $forum_id
 
 forum::get -forum_id $forum_id -array forum
 
@@ -111,7 +142,16 @@ forum::get -forum_id $forum_id -array forum
 element set_properties message forum_id -value $forum_id
 element set_properties message parent_id -value $parent_id
 element set_properties message message_id -value $message_id
+element set_properties message subject -value $subject
 element set_properties message confirm_p -value 0
 element set_properties message subscribe_p -value 0
+
+set context_bar [list [list "./forum-view?forum_id=$forum_id" "$forum(name)"]]
+if {![empty_string_p $parent_id]} {
+    lappend context_bar [list "./message-view?message_id=$parent_message(message_id)" "$parent_message(subject)"]
+    lappend context_bar {Post a Reply}
+} else {
+    lappend context_bar {Post a Message}
+}
 
 ad_return_template

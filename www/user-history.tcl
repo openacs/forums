@@ -1,11 +1,11 @@
-
 ad_page_contract {
     
     Posting History for a User
 
     @author Ben Adida (ben@openforce)
     @creation-date 2002-05-29
-    @cvs-id $id: Exp $
+    @version $Id$
+
 } {
     user_id:integer,notnull
     {view "date"}

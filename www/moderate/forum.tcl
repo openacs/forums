@@ -1,11 +1,11 @@
-
 ad_page_contract {
 
     Moderate a Forum
 
     @author Ben Adida (ben@openforce)
     @creation-date 2002-05-24
-    @cvs-id $Id$
+    @version $Id$
+
 } {
     forum_id:integer,notnull
 }
