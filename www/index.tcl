@@ -31,7 +31,7 @@ element create search forum_id \
     -value ""
 
 db_multirow -extend { last_modified_pretty } forums select_forums {} {
-    set last_modified_pretty [lc_time_fmt $last_modified_ansi "%x %X"]
+    set last_modified_pretty [lc_time_fmt $last_post_ansi "%x %X"]
 }
 
 set context {}
