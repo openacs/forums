@@ -13,7 +13,7 @@
 </if>
 
 <if @admin_p@>
-          <a href="admin/forum-edit?forum_id=@forum_id@">Administer</a>] | 
+          <a href="admin/forum-edit?forum_id=@forum_id@">Administer</a> | 
 </if>
 
 <if @moderate_p@>
