@@ -15,9 +15,10 @@
             where message_id in (select message_id
                                  from forums_messages_pending
                                  where forum_id = :forum_id)
-            or tree_sortkey in (select tree_ancestor_key(tree_sortkey, 1)
+            or (tree_sortkey in (select tree_ancestor_key(tree_sortkey, 1)
                                 from forums_messages_pending
                                 where forum_id = :forum_id)
+	        and forum_id = :forum_id)
             order by tree_sortkey
         </querytext>
     </fullquery>
