@@ -22,7 +22,7 @@ set table_other_bgcolor [parameter::get -parameter table_other_bgcolor]
 # Load up the message information
 forum::message::get -message_id $message_id -array message
 
-set direct_url_base [export_vars -base [ad_conn url] { message_id }]
+set direct_url_base [export_vars -base [ad_conn url] { { message_id $message(root_message_id) } }]
 set message(direct_url) "$direct_url_base\#$message_id"
 
 # Check if the user has admin on the message
@@ -108,7 +108,7 @@ set message(number) [expr [lsearch $message_id_list $message(message_id)] + 1]
 set message(parent_number) {}
 if { [exists_and_not_null message(parent_id)] } {
     set message(parent_number) [expr [lsearch $message_id_list $message(parent_id)] + 1]
-    set message(parent_direct_url) "[export_vars -base message-view { { message_id $message(root_message_id) } }]\#$message(parent_id)"
+    set message(parent_direct_url) "$direct_url_base\#$message(parent_id)"
 }
 
 
