@@ -70,7 +70,7 @@ ad_proc -private forum::message::datasource { message_id } {
                 content $combined_content \
                 keywords {} \
                 storage_type text \
-                mime_type text/plain ]
+                mime text/plain ]
 }
 
 ad_proc -private forum::message::url { message_id } {
