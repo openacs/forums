@@ -31,8 +31,8 @@ create table forums_messages (
                                     references users(user_id)
                                     constraint forums_mess_user_id_nn
                                     not null,
-    posting_date                    timestamp
-                                    default now()
+    posting_date                    timestamptz
+                                    default current_timestamp
                                     constraint forum_mess_post_date_nn
                                     not null,
     state                           varchar(100)
@@ -50,7 +50,7 @@ create table forums_messages (
                                     check (open_p in ('t','f')),
     tree_sortkey                    varbit,
     max_child_sortkey               varbit,
-    last_child_post                 timestamp,
+    last_child_post                 timestamptz,
     constraint forums_mess_sk_forum_un
     unique (tree_sortkey, forum_id)
 );
@@ -58,6 +58,10 @@ create table forums_messages (
 -- We do a some big queries on forum_id (thread count on index.tcl) so create a second index 
 -- ordered so it's useful for them
 create unique index forums_mess_forum_sk_un on forums_messages(forum_id, tree_sortkey);
+-- Need these two for RI checks 
+create index forums_messages_user_id_idx ON forums_messages(user_id);
+create index forums_messages_parent_id_idx ON forums_messages(parent_id);
+
 
 create view forums_messages_approved
 as

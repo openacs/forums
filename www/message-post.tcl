@@ -48,8 +48,10 @@ element create message content \
     -html {rows 20 cols 60 wrap soft} \
     -validate {
         empty {expr ![empty_string_p [string trim $value]]} { [_ forums.lt_Please_enter_a_messag] }
-	html { expr {( [string match [set l_html_p [ns_queryget html_p f]] "t"] && [empty_string_p [set v_message [ad_html_security_check $value]]] ) || [string match $l_html_p "f"] } } {}	
+	html { expr {( [string match [set l_html_p [ns_queryget html_p f]] "t"] && [empty_string_p [set v_message [ad_quotehtml [ad_html_security_check $value]]]] ) || [string match $l_html_p "f"] } }
+	     {}	
     }
+
 
 element create message html_p \
     -label [_ forums.Format] \
@@ -183,9 +185,14 @@ if {![empty_string_p $parent_id]} {
 
     # trim multiple leading Re:
     regsub {^(\s*Re:\s*)*} $subject {Re: } subject
-}
 
-forum::security::require_post_forum -forum_id $forum_id
+    # see if they're allowed to add to this thread
+    forum::security::require_post_message -message_id $parent_id
+} else {
+    # no parent_id, therefore new thread
+    # require thread creation privs
+    forum::security::require_post_forum -forum_id $forum_id
+}
 
 forum::get -forum_id $forum_id -array forum
 
