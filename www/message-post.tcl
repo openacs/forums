@@ -36,7 +36,7 @@ element create message subject \
     -datatype text \
     -widget text \
     -html {size 60} \
-    -validate { {expr ![empty_string_p [string trim $value]]} {[_ forums.lt_Please_enter_a_subjec]} }
+    -validate { {expr ![empty_string_p [string trim $value]]} "[_ forums.lt_Please_enter_a_subjec]" }
 
 # we use ns_queryget to get the value of html_p because it won't be defined
 # until the next element -DaveB
@@ -123,7 +123,7 @@ if {[form is_valid message]} {
         }
 
         set context [list [list "./forum-view?forum_id=$forum_id" "$forum(name)"]]
-        lappend context {[_ forums.Post_a_Message]}
+        lappend context "[_ forums.Post_a_Message]"
 
         ad_return_template message-post-confirm
         return

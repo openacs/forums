@@ -46,7 +46,7 @@ if {[form is_valid search]} {
     set messages:rowcount 0
 }
 
-set context {[_ forums.Search]}
+set context "[_ forums.Search]"
 
 ad_return_template
 
