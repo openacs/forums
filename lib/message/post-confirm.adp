@@ -2,6 +2,7 @@
 
 <% set table_border_color [parameter::get -parameter table_border_color] %>
 
+
 <center>
   <table style="color: black; background-color: @table_border_color@ ;" width="95%">
     <include src="row" &message="message" preview=1>

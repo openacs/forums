@@ -29,10 +29,15 @@ ad_proc -public forums::form::message {
 
     template::element create $form_name ${prefix}message_body \
         -label [_ forums.Body] \
-        -datatype richtext \
-        -widget richtext \
-        -html {rows 20 cols 60 wrap soft} \
+        -datatype text \
+        -widget textarea \
+        -html {rows 20 cols 60 wrap soft} 
 
+    template::element create $form_name ${prefix}format \
+	-label "Format" \
+	-datatype text \
+	-widget select \
+	-options {{"Preformatted Text" "pre"} {"Plain Text" "plain"} {HTML "html"}}
 
     ##############################
     # Form validation
@@ -58,6 +63,7 @@ ad_proc -public forums::form::message {
 
     template::element set_properties $form_name ${prefix}message_body \
         -validate $content_val
+
 }
 
 ad_proc -public forums::form::post_message {

@@ -73,6 +73,7 @@ if {[form is_request message]} {
     form set_values message init_msg
 
 } elseif {[form is_valid message]} {
+
     ##############################
     # Form processing
     #
@@ -82,6 +83,7 @@ if {[form is_request message]} {
         parent_id \
         subject \
         message_body \
+        format \
         confirm_p \
         subscribe_p \
         anonymous_p \
@@ -96,12 +98,23 @@ if {[form is_request message]} {
             0]
 
     if { [string equal $action "preview"] } {
+
         set confirm_p 1
         set subject.spellcheck ":nospell:"
         set content.spellcheck ":nospell:"
-        set content [string trimright [template::util::richtext::get_property contents $message_body]]
-        set format [string trimright [template::util::richtext::get_property format $message_body]]
-        set exported_vars [export_vars -form {message_id forum_id parent_id subject {message_body $content} {message_body.format $format} confirm_p subject.spellcheck content.spellcheck anonymous_p attach_p}]
+        set content $message_body
+        set format $format
+
+	if {$format == "html"} {
+	    set content "$content"
+	} elseif {$format == "pre"} {
+	    set content [ad_text_to_html $content]
+	    
+	} else {
+	    set content [ad_quotehtml $content]
+	}
+
+        set exported_vars [export_vars -form {message_id forum_id parent_id subject {message_body $content} format confirm_p subject.spellcheck content.spellcheck anonymous_p attach_p}]
         
         set message(format) $format
         set message(subject) $subject
@@ -129,15 +142,25 @@ if {[form is_request message]} {
     }
 
     if { [string equal $action "post"] } {
-      set content [string trimright [template::util::richtext::get_property contents $message_body]]
-      set format [string trimright [template::util::richtext::get_property format $message_body]]
+      set content $message_body
+      set format $format
+
+      if {$format == "html"} {
+	  set content "$content"
+      } elseif {$format == "pre"} {
+	  set content [ad_text_to_html $content]	  
+      } else {
+	  set content [ad_quotehtml $content]
+      }
+
+
       forum::message::new \
           -forum_id $forum_id \
           -message_id $message_id \
           -parent_id $parent_id \
           -subject $subject \
           -content $content \
-          -format $format \
+	  -format "html" \
           -user_id $displayed_user_id
 
       if {[empty_string_p $parent_id]} {
