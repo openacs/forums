@@ -8,6 +8,7 @@
            bgcolor="@table_bgcolor;noquote@" 
            forum_moderated_p=@forum_moderated_p;noquote@ 
            moderate_p=@permissions.moderate_p;noquote@ 
+           presentation_type=@forum.presentation_type;noquote@
            &message="message">
 </table>
 
@@ -23,16 +24,16 @@
     <multiple name="responses">
     
     <if @forum.presentation_type@ ne "flat">
-    <% set width [expr 100 - [expr $responses(tree_level) - 1] * 1] %>
     <tr style="padding-top: 1em">
       <td align="left">
-        <table align="right" bgcolor="@table_border_color@" width="@width@%">
+        <table align="right" bgcolor="@table_border_color@" width="@responses.width@%">
     </if>
           <if @responses.rownum@ odd>
             <include src="row" 
                      bgcolor="@table_other_bgcolor;noquote@" 
                      forum_moderated_p=@forum_moderated_p;noquote@ 
                      moderate_p=@permissions.moderate_p;noquote@ 
+		     presentation_type=@forum.presentation_type;noquote@
                      &message="responses">
           </if>
           <else>
@@ -40,6 +41,7 @@
                      bgcolor="@table_bgcolor;noquote@"
                      forum_moderated_p=@forum_moderated_p;noquote@
                      moderate_p=@permissions.moderate_p;noquote@
+		     presentation_type=@forum.presentation_type;noquote@
                      &message="responses">
           </else>
     <if @forum.presentation_type@ ne "flat">

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="forums" package_version="1.0d4" locale="it_IT" charset="ISO-8859-1">
+<message_catalog package_key="forums" package_version="1.0.5" locale="it_IT" charset="ISO-8859-1">
 
   <msg key="Administer">Amministra</msg>
   <msg key="Administration">Amministrazione</msg>
+  <msg key="Anonymous">Anonimo</msg>
   <msg key="approve">approva</msg>
   <msg key="Are_you_sure_you_want_to_delete_lt">Sei sicuro di voler cancellare questo messaggio e &lt;strong&gt;tutte le risposte collegate&lt;/strong&gt;? </msg>
   <msg key="Attach">Allega?</msg>
   <msg key="Attachments">Allegati</msg>
   <msg key="Author">Autore</msg>
+  <msg key="Back_to_thread_label">Torna indietro&lt;/a&gt; a %forum.name%</msg>
   <msg key="Back_to_thread_link">&lt;a href=&quot;%thread_url%&quot;&gt;Torna indietro&lt;/a&gt; a %forum.name%</msg>
   <msg key="Body">Messaggio</msg>
   <msg key="by_Date">per Data</msg>
@@ -58,7 +60,7 @@
   <msg key="lt_Forums_Administration">Amministrazione Forum</msg>
   <msg key="lt_Need_to_provide_a_mes">Occorre un messaggio per visualizzare</msg>
   <msg key="lt_need_to_provide_a_mes">Occorre un messaggio per visualizzare l'allegato!</msg>
-  <msg key="lt_Note_that_you_are_alr">(Nota che tu hai gi&amp;agrave; sottoscritto il forum per intero. Potresti ricevere notifiche doppie)</msg>
+  <msg key="lt_Note_that_you_are_alr">(Nota che tu hai già sottoscritto il forum per intero. Potresti ricevere notifiche doppie)</msg>
   <msg key="lt_Please_confirm_the_fo">Conferma il seguente messaggio:</msg>
   <msg key="lt_Please_enter_a_messag">Inserisci un messaggio</msg>
   <msg key="lt_Please_enter_a_subjec">Inserisci un oggetto</msg>
@@ -113,11 +115,11 @@
   <msg key="Subject">Oggetto</msg>
   <msg key="Subscribe">Sottoscrivi?</msg>
   <msg key="text">testo</msg>
-  <msg key="This_forum_is">Questo forum &amp;egrave;</msg>
+  <msg key="This_forum_is">Questo forum è</msg>
   <msg key="Threaded">Ramificato</msg>
   <msg key="Threads">Discussioni</msg>
   <msg key="View">Vedi</msg>
-  <msg key="Yes">S&amp;igrave;</msg>
+  <msg key="Yes">Sì</msg>
   <msg key="You_may">Puoi</msg>
   <msg key="Your_Note">Tua nota</msg>
 </message_catalog>

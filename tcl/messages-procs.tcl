@@ -18,7 +18,6 @@ ad_proc -public forum::message::new {
     {-content:required}
     {-format "text/plain"}
     {-user_id ""}
-    {-posting_date ""}
 } {
     create a new message
 } {
@@ -29,12 +28,19 @@ ad_proc -public forum::message::new {
     }
 
     set original_message_id $message_id
-    # Prepare the variables for instantiation
-    set extra_vars [ns_set create]
-    oacs_util::vars_to_ns_set -ns_set $extra_vars -var_list {forum_id message_id parent_id subject content format user_id}
 
     db_transaction {
-        set message_id [package_instantiate_object -extra_vars $extra_vars forums_message]
+
+        set var_list [list \
+            [list forum_id $forum_id] \
+            [list message_id $message_id] \
+            [list parent_id $parent_id] \
+            [list subject $subject] \
+            [list content $content] \
+            [list format $format] \
+            [list user_id $user_id]]
+
+        set message_id [package_instantiate_object -var_list $var_list forums_message]
 
         get -message_id $message_id -array message
         if {[info exists message(state)] && [string equal $message(state) approved]} {
@@ -58,7 +64,7 @@ ad_proc -public forum::message::new {
                 ad_return_error \
                     "OACS Internal Error" \
                     "Error in forums::message::new - $errmsg"
-    	}
+            }
         }
     }
 
@@ -192,8 +198,10 @@ ad_proc -private forum::message::set_state {
     Set the new state for a message
     Usually used for approval
 } {
-    # simple DB update
-    db_dml update_message_state {}
+    set var_list [list \
+        [list message_id $message_id] \
+        [list state $state]]
+    package_exec_plsql -var_list $var_list forums_message set_state
 }
 
 ad_proc -public forum::message::reject {
@@ -225,7 +233,8 @@ ad_proc -public forum::message::delete {
         notification::request::delete_all -object_id $message_id
 
         # Remove the message
-        db_exec_plsql delete_message {}
+        set var_list [list [list message_id $message_id]]
+        package_exec_plsql -var_list $var_list forums_message delete_thread
     }
 }
 

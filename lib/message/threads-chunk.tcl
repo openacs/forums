@@ -11,14 +11,20 @@ ad_page_contract {
 # Get forum data
 forum::get -forum_id $forum_id -array forum
 
-set query messages_select
 if { $moderate_p } {
-    set query messages_select_moderator
+    set replies reply_count
+} else {
+    set replies approved_reply_count
 }
 
 set actions [list]
 
-if { [template::util::is_true $permissions(post_p)] } {
+# new postings are allowed if
+
+# 1. Users can create new threads AND the posting policy is open or moderated
+# 2. User is a moderator or adminsitrator
+
+if {([forum::new_questions_allowed_p -forum_id $forum_id] && ($forum(posting_policy) == "open" || $forum(posting_policy) == "moderated")) ||  [template::util::is_true $permissions(admin_p)] ||  [template::util::is_true $permissions(moderate_p)]  } {
     lappend actions [_ forums.Post_a_New_Message] [export_vars -base "message-post" { forum_id }] {}
 }
 
@@ -33,6 +39,8 @@ if { [template::util::is_true $permissions(moderate_p)] } {
 template::list::create \
     -name messages \
     -multirow messages \
+    -page_size 30 \
+    -page_query_name messages_select_paginate \
     -pass_properties { moderate_p } \
     -actions $actions \
     -elements {
@@ -101,7 +109,7 @@ db_multirow -extend {
     user_url
     n_messages_pretty
     state_pretty
-} messages $query {} {
+} messages messages_select {} {
     set last_child_post_ansi [lc_time_system_to_conn $last_child_post_ansi]
     set last_child_post_pretty [lc_time_fmt $last_child_post_ansi "%x %X"]
 

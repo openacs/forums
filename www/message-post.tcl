@@ -80,3 +80,5 @@ if {![string equal [template::form::get_button message] "preview"]} {
 
     ad_return_template "message-post-confirm"
 }
+
+

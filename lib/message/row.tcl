@@ -17,9 +17,10 @@ if {![exists_and_not_null bgcolor]} {
     set table_bgcolor $bgcolor
 }
 
-if { [string compare $message(format) "text/plain"] == 0 } {
-    set message(content) [ad_text_to_html -- $message(content)]
-}
+
+#if { [string compare $message(format) "text/plain"] == 0 } {
+set message(content) [ad_html_text_convert -from $message(format) -to text/html -- $message(content)]
+#}
 
 # convert emoticons to images if the parameter is set
 if { [string is true [parameter::get -parameter DisplayEmoticonsAsImagesP -default 0]] } {

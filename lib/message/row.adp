@@ -31,8 +31,11 @@
   
     <td align="right" style="padding-right: 1em; padding-left: 1em;">
       <div style="white-space: nowrap; font-size: x-small">
-        [ <a href="message-post?parent_id=@message.message_id@">#forums.reply#</a>
-        | <a href="message-email?message_id=@message.message_id@">#forums.forward#</a>
+        [
+	<if @presentation_type@ ne flat>
+	  <a href="message-post?parent_id=@message.message_id@">#forums.reply#</a> |
+        </if>
+	<a href="message-email?message_id=@message.message_id@">#forums.forward#</a>
         ]
         <if @moderate_p@>
           <br>
@@ -74,7 +77,7 @@
 </tr>
 
 <if @message.n_attachments@ not nil and @message.n_attachments@ gt 0>
-<tr bgcolor="@bgcolor@">
+<tr bgcolor=@table_bgcolor;noquote@>
   <td colspan="4">
     #forums.Attachments#
     <include src="attachment-list" &message="message" bgcolor=@table_bgcolor;noquote@>

@@ -46,6 +46,8 @@ create table forums_messages (
     tree_sortkey                    varbit,
     max_child_sortkey               varbit,
     last_child_post                 timestamptz,
+    reply_count                     integer default 0,
+    approved_reply_count            integer default 0,
     constraint forums_mess_sk_forum_un
     unique (tree_sortkey, forum_id)
 );

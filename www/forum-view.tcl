@@ -9,6 +9,7 @@ ad_page_contract {
 } -query {
     forum_id:integer,notnull
     {orderby "last_child_post,desc"}
+    page:optional
 }
 
 
@@ -26,7 +27,7 @@ forum::security::permissions -forum_id $forum_id permissions
 
 #it is confusing to provide a moderate link for non-moderated forums.
 if { $forum(posting_policy) != "moderated" } {
-    array set permissions [list moderate_p 0]
+    set permissions(moderate_p) 0
 }
 
 # get the colors from the params

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="forums" package_version="1.0d4" locale="pt_BR" charset="ISO-8859-1">
+<message_catalog package_key="forums" package_version="1.0.5" locale="pt_BR" charset="ISO-8859-1">
 
   <msg key="Administer">Administrar</msg>
   <msg key="Administration">Administração</msg>
+  <msg key="Anonymous">Anônimo</msg>
   <msg key="approve">aprovar</msg>
   <msg key="Are_you_sure_you_want_to_delete_lt">Tem certeza que quer apagar esta mensagem e &lt;strong&gt;todas as suas repostas&lt;/strong&gt;?</msg>
   <msg key="Attach">Anexar?</msg>
   <msg key="Attachments">Anexos:</msg>
   <msg key="Author">Autor</msg>
+  <msg key="Back_to_thread_label">Retornar ao fórum %forum.name%</msg>
   <msg key="Back_to_thread_link">&lt;a href=&quot;%thread_url%&quot;&gt;Retornar&lt;/a&gt; para %forum.name%</msg>
   <msg key="Body">Corpo</msg>
   <msg key="by_Date">por Data</msg>
