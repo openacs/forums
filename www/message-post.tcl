@@ -119,8 +119,10 @@ if {$attachments_enabled_p} {
 
 if {[form is_valid message]} {
     form get_values message \
-        message_id forum_id parent_id subject content html_p confirm_p subscribe_p anonymous_p attach_p
-    
+        message_id forum_id parent_id subject content html_p confirm_p subscribe_p anonymous_p 
+    if {$attachments_enabled_p} {
+	form get_values message attach_p    
+    }
     if { !$anonymous_allowed_p } {
         set anonymous_p 0
     }
