@@ -17,7 +17,6 @@ select define_function_args('forums_forum__name','forum_id');
 
 select define_function_args('forums_forum__delete','forum_id');
 
-
 -- implementation
 
 create function forums_forum__new (integer,varchar,varchar,varchar,varchar,varchar,integer,timestamp,integer,varchar,integer)
@@ -48,7 +47,7 @@ BEGIN
         (forum_id, name, charter, presentation_type, posting_policy, package_id) values
         (v_forum_id, p_name, p_charter, p_presentation_type, p_posting_policy, p_package_id);
 
-        select acs_object__update_last_modified(p_context_id);
+        perform acs_object__update_last_modified(p_context_id);
 
 	return v_forum_id;
 END;

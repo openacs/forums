@@ -11,8 +11,6 @@
 -- chunks lifted from Gilbert. Thanks Orchard Labs!
 --
 
-
-
 drop function forums_forum__new (integer,varchar,varchar,varchar,varchar,varchar,integer,timestamp,integer,varchar,integer);
 
 drop function forums_forum__name(integer);

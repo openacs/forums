@@ -10,47 +10,63 @@
 --
 
 -- the integration with Notifications
+create function inline_0 ()
+returns integer as '
 declare
-        v_foo   integer;
+    v_foo                           integer;
 begin
-        v_foo:= notification_type.new (
-                short_name => 'forums_forum_notif',
-                pretty_name => 'Forum Notification',
-                description => 'Notifications for Entire Forums',
-                creation_user => NULL,
-                creation_ip => NULL
-                );
 
-        -- enable the various intervals and delivery methods
-        insert into notification_types_intervals
-        (type_id, interval_id)
-        select v_foo, interval_id
-        from notification_intervals where name in ('instant','hourly','daily');
+    v_foo := notification_type__new(
+        null,
+        ''forums_forum_notif'',
+        ''Forum Notification'',
+        ''Notifications for Entire Forums'',
+        null,
+        null,
+        null,
+        null
+    );
 
-        insert into notification_types_del_methods
-        (type_id, delivery_method_id)
-        select v_foo, delivery_method_id
-        from notification_delivery_methods where short_name in ('email');
+    -- enable the various intervals and delivery methods
+    insert into notification_types_intervals
+    (type_id, interval_id)
+    select v_foo, interval_id
+    from notification_intervals
+    where name in (''instant'',''hourly'',''daily'');
 
-        v_foo:= notification_type.new (
-                short_name => 'forums_message_notif',
-                pretty_name => 'Message Notification',
-                description => 'Notifications for Message Thread',
-                creation_user => NULL,
-                creation_ip => NULL
-                );
+    insert into notification_types_del_methods
+    (type_id, delivery_method_id)
+    select v_foo, delivery_method_id
+    from notification_delivery_methods
+    where short_name in (''email'');
 
-        -- enable the various intervals and delivery methods
-        insert into notification_types_intervals
-        (type_id, interval_id)
-        select v_foo, interval_id
-        from notification_intervals where name in ('instant','hourly','daily');
+    v_foo := notification_type__new(
+        null,
+        ''forums_message_notif'',
+        ''Message Notification'',
+        ''Notifications for Message Thread'',
+        null,
+        null,
+        null,
+        null
+    );
 
-        insert into notification_types_del_methods
-        (type_id, delivery_method_id)
-        select v_foo, delivery_method_id
-        from notification_delivery_methods where short_name in ('email');
+    -- enable the various intervals and delivery methods
+    insert into notification_types_intervals
+    (type_id, interval_id)
+    select v_foo, interval_id
+    from notification_intervals
+    where name in (''instant'',''hourly'',''daily'');
 
-end;
-/
-show errors
+    insert into notification_types_del_methods
+    (type_id, delivery_method_id)
+    select v_foo, delivery_method_id
+    from notification_delivery_methods
+    where short_name in (''email'');
+
+    return null;
+
+end;' language 'plpgsql';
+
+select inline_0();
+drop function inline_0 ();

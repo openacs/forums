@@ -23,4 +23,4 @@ drop function forums_message__delete (integer);
 
 drop function forums_message__delete_thread (integer);
 
-
+drop function forums_message__name (integer);

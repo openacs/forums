@@ -74,7 +74,7 @@ BEGIN
         values
         (v_message_id, p_forum_id, p_subject, p_content, p_html_p, p_user_id, p_posting_date, p_parent_id, v_state);
 
-        select acs_object__update_last_modified(p_forum_id);
+        perform acs_object__update_last_modified(p_forum_id);
 
         return v_message_id;
 END;
