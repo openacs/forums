@@ -4,7 +4,7 @@
 
 <table width="95%">
   
-  <#Are_you_sure_you_want_to_delete_lt Are you sure you want to delete this message and <strong>all replies to it</strong>?#>
+  #forums.Are_you_sure_you_want_to_delete_lt#
   <p>
   
   <table style="color: black; background-color: @table_border_color@;" width="100%">
