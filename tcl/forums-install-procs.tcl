@@ -43,6 +43,7 @@ ad_proc -private ::install::xml::action::forum-create { node } {
     set url [apm_required_attribute_value $node url]
     set name [apm_required_attribute_value $node name]
     set presentation [apm_attribute_value -default "flat" $node presentation]
+    set id [apm_attribute_value -default "" $node id]
     set posting_policy [apm_attribute_value -default "open" $node posting-policy]
 
 
@@ -51,6 +52,14 @@ ad_proc -private ::install::xml::action::forum-create { node } {
 
     set package_id [site_node::get_element -url $url -element package_id]
 
-    forum::new -name $name -charter $charter -presentation_type $presentation \
-        -posting_policy $posting_policy -package_id $package_id
+    set forum_id [forum::new \
+                      -name $name \
+                      -charter $charter \
+                      -presentation_type $presentation \
+                      -posting_policy $posting_policy \
+                      -package_id $package_id]
+
+    if {![string equal $id ""]} {
+        set ::install::xml::ids($id) $forum_id
+    }
 }
