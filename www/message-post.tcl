@@ -157,7 +157,8 @@ if {[form is_valid message]} {
             }
         }
 
-        set context [list [list "./forum-view?forum_id=$forum_id" "$forum(name)"]]
+
+        set context [list [list "./forum-view?forum_id=$forum_id" [ad_quotehtml $forum(name)]]]
         lappend context "[_ forums.Post_a_Message]"
 
         ad_return_template message-post-confirm
@@ -253,7 +254,7 @@ if {[info exists subject]} {
 element set_properties message confirm_p -value 0
 element set_properties message subscribe_p -value 0
 
-set context [list [list "./forum-view?forum_id=$forum_id" "$forum(name)"]]
+set context [list [list "./forum-view?forum_id=$forum_id" [ad_quotehtml $forum(name)]]]
 if {![empty_string_p $parent_id]} {
     lappend context [list "./message-view?message_id=$parent_message(message_id)" "$parent_message(subject)"]
     lappend context [_ forums.Post_a_Reply]

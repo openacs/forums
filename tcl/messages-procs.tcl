@@ -39,8 +39,7 @@ ad_proc -public forum::message::new {
         if {[info exists message(state)] && [string equal $message(state) approved]} {
             do_notifications -message_id $message_id
         }
-    }  on_error {
-
+    } on_error {
         db_abort_transaction
         
         # Check to see if the message with a message_id matching the
@@ -93,7 +92,7 @@ Author: $message(user_name) ($message(user_email))\n\n"
 
 
      if { $message(html_p) } {
-         append text_version [ad_html_to_text $message(content)]
+         append text_version [ad_html_to_text -- $message(content)]
      } else {
          append text_version [wrap_string $message(content)]
      }

@@ -174,7 +174,7 @@ set notification_chunk [notification::display::request_widget \
 ]
 
 set page_title "[_ forums.Forum_1] $forum(name)"
-set context [list $forum(name)]
+set context [list [ad_quotehtml $forum(name)]]
 
 
 
