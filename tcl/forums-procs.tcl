@@ -45,9 +45,13 @@ ad_proc -public forum::edit {
 }
 
 ad_proc -public forum::attachments_enabled_p {} {
-    set package_id [site_node_apm_integration::child_package_exists_p \
-        -package_key attachments
-    ]
+    if {[string eq forums [ad_conn package_key]]} { 
+	set package_id [site_node_apm_integration::child_package_exists_p \
+			    -package_key attachments
+		       ]
+    } else { 
+	return 0
+    }
 }
 
 ad_proc -public forum::list_forums {
