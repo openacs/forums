@@ -50,7 +50,7 @@ element create forum new_threads_p \
     -label [_ forums.lt_Users_Can_Create_New_] \
     -datatype integer \
     -widget radio \
-    -options [list [list [_ forums.yes] 1] [list [_ forums.no] 0] ] \
+    -options [list [list [_ forums.Yes] 1] [list [_ forums.No] 0] ] \
     -default 1
 
 if {[form is_valid forum]} {
