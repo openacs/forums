@@ -13,6 +13,15 @@ forum_id= :forum_id
 </querytext>
 </fullquery>
 
+<fullquery name="forum::list_forums.select_forums">
+<querytext>
+select forum_id, name, posting_policy, presentation_type
+from forums_forums
+where package_id= :package_id
+order by name
+</querytext>
+</fullquery>
+
 <fullquery name="forum::get.select_forum">      
       <querytext>
       

@@ -47,16 +47,20 @@ namespace eval forum::message {
         # Select all the important information
         get -message_id $message_id -array message
 
-        set new_content "$message(user_name) ($message(user_email)) posted on [util_AnsiDatetoPrettyDate $message(posting_date)]:"
+        set new_content "$message(forum_name) - $message(root_subject)\n"
+        append new_content "$message(user_name) ($message(user_email)) posted on [util_AnsiDatetoPrettyDate $message(posting_date)]:"
         append new_content "\n\n"
         append new_content $message(content)
 
         # Do the notification for the forum
-        notification::new -type_id [notification::type::get_type_id -short_name forums_forum_notif] \
+        notification::new \
+                -type_id [notification::type::get_type_id -short_name forums_forum_notif] \
                 -object_id $message(forum_id) -response_id $message(message_id) -notif_subject $message(subject) -notif_text $new_content
         
         # Eventually we need notification for the root message too
-        # FIXME
+        notification::new \
+                -type_id [notification::type::get_type_id -short_name forums_message_notif] \
+                -object_id $message(root_message_id) -response_id $message(message_id) -notif_subject $message(subject) -notif_text $new_content
     }
     
     ad_proc -public edit {

@@ -83,7 +83,8 @@ begin
             pretty_plural => 'Forums Forums',
             table_name => 'forums_forums',
             id_column => 'forum_id',
-            package_name => 'forums_forum'
+            package_name => 'forums_forum',
+            name_method => 'forums_forum.name'
         );
 end;
 /

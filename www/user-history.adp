@@ -2,6 +2,8 @@
 <property name="title">Forums: Posting History for @user.full_name@</property>
 <property name="context_bar">@context_bar@</property>
 
+You are viewing Forums posting information for <b><%= [acs_community_member_link -user_id $user(user_id)] %></b>.
+
 <center>
 @dimensional_chunk@
 </center>

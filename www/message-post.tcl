@@ -38,8 +38,37 @@ element create message forum_id \
 element create message html_p \
         -label "Format" -datatype text -widget select -options {{text f} {html t}}
 
+element create message confirm_p \
+        -label "Confirm?" -datatype text -widget hidden
+
+element create message subscribe_p \
+        -label "Subscribe?" -datatype text -widget hidden
+
 if {[form is_valid message]} {
-    template::form get_values message message_id forum_id parent_id subject content html_p
+    template::form get_values message message_id forum_id parent_id subject content html_p confirm_p subscribe_p
+
+    if {!$confirm_p} {
+        forum::get -forum_id $forum_id -array forum
+
+        set confirm_p 1
+        set exported_vars [export_form_vars message_id forum_id parent_id subject content html_p confirm_p]
+        
+        # Let's check if this person is subscribed to the forum
+        # in case we might want to subscribe them to the thread
+        if {[empty_string_p $parent_id]} {
+            if {![empty_string_p [notification::request::get_request_id \
+                    -type_id [notification::type::get_type_id -short_name forums_forum_notif] \
+                    -object_id $forum_id \
+                    -user_id [ad_conn user_id]]]} {
+                set forum_notification_p 1
+            } else {
+                set forum_notification_p 0
+            }
+        }
+
+        ad_return_template message-post-confirm
+        return
+    }
 
     forum::message::new -forum_id $forum_id \
             -message_id $message_id \
@@ -48,7 +77,18 @@ if {[form is_valid message]} {
             -content $content \
             -html_p $html_p
 
-    ad_returnredirect "message-view?message_id=$message_id"
+    set message_view_url "[ad_conn package_url]message-view?message_id=$message_id"
+
+    if {$subscribe_p && [empty_string_p $parent_id]} {
+        set notification_url [notification::display::subscribe_url -type forums_message_notif -object_id $message_id -url $message_view_url -user_id [ad_conn user_id]]
+
+        # redirect to notification stuff
+        ad_returnredirect $notification_url
+    } else {
+        # redirect to viewing the message
+        ad_returnredirect $message_view_url
+    }
+
     ad_script_abort
 }
 
@@ -66,5 +106,7 @@ forum::get -forum_id $forum_id -array forum
 element set_properties message forum_id -value $forum_id
 element set_properties message parent_id -value $parent_id
 element set_properties message message_id -value $message_id
+element set_properties message confirm_p -value 0
+element set_properties message subscribe_p -value 0
 
 ad_return_template

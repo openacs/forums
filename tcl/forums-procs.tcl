@@ -43,6 +43,14 @@ namespace eval forum {
         db_dml update_forum {}
     }
 
+    ad_proc -public list_forums {
+        {-package_id:required}
+    } {
+        List all forums in a package
+    } {
+        return [db_list_of_ns_sets select_forums {}]
+    }
+    
     ad_proc -public get {
         {-forum_id:required}
         {-array:required}
