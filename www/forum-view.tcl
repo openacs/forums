@@ -66,7 +66,7 @@ if {$moderate_p} {
     set query messages_select_moderator
 }
 
-db_multirow -extend { last_post_pretty } messages $query {} {
+db_multirow -extend { last_child_post_pretty } messages $query {} {
     set last_child_post_pretty [lc_time_fmt $last_child_post_ansi "%x %X"]
 }
 

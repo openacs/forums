@@ -38,7 +38,7 @@ element create forum presentation_type \
     -label [_ forums.Presentation] \
     -datatype text \
     -widget select \
-    -options {{Flat flat} {Threaded threaded}}
+    -options [list [list [_ forums.Flat] flat] [list [_ forums.Threaded] threaded]]
 
 element create forum posting_policy \
     -label [_ forums.Posting_Policy] \
