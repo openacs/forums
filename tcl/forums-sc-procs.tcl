@@ -63,7 +63,7 @@ ad_proc datasource { message_id } {
         }
         
         if  { $html_p } {
-            append combined_content [ad_html_to_text -showtags $content]
+            append combined_content [ad_html_to_text -showtags -- $content]
         } else {
             append combined_content $content
         }

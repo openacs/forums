@@ -81,7 +81,7 @@ ad_proc -public forum::message::do_notifications {
     append new_content "<p>-------------------<br>"
 
     # send text for now.
-    set new_content [ad_html_to_text $new_content]
+    set new_content [ad_html_to_text -- $new_content]
     set html_version $new_content
 
     set text_version ""

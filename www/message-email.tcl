@@ -44,13 +44,13 @@ if {[form is_valid message]} {
     # Get the data
     forum::message::get -message_id $message_id -array message
 
-    set new_body "[ad_html_to_text $pre_body]"
+    set new_body "[ad_html_to_text -- $pre_body]"
     append new_body "\n\n===================================\n\n"
     # Variables for I18N message lookup:
     set posting_date $message(posting_date)
     set user_name $message(user_name)
     append new_body "[_ forums.email_alert_body_header]\n\n"
-    append new_body "[ad_html_to_text $message(content)]\n"
+    append new_body "[ad_html_to_text -- $message(content)]\n"
 
     # Send the email
     acs_mail_lite::send -to_addr $to_email \
