@@ -26,7 +26,7 @@
     <if @forum.presentation_type@ ne "flat">
     <tr style="padding-top: 1em">
       <td align="left">
-        <table align="right" bgcolor="@table_border_color@" width="@width@%">
+        <table align="right" bgcolor="@table_border_color@" width="@responses.width@%">
     </if>
           <if @responses.rownum@ odd>
             <include src="row" 
