@@ -13,7 +13,9 @@ forum::get -forum_id $forum_id -array forum
 
 set query messages_select
 if { $moderate_p } {
-    set query messages_select_moderator
+    set replies_view forums_messages
+} else {
+    set replies_view forums_messages_approved
 }
 
 set actions [list]
@@ -38,6 +40,8 @@ if { [template::util::is_true $permissions(moderate_p)] } {
 template::list::create \
     -name messages \
     -multirow messages \
+    -page_size 30 \
+    -page_query_name messages_select_paginate \
     -pass_properties { moderate_p } \
     -actions $actions \
     -elements {
@@ -106,7 +110,7 @@ db_multirow -extend {
     user_url
     n_messages_pretty
     state_pretty
-} messages $query {} {
+} messages messages_select {} {
     set last_child_post_ansi [lc_time_system_to_conn $last_child_post_ansi]
     set last_child_post_pretty [lc_time_fmt $last_child_post_ansi "%x %X"]
 
