@@ -31,6 +31,7 @@
   <msg key="Edit_Message">Edit Message:</msg>
   <msg key="Email">Email</msg>
   <msg key="email">email</msg>
+  <msg key="forward">forward</msg>
   <msg key="Email_Message">Email Message:</msg>
   <msg key="Email_to_a_friend">Email to a friend</msg>
   <msg key="enable">enable</msg>

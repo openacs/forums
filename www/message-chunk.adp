@@ -21,7 +21,7 @@
     <td align=right style="padding-right: 1em; padding-left: 1em;">
       <div style="white-space: nowrap; font-size: x-small">
         [ <a href="message-post?parent_id=@message.message_id@">#forums.reply#</a>
-        | <a href="message-email?message_id=@message.message_id@">#forums.email#</a>
+        | <a href="message-email?message_id=@message.message_id@">#forums.forward#</a>
         ]
         <if @moderate_p@>
           <br>
