@@ -87,7 +87,6 @@ ad_proc -private forum::message::url { message_id } {
     return "[ad_url][db_string select_forums_package_url {}]message-view?message_id=$message_id"
 }
 
-}
 
 
 namespace eval forum::forum {}
