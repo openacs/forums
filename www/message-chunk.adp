@@ -4,9 +4,6 @@
           <tr bgcolor="@bgcolor@">
             <td>
               <b><a href="message-view?message_id=@message.message_id@">@message.subject@</a></b>
-<if @message.n_attachments@ not nil and @message.n_attachments@ gt 0>
-  <include src="message-attachment-chunk" &message="message">
-</if>
             </td>
           </tr>
         </table>
@@ -41,3 +38,6 @@
     <tr bgcolor="@bgcolor@">
       <td colspan="4"><blockquote>@message.content@</blockquote></td>
     </tr>
+<if @message.n_attachments@ not nil and @message.n_attachments@ gt 0>
+  <include src="message-attachment-chunk" &message="message" bgcolor=@bgcolor@>
+</if>
