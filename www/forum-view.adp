@@ -14,3 +14,7 @@
 </if>
 
 <include src="/packages/forums/lib/message/threads-chunk" forum_id="@forum_id@" &="permissions" moderate_p="@permissions.moderate_p@" orderby="@orderby@" &="page">
+
+<p>
+@notification_chunk;noquote@
+</p>
