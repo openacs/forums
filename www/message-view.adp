@@ -10,12 +10,6 @@
   <tr style="white-space: normal">
     <td align=left>
       @notification_chunk@
-      <br>
-      <if @post_p@>
-        <small>
-          [&nbsp;<a href="message-post?forum_id=@forum_id@">Post a New Message</a>.&nbsp;]
-        </small>
-      </if>
     </td>
     <td align=right>
       <formtemplate id="search">
@@ -71,3 +65,9 @@
 </if>
 
 </center>
+
+<if @reply_url@ not nil>
+  <blockquote>
+    <a href="@reply_url@"><b>#forums.Post_a_Reply#</b></a>
+  </blockquote>
+</if>
