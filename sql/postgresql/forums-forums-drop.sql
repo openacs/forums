@@ -13,10 +13,6 @@
 create function inline_0 ()
 returns integer as '
 begin
-    -- temporarily drop this trigger to avoid a data-change violation 
-    -- on acs_privilege_hierarchy_index while updating the child privileges.
-    drop trigger acs_priv_hier_ins_del_tr on acs_privilege_hierarchy;
-
     -- remove children
     perform acs_privilege__remove_child(''read'',''forum_read'');
     perform acs_privilege__remove_child(''create'',''forum_create'');
@@ -26,11 +22,6 @@ begin
     perform acs_privilege__remove_child(''forum_moderate'',''forum_read'');
     perform acs_privilege__remove_child(''forum_moderate'',''forum_post'');
     perform acs_privilege__remove_child(''forum_write'',''forum_read'');
-
-    -- reenable for trigger update
-    create trigger acs_priv_hier_ins_del_tr after insert or delete
-    on acs_privilege_hierarchy for each row
-    execute procedure acs_priv_hier_ins_del_tr ();
 
     perform acs_privilege__remove_child(''forum_write'',''forum_post'');
     
