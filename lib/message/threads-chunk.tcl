@@ -42,7 +42,6 @@ template::list::create \
     -multirow messages \
     -page_size 30 \
     -page_query_name messages_select_paginate \
-    -page_flush_p t \
     -pass_properties { moderate_p } \
     -actions $actions \
     -elements {

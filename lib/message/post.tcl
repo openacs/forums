@@ -165,6 +165,10 @@ if {[form is_request message]} {
 	  -format "text/html" \
           -user_id $displayed_user_id
 
+      # DRB: Black magic cache flush call which will disappear when list builder is
+      # rewritten to paginate internally rather than use the template paginator.
+      cache flush "messages,forum_id=$forum_id*"
+
       if {[empty_string_p $parent_id]} {
           set redirect_url "[ad_conn package_url]message-view?message_id=$message_id"
       } else {
