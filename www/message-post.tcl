@@ -9,7 +9,6 @@ ad_page_contract {
 } -query {
     {forum_id ""}
     {parent_id ""}
-    {html_p "f"}
 } -validate {
     forum_id_or_parent_id {
         if {[empty_string_p $forum_id] && [empty_string_p $parent_id]} {

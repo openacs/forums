@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <queryset>
 
-    <fullquery name="forum::message::set_html_p.update_message_html_p">
+    <fullquery name="forum::message::set_format.update_message_format">
         <querytext>
             update forums_messages
-            set html_p = :html_p
+            set format = :format
             where message_id = :message_id
         </querytext>
     </fullquery>
@@ -22,7 +22,7 @@
             update forums_messages
             set subject = :subject,
                 content = :content,
-                html_p = :html_p
+                format = :format
             where message_id = :message_id
         </querytext>
     </fullquery>

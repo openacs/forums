@@ -1,4 +1,16 @@
+alter table forums_messages add format varchar2(30) default 'text/plain';
 
+update forums_messages
+set format = 'text/html'
+where html_p = 't';
+update forums_messages
+set format = 'text/plain'
+where html_p = 'f';
+
+alter table forums_messages add constraint forums_mess_format_ck check (format in ('text/enhanced', 'text/plain', 'text/fixed-width', 'text/html'));
+alter table forums_messages drop column html_p;
+
+-- forums-messages-package-create.sql
 --
 -- The Forums Package
 --
@@ -80,12 +92,10 @@ as
     ) return forums_messages.message_id%TYPE
     is
         v_message_id acs_objects.object_id%TYPE;
-        v_package_id acs_objects.package_id%TYPE;
         v_sortkey forums_messages.tree_sortkey%TYPE;
         v_forum_policy forums_forums.posting_policy%TYPE;
         v_state forums_messages.state%TYPE;
     begin
-        select package_id into v_package_id from forums_forums where forum_id = new.forum_id;
 
         v_message_id := acs_object.new(
             object_id => message_id,
@@ -93,9 +103,7 @@ as
             creation_date => creation_date,
             creation_user => creation_user,
             creation_ip => creation_ip,
-            context_id => nvl(context_id, forum_id),
-            title => subject,
-            package_id => v_package_id
+            context_id => nvl(context_id, forum_id)
         );
 
         if state is null
@@ -263,3 +271,15 @@ as
 end forums_message;
 /
 show errors
+
+
+create or replace view forums_messages_approved as
+    select *
+    from forums_messages
+    where state = 'approved';
+
+create or replace view forums_messages_pending as
+    select *
+    from forums_messages
+    where state = 'pending';
+

@@ -19,13 +19,6 @@ create table forums_messages (
                                     references forums_forums (forum_id),
     subject                         varchar(200),
     content                         clob,
-    -- html_p only applies to the body. The subject is plaintext.
-    html_p                          char(1)
-                                    default 'f'
-                                    constraint forums_mess_html_p_ck
-                                    check (html_p in ('t','f'))
-                                    constraint forums_mess_html_p_nn
-                                    not null,
     user_id                         integer
                                     constraint forums_mess_user_id_fk
                                     references users(user_id)

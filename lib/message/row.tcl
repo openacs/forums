@@ -17,7 +17,7 @@ if {![exists_and_not_null bgcolor]} {
     set table_bgcolor $bgcolor
 }
 
-if { [string is false $message(html_p)] } {
+if { [string compare $message(format) "text/plain"] == 0 } {
     set message(content) [ad_text_to_html -- $message(content)]
 }
 

@@ -91,27 +91,41 @@ ad_proc -public forum::posting_policy_set {
 
 ad_proc -public forum::new_questions_allow {
     {-forum_id:required}
+    {-party_id ""}
 } {
+    if { [empty_string_p $party_id] } {
+        set party_id [acs_magic_object registered_users]
+    }
     # Give the public the right to ask new questions
     permission::grant -object_id $forum_id \
-            -party_id [acs_magic_object registered_users] \
+            -party_id $party_id \
             -privilege forum_create
+    util_memoize_flush_regexp  $forum_id
 }
 
 ad_proc -public forum::new_questions_deny {
     {-forum_id:required}
+    {-party_id ""}
 } {
+    if { [empty_string_p $party_id] } {
+        set party_id [acs_magic_object registered_users]
+    }
     # Revoke the right from the public to ask new questions
     permission::revoke -object_id $forum_id \
-            -party_id [acs_magic_object registered_users] \
+            -party_id $party_id \
             -privilege forum_create
+    util_memoize_flush_regexp  $forum_id
 }
 
 ad_proc -public forum::new_questions_allowed_p {
     {-forum_id:required}
+    {-party_id ""}
 } {
+    if { [empty_string_p $party_id] } {
+        set party_id [acs_magic_object registered_users]
+    }
     permission::permission_p -object_id $forum_id \
-            -party_id [acs_magic_object registered_users] \
+            -party_id $party_id \
             -privilege forum_create
 }
 

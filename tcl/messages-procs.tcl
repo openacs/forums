@@ -16,8 +16,9 @@ ad_proc -public forum::message::new {
     {-parent_id ""}
     {-subject:required}
     {-content:required}
-    {-html_p "f"}
+    {-format "text/plain"}
     {-user_id ""}
+    {-posting_date ""}
 } {
     create a new message
 } {
@@ -30,7 +31,7 @@ ad_proc -public forum::message::new {
     set original_message_id $message_id
     # Prepare the variables for instantiation
     set extra_vars [ns_set create]
-    oacs_util::vars_to_ns_set -ns_set $extra_vars -var_list {forum_id message_id parent_id subject content html_p user_id}
+    oacs_util::vars_to_ns_set -ns_set $extra_vars -var_list {forum_id message_id parent_id subject content format user_id}
 
     db_transaction {
         set message_id [package_instantiate_object -extra_vars $extra_vars forums_message]
@@ -73,48 +74,63 @@ ad_proc -public forum::message::do_notifications {
     set forum_id $message(forum_id)
     set url "[ad_url][db_string select_forums_package_url {}]"
 
-    set new_content ""
-    append new_content "Forum:  <a href=\"${url}forum-view?forum_id=$message(forum_id)\">$message(forum_name)</a><br>\n"
-    append new_content "Thread: <a href=\"${url}message-view?message_id=$message(root_message_id)\">$message(root_subject)</a><br>\n"
-    append new_content "Author: <a href=\"mailto:$message(user_email)\">$message(user_name)</a><br>\n"
-    append new_content "\n<br>\n"
-    append new_content $message(content)
-    append new_content "<p>-------------------<br>"
+    set attachments [attachments::get_attachments -object_id $message(message_id)]
+    if {$message(html_p) == "t"} {
+        set message_html $message(content)
+        set message_text [ad_html_text_convert -from html -to text $message(content)]
+    } else {
+        set message_text $message(content)
+        set message_html [ad_html_text_convert -from text -to html $message(content)]
+    }
 
-    # send text for now.
-    set new_content [ad_html_to_text -- $new_content]
-    set html_version $new_content
+    set html_version ""
+    append html_version "Forum:  <a href=\"${url}forum-view?forum_id=$message(forum_id)\">$message(forum_name)</a><br>\n"
+    append html_version "Thread: <a href=\"${url}message-view?message_id=$message(root_message_id)\">$message(root_subject)</a><br>\n"
+    append html_version "Author: $message(user_name)<br>\n"
+    append html_version "Posted: $message(posting_date)<br>"
+    append html_version "\n<br>\n"
+    append html_version $message_html
+    append html_version "<p>   "
+
+    if {[llength $attachments] > 0} {
+    append html_version "Attachments:
+                            <ul> "
+
+    foreach attachment $attachments {
+       append html_version "<li><a href=\"[lindex $attachment 2]\">[lindex $atta
+chment 1]</a></li>"
+            }
+    append html_version "</ul>"
+
+    }
+
+    set html_version $html_version
 
     set text_version ""
-    
-    append text_version "Forum: $message(forum_name)
-Thread: $message(root_subject)
-Author: $message(user_name) ($message(user_email))\n\n"
-
-
-     if { $message(html_p) } {
-         append text_version [ad_html_to_text -- $message(content)]
-     } else {
-         append text_version [wrap_string $message(content)]
-     }
-     append text_version "\n\n-- 
+    append text_version "
+Forum: $message(forum_name)
+Thread: $message(root_message_id)
+Author: $message(user_name)
+Posted: $message(posting_date)
+----------------------------------
+$message_text
+---------------------------------
 To post a reply to this email or view this message go to: 
 ${url}message-view?message_id=$message(root_message_id)
+
+To view Forum $message(forum_name) go to:
+${url}forum-view?forum_id=$message(forum_id)
 "
-
-    set new_content $text_version
-    ns_log debug "forums: requesting a notification forum $message(forum_name) subject $message(subject)" 
-
-
     # Do the notification for the forum
     notification::new \
         -type_id [notification::type::get_type_id \
         -short_name forums_forum_notif] \
         -object_id $message(forum_id) \
         -response_id $message(message_id) \
-        -notif_user $message(user_id) \
-        -notif_subject $message(subject) \
-        -notif_text $new_content
+        -notif_subject "\[$message(forum_name)\] $message(subject)" \
+        -notif_text $text_version \
+        -notif_html $html_version
+
     
     # Eventually we need notification for the root message too
     notification::new \
@@ -122,16 +138,16 @@ ${url}message-view?message_id=$message(root_message_id)
         -short_name forums_message_notif] \
         -object_id $message(root_message_id) \
         -response_id $message(message_id) \
-        -notif_user $message(user_id) \
-        -notif_subject $message(subject) \
-        -notif_text $new_content
+        -notif_subject "\[$message(forum_name)\] $message(subject)" \
+        -notif_text $text_version \
+        -notif_html $html_version
 }
     
 ad_proc -public forum::message::edit {
     {-message_id:required}
     {-subject:required}
     {-content:required}
-    {-html_p:required}
+    {-format:required}
 } {
     Editing a message. There is no versioning here!
     This means this function is for admins only!
@@ -141,14 +157,14 @@ ad_proc -public forum::message::edit {
     db_dml update_message_title {}
 }
 
-ad_proc -public forum::message::set_html_p {
+ad_proc -public forum::message::set_format {
     {-message_id:required}
-    {-html_p:required}
+    {-format:required}
 } {
     set whether a message is HTML or not
 } {
     # Straight update to the DB
-    db_dml update_message_html_p
+    db_dml update_message_format
 }
 
 ad_proc -public forum::message::get {
