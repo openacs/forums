@@ -37,7 +37,7 @@ element create message content \
     }
 
 element create message html_p \
-    -label [_ forums.Format]2 \
+    -label [_ forums.Format] \
     -datatype text \
     -widget select \
     -options [list [list [_ forums.text] f] [list [_ forums.html] t]]
