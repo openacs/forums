@@ -118,8 +118,10 @@ if {[form is_valid message]} {
         forum::get -forum_id $forum_id -array forum
 
         set confirm_p 1
+	set subject.spellcheck ":nospell:"
+	set content.spellcheck ":nospell:"
         set content [string trimright $content]
-        set exported_vars [export_form_vars message_id forum_id parent_id subject content html_p confirm_p anonymous_p]
+        set exported_vars [export_form_vars message_id forum_id parent_id subject content html_p confirm_p subject.spellcheck content.spellcheck anonymous_p]
         
         set message(html_p) $html_p
         set message(subject) $subject
