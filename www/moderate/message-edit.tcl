@@ -14,27 +14,27 @@ ad_page_contract {
 form create message
 
 element create message message_id \
-    -label "Message ID" \
+    -label [_ forums.Message_ID] \
     -datatype integer \
     -widget hidden
 
 element create message subject \
-    -label Subject \
+    -label [_ forums.Subject] \
     -datatype text \
     -widget text \
     -html {size 60}
 
 element create message content \
-    -label Body \
+    -label [_ forums.Body] \
     -datatype text \
     -widget textarea \
     -html {rows 20 cols 60 wrap soft}
 
 element create message html_p \
-    -label Format \
+    -label [_ forums.Format]2 \
     -datatype text \
     -widget select \
-    -options {{text f} {html t}}
+    -options [list [list [_ forums.text] f] [list [_ forums.html] t]]
 
 if {[form is_valid message]} {
     template::form get_values message message_id subject content html_p
@@ -59,3 +59,7 @@ element set_properties message content -value $message(content)
 element set_properties message html_p -value $message(html_p)
 
 ad_return_template
+
+
+
+

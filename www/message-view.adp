@@ -1,5 +1,5 @@
 <master>
-<property name="title">Forum @forum.name@: @message.subject@</property>
+<property name="title">#forums.Forum# @forum.name@: @message.subject@</property>
 <property name="context">@context@</property>
 
 <br>
@@ -13,14 +13,14 @@
       <br>
       <if @post_p@>
         <small>
-          [&nbsp;<a href="message-post?forum_id=@forum_id@">Post a New Message</a>.&nbsp;]
+          [&nbsp;<a href="message-post?forum_id=@forum_id@">#forums.Post_a_New_Message#</a>.&nbsp;]
         </small>
       </if>
     </td>
     <td align=right>
       <formtemplate id="search">
         <formwidget id="forum_id">
-        Search:&nbsp;<formwidget id="search_text">
+        #forums.Search#&nbsp;<formwidget id="search_text">
       </formtemplate>
     </td>
   </tr>
@@ -71,3 +71,6 @@
 </if>
 
 </center>
+
+
+

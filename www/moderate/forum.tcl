@@ -20,3 +20,6 @@ forum::get -forum_id $forum_id -array forum
 db_multirow pending_threads select_pending_threads {}
 
 ad_return_template
+
+
+

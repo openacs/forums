@@ -16,9 +16,9 @@ set package_id [ad_conn package_id]
 # choosing the view
 set dimensional_list {
     {
-        view "View:" date {
-            {date "by Date" {}}
-            {forum "by Forum" {}}
+        view "[_ forums.View]:" date {
+            {date "[_ forums.by_Date]" {}}
+            {forum "[_ forums.by_Forum]" {}}
         }
     }
 }
@@ -36,6 +36,9 @@ oacs::user::get -user_id $user_id -array user
 
 set dimensional_chunk [ad_dimensional $dimensional_list]
 
-set context {{Posting History}}
+set context {[_ forums.Posting_History]}
 
 ad_return_template
+
+
+

@@ -19,20 +19,20 @@
   
     <td align=right style="padding-right: 1em; padding-left: 1em;">
       <div style="white-space: nowrap; font-size: x-small">
-        [ <a href="message-post?parent_id=@message.message_id@">reply</a>
-        | <a href="message-email?message_id=@message.message_id@">email</a>
+        [ <a href="message-post?parent_id=@message.message_id@">#forums.reply#</a>
+        | <a href="message-email?message_id=@message.message_id@">#forums.email#</a>
         ]
         <if @moderate_p@>
           <br>
-          [ <a href="moderate/message-edit?message_id=@message.message_id@">edit</a>
-          | <a href="moderate/message-delete?message_id=@message.message_id@">delete</a>
+          [ <a href="moderate/message-edit?message_id=@message.message_id@">#forums.edit#</a>
+          | <a href="moderate/message-delete?message_id=@message.message_id@">#forums.delete#</a>
           
           <if @forum_moderated_p@>
             <if @message.state@ ne approved>
-              | <a href="moderate/message-approve?message_id=@message.message_id@">approve</a>
+              | <a href="moderate/message-approve?message_id=@message.message_id@">#forums.approve#</a>
             </if>
             <if @message.state@ ne rejected and @message.max_child_sortkey@ nil>
-              | <a href="moderate/message-reject?message_id=@message.message_id@">reject</a>
+              | <a href="moderate/message-reject?message_id=@message.message_id@">#forums.reject#</a>
             </if>
           </if>
           ]
@@ -66,3 +66,6 @@
 <if @message.n_attachments@ not nil and @message.n_attachments@ gt 0>
   <include src="message-attachment-chunk" &message="message" bgcolor=@table_bgcolor@>
 </if>
+
+
+

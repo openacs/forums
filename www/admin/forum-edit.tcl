@@ -13,23 +13,23 @@ ad_page_contract {
 form create forum
 
 element create forum forum_id \
-        -label "Forum ID" -datatype integer -widget hidden
+        -label [_ forums.Forum_ID] -datatype integer -widget hidden
 
 element create forum name \
-        -label "Name" -datatype text -widget text -html {size 60} -validate { {expr ![empty_string_p [string trim $value]]} {Forum Name can not be blank}
+        -label [_ forums.Name] -datatype text -widget text -html {size 60} -validate { {expr ![empty_string_p [string trim $value]]} {Forum Name can not be blank}
     }
 
 element create forum charter \
-        -label "Charter" -datatype text -widget textarea -html {cols 60 rows 10 wrap soft} -optional
+        -label [_ forums.Charter] -datatype text -widget textarea -html {cols 60 rows 10 wrap soft} -optional
 
 element create forum presentation_type \
-        -label "Presentation" -datatype text -widget select -options {{Flat flat} {Threaded threaded}}
+        -label [_ forums.Presentation] -datatype text -widget select -options {{Flat flat} {Threaded threaded}}
 
 element create forum posting_policy \
-        -label "Posting Policy" -datatype text -widget select -options {{open open} {moderated moderated} {closed closed}}
+        -label [_ forums.Posting_Policy] -datatype text -widget select -options {{open open} {moderated moderated} {closed closed}}
 
 element create forum new_threads_p \
-        -label "Users Can Create New Threads" -datatype integer -widget radio -options {{yes 1} {no 0}}
+        -label [_ forums.lt_Users_Can_Create_New_] -datatype integer -widget radio -options {{yes 1} {no 0}}
 
 if {[form is_valid forum]} {
     template::form get_values forum forum_id name charter presentation_type posting_policy new_threads_p
@@ -57,12 +57,12 @@ forum::get -forum_id $forum_id -array forum
 
 # Proper scoping?
 if {$package_id != $forum(package_id)} {
-    ns_log Error "Forum Administration: Bad Scoping of Forum #$forum_id in Forum Editing"
+    ns_log Error [_ [ad_conn locale] forums.bad_scoping_lt "Forum Administration: Bad Scoping of Forum #%forum_id% in Forum Editing" [list forum_id $forum_id] ]
     ad_returnredirect "./"
     ad_script_abort
 }
 
-set context [list "Edit forum"]
+set context [list [_ forums.Edit_forum]]
     
 if { [form is_request forum] } {
     element set_properties forum forum_id -value $forum_id
@@ -74,3 +74,6 @@ if { [form is_request forum] } {
 }
 
 ad_return_template
+
+
+

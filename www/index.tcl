@@ -35,3 +35,6 @@ db_multirow forums select_forums {}
 set context {}
 
 ad_return_template
+
+
+

@@ -15,3 +15,6 @@ set package_id [ad_conn package_id]
 db_multirow forums select_forums {}
 
 ad_return_template
+
+
+

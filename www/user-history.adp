@@ -1,9 +1,9 @@
 <master>
-<property name="title">Forums: Posting history for @user.full_name@</property>
+<property name="title">#forums.Forums_Posting_hist_lt# @user.full_name@</property>
 <property name="context">@context@</property>
 
 <p>
-  Posting history for
+  #forums.Posting_history_for#
   <b>
     <%
         if {![permission::permission_p -object_id [acs_magic_object security_context_root] -privilege admin]} {
@@ -28,9 +28,9 @@
   <table bgcolor="#cccccc" width="95%">
 
     <tr>
-      <th align="left" width="30%">Forum</th>
-      <th align="left">Subject</th>
-      <th align="center" width="20%">Posted</th>
+      <th align="left" width="30%">#forums.Forum#</th>
+      <th align="left">#forums.Subject#</th>
+      <th align="center" width="20%">#forums.Posted#</th>
     </tr>
 
 <if @messages:rowcount@ gt 0>
@@ -54,7 +54,7 @@
 <else>
     <tr>
       <td colspan="3">
-        <i>No Postings.</i>
+        <i>#forums.No_Postings#</i>
       </td>
     </tr>
 </else>
@@ -74,8 +74,8 @@
     </tr>
 
     <tr>
-      <th align="left">Subject</th>
-      <th align="center" width="20%">Posted</th>
+      <th align="left">#forums.Subject#</th>
+      <th align="center" width="20%">#forums.Posted#</th>
     </tr>
 
 <group column="forum_name">
@@ -102,3 +102,6 @@
 </if>
 
 </center>
+
+
+

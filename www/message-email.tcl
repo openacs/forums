@@ -15,24 +15,24 @@ forum::security::require_read_message -message_id $message_id
 form create message
 
 element create message message_id \
-    -label "Message ID" \
+    -label [_ forums.Message_ID] \
     -datatype integer \
     -widget hidden
 
 element create message to_email \
-    -label Email \
+    -label [_ forums.Email] \
     -datatype text \
     -widget text \
     -html {size 60}
 
 element create message subject \
-    -label Subject \
+    -label [_ forums.Subject] \
     -datatype text \
     -widget text \
     -html {size 80}
 
 element create message pre_body \
-    -label "Your Note" \
+    -label [_ forums.Your_Note] \
     -datatype text \
     -widget textarea \
     -html {cols 80 rows 10 wrap hard}
@@ -46,7 +46,7 @@ if {[form is_valid message]} {
 
     set new_body "$pre_body"
     append new_body "\n\n===================================\n\n"
-    append new_body "On $message(posting_date), $message(user_name) wrote:\n\n"
+    append new_body "[_ forums.On] $message(posting_date), $message(user_name) [_ forums.wrote]\n\n"
     append new_body "$message(content)\n"
 
     # Send the email
@@ -62,14 +62,15 @@ if {[form is_valid message]} {
 # Get the message information
 forum::message::get -message_id $message_id -array message
 
-element set_properties message subject -value "\[Fwd: $message(subject)\]"
+element set_properties message subject -value "\[[_ forums.Fwd] $message(subject)\]"
 element set_properties message message_id -value $message_id
 
 set context [list [list "./forum-view?forum_id=$message(forum_id)" "$message(forum_name)"]]
 if {![empty_string_p $message(parent_id)]} {
-    lappend context [list "./message-view?message_id=$message(root_message_id)" "Entire Thread"]
+    lappend context [list "./message-view?message_id=$message(root_message_id)" "[_ forums.Entire_Thread]"]
 }
 lappend context [list "./message-view?message_id=$message(message_id)" "$message(subject)"]
-lappend context {Email to a friend}
+lappend context [_ forums.Email_to_a_friend]
 
 ad_return_template
+

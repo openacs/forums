@@ -1,12 +1,12 @@
 <master>
-<property name="title">Manage Forum: @forum.name@</property>
-<property name="context">Manage</property>
+<property name="title">#forums.Manage_Forum# @forum.name@</property>
+<property name="context">#forums.Manage#</property>
 
-<h3>Pending Threads</h3>
+<h3>#forums.Pending_Threads#</h3>
 
 <ul>
 <if @pending_threads:rowcount@ eq 0>
-<i>None</i>
+<i>#forums.None#</i>
 </if>
 <else>
 <multiple name="pending_threads">
@@ -14,3 +14,6 @@
 </multiple>
 </else>
 </ul>
+
+
+

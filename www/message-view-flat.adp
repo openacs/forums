@@ -1,5 +1,5 @@
 <master>
-<property name="title">Forum @forum.name@: @message.subject@</property>
+<property name="title">#forums.Forum# @forum.name@: @message.subject@</property>
 <property name="context">@context@</property>
 
 <center>
@@ -10,7 +10,7 @@
         <nobr>@notification_chunk@</nobr>
 <if @post_p@>
         <nobr><small>[
-          <a href="message-post?forum_id=@forum_id@">Post a New Message</a>
+          <a href="message-post?forum_id=@forum_id@">#forums.Post_a_New_Message#</a>
         ]</nobr></small>
 </if>
       </td>
@@ -43,3 +43,6 @@
 </if>
 
 </center>
+
+
+

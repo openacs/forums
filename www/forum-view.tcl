@@ -37,12 +37,12 @@ if {!${admin_p}} {
 form create search -action search
 
 element create search search_text \
-    -label Search \
+    -label [_ forums.Search_1] \
     -datatype text \
     -widget text
 
 element create search forum_id \
-    -label ForumID \
+    -label [_ forums.ForumID] \
     -datatype text \
     -widget hidden \
     -value $forum_id

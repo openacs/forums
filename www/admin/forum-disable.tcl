@@ -13,3 +13,6 @@ ad_page_contract {
 forum::disable -forum_id $forum_id
 
 ad_returnredirect "./forum-edit?forum_id=$forum_id"
+
+
+

@@ -1,5 +1,5 @@
 <master>
-<property name="title">Forums</property>
+<property name="title">#forums.Forums#</property>
 <property name="context">@context@</property>
 
 <center>
@@ -7,7 +7,7 @@
     <tr>
       <td style="font-size: x-small; white-space: nowrap; align=right;">
         <if @admin_p@>
-          [ <a href="admin/forum-new">New Forum</a> | <a href="admin/">Administration</a> ]
+          [ <a href="admin/forum-new">#forums.New_Forum#</a> | <a href="admin/">#forums.Administration#</a> ]
         </if>
         <else>
           &nbsp;
@@ -16,7 +16,7 @@
       <td align="right">
         <formtemplate id="search">
           <formwidget id="forum_id">
-            Search:&nbsp;
+            #forums.Search_colon#&nbsp;
           <formwidget id="search_text">
         </formtemplate>
       </td>
@@ -29,9 +29,9 @@
   <table width="95%" style="color: black; background-color: @table_border_color@;">
 
     <tr>
-      <th align="left" width="70%">Forum Name</th>
-      <th align="center" width="10%">Threads</th>
-      <th align="center" width="20%">Last Post</th>
+      <th align="left" width="70%">#forums.Forum_Name#</th>
+      <th align="center" width="10%">#forums.Threads#</th>
+      <th align="center" width="20%">#forums.Last_Post#</th>
     </tr>
 
     <if @forums:rowcount@ gt 0>
@@ -69,10 +69,14 @@
     <else>
       <tr style="color: black; background-color: @table_bgcolor@">
         <td colspan="3">
-          <em>No Forums</em>
+          <em>#forums.No_Forums#</em>
         </td>
       </tr>
     </else>
   </table>
 
 </center>
+
+
+
+

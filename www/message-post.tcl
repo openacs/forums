@@ -12,7 +12,7 @@ ad_page_contract {
 } -validate {
     forum_id_or_parent_id {
         if {[empty_string_p $forum_id] && [empty_string_p $parent_id]} {
-            ad_complain "You either have to post to a forum or in reply to another message"
+            ad_complain [_ forums.lt_You_either_have_to]
         }
     }
 }
@@ -26,55 +26,54 @@ set table_bgcolor [parameter::get -parameter table_bgcolor]
 form create message
 
 element create message message_id \
-    -label "Message ID" \
+    -label [_ forums.Message_ID] \
     -datatype integer \
     -widget hidden
 
 element create message subject \
-    -label Subject \
+    -label [_ forums.Subject] \
     -datatype text \
     -widget text \
     -html {size 60} \
-    -validate { {expr ![empty_string_p [string trim $value]]} {Please enter a subject} }
+    -validate { {expr ![empty_string_p [string trim $value]]} {[_ forums.lt_Please_enter_a_subjec]} }
 
 # we use ns_queryget to get the value of html_p because it won't be defined
 # until the next element -DaveB
 
 element create message content \
-    -label Body \
+    -label [_ forums.Body] \
     -datatype text \
     -widget textarea \
     -html {rows 20 cols 60 wrap soft} \
     -validate {
-	empty {expr ![empty_string_p [string trim $value]]} {Please enter a message}
-	html { expr {( [string match [set l_html_p [ns_queryget html_p f]] "t"] && [empty_string_p [set v_message [ad_html_security_check $value]]] ) || [string match $l_html_p "f"] } }
-	     {}	
-	}
+        empty {expr ![empty_string_p [string trim $value]]} { [_ forums.lt_Please_enter_a_messag] }
+	html { expr {( [string match [set l_html_p [ns_queryget html_p f]] "t"] && [empty_string_p [set v_message [ad_html_security_check $value]]] ) || [string match $l_html_p "f"] } } {}	
+    }
 
 element create message html_p \
-    -label Format \
+    -label [_ forums.Format] \
     -datatype text \
     -widget select \
-    -options {{text f} {html t}}
+    -options [list [list [_ forums.text] f] [list [_ forums.html] t]]
 
 element create message parent_id \
-    -label "parent ID" \
+    -label [_ forums.parent_ID] \
     -datatype integer \
     -widget hidden \
     -optional
 
 element create message forum_id \
-    -label "forum ID" \
+    -label [_ forums.forum_ID] \
     -datatype integer \
     -widget hidden
 
 element create message confirm_p \
-    -label "Confirm?" \
+    -label [_ forums.Confirm] \
     -datatype text \
     -widget hidden
 
 element create message subscribe_p \
-    -label "Subscribe?" \
+    -label [_ forums.Subscribe] \
     -datatype text \
     -widget hidden \
     -optional
@@ -83,7 +82,7 @@ set attachments_enabled_p [forum::attachments_enabled_p]
 
 if {$attachments_enabled_p} {
     element create message attach_p \
-            -label "Attach?" \
+            -label [_ forums.Attach] \
             -datatype text \
             -widget hidden \
             -optional
@@ -121,7 +120,7 @@ if {[form is_valid message]} {
         }
 
         set context [list [list "./forum-view?forum_id=$forum_id" "$forum(name)"]]
-        lappend context {Post a Message}
+        lappend context {[_ forums.Post_a_Message]}
 
         ad_return_template message-post-confirm
         return
@@ -159,7 +158,7 @@ if {[form is_valid message]} {
         form get_values message attach_p
 
         if {$attach_p} {
-            set redirect_url [attachments::add_attachment_url -object_id $message_id -return_url $redirect_url -pretty_name "Forum Posting \"$subject\""]
+            set redirect_url [attachments::add_attachment_url -object_id $message_id -return_url $redirect_url -pretty_name "[_ forums.Forum_Posting] \"$subject\""]
         }
     }
     
@@ -176,7 +175,7 @@ if {![empty_string_p $parent_id]} {
     # get the parent message information
     forum::message::get -message_id $parent_id -array parent_message
     set forum_id $parent_message(forum_id)
-    set subject "Re: $parent_message(subject)"
+    set subject "[_ forums.Re] $parent_message(subject)"
 
 }
 
@@ -198,9 +197,16 @@ element set_properties message subscribe_p -value 0
 set context [list [list "./forum-view?forum_id=$forum_id" "$forum(name)"]]
 if {![empty_string_p $parent_id]} {
     lappend context [list "./message-view?message_id=$parent_message(message_id)" "$parent_message(subject)"]
-    lappend context {Post a Reply}
+    lappend context [_ forums.Post_a_Reply]
 } else {
-    lappend context {Post a Message}
+    lappend context [_ forums.Post_a_Message]
 }
 
 ad_return_template
+
+
+
+
+
+
+

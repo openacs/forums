@@ -1,5 +1,5 @@
 <master>
-<property name="title">Forum: @forum.name@</property>
+<property name="title">#forums.Forum_1# @forum.name@</property>
 <property name="context">@context@</property>
 
 <center>
@@ -10,9 +10,9 @@
         <if @moderate_p@>
         [
           <if @admin_p@>
-            <a href="admin/forum-edit?forum_id=@forum_id@">Administer</a> |
+            <a href="admin/forum-edit?forum_id=@forum_id@">#forums.Administer#</a> |
           </if>
-          <a href="moderate/forum?forum_id=@forum_id@">Manage/Moderate</a>
+          <a href="moderate/forum?forum_id=@forum_id@">#forums.ManageModerate#</a>
         ]       
         </if>
 
@@ -23,13 +23,13 @@
         <br>
   
         <if @post_p@>
-          [ <a href="message-post?forum_id=@forum_id@">Post a New Message</a> ]
+          [ <a href="message-post?forum_id=@forum_id@">#forums.Post_a_New_Message#</a> ]
         </if>
       </td>
       <td align="right">
         <formtemplate id="search">
           <formwidget id="forum_id">
-            Search:&nbsp;<formwidget id="search_text">
+            #forums.Search#&nbsp;<formwidget id="search_text">
           </formtemplate>
       </td>
     </tr>
@@ -41,10 +41,10 @@
     <table style="color: black; background-color: @table_border_color@;" width="95%">
   
       <tr>
-        <th align="left" width="55%">Subject</th>
-        <th align="left" width="20%">Author</th>
-        <th align="center" width="5%">Replies</th>
-        <th align="center" width="20%">Last Post</th>
+        <th align="left" width="55%">#forums.Subject#</th>
+        <th align="left" width="20%">#forums.Author#</th>
+        <th align="center" width="5%">#forums.Replies#</th>
+        <th align="center" width="20%">#forums.Last_Post#</th>
       </tr>
   
       <if @messages:rowcount@ gt 0>
@@ -77,10 +77,15 @@
       </if>
       <else>
         <tr bgcolor="@table_bgcolor@">
-          <td colspan="4"><strong>No Messages</strong></td>
+          <td colspan="4"><strong>#forums.No_Messages#</strong></td>
         </tr>
       </else>
   
     </table>
 
 </center>
+
+
+
+
+

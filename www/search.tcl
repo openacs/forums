@@ -13,13 +13,13 @@ set package_id [ad_conn package_id]
 form create search
 
 element create search search_text \
-    -label Search \
+    -label [_ forums.Search] \
     -datatype text \
     -widget text \
     -html {size 60}
 
 element create search forum_id \
-    -label ForumID \
+    -label [_ forums.ForumID] \
     -datatype text \
     -widget hidden \
     -value $forum_id \
@@ -43,6 +43,9 @@ if {[form is_valid search]} {
     set messages:rowcount 0
 }
 
-set context {Search}
+set context {[_ forums.Search]}
 
 ad_return_template
+
+
+

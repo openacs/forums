@@ -1,6 +1,6 @@
     <tr bgcolor="@bgcolor@">
       <td colspan="4">
-        Attachments:
+        #forums.Attachments#
         <ul>
 <% 
     foreach attachment $attachments {
@@ -10,3 +10,6 @@
         </ul>
       </td>
     </tr>
+
+
+

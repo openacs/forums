@@ -7,7 +7,7 @@ ad_page_contract {
 }
 
 if {![array exists message]} {
-    ad_return_complaint 1 "need to provide a message to display attachments!"
+    ad_return_complaint 1 "[_ forums.lt_need_to_provide_a_mes]"
 }
 
 if {![exists_and_not_null bgcolor]} {
@@ -20,3 +20,6 @@ set attachments [attachments::get_attachments -object_id $message(message_id)]
 set attachment_graphic [attachments::graphic_url]
 
 ad_return_template
+
+
+

@@ -1,5 +1,5 @@
 <master>
-<property name="title">Search Forums</property>
+<property name="title">#forums.Search_Forums#</property>
 <property name="context">@context@</property>
 
 <center>
@@ -9,7 +9,7 @@
     <tr>
       <td align="right">
 <formtemplate id="search">
-        Search:&nbsp;<formwidget id="search_text">
+        #forums.Search#&nbsp;<formwidget id="search_text">
 </formtemplate>
       </td>
     </tr>
@@ -21,9 +21,9 @@
   <table bgcolor="#cccccc" cellpadding="5" width="95%">
 
     <tr>
-      <th align="left" width="60%">Subject</th>
-      <th align="left" width="20%">Author</th>
-      <th align="center" width="20%">Posting Date</th>
+      <th align="left" width="60%">#forums.Subject#</th>
+      <th align="left" width="20%">#forums.Author#</th>
+      <th align="center" width="20%">#forums.Posting_Date#</th>
     </tr>
 
 <if @messages:rowcount@ gt 0>
@@ -48,7 +48,7 @@
 <else>
     <tr bgcolor="#eeeeee">
       <td colspan="3">
-        <i>No Messages</i>
+        <i>#forums.No_Messages#</i>
       </td>
     </tr>
 </else>
@@ -56,3 +56,6 @@
   </table>
 
 </center>
+
+
+

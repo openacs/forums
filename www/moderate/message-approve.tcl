@@ -18,3 +18,6 @@ forum::security::require_moderate_message -message_id $message_id
 forum::message::approve -message_id $message_id
 
 ad_returnredirect "$return_url?message_id=$message_id"
+
+
+

@@ -1,5 +1,5 @@
 <master>
-<property name="title">Post to Forum: @forum.name@</property>
+<property name="title">#forums.Post_to_Forum# @forum.name@</property>
 <property name="context">@context@</property>
 <property name="focus">message.subject</property>
 
@@ -11,3 +11,6 @@
 </if>
 
 <formtemplate id="message"></formtemplate>
+
+
+

@@ -15,12 +15,12 @@ set package_id [ad_conn package_id]
 form create forum
 
 element create forum forum_id \
-    -label "Forum ID" \
+    -label [_ forums.Forum_ID] \
     -datatype integer \
     -widget hidden
 
 element create forum name \
-    -label Name \
+    -label [_ forums.Name] \
     -datatype text \
     -widget text \
     -html {size 60} \
@@ -28,29 +28,29 @@ element create forum name \
     }
 
 element create forum charter \
-    -label Charter \
+    -label [_ forums.Charter] \
     -datatype text \
     -widget textarea \
     -html {cols 60 rows 10 wrap soft} \
     -optional
 
 element create forum presentation_type \
-    -label Presentation \
+    -label [_ forums.Presentation] \
     -datatype text \
     -widget select \
     -options {{Flat flat} {Threaded threaded}}
 
 element create forum posting_policy \
-    -label "Posting Policy" \
+    -label [_ forums.Posting_Policy] \
     -datatype text \
     -widget select \
-    -options {{open open} {moderated moderated} {closed closed}}
+    -options [list [list [_ forums.open] open] [list [_ forums.moderated] moderated] [list [_ forums.closed] closed] ]
 
 element create forum new_threads_p \
-    -label "Users Can Create New Threads" \
+    -label [_ forums.lt_Users_Can_Create_New_] \
     -datatype integer \
     -widget radio \
-    -options {{yes 1} {no 0}} \
+    -options [list [list [_ forums.yes] 1] [list [_ forums.no] 0] ] \
     -default 1
 
 if {[form is_valid forum]} {
@@ -76,7 +76,7 @@ if {[form is_valid forum]} {
     ad_script_abort
 }
 
-set context [list "Create New Forum"]
+set context [_ forums.Create_New_Forum]
 
 if { [form is_request forum] } {
     # Pre-fetch the forum_id
@@ -88,3 +88,5 @@ if { [form is_request forum] } {
 }
 
 ad_return_template
+
+

@@ -31,12 +31,12 @@ forum::message::get -message_id $message_id -array message
 form create search -action search
 
 element create search search_text \
-    -label Search \
+    -label [_ forums.Search] \
     -datatype text \
     -widget text
 
 element create search forum_id \
-    -label ForumID \
+    -label [_ forums.ForumID] \
     -datatype text \
     -widget hidden \
     -value $message(forum_id)
@@ -104,10 +104,10 @@ if {[empty_string_p $message(parent_id)]} {
 
 set context [list [list "./forum-view?forum_id=$message(forum_id)" "$message(forum_name)"]]
 if {![empty_string_p $message(parent_id)]} {
-    lappend context [list "./message-view?message_id=$message(root_message_id)" "Entire Thread"]
-    lappend context {One Message}
+    lappend context [list "./message-view?message_id=$message(root_message_id)" "[_ forums.Entire_Thread]"]
+    lappend context {[_ forums.One_Message]}
 } else {
-    lappend context {One Thread}
+    lappend context {[_ forums.One_Thread]}
 }
 
 if {[string equal $forum(presentation_type) flat]} {
@@ -115,3 +115,6 @@ if {[string equal $forum(presentation_type) flat]} {
 } else {
     ad_return_template
 }
+
+
+

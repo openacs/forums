@@ -12,7 +12,7 @@ ad_page_contract {
 }
 
 if {![array exists message]} {
-    ad_return_complaint 1 "Need to provide a message to display."
+    ad_return_complaint 1 "[_ forums.lt_Need_to_provide_a_mes]"
 }
 
 if {![exists_and_not_null bgcolor]} { 
@@ -23,3 +23,6 @@ if {![exists_and_not_null bgcolor]} {
 
 if {![exists_and_not_null moderate_p]} { set moderate_p 0 }
 if {![exists_and_not_null forum_moderated_p]} {set forum_moderated_p 0}
+
+
+
