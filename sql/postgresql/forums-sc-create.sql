@@ -2,27 +2,8 @@
 -- dave bauer <dave@thedesignexperience.org>
 -- August 7, 2002
 
-select acs_sc_impl__new(
-	'FtsContentProvider',		-- impl_contract_name
-	'forums_message',			-- impl_name
-	'forums'			-- impl_owner.name
-);
-
-select acs_sc_impl_alias__new(
-	'FtsContentProvider',		-- impl_contract_name
-	'forums_message',			-- impl_name
-	'datasource',			-- impl_operation_name
-	'forum::message::datasource',	-- impl_alias
-	'TCL'				-- impl_pl
-);
-
-select acs_sc_impl_alias__new(
-	'FtsContentProvider',		-- impl_contract_name
-	'forums_message',			-- impl_name
-	'url',				-- impl_operation_name
-	'forum::message::url',		-- impl_alias
-	'TCL'				-- impl_pl
-);
+-- jcd: 2004-04-01 moved the sc create to the tcl callbacks, and added one for forum_forum objtype
+-- TODO-JCD: trigger for forums_forums
 
 -- til: only indexing full threads. changes to child messages will be treated as 
 -- change to the thread.

@@ -61,6 +61,8 @@ ad_proc -public forum::get {
     {-array:required}
 } {
     get the fields for a forum
+    
+    @return 
 } {
     # Select the info into the upvar'ed Tcl Array
     upvar $array row

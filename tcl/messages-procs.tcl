@@ -255,7 +255,7 @@ ad_proc -public forum::message::subject_sort_filter {
     (the creation date of the subjects) or the last one.
 
     @author Peter Marklund
-} {        
+} {
     set subject_label "[_ forums.lt_First_post_in_subject]"
     set child_label "[_ forums.Last_post_in_subject]"
     set new_order_by [ad_decode $order_by posting_date last_child_post posting_date]

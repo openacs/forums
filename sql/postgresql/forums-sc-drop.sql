@@ -7,13 +7,6 @@
 -- Removes search support from news module.
 --
 
-select acs_sc_impl__delete(
-	   'FtsContentProvider',		-- impl_contract_name
-           'forums_message'				-- impl_name
-);
-
-
-
 drop trigger forums_message_search__itrg on forums_messages;
 drop trigger forums_message_search__dtrg on forums_messages;
 drop trigger forums_message_search__utrg on forums_messages;

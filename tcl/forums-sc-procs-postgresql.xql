@@ -15,7 +15,17 @@
 
     <fullquery name="forum::message::url.select_forums_package_url">
         <querytext>
-            select site_node__url(node_id)
+            select site_node__url(min(node_id))
+            from site_nodes
+            where object_id = (select package_id
+                               from forums_forums
+                               where forums_forums.forum_id = :forum_id)
+        </querytext>
+    </fullquery>
+
+    <fullquery name="forum::forum::url.select_forums_package_url">
+        <querytext>
+            select site_node__url(min(node_id))
             from site_nodes
             where object_id = (select package_id
                                from forums_forums
