@@ -49,12 +49,14 @@ set approved_reply_count = (select count(*)
                             from forums_messages_approved fm1
                             where fm1.tree_sortkey
                               between tree_left(forums_messages.tree_sortkey)
-                              and tree_right(forums_messages.tree_sortkey)),
+                              and tree_right(forums_messages.tree_sortkey)
+                              and forums_messages.forum_id = fm1.forum_id),
      reply_count = (select count(*)
                     from forums_messages fm1
                     where fm1.tree_sortkey
                       between tree_left(forums_messages.tree_sortkey)
-                      and tree_right(forums_messages.tree_sortkey))
+                      and tree_right(forums_messages.tree_sortkey)
+                      and forums_messages.forum_id = fm1.forum_id)
 where parent_id is null;
 
 select define_function_args ('forums_message__new', 'message_id,object_type;forums_message,forum_id,subject,content,format,user_id,state,parent_id,creation_date,creation_user,creation_ip,context_id');
