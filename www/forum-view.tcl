@@ -8,7 +8,7 @@ ad_page_contract {
 
 } -query {
     forum_id:integer,notnull
-    {orderby "posting_date,desc"}
+    {orderby "last_child_post,desc"}
 }
 
 # Get forum data
