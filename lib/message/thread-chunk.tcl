@@ -65,7 +65,10 @@ if { [exists_and_not_null message(parent_id)] } {
     set message(parent_root_url) [export_vars -base [ad_conn url] { { message_id $message(parent_id) } }]
 }
 
+set message(open_p) "t"
 set message(reply_p) [expr [string equal $message(open_p) "t"] || [string equal $message(user_id) [ad_conn user_id]]]
+set message(tree_level) 0
+
 
 #####
 #
@@ -84,7 +87,8 @@ set old_tree_level 0
 set old_message_id 0
 set message_ids {}
 
-db_multirow -extend { posting_date_pretty direct_url number parent_number parent_direct_url reply_p viewed_p} responses $query {} {
+db_multirow -extend { posting_date_pretty direct_url number parent_number parent_direct_url reply_p viewed_p open_p} responses $query {} {
+    set open_p t
     set tree_level [min [expr {$tree_level - $message(tree_level)}] 10]
     set posting_date_pretty [lc_time_fmt $posting_date_ansi "%x %X"]
     set direct_url "$direct_url_base\#$message_id"
