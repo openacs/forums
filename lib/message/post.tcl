@@ -84,13 +84,6 @@ if {[form is_request message]} {
         anonymous_p \
         attach_p
 
-        ns_log notice "
-DB --------------------------------------------------------------------------------
-DB DAVE debugging /var/lib/aolserver/openacs-5-1/packages/forums/lib/message/post.tcl
-DB --------------------------------------------------------------------------------
-DB message_body = '${message_body}'
-DB --------------------------------------------------------------------------------"
-    
     if { [empty_string_p $anonymous_p] } { set anonymous_p 0 }
 
     set action [template::form::get_button message]
@@ -106,8 +99,8 @@ DB -----------------------------------------------------------------------------
         set content.spellcheck ":nospell:"
         set content [template::util::richtext::get_property content $message_body]
         set format [template::util::richtext::get_property format $message_body]
-
-        set exported_vars [export_vars -form {message_id forum_id parent_id subject {message_body $content} format confirm_p subject.spellcheck content.spellcheck anonymous_p attach_p}]
+	
+        set exported_vars [export_vars -form {message_id forum_id parent_id subject {message_body $content} {message_body.format $format} confirm_p subject.spellcheck content.spellcheck anonymous_p attach_p}]
         
         set message(format) $format
         set message(subject) $subject
