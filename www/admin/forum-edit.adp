@@ -1,4 +1,4 @@
-<master src="../master">
+<master>
 <property name="title">Edit Forum: @forum.name@</property>
 <property name="context">@context@</property>
 <property name="focus">forum.name</property>

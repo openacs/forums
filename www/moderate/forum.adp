@@ -1,4 +1,4 @@
-<master src="../master">
+<master>
 <property name="title">Manage Forum: @forum.name@</property>
 <property name="context">Manage</property>
 

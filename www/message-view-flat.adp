@@ -1,4 +1,4 @@
-<master src="master">
+<master>
 <property name="title">Forum @forum.name@: @message.subject@</property>
 <property name="context">@context@</property>
 

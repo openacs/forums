@@ -1,4 +1,4 @@
-<master src="master">
+<master>
 <property name="title">Forums: Posting history for @user.full_name@</property>
 <property name="context">@context@</property>
 

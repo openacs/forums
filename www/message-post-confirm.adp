@@ -1,4 +1,4 @@
-<master src="master">
+<master>
 <property name="title">Confirm Post to Forum: @forum.name@</property>
 <property name="context">@context@</property>
 
