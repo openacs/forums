@@ -73,11 +73,15 @@ if {[form is_valid forum]} {
     ad_script_abort
 }
 
-# Pre-fetch the forum_id
-set forum_id [db_nextval acs_object_id_seq]
-element set_properties forum forum_id -value $forum_id
-element set_properties forum name -value $name
-element set_properties forum presentation_type -value threaded
-element set_properties forum new_threads_p -value 1
+set context_bar [list "Create New Forum"]
+
+if { [form is_request forum] } {
+    # Pre-fetch the forum_id
+    set forum_id [db_nextval acs_object_id_seq]
+    element set_properties forum forum_id -value $forum_id
+    element set_properties forum name -value $name
+    element set_properties forum presentation_type -value threaded
+    element set_properties forum new_threads_p -value 1
+}
 
 ad_return_template

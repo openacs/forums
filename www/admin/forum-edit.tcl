@@ -19,7 +19,7 @@ element create forum name \
         -label "Name" -datatype text -widget text -html {size 60}
 
 element create forum charter \
-        -label "Charter" -datatype text -widget textarea -html {cols 60 rows 10 wrap soft}
+        -label "Charter" -datatype text -widget textarea -html {cols 60 rows 10 wrap soft} -optional
 
 element create forum presentation_type \
         -label "Presentation" -datatype text -widget select -options {{Flat flat} {Threaded threaded}}
