@@ -18,7 +18,6 @@ namespace eval forum::message {
         {-content:required}
         {-html_p "f"}
         {-user_id ""}
-	{-posting_date ""}
     } {
         create a new message
     } {
@@ -30,7 +29,7 @@ namespace eval forum::message {
 
         # Prepare the variables for instantiation
         set extra_vars [ns_set create]
-        oacs_util::vars_to_ns_set -ns_set $extra_vars -var_list {forum_id message_id parent_id subject content html_p user_id posting_date}
+        oacs_util::vars_to_ns_set -ns_set $extra_vars -var_list {forum_id message_id parent_id subject content html_p user_id}
 
         db_transaction {
             set message_id [package_instantiate_object -extra_vars $extra_vars forums_message]

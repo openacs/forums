@@ -12,6 +12,8 @@ ad_page_contract {
     {confirm_p 0}
 }
 
+set table_border_color [parameter::get -parameter table_border_color]
+
 # Check that the user can moderate the forum
 forum::security::require_moderate_message -message_id $message_id
 

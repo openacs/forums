@@ -48,25 +48,19 @@
 
     <fullquery name="forum::message::delete.delete_message">
         <querytext>
-            declare begin
-                forums_message__delete_thread(:message_id);
-            end;
+            select forums_message__delete_thread(:message_id);
         </querytext>
     </fullquery>
 
     <fullquery name="forum::message::close.thread_close">
         <querytext>
-            declare begin
-                forums_message__thread_close(:message_id);
-            end;
+            select forums_message__thread_close(:message_id);
         </querytext>
     </fullquery>
 
     <fullquery name="forum::message::open.thread_open">
         <querytext>
-            declare begin
-                forums_message__thread_open(:message_id);
-            end;
+            select forums_message__thread_open(:message_id);
         </querytext>
     </fullquery>
 

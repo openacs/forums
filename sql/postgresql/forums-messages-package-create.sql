@@ -182,7 +182,7 @@ begin
     where message_id = p_message_id;
            
     -- if it is already deleted
-    if NOTFOUND
+    if v_forum_id is null
     then return 0;
     end if;
 
@@ -190,17 +190,17 @@ begin
     -- order by tree_sortkey desc to guarantee
     -- that we never delete a parent before its child
     -- sortkeys are beautiful
-    for v_message in (select *
-                      from forums_messages
-                      where forum_id = v_forum_id
-                      and tree_sortkey between tree_left(v_sortkey) and tree_right(v_sortkey)
-                      order by tree_sortkey desc)
+    for v_message in select *
+                     from forums_messages
+                     where forum_id = v_forum_id
+                     and tree_sortkey between tree_left(v_sortkey) and tree_right(v_sortkey)
+                     order by tree_sortkey desc
     loop
         perform forums_message__delete(v_message.message_id);
     end loop;
 
     -- delete the message itself
-    perform forums_message.delete(p_message_id);
+    perform forums_message__delete(p_message_id);
 
     return 0;
 end;
