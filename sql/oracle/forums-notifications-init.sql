@@ -12,10 +12,40 @@
 -- the integration with Notifications
 
 declare
+        impl_id integer;
         v_foo   integer;
 begin
+        -- the notification type impl
+        impl_id := acs_sc_impl.new (
+                      'NotificationType',
+                      'forums_forum_notif_type',
+                      'forums'
+                   );
+
+        v_foo := acs_sc_impl.new_alias (
+                    'NotificationType',
+                    'forums_forum_notif_type',
+                    'GetURL',
+                    'forum::notification::get_url',
+                    'TCL'
+                 );
+
+        v_foo := acs_sc_impl.new_alias (
+                    'NotificationType',
+                    'forums_forum_notif_type',
+                    'ProcessReply',
+                    'forum::notification::process_reply',
+                    'TCL'
+                 );
+
+        acs_sc_binding.new (
+                    contract_name => 'NotificationType',
+                    impl_name => 'forums_forum_notif_type'
+                 );
+
         v_foo:= notification_type.new (
                 short_name => 'forums_forum_notif',
+                sc_impl_id => impl_id,
                 pretty_name => 'Forum Notification',
                 description => 'Notifications for Entire Forums',
                 creation_user => NULL,
@@ -33,8 +63,37 @@ begin
         select v_foo, delivery_method_id
         from notification_delivery_methods where short_name in ('email');
 
+        -- the notification type impl
+        impl_id := acs_sc_impl.new (
+                      'NotificationType',
+                      'forums_message_notif_type',
+                      'forums'
+                   );
+
+        v_foo := acs_sc_impl.new_alias (
+                    'NotificationType',
+                    'forums_message_notif_type',
+                    'GetURL',
+                    'forum::notification::get_url',
+                    'TCL'
+                 );
+
+        v_foo := acs_sc_impl.new_alias (
+                    'NotificationType',
+                    'forums_message_notif_type',
+                    'ProcessReply',
+                    'forum::notification::process_reply',
+                    'TCL'
+                 );
+
+        acs_sc_binding.new (
+                    contract_name => 'NotificationType',
+                    impl_name => 'forums_message_notif_type'
+                 );
+
         v_foo:= notification_type.new (
                 short_name => 'forums_message_notif',
+                sc_impl_id => impl_id,
                 pretty_name => 'Message Notification',
                 description => 'Notifications for Message Thread',
                 creation_user => NULL,
