@@ -1,14 +1,13 @@
 
 --
--- The Forums Package
+-- Upgrade script for oracle 1.0d2 - 1.0d3
 --
--- @author gwong@orchardlabs.com,ben@openforce.biz
--- @creation-date 2002-05-16
+-- @author Lars Pind (lars@collaboraid.biz)
+-- @creation-date 2003-10-3
 --
--- The Package for Messages
---
--- This code is newly concocted by Ben, but with heavy concepts and heavy code
--- chunks lifted from Gilbert. Thanks Orchard Labs!
+-- The forums_message.new function updated the thread's last post date to the posting date
+-- of the first post (!), because the code inadvertedly referred to the posting_date
+-- column instead of the posting_date parameter.
 --
 
 create or replace package forums_message
