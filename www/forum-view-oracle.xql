@@ -44,4 +44,15 @@
         </querytext>
     </fullquery>
 
+    <partialquery name="orderby_user_name_desc">
+        <querytext>
+	user_name desc
+        </querytext>
+    </partialquery>
+    <partialquery name="orderby_user_name_asc">
+        <querytext>
+	user_name asc
+        </querytext>
+    </partialquery>
+
 </queryset>

@@ -43,5 +43,15 @@
             [template::list::orderby_clause -orderby -name "messages"]
         </querytext>
     </fullquery>
+    <partialquery name="orderby_user_name_desc">
+        <querytext>
+	lower(person__name(fm.user_id)) desc
+        </querytext>
+    </partialquery>
+    <partialquery name="orderby_user_name_asc">
+        <querytext>
+	lower(person__name(fm.user_id)) asc
+        </querytext>
+    </partialquery>
 
 </queryset>
