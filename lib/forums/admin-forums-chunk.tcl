@@ -11,6 +11,11 @@ ad_page_contract {
 template::list::create \
     -name forums \
     -multirow forums \
+    -actions [list \
+                  [_ forums.Create_a_New_Forum] forum-new {} \
+                  [_ forums.Parameters] [export_vars -base "/shared/parameters" { { return_url [ad_return_url] } { package_id {[ad_conn package_id]} } }] {} \
+                  [_ acs-subsite.Permissions] [export_vars -base "permissions" { { object_id {[ad_conn package_id]} } }] {}
+              ]\
     -elements {
         edit {
             label {}

@@ -2,19 +2,6 @@
 <property name="title">#forums.lt_Forums_Administration#</property>
 <property name="context"></property>
 
-<h3>#forums.Forums#</h3>
+<include src="/packages/forums/lib/forums/admin-forums-chunk">
 
-<p><include src="/packages/forums/lib/forums/admin-forums-chunk"></p>
-
-<p>
-  <b>&raquo;</b> <a href="forum-new">#forums.Create_a_New_Forum#</a>
-</p>
-
-<p>
-  <b>&raquo;</b> <a href="@parameters_url@">#forums.Parameters#</a>
-</p>
-
-<p>
-  <b>&raquo;</b> <a href="@permissions_url@">#acs-subsite.Permissions#</a>
-</p>
 

@@ -3,13 +3,13 @@
 
   <msg key="Administer">Administer</msg>
   <msg key="Administration">Administration</msg>
-  <msg key="approve">approve</msg>
   <msg key="Anonymous">Anonymous</msg>
+  <msg key="approve">approve</msg>
   <msg key="Are_you_sure_you_want_to_delete_lt">Are you sure you want to delete this message and &lt;strong&gt;all replies to it&lt;/strong&gt;?</msg>
   <msg key="Attach">Attach?</msg>
   <msg key="Attachments">Attachments:</msg>
   <msg key="Author">Author</msg>
-  <msg key="Back_to_thread_link">&lt;a href=&quot;%thread_url%&quot;&gt;Back&lt;/a&gt; to %forum.name%</msg>
+  <msg key="Back_to_thread_label">Back to %forum.name%</msg>
   <msg key="Body">Body</msg>
   <msg key="by_Date">by Date</msg>
   <msg key="by_Forum">by Forum</msg>

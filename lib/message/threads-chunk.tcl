@@ -12,14 +12,29 @@ ad_page_contract {
 forum::get -forum_id $forum_id -array forum
 
 set query messages_select
-if {$moderate_p} {
+if { $moderate_p } {
     set query messages_select_moderator
+}
+
+set actions [list]
+
+if { [template::util::is_true $permissions(post_p)] } {
+    lappend actions [_ forums.Post_a_New_Message] [export_vars -base "message-post" { forum_id }] {}
+}
+
+if { [template::util::is_true $permissions(admin_p)] } {
+    lappend actions [_ forums.Administer] [export_vars -base "admin/forum-edit" { forum_id {return_url [ad_return_url]}}] {}
+}
+
+if { [template::util::is_true $permissions(moderate_p)] } {
+    lappend actions [_ forums.ManageModerate] [export_vars -base "moderate/forum" { forum_id }] {}
 }
 
 template::list::create \
     -name messages \
     -multirow messages \
     -pass_properties { moderate_p } \
+    -actions $actions \
     -elements {
         subject {
             label "#forums.Subject#"
