@@ -42,7 +42,7 @@
                    (select count(*) from attachments where object_id = message_id) as n_attachments,
                    subject,
                    content,
-                   html_p,
+                   format,
                    person__name(user_id) as user_name,
                    to_char(posting_date, 'YYYY-MM-DD HH24:MI:SS') as posting_date_ansi,
                    tree_level(tree_sortkey) as tree_level,

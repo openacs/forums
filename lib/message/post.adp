@@ -1,8 +1,7 @@
 <if @parent_id@ ne "">
-  <table style="color: black; background-color: @table_border_color@;"  width="100%">
-    <include src="row" bgcolor="@table_bgcolor;noquote@" &message="parent_message" preview=1>
-  </table>
-  <br>
+  <div id="forum-thread">
+    <include src="row" &message="parent_message" preview="1">
+  </div>
 </if>
 
 <formtemplate id="message"></formtemplate>

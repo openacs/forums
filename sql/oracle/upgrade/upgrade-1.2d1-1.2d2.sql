@@ -1,14 +1,56 @@
+-- @author Jeff Davis davis@xarg.net
+--
+-- bug 1807 last_poster rather than first poster should be shown in forums index page
+-- add a last_poster to support this and update triggers to support it.
+
+alter table forums_messages add column last_poster integer
+                                                   constraint forums_mess_last_poster_fk
+                                                   references users(user_id);
+
+-- Now populate the new column
+-- this depends on last_child_post being properly set.
+-- use min(user_id) just in case there are two that have the same timestamp)
+
+update forums_messages set last_poster = (select min(user_id)
+                            from forums_messages fm1
+                            where fm1.posting_date = forums_messages.last_child_post
+                              and forums_messages.forum_id = fm1.forum_id
+                              and fm1.tree_sortkey
+                                between tree_left(forums_messages.tree_sortkey)
+                                and tree_right(forums_messages.tree_sortkey) )
+where parent_id is null;
+
+-- the better method above fails for some things (like notably openacs.org where 
+-- the last_child_post may not exist in the child posts due to import and upgrade 
+-- glitches.  try this one which will give us a name no matter what.
+update forums_messages 
+set last_poster = (select user_id
+                     from forums_messages fm1
+                    where fm1.message_id = (select max(message_id)
+                                              from forums_messages fm2
+                                             where forums_messages.forum_id = fm2.forum_id
+                                               and fm2.tree_sortkey
+                                                   between tree_left(forums_messages.tree_sortkey)
+                                                   and tree_right(forums_messages.tree_sortkey) ))
+where parent_id is null and last_poster is null;
+
+
+create or replace view forums_messages_approved
+as
+    select *
+    from forums_messages
+    where state = 'approved';
+
+create or replace view forums_messages_pending
+as
+    select *
+    from forums_messages
+    where state= 'pending';
+
+
 
 --
--- The Forums Package
---
--- @author gwong@orchardlabs.com,ben@openforce.biz
--- @creation-date 2002-05-16
---
--- The Package for Messages
---
--- This code is newly concocted by Ben, but with heavy concepts and heavy code
--- chunks lifted from Gilbert. Thanks Orchard Labs!
+-- Replace the procs which manipulate state and new message to save last_poster.
 --
 
 create or replace package forums_message

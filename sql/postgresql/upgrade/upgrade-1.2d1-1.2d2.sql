@@ -1,21 +1,60 @@
+-- @author Jeff Davis davis@xarg.net
+--
+-- bug 1807 last_poster rather than first poster should be shown in forums index page
+-- add a last_poster to support this and update triggers to support it.
+
+alter table forums_messages add column last_poster integer
+                                                   constraint forums_mess_last_poster_fk
+                                                   references users(user_id);
+
+-- Now populate the new column
+-- this depends on last_child_post being properly set.
+-- use min(user_id) just in case there are two that have the same timestamp)
+
+update forums_messages set last_poster = (select min(user_id)
+                            from forums_messages fm1
+                            where fm1.posting_date = forums_messages.last_child_post
+                              and forums_messages.forum_id = fm1.forum_id
+                              and fm1.tree_sortkey
+                                between tree_left(forums_messages.tree_sortkey)
+                                and tree_right(forums_messages.tree_sortkey) )
+where parent_id is null;
+
+-- the better method above fails for some things (like notably openacs.org where 
+-- the last_child_post may not exist in the child posts due to import and upgrade 
+-- glitches.  try this one which will give us a name no matter what.
+update forums_messages 
+set last_poster = (select user_id
+                     from forums_messages fm1
+                    where fm1.message_id = (select max(message_id)
+                                              from forums_messages fm2
+                                             where forums_messages.forum_id = fm2.forum_id
+                                               and fm2.tree_sortkey
+                                                   between tree_left(forums_messages.tree_sortkey)
+                                                   and tree_right(forums_messages.tree_sortkey) ))
+where parent_id is null and last_poster is null;
+
+
+-- Need to drop and recreate because Postgres doesn't allow one to change the
+-- number of columns in a view when you do a "replace".
+drop view forums_messages_approved;
+create or replace view forums_messages_approved
+as
+    select *
+    from forums_messages
+    where state = 'approved';
+
+drop view forums_messages_pending;
+create or replace view forums_messages_pending
+as
+    select *
+    from forums_messages
+    where state= 'pending';
+
 
 --
--- The Forums Package
+-- Replace the procs which manipulate state and new message to save last_poster.
 --
--- @author gwong@orchardlabs.com,ben@openforce.biz
--- @creation-date 2002-05-16
--- @cvs-id $Id$
---
--- The Package for Messages
---
--- This code is newly concocted by Ben, but with heavy concepts and heavy code
--- chunks lifted from Gilbert. Thanks Orchard Labs!
---
-
-select define_function_args ('forums_message__new', 'message_id,object_type;forums_message,forum_id,subject,content,format,user_id,state,parent_id,creation_date,creation_user,creation_ip,context_id');
-
--- Get rid of the old version so we'll throw an error if the admin forgets to reboot
--- OpenACS after the upgrade (package_instantiate_object caches param lists)
 create or replace function forums_message__new (integer,varchar,integer,varchar,text,char,integer,varchar,integer,timestamptz,integer,varchar,integer)
 returns integer as '
 declare
@@ -112,85 +151,6 @@ begin
 
 end;' language 'plpgsql';
 
-select define_function_args ('forums_message__root_message_id', 'message_id');
-
-create or replace function forums_message__root_message_id (integer)
-returns integer as '
-declare
-    p_message_id                    alias for $1;
-    v_message_id                    forums_messages.message_id%TYPE;
-    v_forum_id                      forums_messages.forum_id%TYPE;
-    v_sortkey                       forums_messages.tree_sortkey%TYPE;
-begin
-    select forum_id, tree_sortkey
-    into v_forum_id, v_sortkey
-    from forums_messages
-    where message_id = p_message_id;
-
-    select message_id
-    into v_message_id
-    from forums_messages
-    where forum_id = v_forum_id
-    and tree_sortkey = tree_ancestor_key(v_sortkey, 1);
-
-    return v_message_id;
-end;
-' language 'plpgsql' stable strict;
-
-select define_function_args ('forums_message__thread_open', 'message_id');
-
-create or replace function forums_message__thread_open (integer)
-returns integer as '
-declare
-    p_message_id                    alias for $1;
-    v_forum_id                      forums_messages.forum_id%TYPE;
-    v_sortkey                       forums_messages.tree_sortkey%TYPE;
-begin
-    select forum_id, tree_sortkey
-    into v_forum_id, v_sortkey
-    from forums_messages
-    where message_id = p_message_id;
-
-    update forums_messages
-    set open_p = ''t''
-    where tree_sortkey between tree_left(v_sortkey) and tree_right(v_sortkey)
-    and forum_id = v_forum_id;
-
-    update forums_messages
-    set open_p = ''t''
-    where message_id = p_message_id;
-
-    return 0;
-end;
-' language 'plpgsql';
-
-select define_function_args ('forums_message__thread_close', 'message_id');
-
-create or replace function forums_message__thread_close (integer)
-returns integer as '
-declare
-    p_message_id                    alias for $1;
-    v_forum_id                      forums_messages.forum_id%TYPE;
-    v_sortkey                       forums_messages.tree_sortkey%TYPE;
-begin
-    select forum_id, tree_sortkey
-    into v_forum_id, v_sortkey
-    from forums_messages
-    where message_id = p_message_id;
-
-    update forums_messages
-    set open_p = ''f''
-    where tree_sortkey between tree_left(v_sortkey) and tree_right(v_sortkey)
-    and forum_id = v_forum_id;
-
-    update forums_messages
-    set open_p = ''f''
-    where message_id = p_message_id;
-
-    return 0;
-end;
-' language 'plpgsql';
-
 select define_function_args ('forums_message__set_state', 'message_id,state');
 
 create or replace function forums_message__set_state(integer,varchar) returns integer as '
@@ -276,55 +236,3 @@ begin
   perform acs_object__delete(p_message_id);
   return 0;
 end;' language 'plpgsql';
-
-select define_function_args ('forums_message__delete_thread', 'message_id');
-
-create or replace function forums_message__delete_thread (integer)
-returns integer as '
-declare
-    p_message_id                    alias for $1;
-    v_forum_id                      forums_messages.forum_id%TYPE;
-    v_sortkey                       forums_messages.tree_sortkey%TYPE;
-    v_message                       RECORD;
-begin
-    select forum_id, tree_sortkey
-    into v_forum_id, v_sortkey
-    from forums_messages
-    where message_id = p_message_id;
-
-    -- if it is already deleted
-    if v_forum_id is null
-    then return 0;
-    end if;
-
-    -- delete all children
-    -- order by tree_sortkey desc to guarantee
-    -- that we never delete a parent before its child
-    -- sortkeys are beautiful
-    for v_message in select *
-                     from forums_messages
-                     where forum_id = v_forum_id
-                     and tree_sortkey between tree_left(v_sortkey) and tree_right(v_sortkey)
-                     order by tree_sortkey desc
-    loop
-        -- Avoid the count bookkeeping down in forums_message__delete
-        perform forums_message__delete(v_message.message_id);
-    end loop;
-
-    -- delete the message itself
-    perform forums_message__delete(p_message_id);
-
-    return 0;
-end;' language 'plpgsql';
-
-
-select define_function_args('forums_message__name','message_id');
-
-create or replace function forums_message__name (integer)
-returns varchar as '
-declare
-    p_message_id                    alias for $1;
-begin
-    return subject from forums_messages where message_id = p_message_id;
-end;
-' language 'plpgsql';

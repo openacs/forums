@@ -1,17 +1,21 @@
 <master>
-<property name="title">#forums.Forum# @forum.name;noquote@: @message.subject;noquote@</property>
-<property name="context">@context;noquote@</property>
-<property name="header_stuff">
-  <link rel="stylesheet" type="text/css" media="all" href="/resources/forums/forums.css" />
-  <script type="text/javascript" src="/resources/forums/forums.js"></script>
-@alternate_style_sheet;noquote@
-@dynamic_script;noquote@
-</property>
-<property name="displayed_object_id">@message_id@</property>
-<if @display_mode@ eq "dynamic_minimal">
-  <iframe style="width:0; height:0; border:0;" id="dynamic" name="dynamic" src="about:blank"></iframe>
-</if>
+  <property name="title">#forums.Thread_title#</property>
+  <property name="context">@context;noquote@</property>
+  <property name="displayed_object_id">@message_id@</property>
 
+  <property name="header_stuff">
+    <link rel="stylesheet" type="text/css" media="all" href="/resources/forums/forums.css" />
+    <link rel="stylesheet" type="text/css" media="print" href="/resources/forums/print.css" />
+    <link rel="alternate stylesheet" type="text/css" media="all" title="flat" href="/resources/forums/flat.css" />
+    <link rel="alternate stylesheet" type="text/css" media="all" title="flat-collapse" href="/resources/forums/flat-collapse.css" />
+    <link rel="alternate stylesheet" type="text/css" media="all" title="collapse" href="/resources/forums/collapse.css" />
+    <link rel="alternate stylesheet" type="text/css" media="all" title="expand" href="/resources/forums/expand.css" />
+    <link rel="alternate stylesheet" type="text/css" media="all" title="print" href="/resources/forums/print.css" />
+    <script type="text/javascript" src="/resources/forums/cop.js"></script>
+    <script type="text/javascript" src="/resources/forums/forums.js"></script>
+    @dynamic_script;noquote@
+  </property>
+  <iframe width="0" height="0" border="0" style="width:0; height:0; border:0;" id="dynamic" name="dynamic" src="about:blank"></iframe>
 
   <if @searchbox_p@ true>
     <div style="float: right;">
@@ -22,29 +26,33 @@
       </formtemplate>
     </div>
   </if>
+  <div class="displayLinks" style="float: right;"> 
+    Display as: <a href="#" onclick="setActiveStyleSheet('flat'); return false;" title="No indentation for replies" class="button">Flat</a>
+    <a href="#" onclick="setActiveStyleSheet('default'); return false;" title="With indentation of replies" class="button">Nested</a>
+    <a href="#" onclick="setActiveStyleSheet('collapse'); return false;" title="Just display subjects" class="button">Collapse</a>
+    <a href="#" onclick="setActiveStyleSheet('expand'); return false;" title="Display full posts" class="button">Expand</a>
+    <a href="#" onclick="setActiveStyleSheet('print'); return false;" title="Printable view" class="button">Print</a>
+  </div>
   <ul class="action-links">
     <li><a href="@thread_url@">#forums.Back_to_thread_label#</a></li>
-    <if @notification_chunk@ not nil>
-      <li>@notification_chunk;noquote@</li>
-    </if>
   </ul>
 
-<formtemplate id="display_form"></formtemplate>
+  <p>@notification_chunk;noquote@</p>
 
-<include src="/packages/forums/lib/message/thread-chunk"
-         &message="message"
-         &forum="forum"
-         &permissions="permissions"
-         display_mode="@display_mode@">
+  <include src="/packages/forums/lib/message/thread-chunk"
+    &message="message"
+    &forum="forum"
+    &permissions="permissions">
 
-<ul class="action-links">
-  <if @reply_url@ not nil>
-    <if @forum.presentation_type@ eq "flat">
-      <li><a href="@reply_url@"><b>#forums.Post_a_Reply#</b></a></li>
+    <if @reply_url@ not nil>
+      <if @forum.presentation_type@ eq "flat">
+        <a href="@reply_url@"><b>#forums.Post_a_Reply#</b></a>
+      </if>
+      <else>
+        <a href="@reply_url@"><b>#forums.Reply_to_first_post_on_page_label#</b></a>
+      </else>
     </if>
-    <else>
-      <li><a href="@reply_url@"><b>#forums.Reply_to_first_post_on_page_label#</b></a></li>
-    </else>
-  </if>
-  <li>#forums.Back_to_thread_link#</li>
-</ul>
+
+    <ul class="action-links">
+      <li><a href="@thread_url@">#forums.Back_to_thread_label#</a></li>
+    </ul>

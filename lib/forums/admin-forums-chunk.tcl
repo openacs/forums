@@ -7,13 +7,14 @@ ad_page_contract {
     @cvs-id $Id$
 
 }
+set subsite_url [subsite::get_element -element url -notrailing]
 
 template::list::create \
     -name forums \
     -multirow forums \
     -actions [list \
                   [_ forums.Create_a_New_Forum] forum-new {} \
-                  [_ forums.Parameters] [export_vars -base "/shared/parameters" { { return_url [ad_return_url] } { package_id {[ad_conn package_id]} } }] {} \
+                  [_ forums.Parameters] [export_vars -base "$subsite_url/shared/parameters" { { return_url [ad_return_url] } { package_id {[ad_conn package_id]} } }] {} \
                   [_ acs-subsite.Permissions] [export_vars -base "permissions" { { object_id {[ad_conn package_id]} } }] {}
               ]\
     -elements {

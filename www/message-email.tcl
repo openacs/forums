@@ -14,6 +14,7 @@ forum::security::require_read_message -message_id $message_id
 
 # Get the message information
 forum::message::get -message_id $message_id -array message
+set message(tree_level) 0
 
 form create message
 

@@ -14,13 +14,15 @@ set table_border_color [parameter::get -parameter table_border_color]
 if {$confirm_p} {
     # Delete the message and all children
     forum::message::delete -message_id $message(message_id)
-    
+
     # Redirect to the forum
     ad_returnredirect "../forum-view?forum_id=$message(forum_id)"
     ad_script_abort
 }
 
 set message_id $message(message_id)
+
+set message(tree_level) 0
 
 set url_vars [export_url_vars message_id return_url]
 

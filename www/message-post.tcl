@@ -42,6 +42,7 @@ if {[empty_string_p $parent_id]} {
 } else {
     # get the parent message information
     forum::message::get -message_id $parent_id -array parent_message
+    set parent_message(tree_level) 0
 
     # see if they're allowed to add to this thread
     forum::security::require_post_message -message_id $parent_id

@@ -116,6 +116,7 @@
   <msg key="Subscribe">Subscribe?</msg>
   <msg key="text">Plain text</msg>
   <msg key="This_forum_is">This forum is</msg>
+  <msg key="Thread_title">Forum %forum.name%: %message.subject%</msg>
   <msg key="Threaded">Threaded</msg>
   <msg key="Threads">Threads</msg>
   <msg key="View">View</msg>

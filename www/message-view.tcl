@@ -90,33 +90,7 @@ if { $permissions(post_p) || [ad_conn user_id] == 0 } {
 
 set thread_url [export_vars -base forum-view { { forum_id $message(forum_id) } }]
 
-if {[empty_string_p $display_mode]} {
-    # user doesn't set display so let's get cookie
-    set display_mode [ad_get_cookie forums_display_mode dynamic_minimal]
-} else {
-    # user desires a new look so store it too
-    # half a year should be fine for now
-    ad_set_cookie -replace t -max_age 15768000 forums_display_mode $display_mode
-}
-
-set alternate_style_p 0
-
-if {[string equal $display_mode flat]} {
-    set alternate_style_p 1
-    set display_stylesheet "flat.css"
-} elseif {[string equal $display_mode nested] || [string equal $display_mode minimal] || [string equal $display_mode threaded]} {
-} else {
-    set display_mode dynamic_minimal
-}
-
-if {$alternate_style_p} {
-    set alternate_style_sheet "<link rel=\"stylesheet\" type=\"text/css\" media=\"all\" href=\"/resources/forums/$display_stylesheet\" />"
-} else {
-    set alternate_style_sheet ""
-}
-
-if {[string equal $display_mode "dynamic_minimal"]} {
-    set dynamic_script "
+set dynamic_script "
   <script type=\"text/javascript\" src=\"/resources/forums/dynamic-comments.js\"></script>
   <script type=\"text/javascript\">
   <!--
@@ -129,24 +103,4 @@ if {[string equal $display_mode "dynamic_minimal"]} {
   //-->
   </script>
 "
-} else {
-    set dynamic_script ""
-}
 
-set display_options_list {{Flat flat} {Nested nested} {Threaded threaded} {Minimal minimal} {"Dynamic Minimal" dynamic_minimal}}
-#set display_options_list {{Flat flat} {Nested nested} {"Dynamic" dynamic_minimal}}
-ad_form \
-    -name display_form \
-    -method post \
-    -has_submit 1 \
-    -form {
-        {message_id:text(hidden) {value $message_id}}
-        {display_mode:text(radio),optional
-            {label "Display:"}
-            {options $display_options_list}
-            {value $display_mode}
-            {html {onchange "this.form.submit();"}}
-        }
-    } \
-    -after_submit {
-    }

@@ -46,8 +46,15 @@ create table forums_messages (
     tree_sortkey                    varbit,
     max_child_sortkey               varbit,
     last_child_post                 timestamptz,
-    reply_count                     integer default 0,
-    approved_reply_count            integer default 0,
+    reply_count                     integer 
+                                    constraint forums_mess_reply_count_ck
+                                    check (reply_count >= 0) default 0,
+    approved_reply_count            integer
+                                    constraint forums_mess_app_rep_count_ck
+                                    check (approved_reply_count >= 0) default 0,
+    last_poster                     integer
+                                    constraint forums_mess_last_poster_fk
+                                    references users(user_id),
     constraint forums_mess_sk_forum_un
     unique (tree_sortkey, forum_id)
 );
