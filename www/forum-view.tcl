@@ -25,7 +25,7 @@ set admin_p [forum::security::can_admin_forum_p -forum_id $forum_id]
 if {!${admin_p}} {
     set moderate_p [forum::security::can_moderate_forum_p -forum_id $forum_id]
     if {!${moderate_p}} {
-        set post_p [forum::security::can_post_forum_p -forum_id $forum_id]
+        set post_p [expr { [ad_conn user_id] == 0 || [forum::security::can_post_forum_p -forum_id $forum_id] }]
     } else {
         set post_p 1
     }
