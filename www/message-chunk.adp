@@ -53,9 +53,7 @@
   </else>
 
     <if @message.html_p@ false>
-      <div style="font-family: monospace">
-        <%= [ad_text_to_html --  "$message(content)"] %>
-      </div>
+      <%= [ad_text_to_html --  "$message(content)"] %>
     </if>
     <else>
       @message.content@
