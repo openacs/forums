@@ -50,6 +50,7 @@
       <th align="left" width="20%">Last Post</th>
     </tr>
 
+<if @messages:rowcount@ gt 0>
 <multiple name="messages">
 
   <if @messages.rownum@ odd>
@@ -71,6 +72,14 @@
     </tr>
 
 </multiple>
+</if>
+<else>
+    <tr bgcolor="#eeeeee">
+      <td colspan="4">
+        <i>No Messages</i>
+      </td>
+    </tr>
+</else>
 
   </table>
 

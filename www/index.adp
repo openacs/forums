@@ -26,6 +26,7 @@
       <th align="left" width="20%">Last Post</th>
     </tr>
 
+<if @forums:rowcount@ gt 0>
 <multiple name="forums">
 
   <if @forums.rownum@ odd>
@@ -45,6 +46,14 @@
     </tr>
 
 </multiple>
+</if>
+<else>
+    <tr bgcolor="#eeeeee">
+      <td colspan="3">
+        <i>No Forums</i>
+      </td>
+    </tr>
+</else>
 
   </table>
 

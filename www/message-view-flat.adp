@@ -23,6 +23,7 @@
 <include src="message-chunk" bgcolor="#eeeeee" moderate_p=@moderate_p@ &message="message">
   </table>
 
+<if @responses:rowcount@ gt 0>
   <br>
 
   <table bgcolor="#cccccc" cellpadding="5" width="95%">
@@ -39,5 +40,6 @@
 </multiple>
 
   </table>
+</if>
 
 </center>
