@@ -4,8 +4,11 @@
 
 <h3>#forums.Forums#</h3>
 <ul>
-<li> <a href="forum-new">#forums.Create_a_New_Forum#</a>
+<li> <a href="forum-new">#forums.Create_a_New_Forum#</a> </li>
+<li> <a href="@parameters_url@">#forums.Parameters#</a> </li>
+
 <p>
+
 <multiple name="forums">
 
 <if @forums.enabled_p@ eq t><h3>#forums.Active_Forums#</h3></if>
@@ -20,7 +23,3 @@
 
 </multiple>
 </ul>
-
-
-
-

@@ -25,7 +25,7 @@
 
 <if @view@ eq "date">
 
-  <table bgcolor="#cccccc" width="95%">
+  <table width="95%" style="color: black; background-color: @table_border_color@;">
 
     <tr>
       <th align="left" width="30%">#forums.Forum#</th>
@@ -37,10 +37,10 @@
 <multiple name="messages">
 
   <if @messages.rownum@ odd>
-    <tr bgcolor="#eeeeee">
+    <tr style="color: black; background-color: @table_bgcolor@;">
   </if>
   <else>
-    <tr bgcolor="#d9e4f9">
+    <tr style="color: black; background-color: @table_other_bgcolor@;">
   </else>
 
       <td><a href="forum-view?forum_id=@messages.forum_id@">@messages.forum_name@</a></td>
@@ -67,7 +67,7 @@
 
 <multiple name="messages">
 
-  <table bgcolor="#cccccc" width="95%">
+  <table width="95%" style="color: black; background-color: @table_border_color@;">
 
     <tr bgcolor="#eeeeee">
       <th align="left" colspan="2">@messages.forum_name@<br><br></th>
@@ -81,10 +81,10 @@
 <group column="forum_name">
 
   <if @messages.rownum@ odd>
-    <tr bgcolor="#eeeeee">
+    <tr style="color: black; background-color: @table_bgcolor@;">
   </if>
   <else>
-    <tr bgcolor="#d9e4f9">
+    <tr style="color: black; background-color: @table_other_bgcolor@;">
   </else>
 
       <td><a href="message-view?message_id=@messages.message_id@">@messages.subject@</a></td>

@@ -14,7 +14,5 @@ set package_id [ad_conn package_id]
 # List of forums
 db_multirow forums select_forums {}
 
-ad_return_template
-
-
+set parameters_url "/shared/parameters?[export_vars { { return_url [ad_return_url] } { package_id {[ad_conn package_id]} } }]"
 

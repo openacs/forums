@@ -13,6 +13,11 @@ ad_page_contract {
 
 set package_id [ad_conn package_id]
 
+# get the colors from the params
+set table_border_color [parameter::get -parameter table_border_color]
+set table_bgcolor [parameter::get -parameter table_bgcolor]
+set table_other_bgcolor [parameter::get -parameter table_other_bgcolor]
+
 # choosing the view
 set dimensional_list "
     {
