@@ -76,6 +76,12 @@ if {[form is_valid message]} {
         set confirm_p 1
         set exported_vars [export_form_vars message_id forum_id parent_id subject content html_p confirm_p]
         
+        set message(subject) $subject
+        set message(content) $content
+        set message(user_id) $user_id
+        set message(user_name) [db_string select_name {select first_names || ' ' || last_name from persons where person_id = :user_id}]
+        set message(posting_date) [db_string select_date {select to_char(sysdate, 'Mon DD YYYY HH24:MI:SS') from dual}]
+
         # Let's check if this person is subscribed to the forum
         # in case we might want to subscribe them to the thread
         if {[empty_string_p $parent_id]} {
@@ -111,7 +117,12 @@ if {[form is_valid message]} {
     }
 
     if {![empty_string_p $subscribe_p] && $subscribe_p && [empty_string_p $parent_id]} {
-        set notification_url [notification::display::subscribe_url -type forums_message_notif -object_id $message_id -url $message_view_url -user_id [ad_conn user_id]]
+        set notification_url [notification::display::subscribe_url \
+            -type forums_message_notif \
+            -object_id $message_id \
+            -url $message_view_url \
+            -user_id [ad_conn user_id] \
+        ]
 
         # redirect to notification stuff
         ad_returnredirect $notification_url
