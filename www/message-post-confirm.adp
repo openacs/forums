@@ -37,7 +37,8 @@
 <br>  
   </if>
 
-  <input type="submit" value="Confirm">
+  <input type="submit" name="formbutton:post" value="#forums.Post#">
+  <input type="submit" name="formbutton:edit" value="#forums.Edit_again#">
 </form>
 
 

@@ -18,13 +18,23 @@ ad_page_contract {
     }
 }
 
+if { ![empty_string_p [ns_queryget formbutton:post]] } {
+    set action post
+} elseif { ![empty_string_p [ns_queryget formbutton:preview]] } {
+    set action preview
+} elseif { ![empty_string_p [ns_queryget formbutton:edit]] } {
+    set action edit
+} else {
+    set action ""
+}
+
 set user_id [ad_conn user_id]
 
 # get the colors from the params
 set table_border_color [parameter::get -parameter table_border_color]
 set table_bgcolor [parameter::get -parameter table_bgcolor]
 
-form create message
+form create message -edit_buttons [list [list [_ forums.Post] post] [list [_ forums.Preview] preview]]
 
 element create message message_id \
     -label [_ forums.Message_ID] \
@@ -114,7 +124,7 @@ if {[form is_valid message]} {
         set anonymous_p 0
     }
     
-    if {!$confirm_p} {
+    if { [string equal $action "preview"] } {
         forum::get -forum_id $forum_id -array forum
 
         set confirm_p 1
@@ -154,76 +164,80 @@ if {[form is_valid message]} {
         return
     }
 
-    if { [empty_string_p $anonymous_p] } {
-        set anonymous_p 0
+    if { [string equal $action "post"] } {
+        if { [empty_string_p $anonymous_p] } {
+          set anonymous_p 0
+      }
+      if { $anonymous_p } {
+          set post_as_user_id 0
+      } else {
+          set post_as_user_id $user_id
+      }
+      
+      forum::message::new \
+          -forum_id $forum_id \
+          -message_id $message_id \
+          -parent_id $parent_id \
+          -subject $subject \
+          -content $content \
+          -html_p $html_p \
+          -user_id $post_as_user_id
+
+      if {[empty_string_p $parent_id]} {
+          set redirect_url "[ad_conn package_url]message-view?message_id=$message_id"
+      } else {
+          set redirect_url "[ad_conn package_url]message-view?message_id=$parent_id"
+      }
+
+      # Wrap the notifications URL
+      if {![empty_string_p $subscribe_p] && $subscribe_p && [empty_string_p $parent_id]} {
+          set notification_url [notification::display::subscribe_url \
+              -type forums_message_notif \
+              -object_id $message_id \
+              -url $redirect_url \
+              -user_id [ad_conn user_id] \
+          ]
+
+          # redirect to notification stuff
+          set redirect_url $notification_url
+      }
+
+      # Wrap the attachments URL
+      if {$attachments_enabled_p} {
+          form get_values message attach_p
+
+          if {$attach_p} {
+              set redirect_url [attachments::add_attachment_url -object_id $message_id -return_url $redirect_url -pretty_name "[_ forums.Forum_Posting] \"$subject\""]
+          }
+      }
+      
+      # Do the redirection
+      ad_returnredirect $redirect_url
+
+      ad_script_abort
     }
-    if { $anonymous_p } {
-        set post_as_user_id 0
-    } else {
-        set post_as_user_id $user_id
-    }
-    
-    forum::message::new \
-        -forum_id $forum_id \
-        -message_id $message_id \
-        -parent_id $parent_id \
-        -subject $subject \
-        -content $content \
-        -html_p $html_p \
-        -user_id $post_as_user_id
-
-    if {[empty_string_p $parent_id]} {
-        set redirect_url "[ad_conn package_url]message-view?message_id=$message_id"
-    } else {
-        set redirect_url "[ad_conn package_url]message-view?message_id=$parent_id"
-    }
-
-    # Wrap the notifications URL
-    if {![empty_string_p $subscribe_p] && $subscribe_p && [empty_string_p $parent_id]} {
-        set notification_url [notification::display::subscribe_url \
-            -type forums_message_notif \
-            -object_id $message_id \
-            -url $redirect_url \
-            -user_id [ad_conn user_id] \
-        ]
-
-        # redirect to notification stuff
-        set redirect_url $notification_url
-    }
-
-    # Wrap the attachments URL
-    if {$attachments_enabled_p} {
-        form get_values message attach_p
-
-        if {$attach_p} {
-            set redirect_url [attachments::add_attachment_url -object_id $message_id -return_url $redirect_url -pretty_name "[_ forums.Forum_Posting] \"$subject\""]
-        }
-    }
-    
-    # Do the redirection
-    ad_returnredirect $redirect_url
-
-    ad_script_abort
 }
 
 set message_id [db_nextval acs_object_id_seq]
 #set subject ""
 
-if {![empty_string_p $parent_id]} {
+if { ![empty_string_p $parent_id] } {
     # get the parent message information
     forum::message::get -message_id $parent_id -array parent_message
     set forum_id $parent_message(forum_id)
-    set subject "[_ forums.Re] $parent_message(subject)"
-
-    # trim multiple leading Re:
-    regsub {^(\s*Re:\s*)*} $subject {Re: } subject
-
+    if { [form is_request message] } {
+        set subject "[_ forums.Re] $parent_message(subject)"
+        
+        # trim multiple leading Re:
+        regsub {^(\s*Re:\s*)*} $subject {Re: } subject
+    }
+    
     # see if they're allowed to add to this thread
     forum::security::require_post_message -message_id $parent_id
 } else {
     # no parent_id, therefore new thread
     # require thread creation privs
-    forum::security::require_post_forum -forum_id $forum_id
+        forum::security::require_post_forum -forum_id $forum_id
 }
 
 forum::get -forum_id $forum_id -array forum
@@ -246,12 +260,4 @@ if {![empty_string_p $parent_id]} {
 } else {
     lappend context [_ forums.Post_a_Message]
 }
-
-ad_return_template
-
-
-
-
-
-
 
