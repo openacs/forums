@@ -4,7 +4,7 @@
 
     <fullquery name="select_date">
         <querytext>
-          select to_char(sysdate, 'Mon DD YYYY HH24:MI:SS') 
+          select to_char(sysdate, 'YYYY-MM-DD HH24:MI:SS') 
           from dual
         </querytext>
     </fullquery>

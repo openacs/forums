@@ -45,7 +45,7 @@
 
       <td><a href="forum-view?forum_id=@messages.forum_id@">@messages.forum_name@</a></td>
       <td><a href="message-view?message_id=@messages.message_id@">@messages.subject@</a></td>
-      <td align="center">@messages.posting_date@</td>
+      <td align="center">@messages.posting_date_pretty@</td>
 
     </tr>
 
@@ -88,7 +88,7 @@
   </else>
 
       <td><a href="message-view?message_id=@messages.message_id@">@messages.subject@</a></td>
-      <td align="center">@messages.posting_date@</td>
+      <td align="center">@messages.posting_date_pretty@</td>
 
     </tr>
 

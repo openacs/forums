@@ -10,7 +10,7 @@
                    content,
                    html_p,
                    person.name(user_id) as user_name,
-                   to_char(posting_date, 'Mon DD YYYY HH24:MI:SS') as posting_date,
+                   to_char(posting_date, 'YYYY-MM-DD HH24:MI:SS') as posting_date_ansi,
                    tree.tree_level(tree_sortkey) as tree_level,
                    state,
                    user_id
@@ -29,7 +29,7 @@
                    content,
                    html_p,
                    person.name(user_id) as user_name,
-                   to_char(posting_date, 'Mon DD YYYY HH24:MI:SS') as posting_date,
+                   to_char(posting_date, 'YYYY-MM-DD HH24:MI:SS') as posting_date_ansi,
                    tree.tree_level(tree_sortkey) as tree_level,
                    state,
                    user_id

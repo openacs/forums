@@ -166,6 +166,8 @@ mailto:$message(user_email)
         }
 
         db_1row $query {} -column_array row
+        
+        set row(posting_date_pretty) [lc_time_fmt $row(posting_date_ansi) "%x %X"]
     }
 
     ad_proc -private set_state {

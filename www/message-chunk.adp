@@ -13,7 +13,7 @@
 
   <td align=center>
     <a href="user-history?user_id=@message.user_id@">@message.user_name@</a></td>
-  <td align=center>@message.posting_date@</td>
+  <td align=center>@message.posting_date_pretty@</td>
 
   <if @preview@ nil>
   

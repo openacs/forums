@@ -30,11 +30,10 @@ element create search forum_id \
     -widget hidden \
     -value ""
 
-db_multirow forums select_forums {}
+db_multirow -extend { last_modified_pretty } forums select_forums {} {
+    set last_modified_pretty [lc_time_fmt $last_modified_ansi "%x %X"]
+}
 
 set context {}
 
 ad_return_template
-
-
-

@@ -104,7 +104,8 @@ if {[form is_valid message]} {
         set message(content) $content
         set message(user_id) $user_id
         set message(user_name) [db_string select_name {}]
-        set message(posting_date) [db_string select_date {}]
+        set message(posting_date_ansi) [db_string select_date {}]
+        set message(posting_date_pretty) [lc_time_fmt $message(posting_date_ansi) "%x %X"]
 
         # Let's check if this person is subscribed to the forum
         # in case we might want to subscribe them to the thread

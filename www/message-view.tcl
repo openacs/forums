@@ -88,7 +88,9 @@ if {[string equal $forum(presentation_type) flat]} {
     set order_by "tree_sortkey"
 }
 
-db_multirow responses $query {}
+db_multirow -extend { posting_date_pretty } responses $query {} {
+    set posting_date_pretty [lc_time_fmt $posting_date_ansi "%x %X"]
+}
 
 # If this is a top-level thread, we allow subscriptions here
 if {[empty_string_p $message(parent_id)]} {

@@ -8,7 +8,7 @@ ad_page_contract {
 
 } {
     message_id:integer,notnull
-    {return_url ""}
+    {return_url "../message-view"}
     {confirm_p 0}
 }
 
