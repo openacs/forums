@@ -43,6 +43,10 @@ element create message confirm_p \
     -datatype text \
     -widget hidden
 
+if { [exists_and_not_null content] && [exists_and_not_null format] } {
+  element set_properties message message_body -value [list $content $format]
+}
+
 if {[form is_request message]} {
     ##############################
     # Form initialisation
@@ -77,8 +81,7 @@ if {[form is_request message]} {
         forum_id \
         parent_id \
         subject \
-        content \
-        html_p \
+        message_body \
         confirm_p \
         subscribe_p \
         anonymous_p \
@@ -96,10 +99,11 @@ if {[form is_request message]} {
         set confirm_p 1
         set subject.spellcheck ":nospell:"
         set content.spellcheck ":nospell:"
-        set content [string trimright $content]
-        set exported_vars [export_form_vars message_id forum_id parent_id subject content html_p confirm_p subject.spellcheck content.spellcheck anonymous_p attach_p]
+        set content [string trimright [template::util::richtext::get_property contents $message_body]]
+        set format [string trimright [template::util::richtext::get_property format $message_body]]
+        set exported_vars [export_vars -form {message_id forum_id parent_id subject {message_body $content} {message_body.format $format} confirm_p subject.spellcheck content.spellcheck anonymous_p attach_p}]
         
-        set message(html_p) $html_p
+        set message(format) $format
         set message(subject) $subject
         set message(content) $content
         set message(user_id) $displayed_user_id
@@ -125,13 +129,15 @@ if {[form is_request message]} {
     }
 
     if { [string equal $action "post"] } {
+      set content [string trimright [template::util::richtext::get_property contents $message_body]]
+      set format [string trimright [template::util::richtext::get_property format $message_body]]
       forum::message::new \
           -forum_id $forum_id \
           -message_id $message_id \
           -parent_id $parent_id \
           -subject $subject \
           -content $content \
-          -html_p $html_p \
+          -format $format \
           -user_id $displayed_user_id
 
       if {[empty_string_p $parent_id]} {

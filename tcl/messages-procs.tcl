@@ -16,7 +16,7 @@ ad_proc -public forum::message::new {
     {-parent_id ""}
     {-subject:required}
     {-content:required}
-    {-html_p "f"}
+    {-format "text/plain"}
     {-user_id ""}
 } {
     create a new message
@@ -30,7 +30,7 @@ ad_proc -public forum::message::new {
     set original_message_id $message_id
     # Prepare the variables for instantiation
     set extra_vars [ns_set create]
-    oacs_util::vars_to_ns_set -ns_set $extra_vars -var_list {forum_id message_id parent_id subject content html_p user_id}
+    oacs_util::vars_to_ns_set -ns_set $extra_vars -var_list {forum_id message_id parent_id subject content format user_id}
 
     db_transaction {
         set message_id [package_instantiate_object -extra_vars $extra_vars forums_message]
@@ -92,7 +92,7 @@ Thread: $message(root_subject)
 Author: $message(user_name) ($message(user_email))\n\n"
 
 
-     if { $message(html_p) } {
+     if { [string compare $message(format) "text/plain"] != 0 } {
          append text_version [ad_html_to_text -- $message(content)]
      } else {
          append text_version [wrap_string $message(content)]
@@ -131,7 +131,7 @@ ad_proc -public forum::message::edit {
     {-message_id:required}
     {-subject:required}
     {-content:required}
-    {-html_p:required}
+    {-format:required}
 } {
     Editing a message. There is no versioning here!
     This means this function is for admins only!
@@ -140,14 +140,14 @@ ad_proc -public forum::message::edit {
     db_dml update_message {}
 }
 
-ad_proc -public forum::message::set_html_p {
+ad_proc -public forum::message::set_format {
     {-message_id:required}
-    {-html_p:required}
+    {-format:required}
 } {
     set whether a message is HTML or not
 } {
     # Straight update to the DB
-    db_dml update_message_html_p
+    db_dml update_message_format
 }
 
 ad_proc -public forum::message::get {

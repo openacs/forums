@@ -1,10 +1,18 @@
+alter table forums_messages add format varchar2(30) default 'text/plain';
 
+update forums_messages
+set format = 'text/html'
+where html_p = 't';
+update forums_messages
+set format = 'text/plain'
+where html_p = 'f';
+
+-- forums-messages-package-create.sql
 --
 -- The Forums Package
 --
 -- @author gwong@orchardlabs.com,ben@openforce.biz
 -- @creation-date 2002-05-16
--- @cvs-id $Id$
 --
 -- The Package for Messages
 --
@@ -106,7 +114,7 @@ begin
 
     return v_message_id;
 end;
-' language 'plpgsql' stable strict;
+' language 'plpgsql' with(isstrict,iscachable);
 
 select define_function_args ('forums_message__thread_open', 'message_id');
 
@@ -224,3 +232,14 @@ begin
     return subject from forums_messages where message_id = p_message_id;
 end;
 ' language 'plpgsql';
+
+create or replace view forums_messages_approved as
+    select *
+    from forums_messages
+    where state = 'approved';
+
+create or replace view forums_messages_pending as
+    select *
+    from forums_messages
+    where state = 'pending';
+

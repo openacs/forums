@@ -1,4 +1,16 @@
+alter table forums_messages add format varchar2(30) default 'text/plain';
 
+update forums_messages
+set format = 'text/html'
+where html_p = 't';
+update forums_messages
+set format = 'text/plain'
+where html_p = 'f';
+
+alter table forums_messages add constraint forums_mess_format_ck check (format in ('text/enhanced', 'text/plain', 'text/fixed-width', 'text/html'));
+alter table forums_messages drop column html_p;
+
+-- forums-messages-package-create.sql
 --
 -- The Forums Package
 --
@@ -259,3 +271,15 @@ as
 end forums_message;
 /
 show errors
+
+
+create or replace view forums_messages_approved as
+    select *
+    from forums_messages
+    where state = 'approved';
+
+create or replace view forums_messages_pending as
+    select *
+    from forums_messages
+    where state = 'pending';
+

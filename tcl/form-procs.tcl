@@ -27,37 +27,22 @@ ad_proc -public forums::form::message {
         -widget text \
         -html {size 60}
 
-    template::element create $form_name ${prefix}content \
+    template::element create $form_name ${prefix}message_body \
         -label [_ forums.Body] \
-        -datatype text \
-        -widget textarea \
+        -datatype richtext \
+        -widget richtext \
         -html {rows 20 cols 60 wrap soft} \
 
-    template::element create $form_name ${prefix}html_p \
-        -label [_ forums.Format] \
-        -datatype text \
-        -widget radio \
-        -options [list [list [_ forums.text] f] [list [_ forums.html] t]] \
-        -value f
-    
 
     ##############################
     # Form validation
     #
     set subject_val [list]
-    set content_val [list html \
-        {expr {[string match $html_p "f"] || \
-            ([string match $html_p "t"] && \
-             [empty_string_p \
-                [set v_message \
-                    [ad_quotehtml \
-                        [ad_html_security_check $value]]]])}} \
-        {}]
+    set content_val [list]
     
     if {$optional_p} {
         template::element set_properties $form_name ${prefix}subject -optional 
-        template::element set_properties $form_name ${prefix}content -optional
-        template::element set_properties $form_name ${prefix}html_p -optional
+        template::element set_properties $form_name ${prefix}message_body -optional
     } else {
         lappend subject_val \
             {expr ![empty_string_p [string trim $value]]} \
@@ -71,7 +56,7 @@ ad_proc -public forums::form::message {
     template::element set_properties $form_name ${prefix}subject \
         -validate $subject_val
 
-    template::element set_properties $form_name ${prefix}content \
+    template::element set_properties $form_name ${prefix}message_body \
         -validate $content_val
 }
 
