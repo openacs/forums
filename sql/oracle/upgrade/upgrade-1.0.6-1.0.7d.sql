@@ -333,7 +333,7 @@ as
                           and tree_sortkey between tree.left(v_sortkey) and tree.right(v_sortkey)
                           order by tree_sortkey desc)
         loop
-            acs_object.del(v_message.message_id);
+            forums_messages.del(v_message.message_id);
         end loop;
 
         -- delete the message itself

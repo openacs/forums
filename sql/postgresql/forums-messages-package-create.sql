@@ -295,7 +295,7 @@ begin
                      order by tree_sortkey desc
     loop
         -- Avoid the count bookkeeping down in forums_message__delete
-        perform acs_object__delete(v_message.message_id);
+        perform forums_message__delete(v_message.message_id);
     end loop;
 
     -- delete the message itself
