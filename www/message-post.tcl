@@ -98,8 +98,8 @@ if {[form is_valid message]} {
         set message(subject) $subject
         set message(content) $content
         set message(user_id) $user_id
-        set message(user_name) [db_string select_name {select first_names || ' ' || last_name from persons where person_id = :user_id}]
-        set message(posting_date) [db_string select_date {select to_char(sysdate, 'Mon DD YYYY HH24:MI:SS') from dual}]
+        set message(user_name) [db_string select_name {}]
+        set message(posting_date) [db_string select_date {}]
 
         # Let's check if this person is subscribed to the forum
         # in case we might want to subscribe them to the thread
