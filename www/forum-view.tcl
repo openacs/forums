@@ -11,6 +11,7 @@ ad_page_contract {
     {orderby "posting_date,desc"}
 }
 
+
 # Get forum data
 forum::get -forum_id $forum_id -array forum
 
@@ -38,13 +39,15 @@ set moderate_url [export_vars -base "moderate/forum" { forum_id }]
 set post_url [export_vars -base "message-post" { forum_id }]
 
 # Create a search form and action when used
-form create search -action search
-forums::form::search search
+set searchbox_p [parameter::get -parameter ForumsSearchBoxP -default 1]
+if {$searchbox_p} { 
+    form create search -action search
+    forums::form::search search
 
-if {[form is_request search]} {
-  element set_properties search forum_id -value $forum_id
+    if {[form is_request search]} {
+        element set_properties search forum_id -value $forum_id
+    }
 }
-
 # Need to quote forum(name) since it is noquoted on display as part of an 
 # HTML fragment.
 set notification_chunk [notification::display::request_widget \

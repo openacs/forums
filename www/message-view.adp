@@ -3,32 +3,20 @@
 <property name="context">@context;noquote@</property>
 <property name="displayed_object_id">@message_id@</property>
 
-<center>
-<table width="95%">
-  <tr style="white-space: normal">
-    <td align=left>
-      <ul class="action-links">
-        <li><a href="@thread_url@">#forums.Back_to_thread_label#</a></li>
-      </ul>
-    </td>
-    <td>
-       &nbsp;
-    </td>
-  </tr>
-  <tr style="white-space: normal">
-    <td align=left>
-      @notification_chunk;noquote@
-    </td>
-    <td align=right>
+  <if @searchbox_p@ true>
+    <div style="float: right;">
       <formtemplate id="search">
         <formwidget id="forum_id">
-        #forums.Search#&nbsp;<formwidget id="search_text">
+          #forums.Search_colon#&nbsp;
+          <formwidget id="search_text">
       </formtemplate>
-    </td>
-  </tr>
-</table>
+    </div>
+  </if>
+  <ul class="action-links">
+    <li><a href="@thread_url@">#forums.Back_to_thread_label#</a></li>
+  </ul>
 
-<br>
+<p>@notification_chunk;noquote@</p>
 
 <include src="/packages/forums/lib/message/thread-chunk"
          &message="message"
