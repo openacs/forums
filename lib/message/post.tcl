@@ -43,10 +43,6 @@ element create message confirm_p \
     -datatype text \
     -widget hidden
 
-if { [exists_and_not_null content] && [exists_and_not_null format] } {
-  element set_properties message message_body -value [list $content $format]
-}
-
 if {[form is_request message]} {
     ##############################
     # Form initialisation
@@ -71,7 +67,7 @@ if {[form is_request message]} {
     set init_msg(attach_p) 0
 
     form set_values message init_msg
-
+    
 } elseif {[form is_valid message]} {
 
     ##############################
@@ -83,11 +79,17 @@ if {[form is_request message]} {
         parent_id \
         subject \
         message_body \
-        format \
         confirm_p \
         subscribe_p \
         anonymous_p \
         attach_p
+
+        ns_log notice "
+DB --------------------------------------------------------------------------------
+DB DAVE debugging /var/lib/aolserver/openacs-5-1/packages/forums/lib/message/post.tcl
+DB --------------------------------------------------------------------------------
+DB message_body = '${message_body}'
+DB --------------------------------------------------------------------------------"
     
     if { [empty_string_p $anonymous_p] } { set anonymous_p 0 }
 
@@ -102,19 +104,8 @@ if {[form is_request message]} {
         set confirm_p 1
         set subject.spellcheck ":nospell:"
         set content.spellcheck ":nospell:"
-        set content $message_body
-        set format $format
-
-	if {$format == "html"} {
-	    set content "$content"
-	    
-	} elseif {$format == "pre"} {
-	    set content [ad_text_to_html $content]
-	    set format "html"
-	} else {
-	    set content [ad_quotehtml $content]
-	    set format "html"
-	}
+        set content [template::util::richtext::get_property content $message_body]
+        set format [template::util::richtext::get_property format $message_body]
 
         set exported_vars [export_vars -form {message_id forum_id parent_id subject {message_body $content} format confirm_p subject.spellcheck content.spellcheck anonymous_p attach_p}]
         
@@ -144,25 +135,21 @@ if {[form is_request message]} {
     }
 
     if { [string equal $action "post"] } {
-      set content $message_body
-      set format $format
-
-      if {$format == "html"} {
-	  set content "$content"
-      } elseif {$format == "pre"} {
-	  set content [ad_text_to_html $content]	  
-      } else {
-	  set content [ad_quotehtml $content]
-      }
-
-
+        ns_log notice "
+DB --------------------------------------------------------------------------------
+DB DAVE debugging /var/lib/aolserver/openacs-5-1/packages/forums/lib/message/post.tcl
+DB --------------------------------------------------------------------------------
+DB message_body = '${message_body}'
+DB --------------------------------------------------------------------------------"
+        set content [template::util::richtext::get_property content $message_body]
+        set format [template::util::richtext::get_property format $message_body]
       forum::message::new \
           -forum_id $forum_id \
           -message_id $message_id \
           -parent_id $parent_id \
           -subject $subject \
           -content $content \
-	  -format "text/html" \
+	  -format $format \
           -user_id $displayed_user_id
 
       # DRB: Black magic cache flush call which will disappear when list builder is

@@ -37,23 +37,10 @@ ad_proc -public forums::form::message {
 
     template::element create $form_name ${prefix}message_body \
         -label [_ forums.Body] \
-        -datatype text \
-        -widget textarea \
+        -datatype richtext \
+        -widget richtext \
         -html {rows 20 cols 60 wrap soft} \
-        $optional_switch \
-        -validate [list \
-                       html_security_check \
-                       "expr \{ \
-                             \[ns_queryget ${prefix}format\] != \"html\" || \
-                             \[empty_string_p \[set v_message \[ad_html_security_check \$value\]\]\] \
-                       \}" \
-                       "Message contains HTML tags that are not allowed."]
-    
-    template::element create $form_name ${prefix}format \
-	-label "Format" \
-	-datatype text \
-	-widget select \
-	-options {{"Preformatted Text" "pre"} {"Plain Text" "plain"} {HTML "html"}}
+        $optional_switch
 
 }
 
