@@ -3,11 +3,13 @@
 
   <msg key="Administer">管理</msg>
   <msg key="Administration">管理</msg>
+  <msg key="Anonymous">匿名的</msg>
   <msg key="approve">批准</msg>
   <msg key="Are_you_sure_you_want_to_delete_lt">确实要删除此信息及&lt;strong&gt;全部回复&lt;/strong&gt;吗? </msg>
   <msg key="Attach">要添加吗？</msg>
   <msg key="Attachments">附件：</msg>
   <msg key="Author">作者</msg>
+  <msg key="Back_to_thread_label">回到%forum.name%</msg>
   <msg key="Back_to_thread_link">&lt;a href=&quot;%thread_url%&quot;&gt;返回&lt;/a&gt;到%forum.name%</msg>
   <msg key="Body">内容</msg>
   <msg key="by_Date">按日期</msg>

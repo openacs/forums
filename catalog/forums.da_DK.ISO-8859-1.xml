@@ -3,11 +3,13 @@
 
   <msg key="Administer">Administrér</msg>
   <msg key="Administration">Administration</msg>
+  <msg key="Anonymous">Anonym</msg>
   <msg key="approve">godkend</msg>
   <msg key="Are_you_sure_you_want_to_delete_lt">Er du sikker på, at du ønsker at slette dette indlæg og &lt;strong&gt;alle svar til den&lt;/strong&gt;</msg>
   <msg key="Attach">Vedhæft?</msg>
   <msg key="Attachments">Vedhæftelser:</msg>
   <msg key="Author">Forfatter</msg>
+  <msg key="Back_to_thread_label">Tilbage til %forum.name%</msg>
   <msg key="Back_to_thread_link">&lt;a href=&quot;%thread_url%&quot;&gt;Tilbage&lt;/a&gt; til %forum.name%</msg>
   <msg key="Body">Tekst</msg>
   <msg key="by_Date">efter Dato</msg>
@@ -70,7 +72,7 @@
   <msg key="Manage_Forum">Administrér Forum</msg>
   <msg key="ManageModerate">Administrér/Moderér</msg>
   <msg key="Message_ID">Besked ID</msg>
-  <msg key="Moderate">Moderer</msg>
+  <msg key="Moderate">Moderér</msg>
   <msg key="moderated">modereret</msg>
   <msg key="Name">Navn</msg>
   <msg key="New_Forum">Nyt Forum</msg>
