@@ -61,12 +61,8 @@ ad_proc datasource { message_id } {
             # different subject
             append combined_content "$subject\n\n"
         }
-        
-        if  { $html_p } {
-            append combined_content [ad_html_to_text -showtags -- $content]
-        } else {
-            append combined_content $content
-        }
+
+        append combined_content [ad_html_text_convert -from $format -to text/plain -- $content]
 
         # In case this text is not only used for indexing but also for display, beautify it
         append combined_content "\n\n"

@@ -69,19 +69,15 @@ ad_proc -public forum::message::do_notifications {
     {-message_id:required}
 } {
     # Select all the important information
-    get -message_id $message_id -array message
+    forum::message::get -message_id $message_id -array message
 
     set forum_id $message(forum_id)
     set url "[ad_url][db_string select_forums_package_url {}]"
 
     set attachments [attachments::get_attachments -object_id $message(message_id)]
-    if {$message(html_p) == "t"} {
-        set message_html $message(content)
-        set message_text [ad_html_text_convert -from html -to text $message(content)]
-    } else {
-        set message_text $message(content)
-        set message_html [ad_html_text_convert -from text -to html $message(content)]
-    }
+
+    set message_text [ad_html_text_convert -from $message(format) -to text/plain -- $message(content)]
+    set message_html [ad_html_text_convert -from $message(format) -to text/html -- $message(content)]
 
     set html_version ""
     append html_version "Forum:  <a href=\"${url}forum-view?forum_id=$message(forum_id)\">$message(forum_name)</a><br>\n"

@@ -7,16 +7,16 @@
     <initial-install-p>f</initial-install-p>
     <singleton-p>f</singleton-p>
     
-    <version name="1.0.1d2" url="http://openacs.org/repository/download/apm/forums-1.0.1d2.apm">
+    <version name="1.0.2" url="http://openacs.org/repository/download/apm/forums-1.0.2.apm">
         <owner url="http://openacs.org">OpenACS</owner>
         <summary>Online discussion forums.</summary>
         <release-date>2003-11-10</release-date>
         <vendor url="http://openacs.org">OpenACS</vendor>
         <description format="text/plain">This online discussion board software is the successor of the original bboard package. The biggest improvement is a scalable datamodel. Forums supports threaded and flat view, moderation, a stand alone search function as well as integration with the OpenACS search package and integration with the notifications package for email alerts. It also supports reply via email.</description>
 
-        <provides url="forums" version="1.0.1d2"/>
+        <provides url="forums" version="1.0.2"/>
         <requires url="acs-mail-lite" version="0.1d"/>
-        <requires url="notifications" version="5.0.0b4"/>
+        <requires url="notifications" version="5.1.1"/>
         <requires url="attachments" version="0.5"/>
 
         <callbacks>

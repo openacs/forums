@@ -58,19 +58,19 @@ create index forums_messages_user_id_idx on forums_messages(user_id);
 create index forums_messages_parent_id_idx on forums_messages(parent_id);
 create index forum_messages_date_idx on forums_messages (forum_id, posting_date);
 
-create view forums_messages_approved
+create or replace view forums_messages_approved
 as
     select *
     from forums_messages
     where state = 'approved';
 
-create view forums_messages_pending
+create or replace view forums_messages_pending
 as
     select *
     from forums_messages
     where state= 'pending';
 
-create function inline_0 ()
+create or replace function inline_0 ()
 returns integer as '
 begin
     perform acs_object_type__create_type(
