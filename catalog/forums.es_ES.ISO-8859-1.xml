@@ -92,6 +92,7 @@
   <msg key="reject">rechazar</msg>
   <msg key="Replies">Contestaciones</msg>
   <msg key="reply">Contestar</msg>
+  <msg key="Reply_to_first_post_in_thread">Responder al primer mensaje de este hilo</msg>
   <msg key="Search">Buscar:</msg>
   <msg key="Search_1">Buscar</msg>
   <msg key="Search_colon">Buscar:</msg>

@@ -1,8 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <message_catalog package_key="forums" package_version="1.0d4" locale="ch_zh" charset="utf-8">
 
+  <msg key="Are_you_sure_you_want_to_delete_lt">确实要删除此信息及&lt;strong&gt;全部回复&lt;/strong&gt;吗? </msg>
+  <msg key="Attach">要添加吗？</msg>
   <msg key="Author">恬宀</msg>
+  <msg key="Back_to_thread_link">&lt;a href=&quot;%thread_url%&quot;&gt;返回&lt;/a&gt;到%forum.name%</msg>
+  <msg key="by_Date">按日期</msg>
+  <msg key="Confirm_Post_to_Forum">确认发布帖子到论坛：</msg>
   <msg key="Edit">園辞</msg>
   <msg key="edit">園辞</msg>
   <msg key="Email">窮徨喨周</msg>
+  <msg key="email_alert_body_header">%posting_date%日，%user_name%写到：</msg>
+  <msg key="Entire_Thread">全Thread</msg>
+  <msg key="First_Post">第一帖</msg>
+  <msg key="Forum_ID">Forum ID </msg>
+  <msg key="forum_ID">forum ID </msg>
+  <msg key="ForumID">ForumID </msg>
+  <msg key="Forums_Posting_hist_lt">论坛：发布帖子历史记录记录</msg>
+  <msg key="Last_Post">最后帖</msg>
+  <msg key="Last_post_in_subject">此主题最后帖子</msg>
+  <msg key="lt_First_post_in_subject">此主题的第一帖子</msg>
+  <msg key="lt_Note_that_you_are_alr">（注意：你已整体订阅论坛。你可能收到重复的通知。）</msg>
+  <msg key="lt_Please_confirm_the_fo">请确认下面的帖子：</msg>
+  <msg key="lt_Users_Can_Create_New_">用户可创建新Threads</msg>
+  <msg key="lt_You_either_have_to">可以在论坛发布帖子，也可以回复信息。</msg>
+  <msg key="Message_ID">Message ID</msg>
+  <msg key="No_Postings">没有帖子。</msg>
+  <msg key="One_Thread">一个Thread</msg>
+  <msg key="parent_ID">parent ID</msg>
+  <msg key="Pending_Threads">待定Threads</msg>
+  <msg key="Post_a_Reply">回复帖子</msg>
+  <msg key="Post_to_Forum">发布帖子到论坛：</msg>
+  <msg key="Posting_History">发布历史记录</msg>
+  <msg key="Posting_history_for">发布历史记录</msg>
+  <msg key="Reply_to_first_post_in_thread">回复此thread第一帖子</msg>
+  <msg key="Reply_to_first_post_on_page_label">回复此页第一帖子</msg>
+  <msg key="Subscribe">要订阅吗？</msg>
+  <msg key="Threaded">Threaded</msg>
+  <msg key="Threads">Threads</msg>
+  <msg key="You_may">你可能</msg>
 </message_catalog>
