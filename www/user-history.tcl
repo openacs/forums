@@ -13,8 +13,6 @@ ad_page_contract {
 
 set package_id [ad_conn package_id]
 
-# FIXME: for now this shows all postings everywhere in all forums!
-
 # choosing the view
 set dimensional_list {
     {
