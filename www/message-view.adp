@@ -1,11 +1,9 @@
 <master>
 <property name="title">#forums.Forum# @forum.name;noquote@: @message.subject;noquote@</property>
 <property name="context">@context;noquote@</property>
-
-<br>
+<property name="displayed_object_id">@message_id@</property>
 
 <center>
-
 <table width="95%">
   <tr style="white-space: normal">
     <td align=left>
