@@ -63,9 +63,9 @@ if {[form is_request search]} {
 if { [empty_string_p $message(parent_id)] } {
     set notification_chunk [notification::display::request_widget \
         -type forums_message_notif \
-        -object_id $message_id \
+        -object_id $message(message_id) \
         -pretty_name $message(subject) \
-        -url [ad_conn url]?message_id=$message_id \
+        -url [ad_conn url]?message_id=$message(message_id) \
     ]
 } else {
     set notification_chunk ""
