@@ -121,8 +121,8 @@ template::list::create \
         }
         user_name {
             label "#forums.Author#"
-            orderby_asc {upper(user_name) asc, posting_date desc}
-            orderby_desc {upper(user_name) desc, posting_date desc}
+            orderby_asc_name "orderby_user_name_asc"
+            orderby_desc_name "orderby_user_name_desc"
         }
         n_messages {
             label "#forums.Replies#"

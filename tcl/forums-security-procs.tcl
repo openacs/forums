@@ -41,7 +41,12 @@ namespace eval forum::security {
         {-user_id ""}
         {-message_id:required}
     } {
-        return [permission::permission_p -party_id $user_id -object_id $message_id -privilege read]
+        # if the user is a guest, they can't see any forum messages at all
+        if { ![acs_privacy::user_can_read_private_data_p -user_id $user_id -object_id [ad_conn package_id]] } {
+            return 0
+        } else {
+            return [permission::permission_p -party_id $user_id -object_id $message_id -privilege read]
+        }
     }
 
     ad_proc -public require_read_message {
