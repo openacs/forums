@@ -9,6 +9,14 @@
         </querytext>
     </fullquery>
 
+    <fullquery name="forum::message::edit.update_message_title">
+        <querytext>
+            update acs_objects 
+            set title = :subject
+            where object_id = :message_id and object_type = 'forums_message'
+        </querytext>
+    </fullquery>
+
     <fullquery name="forum::message::edit.update_message">
         <querytext>
             update forums_messages

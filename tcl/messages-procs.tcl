@@ -136,6 +136,7 @@ ad_proc -public forum::message::edit {
 } {
     # do the update
     db_dml update_message {}
+    db_dml update_message_title {}
 }
 
 ad_proc -public forum::message::set_html_p {
