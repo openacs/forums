@@ -62,7 +62,7 @@
             <tr style="color: black; background-color: @table_other_bgcolor@;">
           </else>
   
-          <td style="padding: 4px;">
+          <td align="left" style="padding: 4px;">
             <if @messages.new_p@>
               <strong>
             </if>
@@ -74,7 +74,7 @@
               <small>(@messages.state@)</small>
             </if>
           </td>
-          <td style="padding: 4px;"><a href="user-history?user_id=@messages.user_id@">@messages.user_name@</a></td>
+          <td align="left" style="padding: 4px;"><a href="user-history?user_id=@messages.user_id@">@messages.user_name@</a></td>
           <td align="center" style="padding: 4px;">@messages.n_messages@</td>
           <td align="center" style="padding: 4px;">@messages.last_child_post_pretty@</td>
           

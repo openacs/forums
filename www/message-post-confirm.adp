@@ -37,7 +37,7 @@
 <br>  
   </if>
 
-  <input type="submit" value="confirm">
+  <input type="submit" value="Confirm">
 </form>
 
 

@@ -43,7 +43,7 @@
           <tr style="color: black; background-color: @table_other_bgcolor@;">
         </else>
 
-        <td>
+        <td align="left">
           <if @forums.new_p@ and @forums.n_threads@ gt 0>
             <strong>
           </if>
@@ -68,7 +68,7 @@
     </if>
     <else>
       <tr style="color: black; background-color: @table_bgcolor@">
-        <td colspan="3">
+        <td colspan="3" align="left">
           <em>#forums.No_Forums#</em>
         </td>
       </tr>
