@@ -29,7 +29,7 @@
         <br>
         <br>
         
-        Sort by: @sort_filter@
+        Sort by: [ @sort_filter@ ]
 
       </td>
       <td align="right">

@@ -8,11 +8,6 @@
     <tr>
       <td colspan="4">
         <nobr>@notification_chunk@</nobr>
-<if @post_p@>
-        <nobr><small>[
-          <a href="message-post?forum_id=@forum_id@">#forums.Post_a_New_Message#</a>
-        ]</nobr></small>
-</if>
       </td>
     </tr>
   </table>
@@ -44,5 +39,8 @@
 
 </center>
 
-
-
+<if @reply_url@ not nil>
+  <blockquote>
+    <a href="@reply_url@"><b>#forums.Post_a_Reply#</b></a>
+  </blockquote>
+</if>

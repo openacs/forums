@@ -115,6 +115,16 @@ if {![empty_string_p $message(parent_id)]} {
     lappend context [_ forums.One_Thread]
 }
 
+if { $post_p || [ad_conn user_id] == 0 } {
+    set rowcount ${responses:rowcount}
+    if { $rowcount > 0 } {
+        set last_message_id [set "responses:${rowcount}(message_id)"]
+    } else {
+        set last_message_id $message(message_id)
+    }
+    set reply_url "message-post?[export_vars { { parent_id $last_message_id } }]"
+}
+
 if {[string equal $forum(presentation_type) flat]} {
     ad_return_template "message-view-flat"
 } else {
