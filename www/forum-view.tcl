@@ -3,11 +3,14 @@ ad_page_contract {
     one forum view
 
     @author Ben Adida (ben@openforce.net)
+    @author Paginator stuff added by Roberto Mello (rmello@fslc.usu.edu)
     @creation-date 2002-05-24
-    @cvs-id $Id$
+    @version $Id$
 
 } -query {
+    {page 1}
     forum_id:integer,notnull
+    {mode ""}
 }
 
 
@@ -50,26 +53,49 @@ element create search forum_id \
 # Get forum data
 forum::get -forum_id $forum_id -array forum
 
-#it is confusing to provide a moderate link for non-moderated forums.
-if { $forum(posting_policy) != "moderated" } {
-    set moderate_p 0
-}
-
 # If disabled!
 if {$forum(enabled_p) != "t"} {
     ad_returnredirect "./"
     ad_script_abort
 }
 
-set query messages_select
-if {$moderate_p} {
-    set query messages_select_moderator
+#set query messages_select
+
+# sort by latest reply
+# lets make this the default
+#if {[string equal $mode latest]} {
+    set query messages_select_latest
+#}
+
+# just unanswered questions
+if {[string equal $mode unanswered]} {
+    set query messages_select_unanswered
 }
 
-db_multirow messages $query {} {
-    set subject [ad_quotehtml $subject]
-    set user_name [ad_quotehtml $user_name]
+# since last visit
+if {![string equal $user_id 0] && [string equal $mode sincelastvisit]} {
+    set query messages_select_sincelastvisit
+    set second_to_last_visit [db_string get_last_visit ""]
 }
+
+set forums_table forums_messages_approved
+if {$moderate_p} {
+#    set query messages_select_moderator
+    set forums_table forums_messages
+}
+set paginator_name paginated_messages$forum_id$mode
+
+# paginator stuff
+paginator create $query $paginator_name "" -pagesize 30 -groupsize 10 -contextual
+
+paginator get_data ${query}_display_data $paginator_name messages "" message_id $page
+
+paginator get_display_info $paginator_name info $page
+
+set group [paginator get_group $paginator_name $page]
+
+paginator get_context $paginator_name pages [paginator get_pages $paginator_name $group]
+paginator get_context $paginator_name groups [paginator get_groups $paginator_name $group 10]
 
 set notification_chunk [notification::display::request_widget \
     -type forums_forum_notif \
@@ -77,7 +103,5 @@ set notification_chunk [notification::display::request_widget \
     -pretty_name $forum(name) \
     -url [ad_conn url]?forum_id=$forum_id \
 ]
-
+template::util::multirow_quote_html messages subject
 set context [list $forum(name)]
-
-ad_return_template
