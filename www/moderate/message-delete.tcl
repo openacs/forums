@@ -20,14 +20,21 @@ forum::security::require_moderate_message -message_id $message_id
 # Select the stuff
 forum::message::get -message_id $message_id -array message
 
-# Confirm?
-if {!$confirm_p} {
-    set url_vars [export_url_vars message_id return_url]
-    ad_return_template
-} else {
+# Confirmed?
+if {$confirm_p} {
     # Delete the message and all children
     forum::message::delete -message_id $message_id
     
     # Redirect to the forum
     ad_returnredirect "../forum-view?forum_id=$message(forum_id)"
+    ad_script_abort
 }
+
+set url_vars [export_url_vars message_id return_url]
+
+ad_return_template
+
+
+
+
+
