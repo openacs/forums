@@ -39,6 +39,7 @@
   <msg key="Flat">וÓ×Í</msg>
   <msg key="Format">ÇהÕךÚÉ</msg>
   <msg key="Forum">ÇהוזÊÏי</msg>
+  <msg key="Forum_?">ÇהוזÊÏי:</msg>
   <msg key="Forum_ID">חטךסÉ ÇהוזÊÏי</msg>
   <msg key="forum_ID">חטךסÉ ÇהוזÊÏי</msg>
   <msg key="Forum_Name">ÅÓו ÇהוזÊÏי</msg>
@@ -97,6 +98,7 @@
   <msg key="Replies">ÇהÑÏטÏ</msg>
   <msg key="reply">ÑןÏס</msg>
   <msg key="Search">ÅÈÍËע:</msg>
+  <msg key="Search_?">ÅÈÍËע</msg>
   <msg key="Search_colon">ÅÈÍËע:</msg>
   <msg key="Search_Forums">ÅÈÍËע בך ÇהוזÊÏךÇÊ</msg>
   <msg key="Subject">ÇהוטÖטÙ</msg>
