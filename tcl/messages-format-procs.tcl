@@ -28,7 +28,7 @@ namespace eval forum::format {
             ":-/" "think"
         } {
             lappend emoticons_map $emoticon
-            lappend emoticons_map "<img style=\"vertical-align:text-bottom\" src=\"graphics/${image}.gif\" alt=\"$emoticon\" width=\"19\" height=\"19\">"
+            lappend emoticons_map "<img style=\"vertical-align:text-bottom\" src=\"/resources/forums/${image}.gif\" alt=\"$emoticon\" width=\"19\" height=\"19\">"
         }
         return [string map $emoticons_map $content]
     }
