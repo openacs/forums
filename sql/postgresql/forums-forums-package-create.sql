@@ -13,7 +13,7 @@
 
 select define_function_args('forums_forum__new','forum_id,object_type;forums_forum,name,charter,presentation_type,posting_policy,package_id,creation_date,creation_user,creation_ip,context_id');
 
-create function forums_forum__new (integer,varchar,varchar,varchar,varchar,varchar,integer,timestamp,integer,varchar,integer)
+create function forums_forum__new (integer,varchar,varchar,varchar,varchar,varchar,integer,timestamp with time zone,integer,varchar,integer)
 returns integer as '
 declare
     p_forum_id                      alias for $1;
