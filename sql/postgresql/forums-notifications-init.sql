@@ -10,63 +10,117 @@
 --
 
 -- the integration with Notifications
-create function inline_0 ()
-returns integer as '
+
+create function inline_0() returns integer as '
 declare
-    v_foo                           integer;
+        impl_id integer;
+        v_foo   integer;
 begin
+        -- the notification type impl
+        impl_id := acs_sc_impl__new (
+                      ''NotificationType'',
+                      ''forums_forum_notif_type'',
+                      ''forums''
+        );
 
-    v_foo := notification_type__new(
-        null,
-        ''forums_forum_notif'',
-        ''Forum Notification'',
-        ''Notifications for Entire Forums'',
-        null,
-        null,
-        null,
-        null
-    );
+        v_foo := acs_sc_impl_alias__new (
+                    ''NotificationType'',
+                    ''forums_forum_notif_type'',
+                    ''GetURL'',
+                    ''forum::notification::get_url'',
+                    ''TCL''
+        );
 
-    -- enable the various intervals and delivery methods
-    insert into notification_types_intervals
-    (type_id, interval_id)
-    select v_foo, interval_id
-    from notification_intervals
-    where name in (''instant'',''hourly'',''daily'');
+        v_foo := acs_sc_impl_alias__new (
+                    ''NotificationType'',
+                    ''forums_forum_notif_type'',
+                    ''ProcessReply'',
+                    ''forum::notification::process_reply'',
+                    ''TCL''
+        );
 
-    insert into notification_types_del_methods
-    (type_id, delivery_method_id)
-    select v_foo, delivery_method_id
-    from notification_delivery_methods
-    where short_name in (''email'');
+        PERFORM acs_sc_binding__new (
+                    ''NotificationType'',
+                    ''forums_forum_notif_type''
+        );
 
-    v_foo := notification_type__new(
-        null,
-        ''forums_message_notif'',
-        ''Message Notification'',
-        ''Notifications for Message Thread'',
-        null,
-        null,
-        null,
-        null
-    );
+        v_foo:= notification_type__new (
+	        NULL,
+                impl_id,
+                ''forums_forum_notif'',
+                ''Forum Notification'',
+                ''Notifications for Entire Forums'',
+		now(),
+                NULL,
+                NULL,
+		NULL
+        );
 
-    -- enable the various intervals and delivery methods
-    insert into notification_types_intervals
-    (type_id, interval_id)
-    select v_foo, interval_id
-    from notification_intervals
-    where name in (''instant'',''hourly'',''daily'');
+        -- enable the various intervals and delivery methods
+        insert into notification_types_intervals
+        (type_id, interval_id)
+        select v_foo, interval_id
+        from notification_intervals where name in (''instant'',''hourly'',''daily'');
 
-    insert into notification_types_del_methods
-    (type_id, delivery_method_id)
-    select v_foo, delivery_method_id
-    from notification_delivery_methods
-    where short_name in (''email'');
+        insert into notification_types_del_methods
+        (type_id, delivery_method_id)
+        select v_foo, delivery_method_id
+        from notification_delivery_methods where short_name in (''email'');
 
-    return null;
+        -- the notification type impl
+        impl_id := acs_sc_impl__new (
+                      ''NotificationType'',
+                      ''forums_message_notif_type'',
+                      ''forums''
+                   );
 
-end;' language 'plpgsql';
+        v_foo := acs_sc_impl_alias__new (
+                    ''NotificationType'',
+                    ''forums_message_notif_type'',
+                    ''GetURL'',
+                    ''forum::notification::get_url'',
+                    ''TCL''
+        );
+
+        v_foo := acs_sc_impl_alias__new (
+                    ''NotificationType'',
+                    ''forums_message_notif_type'',
+                    ''ProcessReply'',
+                    ''forum::notification::process_reply'',
+                    ''TCL''
+        );
+
+        PERFORM acs_sc_binding__new (
+                    ''NotificationType'',
+                    ''forums_message_notif_type''
+        );
+
+        v_foo:= notification_type__new (
+		NULL,
+                impl_id,
+                ''forums_message_notif'',
+                ''Message Notification'',
+                ''Notifications for Message Thread'',
+		now(),
+                NULL,
+                NULL,
+		NULL
+        );
+
+        -- enable the various intervals and delivery methods
+        insert into notification_types_intervals
+        (type_id, interval_id)
+        select v_foo, interval_id
+        from notification_intervals where name in (''instant'',''hourly'',''daily'');
+
+        insert into notification_types_del_methods
+        (type_id, delivery_method_id)
+        select v_foo, delivery_method_id
+        from notification_delivery_methods where short_name in (''email'');
+
+	return (0);
+end;
+' language 'plpgsql';
 
 select inline_0();
-drop function inline_0 ();
+drop function inline_0();
