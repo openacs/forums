@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
-<message_catalog package_key="forums" package_version="0.4" locale="da_DK" charset="ISO-8859-1">
+<message_catalog package_key="forums" package_version="1.0d3" locale="da_DK" charset="ISO-8859-1">
 
-  <msg key="Active_Forums">Active Fora</msg>
   <msg key="Administer">Administrér</msg>
   <msg key="Administration">Administration</msg>
   <msg key="approve">godkend</msg>
@@ -23,13 +22,11 @@
   <msg key="disable">deaktivér</msg>
   <msg key="disable_it">deaktivére det</msg>
   <msg key="disabled">deaktiveret</msg>
-  <msg key="Disabled_Forums">Deaktiverede Fora</msg>
   <msg key="Edit">Redigér</msg>
   <msg key="edit">redigér</msg>
   <msg key="Edit_forum">Rediger Forum</msg>
   <msg key="Edit_Message">Rediger Besked:</msg>
   <msg key="Email">E-mail</msg>
-  <msg key="email">e-mail</msg>
   <msg key="Email_Message">E-mail Besked:</msg>
   <msg key="Email_to_a_friend">Mail til en ven</msg>
   <msg key="enable">aktivér</msg>
@@ -72,12 +69,10 @@
   <msg key="Name">Navn</msg>
   <msg key="New_Forum">Nyt Forum</msg>
   <msg key="No">Nej</msg>
-  <msg key="no">nej</msg>
   <msg key="No_Forums">Ingen Fora</msg>
   <msg key="No_Messages">Ingen Beskeder</msg>
   <msg key="No_Postings">Ingen Insendelser.</msg>
   <msg key="None">Ingen</msg>
-  <msg key="On">Den</msg>
   <msg key="One_Message">Èn Besked</msg>
   <msg key="One_Thread">Èn Tråd</msg>
   <msg key="open">åbn</msg>
@@ -108,9 +103,7 @@
   <msg key="Threaded">Opdelt i tråde</msg>
   <msg key="Threads">Tråde</msg>
   <msg key="View">Vis</msg>
-  <msg key="wrote">skrev:</msg>
   <msg key="Yes">Ja</msg>
-  <msg key="yes">ja</msg>
   <msg key="You_may">Du kan</msg>
   <msg key="Your_Note">Din Note</msg>
 </message_catalog>

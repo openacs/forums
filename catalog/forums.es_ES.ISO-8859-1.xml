@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
-<message_catalog package_key="forums" package_version="0.4" locale="es_ES" charset="ISO-8859-1">
+<message_catalog package_key="forums" package_version="1.0d3" locale="es_ES" charset="ISO-8859-1">
 
-  <msg key="Active_Forums">Foros de Discusión Activos</msg>
   <msg key="Administer">Administrar</msg>
   <msg key="Administration">Administración</msg>
   <msg key="approve">Aprobar</msg>
@@ -23,13 +22,11 @@
   <msg key="disable">no habilitado</msg>
   <msg key="disable_it">Deshabilitar</msg>
   <msg key="disabled">no habilitado</msg>
-  <msg key="Disabled_Forums">Foros de discusión deshabilitados</msg>
   <msg key="Edit">Editar</msg>
   <msg key="edit">editar</msg>
   <msg key="Edit_forum">Editar foro de discusión</msg>
   <msg key="Edit_Message">Editar Mensaje:</msg>
   <msg key="Email">Email</msg>
-  <msg key="email">email</msg>
   <msg key="Email_Message">Mensaje:</msg>
   <msg key="Email_to_a_friend">Enviar por email a terceros</msg>
   <msg key="enable">habilitar</msg>
@@ -72,12 +69,10 @@
   <msg key="Name">Nombre</msg>
   <msg key="New_Forum">Nuevo Foro de Discusión</msg>
   <msg key="No">No</msg>
-  <msg key="no">no</msg>
   <msg key="No_Forums">No existen foro de discusión</msg>
   <msg key="No_Messages">No existen mensajes</msg>
   <msg key="No_Postings">No existen mensajes enviados.</msg>
   <msg key="None">Ninguno</msg>
-  <msg key="On">Conectado</msg>
   <msg key="One_Message">Un Mensaje</msg>
   <msg key="One_Thread">Un hilo</msg>
   <msg key="open">Abrir</msg>
@@ -108,9 +103,7 @@
   <msg key="Threaded">Con hilos</msg>
   <msg key="Threads">Hilos</msg>
   <msg key="View">Ver</msg>
-  <msg key="wrote">escribió:</msg>
   <msg key="Yes">Sí</msg>
-  <msg key="yes">sí </msg>
   <msg key="You_may">Puedes</msg>
   <msg key="Your_Note">Su Commentario</msg>
 </message_catalog>

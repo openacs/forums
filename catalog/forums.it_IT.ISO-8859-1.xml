@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
-<message_catalog package_key="forums" package_version="0.4" locale="it_IT" charset="ISO-8859-1">
+<message_catalog package_key="forums" package_version="1.0d3" locale="it_IT" charset="ISO-8859-1">
 
-  <msg key="Active_Forums">Forum Attivi</msg>
   <msg key="Administer">Amministra</msg>
   <msg key="Administration">Amministrazione</msg>
   <msg key="approve">approva</msg>
@@ -23,13 +22,11 @@
   <msg key="disable">disabilita</msg>
   <msg key="disable_it">Disabilita</msg>
   <msg key="disabled">disabilitati</msg>
-  <msg key="Disabled_Forums">Forum Disabilitati</msg>
   <msg key="Edit">Modifica</msg>
   <msg key="edit">modifica</msg>
   <msg key="Edit_forum">Modifica il forum</msg>
   <msg key="Edit_Message">Modifica il Messaggio:</msg>
   <msg key="Email">Email</msg>
-  <msg key="email">email</msg>
   <msg key="Email_Message">Spedisci il messaggio:</msg>
   <msg key="Email_to_a_friend">Invia a un amico</msg>
   <msg key="enable">abilita</msg>
@@ -72,12 +69,10 @@
   <msg key="Name">Nome</msg>
   <msg key="New_Forum">Nuovo Forum</msg>
   <msg key="No">No</msg>
-  <msg key="no">no</msg>
   <msg key="No_Forums">Nessun Forum</msg>
   <msg key="No_Messages">Nessun Messaggio</msg>
   <msg key="No_Postings">Nessun invio</msg>
   <msg key="None">nessuno</msg>
-  <msg key="On">Su</msg>
   <msg key="One_Message">Un messaggio</msg>
   <msg key="One_Thread">Una discussione</msg>
   <msg key="open">aperta</msg>
@@ -108,9 +103,7 @@
   <msg key="Threaded">Ramificato</msg>
   <msg key="Threads">Discussioni</msg>
   <msg key="View">Vedi</msg>
-  <msg key="wrote">ha scritto:</msg>
   <msg key="Yes">S&amp;igrave;</msg>
-  <msg key="yes">s&amp;igrave;</msg>
   <msg key="You_may">Puoi</msg>
   <msg key="Your_Note">Tua nota</msg>
 </message_catalog>

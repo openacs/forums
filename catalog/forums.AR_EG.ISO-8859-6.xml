@@ -1,7 +1,6 @@
 <?xml version="?.?"?>
-<message_catalog package_key="forums" package_version="?.?" locale="AR_EG" charset="ISO-????-?">
+<message_catalog package_key="forums" package_version="?.?d?" locale="AR_EG" charset="ISO-????-?">
 
-  <msg key="Active_Forums">ÇהוזÊÏךÇÊ ÇהזסÔך×É</msg>
   <msg key="approve">טÇבג</msg>
   <msg key="Attach">ÅהÕג¿</msg>
   <msg key="Attachments">:ÇהוהÍגÇÊן</msg>
@@ -17,16 +16,13 @@
   <msg key="delete">ÅÍÐבע</msg>
   <msg key="disable">Ùמ×סהע</msg>
   <msg key="disabled">Ùן×סהע</msg>
-  <msg key="Disabled_Forums">ÇהוזÊÏךÇÊ ÇהוןÙ×סהÉ</msg>
   <msg key="Last_Post">ÂÎÑ ÅÑÓÇה</msg>
   <msg key="Last_post_in_subject">ÇהÑÓÇÆה ÇהÃÎךÑÉ בך ÇהוטÖטÙנ</msg>
   <msg key="lt_First_post_in_subject">ÇהÑÓÇÆה ÇהÃטהי בך ÇהוטÖטÙנ</msg>
   <msg key="No">הÇ</msg>
-  <msg key="no">הÇ</msg>
   <msg key="Post_a_New_Message">ÃÑÓהע ÑÓÇהÉכ ÌÏךÏÉכ</msg>
   <msg key="Replies">ÇהÑÏטÏ</msg>
   <msg key="Search">:ÅÈÍËע</msg>
   <msg key="Subject">ÇהוטÖטÙ</msg>
   <msg key="Yes">זÙו</msg>
-  <msg key="yes">זÙו</msg>
 </message_catalog>

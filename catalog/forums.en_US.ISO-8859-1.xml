@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
-<message_catalog package_key="forums" package_version="1.0d2" locale="en_US" charset="ISO-8859-1">
+<message_catalog package_key="forums" package_version="1.0d3" locale="en_US" charset="ISO-8859-1">
 
-  <msg key="Active_Forums">Active Forums</msg>
   <msg key="Administer">Administer</msg>
   <msg key="Administration">Administration</msg>
   <msg key="approve">approve</msg>
@@ -23,13 +22,12 @@
   <msg key="disable">disable</msg>
   <msg key="disable_it">disable it</msg>
   <msg key="disabled">disabled</msg>
-  <msg key="Disabled_Forums">Disabled Forums</msg>
   <msg key="Edit">Edit</msg>
   <msg key="edit">edit</msg>
   <msg key="Edit_forum">Edit forum</msg>
   <msg key="Edit_Message">Edit Message:</msg>
   <msg key="Email">Email</msg>
-  <msg key="email">email</msg>
+  <msg key="email_alert_body_header">On %posting_date%, %user_name% wrote:</msg>
   <msg key="Email_Message">Email Message:</msg>
   <msg key="Email_to_a_friend">Email to a friend</msg>
   <msg key="enable">enable</msg>
@@ -75,12 +73,10 @@
   <msg key="Name">Name</msg>
   <msg key="New_Forum">New Forum</msg>
   <msg key="No">No</msg>
-  <msg key="no">no</msg>
   <msg key="No_Forums">No Forums</msg>
   <msg key="No_Messages">No Messages</msg>
   <msg key="No_Postings">No Postings.</msg>
   <msg key="None">None</msg>
-  <msg key="On">On</msg>
   <msg key="One_Message">One Message</msg>
   <msg key="One_Thread">One Thread</msg>
   <msg key="open">open</msg>
@@ -114,9 +110,7 @@
   <msg key="Threaded">Threaded</msg>
   <msg key="Threads">Threads</msg>
   <msg key="View">View</msg>
-  <msg key="wrote">wrote:</msg>
   <msg key="Yes">Yes</msg>
-  <msg key="yes">yes</msg>
   <msg key="You_may">You may</msg>
   <msg key="Your_Note">Your Note</msg>
 </message_catalog>

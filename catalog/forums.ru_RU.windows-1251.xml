@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
-<message_catalog package_key="forums" package_version="0.4" locale="ru_RU" charset="windows-1251">
+<message_catalog package_key="forums" package_version="1.0d3" locale="ru_RU" charset="windows-1251">
 
-  <msg key="Active_Forums">Активные форумы</msg>
   <msg key="Administer">Администрировать</msg>
   <msg key="Administration">Администрирование</msg>
   <msg key="approve">утвердить</msg>
@@ -12,9 +11,7 @@
   <msg key="Body">Текст сообщения</msg>
   <msg key="by_Date">по дате</msg>
   <msg key="No">Нет</msg>
-  <msg key="no">нет</msg>
   <msg key="Re">Re:</msg>
   <msg key="Yes">Да</msg>
-  <msg key="yes">да</msg>
   <msg key="You_may">Вы можете</msg>
 </message_catalog>

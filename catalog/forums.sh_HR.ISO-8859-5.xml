@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
-<message_catalog package_key="forums" package_version="0.4" locale="sh_HR" charset="ISO-8859-5">
+<message_catalog package_key="forums" package_version="1.0d3" locale="sh_HR" charset="ISO-8859-5">
 
-  <msg key="Active_Forums">Aktivni forumi</msg>
   <msg key="Administer">Administriraj</msg>
   <msg key="Administration">Administracija</msg>
   <msg key="approve">potvrditi</msg>
@@ -23,13 +22,11 @@
   <msg key="disable">deaktiviraj</msg>
   <msg key="disable_it">deaktiviraj</msg>
   <msg key="disabled">deaktiviran</msg>
-  <msg key="Disabled_Forums">Deaktivirani forumi</msg>
   <msg key="Edit">Izmena</msg>
   <msg key="edit">izmeni</msg>
   <msg key="Edit_forum">Izmeni forum</msg>
   <msg key="Edit_Message">Izmeni poruku:</msg>
   <msg key="Email">Elektronska posta</msg>
-  <msg key="email">elektronska posta</msg>
   <msg key="Email_Message">Email poruka:</msg>
   <msg key="Email_to_a_friend">Email prijatelju</msg>
   <msg key="enable">aktiviraj</msg>

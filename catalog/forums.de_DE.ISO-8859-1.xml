@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
-<message_catalog package_key="forums" package_version="0.4" locale="de_DE" charset="ISO-8859-1">
+<message_catalog package_key="forums" package_version="1.0d3" locale="de_DE" charset="ISO-8859-1">
 
-  <msg key="Active_Forums">Aktive Foren</msg>
   <msg key="Administer">Forum verwalten</msg>
   <msg key="Administration">Foren verwalten</msg>
   <msg key="approve">Freigeben</msg>
@@ -23,13 +22,11 @@
   <msg key="disable">Deaktivieren</msg>
   <msg key="disable_it">deaktivieren</msg>
   <msg key="disabled">Deaktiviert</msg>
-  <msg key="Disabled_Forums">Deaktivierte Foren</msg>
   <msg key="Edit">Bearbeiten</msg>
   <msg key="edit">Bearbeiten</msg>
   <msg key="Edit_forum">Forum bearbeiten</msg>
   <msg key="Edit_Message">Forumsbeitrag bearbeiten:</msg>
   <msg key="Email">E-Mail-Adresse</msg>
-  <msg key="email">Weiterleiten</msg>
   <msg key="Email_Message">E-Mail-Nachricht:</msg>
   <msg key="Email_to_a_friend">Weiterleiten</msg>
   <msg key="enable">Aktivieren</msg>
@@ -72,12 +69,10 @@
   <msg key="Name">Name</msg>
   <msg key="New_Forum">Neues Forum erstellen</msg>
   <msg key="No">Nein</msg>
-  <msg key="no">Nein</msg>
   <msg key="No_Forums">Keine Diskussionsforen vorhanden</msg>
   <msg key="No_Messages">Keine Beiträge vorhanden</msg>
   <msg key="No_Postings">Keine Beiträge vorhanden</msg>
   <msg key="None">Keines vorhanden</msg>
-  <msg key="On">an</msg>
   <msg key="One_Message">Einzelner Beitrag</msg>
   <msg key="One_Thread">Einzelner Thread</msg>
   <msg key="open">Offen</msg>
@@ -108,9 +103,7 @@
   <msg key="Threaded">Nach Threads strukturiert</msg>
   <msg key="Threads">Threads</msg>
   <msg key="View">Ansicht</msg>
-  <msg key="wrote">schrieb:</msg>
   <msg key="Yes">Ja</msg>
-  <msg key="yes">Ja</msg>
   <msg key="You_may">Sie können es</msg>
   <msg key="Your_Note">Ihr Kommentar</msg>
 </message_catalog>

@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
-<message_catalog package_key="forums" package_version="0.4" locale="ms_my" charset="US-ASCII">
+<message_catalog package_key="forums" package_version="1.0d3" locale="ms_my" charset="US-ASCII">
 
-  <msg key="Active_Forums">Forum-Forum Aktif</msg>
   <msg key="Administer">Menyelia</msg>
   <msg key="Administration">Penyeliaan</msg>
   <msg key="approve">lulus</msg>
@@ -20,13 +19,11 @@
   <msg key="delete">buang</msg>
   <msg key="disable">tidak benarkan</msg>
   <msg key="disabled">tidak dibenarkan</msg>
-  <msg key="Disabled_Forums">Forum-forum yang tidak dibenarkan</msg>
   <msg key="Edit">Ubah</msg>
   <msg key="edit">ubah</msg>
   <msg key="Edit_forum">Ubah forum</msg>
   <msg key="Edit_Message">Ubah Mesej:</msg>
   <msg key="Email">Emel</msg>
-  <msg key="email">emel</msg>
   <msg key="Email_Message">Emel Mesej:</msg>
   <msg key="Email_to_a_friend">Emel kepada kawan</msg>
   <msg key="Format">Format</msg>
@@ -44,7 +41,5 @@
   <msg key="Threaded">Berangkai</msg>
   <msg key="Threads">Rangkaian-Rangkain</msg>
   <msg key="View">Paparan</msg>
-  <msg key="wrote">ditulis:</msg>
   <msg key="Yes">Ya</msg>
-  <msg key="yes">ya</msg>
 </message_catalog>
