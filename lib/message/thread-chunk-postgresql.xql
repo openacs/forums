@@ -5,13 +5,12 @@
 
     <fullquery name="select_message_ordering">
         <querytext>
-            select fma.message_id
-            from   forums_messages fm,
-                   forums_messages_approved fma
-            where  fm.message_id = :root_message_id
-            and    fma.forum_id = :forum_id
-            and    fma.tree_sortkey between fm.tree_sortkey and tree_right(fm.tree_sortkey)
-            order  by fma.message_id
+	SELECT fma.message_id
+        FROM   forums_messages_approved fma
+        WHERE  fma.forum_id = :forum_id
+          and    fma.tree_sortkey between (select fm.tree_sortkey from forums_messages fm where fm.message_id = :root_message_id)
+          and    (select tree_right(fm.tree_sortkey) from forums_messages fm where fm.message_id = :root_message_id)
+        ORDER  BY fma.message_id
         </querytext>
     </fullquery>
 

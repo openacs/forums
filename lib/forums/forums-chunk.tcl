@@ -44,6 +44,7 @@ template::list::create \
         }
         charter {
             label {\#forums.Charter\#}
+	    display_template {@forums.charter;noquote@}
         }
         n_threads {
             label {\#forums.Threads\#}
