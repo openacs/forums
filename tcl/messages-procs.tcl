@@ -114,11 +114,13 @@ namespace eval forum::message {
         # Select the info into the upvar'ed Tcl Array
         upvar $array row
 
-        if {[forum::attachments_enabled_p]} {
-            db_1row select_message_with_attachment {} -column_array row
-        } else {
-            db_1row select_message {} -column_array row
+        set query select_message
+
+        if {[ad_conn isconnected] && [forum::attachments_enabled_p]} {
+            set query select_message_with_attachment
         }
+
+        db_1row $query {} -column_array row
     }
 
     ad_proc -private set_state {
