@@ -39,6 +39,7 @@ ad_proc -public forum::edit {
 } {
     # This is a straight DB update
     db_dml update_forum {}
+    db_dml update_forum_object {}
 }
 
 ad_proc -public forum::attachments_enabled_p {} {

@@ -13,7 +13,7 @@
 
 select define_function_args('forums_forum__new','forum_id,object_type;forums_forum,name,charter,presentation_type,posting_policy,package_id,creation_date,creation_user,creation_ip,context_id');
 
-create function forums_forum__new (integer,varchar,varchar,varchar,varchar,varchar,integer,timestamptz,integer,varchar,integer)
+create or replace function forums_forum__new (integer,varchar,varchar,varchar,varchar,varchar,integer,timestamptz,integer,varchar,integer)
 returns integer as '
 declare
     p_forum_id                      alias for $1;
@@ -35,7 +35,10 @@ begin
         p_creation_date,
         p_creation_user,
         p_creation_ip,
-        coalesce(p_context_id, p_package_id)
+        coalesce(p_context_id, p_package_id),
+        ''t'',
+        p_name,
+        p_package_id
     );
 
     insert into forums_forums
@@ -49,7 +52,7 @@ end;
 
 select define_function_args('forums_forum__name','forum_id');
 
-create function forums_forum__name(integer)
+create or replace function forums_forum__name(integer)
 returns varchar as '
 declare
     p_forum_id                      alias for $1;
@@ -60,7 +63,7 @@ end;
 
 select define_function_args('forums_forum__delete','forum_id');
 
-create function forums_forum__delete(integer)
+create or replace function forums_forum__delete(integer)
 returns integer as '
 declare
     p_forum_id                      alias for $1;

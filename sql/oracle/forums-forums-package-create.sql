@@ -65,7 +65,9 @@ as
             creation_date => creation_date,
             creation_user => creation_user,
             creation_ip => creation_ip,
-            context_id => nvl(context_id, package_id)
+            context_id => nvl(context_id, package_id), 
+            package_id => forums_forum.new.package_id,
+            title => name
         );
         
         insert into forums_forums
