@@ -17,6 +17,7 @@
         <provides url="forums" version="1.0.1d2"/>
         <requires url="acs-mail-lite" version="0.1d"/>
         <requires url="notifications" version="5.0.0b4"/>
+        <requires url="attachments" version="0.5"/>
 
         <callbacks>
         </callbacks>
