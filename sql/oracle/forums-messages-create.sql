@@ -58,6 +58,9 @@ create table forums_messages (
 -- We do a some big queries on forum_id (thread count on index.tcl) so create a second index 
 -- ordered so it's useful for them
 create unique index forums_mess_forum_sk_un on forums_messages(forum_id, tree_sortkey);
+-- Need these for RI checks 
+create index forums_messages_user_id_idx ON forums_messages(user_id);
+create index forums_messages_parent_id_idx ON forums_messages(parent_id);
 
 create view forums_messages_approved as
     select *
