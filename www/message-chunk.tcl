@@ -23,3 +23,11 @@ if {![exists_and_not_null bgcolor]} {
 
 if {![exists_and_not_null moderate_p]} { set moderate_p 0 }
 if {![exists_and_not_null forum_moderated_p]} {set forum_moderated_p 0}
+
+# JCD: display subject only if changed from the root subject
+if {![info exists root_subject]} {
+    set display_subject_p 1
+} else {
+    regsub {^(Response to |\s*Re:\s*)*} $message(subject) {} subject
+    set display_subject_p [expr ![string equal $subject $root_subject]]
+}

@@ -9,6 +9,7 @@ ad_page_contract {
 } -query {
     {forum_id ""}
     {parent_id ""}
+    {html_p "f"}
 } -validate {
     forum_id_or_parent_id {
         if {[empty_string_p $forum_id] && [empty_string_p $parent_id]} {
@@ -54,8 +55,9 @@ element create message content \
 element create message html_p \
     -label Format \
     -datatype text \
-    -widget select \
-    -options {{text f} {html t}}
+    -widget radio \
+    -value $html_p \
+    -options {{text f} {html t}} 
 
 element create message parent_id \
     -label "parent ID" \

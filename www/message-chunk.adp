@@ -1,7 +1,7 @@
 
 <tr style="color: black; background-color: @table_bgcolor@;">
   <td align=left style="padding-left: 1em">
-
+<if @display_subject_p@>
   <strong>
     <if @preview@ nil>
       <a href="message-view?message_id=@message.message_id@">@message.subject@</a>
@@ -10,7 +10,7 @@
       @message.subject@
     </else>
   </strong>  
-
+</if>
   <td align=center>
     <a href="user-history?user_id=@message.user_id@">@message.user_name@</a></td>
   <td align=center>@message.posting_date@</td>
