@@ -42,6 +42,9 @@ template::list::create \
                 </if>
             }
         }
+        charter {
+            label {\#forums.Charter\#}
+        }
         n_threads {
             label {\#forums.Threads\#}
             display_col n_threads_pretty
