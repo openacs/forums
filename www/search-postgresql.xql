@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <queryset>
-    <rdbms><type>oracle</type><version>8.1.6</version></rdbms>
+    <rdbms><type>postgresql</type><version>7.1</version></rdbms>
 
     <fullquery name="search_all_forums">
         <querytext>
@@ -16,7 +16,7 @@
             and forums_messages.state = 'approved'
             and (    forums_messages.subject like ('%' || :search_text || '%')
                   or forums_messages.content like ('%' || :search_text || '%')
-                  or user_name like ('%' || :search_text || '%')
+                  or person__name(forums_messages.user_id) like ('%' || :search_text || '%')
                 )
             order by the_score desc,
                      forums_messages.posting_date desc
@@ -37,7 +37,7 @@
             and forums_messages.state = 'approved'
             and (    forums_messages.subject like ('%' || :search_text || '%')
                   or forums_messages.content like ('%' || :search_text || '%')
-                  or user_name like ('%' || :search_text || '%')
+                  or person__name(forums_messages.user_id) like ('%' || :search_text || '%')
                 )
             order by the_score desc,
                      forums_messages.posting_date desc
