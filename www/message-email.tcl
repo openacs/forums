@@ -2,9 +2,9 @@ ad_page_contract {
     
     Forward a message to a friend
 
-    @author Ben Adida (ben@openforce)
+    @author Ben Adida (ben@openforce.net)
     @creation-date 2002-05-28
-    @version $Id$
+    @cvs-id $Id$
 
 } {
     message_id:integer,notnull

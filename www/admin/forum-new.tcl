@@ -2,9 +2,9 @@ ad_page_contract {
     
     Create a Forum
 
-    @author Ben Adida (ben@openforce)
+    @author Ben Adida (ben@openforce.net)
     @creation-date 2002-05-25
-    @version $Id$
+    @cvs-id $Id$
 
 } -query {
     {name ""}

@@ -4,7 +4,7 @@ ad_page_contract {
 
     @author Ben Adida (ben@openforce.net)
     @creation-date 2002-05-24
-    @version $Id$
+    @cvs-id $Id$
 
 } -query {
     forum_id:integer,notnull

@@ -7,7 +7,7 @@ ad_page_contract {
     @author yon (yon@openforce.net)
     @author arjun (arjun@openforce.net)
     @creation-date 2002-06-02
-    @version $Id$
+    @cvs-id $Id$
 
 }
 

@@ -1,9 +1,9 @@
 ad_page_contract {
     a message attachment chunk to be included to display attachments
 
-    @author ben (ben@openforce)
+    @author ben (ben@openforce.net)
     @creation-date 2002-07-02
-    @version $Id$
+    @cvs-id $Id$
 }
 
 if {![array exists message]} {
