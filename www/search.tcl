@@ -32,8 +32,6 @@ if {[form is_valid search]} {
     # don't crash interMedia
     regsub -all {[^[:alnum:]_[:blank:]]} $search_text {} search_text
 
-    ns_log notice "YON: search_text is $search_text"
-
     set query search_all_forums
     if {![empty_string_p $forum_id]} {
         set query search_one_forum
