@@ -16,7 +16,8 @@ element create forum forum_id \
         -label "Forum ID" -datatype integer -widget hidden
 
 element create forum name \
-        -label "Name" -datatype text -widget text -html {size 60}
+        -label "Name" -datatype text -widget text -html {size 60} -validate { {expr ![empty_string_p [string trim $value]]} {Forum Name can not be blank}
+    }
 
 element create forum charter \
         -label "Charter" -datatype text -widget textarea -html {cols 60 rows 10 wrap soft} -optional
