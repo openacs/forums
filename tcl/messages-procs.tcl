@@ -57,7 +57,7 @@ namespace eval forum::message {
         append new_content "Thread: <a href=\"${url}message-view?message_id=$message(root_message_id)\">$message(root_subject)</a><br>\n"
         append new_content "Author: <a href=\"mailto:$message(user_email)\">$message(user_name)</a><br>\n"
         append new_content "Posted: $message(posting_date)<br>"
-        append new_content "\n<br><br>\n"
+        append new_content "\n<br>\n"
         append new_content $message(content)
 
         # send text for now.

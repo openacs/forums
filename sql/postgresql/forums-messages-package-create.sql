@@ -23,36 +23,38 @@ select define_function_args ('forums_message__delete', 'message_id');
 
 select define_function_args ('forums_message__delete_thread', 'message_id');
 
+select define_function_args('forums_message__name','message_id');
+
 -- implementation
 
 create function forums_message__new (integer,varchar,integer,varchar,text,char,integer,timestamp,varchar,integer,timestamp,integer,varchar,integer)
 returns integer as '
 DECLARE
-	p_message_id			alias for $1;
-	p_object_type			alias for $2;
-	p_forum_id			alias for $3;
-	p_subject			alias for $4;
-	p_content			alias for $5;
-	p_html_p			alias for $6;
-	p_user_id			alias for $7;
-	p_posting_date			alias for $8;
-	p_state				alias for $9;
-	p_parent_id			alias for $10;
-	p_creation_date			alias for $11;
-	p_creation_user			alias for $12;
-	p_creation_ip			alias for $13;
-	p_context_id			alias for $14;
-	v_message_id			integer;
-	v_forum_policy			forums_forums.posting_policy%TYPE;
-	v_state				forums_messages.state%TYPE;
+    p_message_id            alias for $1;
+    p_object_type            alias for $2;
+    p_forum_id            alias for $3;
+    p_subject            alias for $4;
+    p_content            alias for $5;
+    p_html_p            alias for $6;
+    p_user_id            alias for $7;
+    p_posting_date            alias for $8;
+    p_state                alias for $9;
+    p_parent_id            alias for $10;
+    p_creation_date            alias for $11;
+    p_creation_user            alias for $12;
+    p_creation_ip            alias for $13;
+    p_context_id            alias for $14;
+    v_message_id            integer;
+    v_forum_policy            forums_forums.posting_policy%TYPE;
+    v_state                forums_messages.state%TYPE;
 BEGIN
-	v_message_id:= acs_object__new (
-				       p_message_id,
-				       p_object_type,
-				       p_creation_date,
-				       p_creation_user,
-				       p_creation_ip,
-				       p_context_id);
+    v_message_id:= acs_object__new (
+                       p_message_id,
+                       p_object_type,
+                       p_creation_date,
+                       p_creation_user,
+                       p_creation_ip,
+                       p_context_id);
 
         IF p_state is NULL
         then
@@ -82,7 +84,7 @@ END;
 create function forums_message__root_message_id (integer)
 returns integer as '
 DECLARE
-	   p_message_id		alias for $1;
+       p_message_id        alias for $1;
            v_message_id forums_messages.message_id%TYPE;
            v_forum_id   forums_messages.forum_id%TYPE;
            v_sortkey    forums_messages.tree_sortkey%TYPE;
@@ -101,7 +103,7 @@ END;
 create function forums_message__thread_open (integer)
 returns integer as '
 DECLARE
-	   p_message_id		alias for $1;
+       p_message_id        alias for $1;
            v_forum_id           forums_messages.forum_id%TYPE;
            v_sortkey            forums_messages.tree_sortkey%TYPE;
 BEGIN
@@ -115,7 +117,7 @@ BEGIN
            update forums_messages set open_p=''t''
            where message_id= p_message_id;
 
-	   return 0;
+       return 0;
 END;
 ' language 'plpgsql';
 
@@ -123,7 +125,7 @@ END;
 create function forums_message__thread_close (integer)
 returns integer as '
 DECLARE
-	   p_message_id		alias for $1;
+       p_message_id        alias for $1;
            v_forum_id           forums_messages.forum_id%TYPE;
            v_sortkey            forums_messages.tree_sortkey%TYPE;
 BEGIN
@@ -137,7 +139,7 @@ BEGIN
            update forums_messages set open_p=''f''
            where message_id= p_message_id;
 
-	   return 0;
+       return 0;
 END;
 ' language 'plpgsql';
 
@@ -145,10 +147,10 @@ END;
 create function forums_message__delete (integer)
 returns integer as '
 DECLARE
-	p_message_id		alias for $1;	
+    p_message_id        alias for $1;    
 BEGIN
-	perform acs_object__delete(p_message_id);
-	return 0;	
+    perform acs_object__delete(p_message_id);
+    return 0;    
 END;
 ' language 'plpgsql';
 
@@ -156,7 +158,7 @@ END;
 create function forums_message__delete_thread (integer)
 returns integer as '
 DECLARE
-	   p_message_id		alias for $1;
+       p_message_id        alias for $1;
            v_forum_id           forums_messages.forum_id%TYPE;
            v_sortkey            forums_messages.tree_sortkey%TYPE;
            v_message            RECORD;
@@ -185,8 +187,15 @@ BEGIN
            -- delete the message itself
            perform forums_message.delete(p_message_id);
 
-	   return 0;
+       return 0;
 END;
 ' language 'plpgsql';
 
-
+create function forums_message__name (integer)
+returns varchar as '
+DECLARE
+    p_message_id        alias for $1;
+BEGIN
+    return subject from forums_messages where message_id = p_message_id;
+END;
+' language 'plpgsql';

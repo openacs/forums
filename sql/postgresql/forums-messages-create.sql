@@ -77,6 +77,6 @@ begin
             'forums_message',
 	    'f',
 	    NULL,
-	    NULL
+	    'forums_message__name'
         );
 end;

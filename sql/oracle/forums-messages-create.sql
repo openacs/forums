@@ -75,7 +75,8 @@ begin
             pretty_plural => 'Forums Messages',
             table_name => 'forums_messages',
             id_column => 'message_id',
-            package_name => 'forums_message'
+            package_name => 'forums_message',
+            name_method => 'forums_message.name'
         );
 end;
 /

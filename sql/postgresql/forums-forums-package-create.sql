@@ -56,7 +56,7 @@ END;
 
 
 create function forums_forum__name(integer)
-returns integer as '
+returns varchar as '
 DECLARE
 	p_forum_id		alias for $1;
 BEGIN
