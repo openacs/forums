@@ -56,10 +56,12 @@
 
         <div class="content">
           @message.content;noquote@
-          <div class="attachments">
-            #forums.Attachments#
-            <include src="attachment-list" &message="message">
-          </div>
+          <if @message.n_attachments@ not nil and @message.n_attachments@ gt 0>
+            <div class="attachments">
+              #forums.Attachments#
+              <include src="attachment-list" &message="message">
+            </div>
+          </if>
           <div class="attribution">#forums.Posted_by# <a href="user-history?user_id=@message.user_id@">@message.user_name@</a> on <span class="post-date">@message.posting_date_pretty@</span></div>
           <if @message.max_child_sortkey@ ne "">
             <a href="javascript:void(toggleList(replies[@message.message_id@],1))"><img src=/resources/forums/ExpandAll16.gif width=16 height=16 ALT=+ border=0 title="Expand all replies to this post"></a>

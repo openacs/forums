@@ -6,22 +6,22 @@
     </if>
 
     <div style="left">
-    <if @display_subject_p@ true>
-      <if @preview@ nil>
-        <a href="@message.direct_url@" title="Direct link to this post" class="reference">@message.number@</a>:
-        <a class="title" href="message-view?message_id=@message.message_id@" title="Link to this post on a separate page">@message.subject@</a>
+      <if @display_subject_p@ true>
+        <if @preview@ nil>
+          <a href="@message.direct_url@" title="Direct link to this post" class="reference">@message.number@</a>:
+          <a class="title" href="message-view?message_id=@message.message_id@" title="Link to this post on a separate page">@message.subject@</a>
+        </if>
+        <else>
+          @message.subject@
+        </else>
       </if>
       <else>
-        @message.subject@
-      </else>
-    </if>
-    <else>
         <a href="@message.direct_url@" title="Direct link to this post" class="reference">@message.number@</a>
-    </else>
+      </else>
 
-    <if @message.parent_number@ not nil>
-      <span class="response">(response to <a href="@message.parent_direct_url@" class="reference">@message.parent_number@</a>)</span>
-    </if>
+      <if @message.parent_number@ not nil>
+        <span class="response">(response to <a href="@message.parent_direct_url@" class="reference">@message.parent_number@</a>)</span>
+      </if>
     </div>
 
     <div style="right">
@@ -49,18 +49,16 @@
     <div style="clear:both;"></div>
 
     <if @rownum@ eq 0>
+  </div>
+  </if>    
+  <div class="content">
+    @message.content;noquote@
+    <if @message.n_attachments@ not nil and @message.n_attachments@ gt 0>
+      <div class="attachments">
+        #forums.Attachments#
+        <include src="/packages/forums/lib/message/attachment-list" &message="message">
       </div>
-      <div class="content">
-	@message.content;noquote@	
-      <if @message.n_attachments@ not nil and @message.n_attachments@ gt 0>
-        <div class="attachments">
-          #forums.Attachments#
-          <include src="/packages/forums/lib/message/attachment-list" &message="message">
-        </div>
-      </if>
-
-      <br /> 
-  
+    </if>
 
     <div class="attribution">#forums.Posted_by# <a href="user-history?user_id=@message.user_id@">@message.user_name@</a> on <span class="post-date">@message.posting_date_pretty@</span></div>
 
