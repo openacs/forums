@@ -166,6 +166,7 @@ ad_proc -public forum::message::get {
     db_1row $query {} -column_array row
 
     # Convert to user's date/time format
+    set row(posting_date_ansi) [lc_time_system_to_conn $row(posting_date_ansi)]
     set row(posting_date_pretty) [lc_time_fmt $row(posting_date_ansi) "%x %X"]
 }
 
