@@ -110,47 +110,48 @@ connect yon/yon;
 --    2. increase the max length from 256 to 1024
 -- mbryzek@arsdigita.com, 7/6/2000
 create or replace procedure im_convert_length_check ( 
-    p_string IN varchar2,
-    p_number_chars_to_append IN number,
-    p_max_length IN number, 
-    p_variable_name IN varchar2 
+    p_string in varchar2,
+    p_number_chars_to_append in number,
+    p_max_length in number, 
+    p_variable_name in varchar2 
 )
 is
 begin
-    if nvl(length(p_string),0) + p_number_chars_to_append > p_max_length then
+    if nvl(length(p_string),0) + p_number_chars_to_append > p_max_length
+    then
 	raise_application_error(-20000, 'Variable "' || p_variable_name || '" exceeds ' || p_max_length || ' character declaration');
     end if;
 end;
 /
 show errors;
 
--- Query to take free text user entered query and from it into something
--- that will make interMedia happy. Provided by Oracle.
+-- this proc takes user supplied free text and transforms it into an interMedia
+-- friendly query string. (provided by oracle).
 create or replace function im_convert (
     query in varchar2 default null
 ) return varchar2
 is
-    i   number :=0;
-    len number :=0;
+    i number := 0;
+    len number := 0;
     char varchar2(1);
     minusString varchar2(256) := '';
     plusString varchar2(256) := ''; 
     mainString varchar2(256) := ''; 
     mainAboutString varchar2(500) := ''; 
     finalString varchar2(500) := ''; 
-    hasMain number :=0;
-    hasPlus number :=0;
-    hasMinus number :=0;
+    hasMain number := 0;
+    hasPlus number := 0;
+    hasMinus number := 0;
     token varchar2(256);
-    tokenStart number :=1;
-    tokenFinish number :=0;
-    inPhrase number :=0;
-    inPlus number :=0;
-    inWord number :=0;
-    inMinus number :=0;
-    completePhrase number :=0;
-    completeWord number :=0;
-    code number :=0;  
+    tokenStart number := 1;
+    tokenFinish number := 0;
+    inPhrase number := 0;
+    inPlus number := 0;
+    inWord number := 0;
+    inMinus number := 0;
+    completePhrase number := 0;
+    completeWord number := 0;
+    code number := 0;  
 begin
   
     len := length(query);
