@@ -6,6 +6,7 @@
     <fullquery name="forum::message::get.select_message">
         <querytext>
             select forums_messages.*,
+                   tree_level(forums_messages.tree_sortkey) as tree_level,
                    person__name(forums_messages.user_id) as user_name, 
                    party__email(forums_messages.user_id) as user_email,
                    forums_forum__name(forums_messages.forum_id) as forum_name, 
