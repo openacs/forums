@@ -44,7 +44,7 @@
 
     <multiple name="responses">
     
-    <% set width [expr 100 - [expr $responses(tree_level) - 1] * 3] %>
+    <% set width [expr 100 - [expr $responses(tree_level) - 1] * 1] %>
 
     <tr style="padding-top: 1em">
       <td alighn="left">
