@@ -89,7 +89,7 @@ if {[string equal $forum(presentation_type) flat]} {
     set order_by "tree_sortkey"
 }
 
-db_multirow -extend { posting_date_pretty } responses $query {} { 
+db_multirow -extend { posting_date_pretty } responses $query {} {
     set subject [ad_quotehtml $subject]
     set posting_date_pretty [lc_time_fmt $posting_date_ansi "%x %X"]
 }

@@ -7,7 +7,7 @@
         <querytext>
             select forums_messages.*,
                    person__name(forums_messages.user_id) as user_name,
-                   to_char(forums_messages.posting_date, 'Mon DD YYYY HH24:MI:SS') as posting_date,
+                   to_char(forums_messages.posting_date_ansi, 'YYYY-MM-DD HH24:MI:SS') as posting_date_ansi,
                    100 as the_score
             from forums_messages,
                  forums_forums
@@ -27,7 +27,7 @@
         <querytext>
             select forums_messages.*,
                    person__name(forums_messages.user_id) as user_name,
-                   to_char(forums_messages.posting_date, 'Mon DD YYYY HH24:MI:SS') as posting_date,
+                   to_char(forums_messages.posting_date_ansi, 'YYYY-MM-DD HH24:MI:SS') as posting_date_ansi,
                    100 as the_score
             from forums_messages,
                  forums_forums

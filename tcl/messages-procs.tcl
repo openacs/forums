@@ -164,7 +164,8 @@ ${url}message-view?message_id=$message(root_message_id)
         }
 
         db_1row $query {} -column_array row
-        
+
+        # Convert to user's date/time format
         set row(posting_date_pretty) [lc_time_fmt $row(posting_date_ansi) "%x %X"]
     }
 
