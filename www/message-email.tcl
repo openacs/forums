@@ -44,10 +44,10 @@ if {[form is_valid message]} {
     # Get the data
     forum::message::get -message_id $message_id -array message
 
-    set new_body "$pre_body"
+    set new_body "[ad_html_to_text $pre_body]"
     append new_body "\n\n===================================\n\n"
     append new_body "On $message(posting_date), $message(user_name) wrote:\n\n"
-    append new_body "$message(content)\n"
+    append new_body "[ad_html_to_text $message(content)]\n"
 
     # Send the email
     acs_mail_lite::send -to_addr $to_email \
