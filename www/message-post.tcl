@@ -78,7 +78,11 @@ if {[form is_valid message]} {
             -content $content \
             -html_p $html_p
 
-    set message_view_url "[ad_conn package_url]message-view?message_id=$message_id"
+    if {[empty_string_p $parent_id]} {
+        set message_view_url "[ad_conn package_url]message-view?message_id=$message_id"
+    } else {
+        set message_view_url "[ad_conn package_url]message-view?message_id=$parent_id"
+    }
 
     if {![empty_string_p $subscribe_p] && $subscribe_p && [empty_string_p $parent_id]} {
         set notification_url [notification::display::subscribe_url -type forums_message_notif -object_id $message_id -url $message_view_url -user_id [ad_conn user_id]]

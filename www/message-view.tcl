@@ -52,7 +52,11 @@ if {[empty_string_p $message(parent_id)]} {
 
 set context_bar [list [list "./forum-view?forum_id=$message(forum_id)" "$message(forum_name)"] {One Message}]
 
-ad_return_template
+if {$forum(presentation_type) == "flat"} {
+    ad_return_template message-view-flat
+} else {
+    ad_return_template
+}
 
 
     

@@ -5,7 +5,7 @@
 <fullquery name="forum::message::get.select_message">
 <querytext>
 select message_id, forum_id, subject, content, person.name(user_id) as user_name, 
-party.email(user_id) as user_email,
+party.email(user_id) as user_email, user_id,
 forums_forum.name(forum_id) as forum_name, 
 forums_message.root_message_id(forums_messages.message_id) as root_message_id,
 (select subject from forums_messages fm2 
