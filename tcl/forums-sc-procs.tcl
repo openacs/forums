@@ -35,7 +35,7 @@ ad_proc datasource { message_id } {
     forum::message::get -message_id $message_id -array message
 
     if { ![empty_string_p $message(parent_id)] } {
-        ns_log notice "forum::message::datasource was called with a message_id that has a parent - skipping: $message_id"
+        ns_log Notice "forum::message::datasource was called with a message_id that has a parent - skipping: $message_id"
         set empty(object_id) $message_id
         set empty(title) ""
         set empty(content) ""

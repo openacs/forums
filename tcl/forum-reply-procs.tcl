@@ -41,7 +41,7 @@ namespace eval forum::notification {
     ad_proc -public process_reply {
         reply_id
     } {
-        ns_log Notice "FORUM-NOTIF: processing reply $reply_id"
+        ns_log debug "forum::notification::process_reply: processing reply $reply_id"
 
         # Get the data
         notification::reply::get -reply_id $reply_id -array reply
