@@ -9,7 +9,7 @@
 </property>
 <property name="displayed_object_id">@message_id@</property>
 <if @display_mode@ eq "dynamic_minimal">
-  <iframe width="0" height="0" border="0" style="width:0; height:0; border:0;" id="dynamic" name="dynamic" src="about:blank"></iframe>
+  <iframe style="width:0; height:0; border:0;" id="dynamic" name="dynamic" src="about:blank"></iframe>
 </if>
 
 
@@ -24,14 +24,12 @@
   </if>
   <ul class="action-links">
     <li><a href="@thread_url@">#forums.Back_to_thread_label#</a></li>
+    <if @notification_chunk@ not nil>
+      <li>@notification_chunk;noquote@</li>
+    </if>
   </ul>
 
-<ul class="action-links">
-  <li><formtemplate id="display_form"></formtemplate></li>
-  <if @notification_chunk@ not nil>
-    <li>@notification_chunk;noquote@</li>
-  </if>
-</ul>
+<formtemplate id="display_form"></formtemplate>
 
 <include src="/packages/forums/lib/message/thread-chunk"
          &message="message"

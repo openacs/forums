@@ -145,7 +145,7 @@ ad_form \
             {label "Display:"}
             {options $display_options_list}
             {value $display_mode}
-            {html {onChange "this.form.submit();"}}
+            {html {onchange "this.form.submit();"}}
         }
     } \
     -after_submit {
