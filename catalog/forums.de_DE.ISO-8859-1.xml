@@ -1,5 +1,5 @@
-<?xml version="1.0"?>
-<message_catalog package_key="forums" package_version="1.0d3" locale="de_DE" charset="ISO-8859-1">
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<message_catalog package_key="forums" package_version="1.0d4" locale="de_DE" charset="ISO-8859-1">
 
   <msg key="Administer">Forum verwalten</msg>
   <msg key="Administration">Foren verwalten</msg>
@@ -33,6 +33,7 @@
   <msg key="enable_it">aktivieren</msg>
   <msg key="enabled">aktiviert</msg>
   <msg key="Entire_Thread">Gesamter Thread</msg>
+  <msg key="First_Post">Erster Beitrag</msg>
   <msg key="Flat">Unstrukturiert</msg>
   <msg key="Format">Format</msg>
   <msg key="Forum">Forum</msg>
