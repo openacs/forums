@@ -126,6 +126,3 @@ namespace eval forum {
     }
 
 }
-
-
-

@@ -244,7 +244,33 @@ ${url}message-view?message_id=$message(root_message_id)
         return [attachments::get_attachments -object_id $message_id]
     }
 
+    ad_proc -public subject_sort_filter {
+        -forum_id:required
+        -order_by:required
+    } {
+        Return a piece of HTML for toggling the sort order of threads (subjects)
+        in a forum. The user can either sort by the first postings in subjects
+        (the creation date of the subjects) or the last one.
+
+        @author Peter Marklund
+    } {        
+        set subject_label "[_ forums.lt_First_post_in_subject]"
+        set child_label "[_ forums.Last_post_in_subject]"
+        set new_order_by [ad_decode $order_by posting_date last_child_post posting_date]
+
+        set export_vars [ad_export_vars -override [list [list order_by $new_order_by]] {order_by forum_id}]
+        set toggle_url "[ad_conn url]?${export_vars}"
+        if { [string equal $order_by posting_date] } {
+            # subject selected
+            set subject_link "$subject_label"
+            set child_link "<a href=\"$toggle_url\">$child_label</a>"
+        } else {
+            # child selected
+            set subject_link "<a href=\"$toggle_url\">$subject_label</a>"
+            set child_link "$child_label"
+        }
+        set sort_filter "$subject_link | $child_link"
+
+        return $sort_filter
+    }
 }
-
-
-

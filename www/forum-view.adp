@@ -25,6 +25,12 @@
         <if @post_p@>
           [ <a href="message-post?forum_id=@forum_id@">#forums.Post_a_New_Message#</a> ]
         </if>
+
+        <br>
+        <br>
+        
+        Sort by: @sort_filter@
+
       </td>
       <td align="right">
         <formtemplate id="search">
@@ -84,8 +90,3 @@
     </table>
 
 </center>
-
-
-
-
-

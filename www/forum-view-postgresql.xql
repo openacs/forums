@@ -19,7 +19,7 @@
             from forums_messages_approved fm
             where fm.forum_id = :forum_id
             and fm.parent_id is null
-            order by fm.posting_date desc
+            order by fm.${order_by} desc
         </querytext>
     </fullquery>
 
@@ -40,7 +40,7 @@
             from forums_messages_approved fm
             where fm.forum_id = :forum_id
             and fm.parent_id is null
-            order by fm.posting_date desc
+            order by fm.${order_by} desc
         </querytext>
     </fullquery>
 

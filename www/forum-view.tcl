@@ -8,6 +8,7 @@ ad_page_contract {
 
 } -query {
     forum_id:integer,notnull
+    {order_by "posting_date"}
 }
 
 
@@ -78,5 +79,8 @@ set notification_chunk [notification::display::request_widget \
 ]
 
 set context [list $forum(name)]
+
+# Sort by first or last posting in a thread (subject)
+set sort_filter [forum::message::subject_sort_filter -forum_id $forum_id -order_by $order_by]
 
 ad_return_template
