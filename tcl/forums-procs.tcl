@@ -14,8 +14,8 @@ namespace eval forum {
         {-forum_id ""}
         {-name:required}
         {-charter ""}
-        {-presentation_type "flat"}
-        {-posting_policy "open"}
+        {-presentation_type flat}
+        {-posting_policy open}
         {-package_id:required}
     } {
         create a new forum
@@ -25,17 +25,15 @@ namespace eval forum {
         oacs_util::vars_to_ns_set -ns_set $extra_vars -var_list {forum_id name charter presentation_type posting_policy package_id}
 
         # Instantiate the forum
-        set forum_id [package_instantiate_object -extra_vars $extra_vars forums_forum]
-
-        return $forum_id
+        return [package_instantiate_object -extra_vars $extra_vars forums_forum]
     }
 
     ad_proc -public edit {
         {-forum_id:required}
         {-name:required}
         {-charter ""}
-        {-presentation_type "flat"}
-        {-posting_policy "open"}
+        {-presentation_type flat}
+        {-posting_policy open}
     } {
         edit a forum
     } {
