@@ -64,13 +64,24 @@ if {$forum(posting_policy) == "moderated"} {
 set forum_id $message(forum_id)
 set tree_sortkey $message(tree_sortkey)
 
-set query select_message_responses
-if {$moderate_p} {
-    set query select_message_responses_moderator
+if {[forum::attachments_enabled_p]} {
+    set query select_message_responses_attachments
+} else {
+    set query select_message_responses
 }
 
+# We set a Tcl variable for moderation now (Ben)
+if {$moderate_p} {
+    set table_name "forums_messages"
+} else {
+    set table_name "forums_messages_approved"
+}
+
+# More Tcl vars (we might as well use them - Ben)
 if {[string equal $forum(presentation_type) flat]} {
-    append query "_flat"
+    set order_by "posting_date, tree_sortkey"
+} else {
+    set order_by "tree_sortkey"
 }
 
 db_multirow responses $query {}

@@ -41,6 +41,10 @@ namespace eval forum {
         db_dml update_forum {}
     }
 
+    ad_proc -public attachments_enabled_p {} {
+        return [apm_package_registered_p attachments]
+    }
+
     ad_proc -public list_forums {
         {-package_id:required}
     } {

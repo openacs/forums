@@ -24,5 +24,12 @@
     <br>
   </if>
 
+  <if @attachments_enabled_p@ eq 1>
+  Would you like to attach a file to this message?
+    <input type="radio" name="attach_p" value="0" checked>No</input>
+    <input type="radio" name="attach_p" value="1">Yes</input>
+<br>  
+  </if>
+
   <input type="submit" value="confirm">
 </form>

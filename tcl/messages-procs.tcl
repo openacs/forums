@@ -113,7 +113,12 @@ namespace eval forum::message {
     } {
         # Select the info into the upvar'ed Tcl Array
         upvar $array row
-        db_1row select_message {} -column_array row
+
+        if {[forum::attachments_enabled_p]} {
+            db_1row select_message_with_attachment {} -column_array row
+        } else {
+            db_1row select_message {} -column_array row
+        }
     }
 
     ad_proc -private set_state {
@@ -176,6 +181,19 @@ namespace eval forum::message {
         This is not exactly a cheap operation if the thread is long
     } {
         db_exec_plsql thread_open {}
+    }
+    
+    ad_proc -public get_attachments {
+        {-message_id:required}
+    } {
+        get the attachments for a message
+    } {
+        # If attachments aren't enabled, then we stop
+        if {![forum::attachments_enabled_p]} {
+            return [list]
+        }
+
+        return [attachments::get_attachments -object_id $message_id]
     }
 
 }

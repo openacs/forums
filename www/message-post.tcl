@@ -66,6 +66,19 @@ element create message subscribe_p \
     -widget hidden \
     -optional
 
+set attachments_enabled_p [forum::attachments_enabled_p]
+
+if {$attachments_enabled_p} {
+    ns_log Notice "FORUMS: attachments enabled"
+    element create message attach_p \
+            -label "Attach?" \
+            -datatype text \
+            -widget hidden \
+            -optional
+} else {
+    ns_log Notice "FORUMS: attachments not enabled"
+}
+
 if {[form is_valid message]} {
     form get_values message \
         message_id forum_id parent_id subject content html_p confirm_p subscribe_p
@@ -111,25 +124,35 @@ if {[form is_valid message]} {
         -html_p $html_p
 
     if {[empty_string_p $parent_id]} {
-        set message_view_url "[ad_conn package_url]message-view?message_id=$message_id"
+        set redirect_url "[ad_conn package_url]message-view?message_id=$message_id"
     } else {
-        set message_view_url "[ad_conn package_url]message-view?message_id=$parent_id"
+        set redirect_url "[ad_conn package_url]message-view?message_id=$parent_id"
     }
 
+    # Wrap the notifications URL
     if {![empty_string_p $subscribe_p] && $subscribe_p && [empty_string_p $parent_id]} {
         set notification_url [notification::display::subscribe_url \
             -type forums_message_notif \
             -object_id $message_id \
-            -url $message_view_url \
+            -url $redirect_url \
             -user_id [ad_conn user_id] \
         ]
 
         # redirect to notification stuff
-        ad_returnredirect $notification_url
-    } else {
-        # redirect to viewing the message
-        ad_returnredirect $message_view_url
+        set redirect_url $notification_url
     }
+
+    # Wrap the attachments URL
+    if {$attachments_enabled_p} {
+        form get_values message attach_p
+
+        if {$attach_p} {
+            set redirect_url [attachments::add_attachment_url -object_id $message_id -return_url $redirect_url -pretty_name "Forum Posting \"$subject\""]
+        }
+    }
+    
+    # Do the redirection
+    ad_returnredirect $redirect_url
 
     ad_script_abort
 }

@@ -1,5 +1,5 @@
     <tr bgcolor="@bgcolor@">
-      <td><b><a href="message-view?message_id=@message.message_id@">@message.subject@</a></b></td>
+      <td><b><a href="message-view?message_id=@message.message_id@">@message.subject@</a></b> <if @message.n_attachments@ not nil and @message.n_attachments@ gt 0><include src="message-attachment-chunk" &message="message"></if></td>
       <td width="15%"><a href="user-history?user_id=@message.user_id@">@message.user_name@</a></td>
       <td align="center" width="20%">@message.posting_date@</td>
       <td align="right" width="25%">
