@@ -22,7 +22,7 @@
     </if>
     <div class="details">
   <div style="float: left; padding-right: 4px;">
-    <a id="toggle@message.message_id@" class="dynexpanded" href="javascript:void(toggle(@message.message_id@))"><img src="/resources/forums/Expand16.gif" width="16" height="16" alt="+" /></a>
+    <a id="toggle@message.message_id@" class="dynexpanded" href="javascript:void(toggle(@message.message_id@))"><img src="/resources/forums/Expand16.gif" width="16" height="16" alt="+" border="0"/></a>
   </div>
   <if @display_subject_p@ true>
     <if @preview@ nil>
