@@ -37,11 +37,11 @@
   </else>
 
       <td>
-        <a href="forum-view?forum_id=@forums.forum_id@">@forums.name@</a><br>
-        <i>@forums.charter@</i>
+        <a href="forum-view?forum_id=@forums.forum_id@">@forums.name@</a>
+        <if @forums.charter@ not nil><br><i>@forums.charter@</i></if>
       </td>
       <td>@forums.n_threads@</td>
-      <td>@forums.last_modified@</td>
+      <td><if @forums.n_threads@ gt 0>@forums.last_modified@</if></td>
 
     </tr>
 
