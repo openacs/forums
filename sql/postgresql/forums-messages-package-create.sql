@@ -13,7 +13,7 @@
 
 select define_function_args ('forums_message__new', 'message_id,object_type;forums_message,forum_id,subject,content,html_p,user_id,posting_date,state,parent_id,creation_date,creation_user,creation_ip,context_id');
 
-create function forums_message__new (integer,varchar,integer,varchar,text,char,integer,timestamp,varchar,integer,timestamp,integer,varchar,integer)
+create function forums_message__new (integer,varchar,integer,varchar,text,char,integer,timestamp with time zone,varchar,integer,timestamp with time zone,integer,varchar,integer)
 returns integer as '
 declare
     p_message_id                    alias for $1;
