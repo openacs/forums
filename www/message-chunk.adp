@@ -33,8 +33,8 @@
   
 
 
-        [ <a href="message-post?parent_id=@message.message_id@">reply</a>
-        | <a href="message-email?message_id=@message.message_id@">email</a>
+
+        [ <a href="message-email?message_id=@message.message_id@">Forward</a>
         ]
         <if @moderate_p@>
           [ <a href="moderate/message-edit?message_id=@message.message_id@">edit</a>
