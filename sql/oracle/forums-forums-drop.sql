@@ -12,6 +12,9 @@
 -- privileges
 declare
 begin
+
+   delete from acs_permissions where privilege in ('forum_moderate','forum_post','forum_read','forum_create','forum_write','forum_delete');
+
    -- remove children
    acs_privilege.remove_child('read','forum_read');
    acs_privilege.remove_child('create','forum_create');
@@ -38,6 +41,8 @@ show errors
 -- The Data Model
 --
 
+drop view forums_forums_enabled;
+
 drop table forums_forums;
 
 --
@@ -45,10 +50,22 @@ drop table forums_forums;
 --
 
 declare
+    v_object_id	    integer;
 begin
-        acs_object_type.drop_type (
-            object_type => 'forums_forum'
-        );
+
+   select MAX(object_id) into v_object_id from acs_objects where object_type='forums_forum';
+   While (v_object_id > 0) loop
+	delete from ncanotes where object_id=v_object_id;
+   	acs_object.delete(
+		v_object_id -- object_id
+  	);
+	select MAX(object_id) into v_object_id from acs_objects where object_type='forums_forum';
+   End loop;
+
+   acs_object_type.drop_type (
+	object_type => 'forums_forum'
+   );
+
 end;
 /
 show errors
