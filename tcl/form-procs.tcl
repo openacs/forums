@@ -21,48 +21,39 @@ ad_proc -public forums::form::message {
     ##############################
     # Form definition
     #
+
+    if { $optional_p } {
+        set optional_switch "-optional"
+    } else {
+        set optional_switch ""
+    }
+
     template::element create $form_name ${prefix}subject \
         -label [_ forums.Subject] \
         -datatype text \
         -widget text \
-        -html {size 60}
+        -html {size 60} \
+        $optional_switch
 
     template::element create $form_name ${prefix}message_body \
         -label [_ forums.Body] \
         -datatype text \
         -widget textarea \
-        -html {rows 20 cols 60 wrap soft} 
-
+        -html {rows 20 cols 60 wrap soft} \
+        $optional_switch \
+        -validate [list \
+                       html_security_check \
+                       "expr \{ \
+                             \[ns_queryget ${prefix}format\] != \"html\" || \
+                             \[empty_string_p \[set v_message \[ad_html_security_check \$value\]\]\] \
+                       \}" \
+                       "Message contains HTML tags that are not allowed."]
+    
     template::element create $form_name ${prefix}format \
 	-label "Format" \
 	-datatype text \
 	-widget select \
 	-options {{"Preformatted Text" "pre"} {"Plain Text" "plain"} {HTML "html"}}
-
-    ##############################
-    # Form validation
-    #
-    set subject_val [list]
-    set content_val [list]
-    
-    if {$optional_p} {
-        template::element set_properties $form_name ${prefix}subject -optional 
-        template::element set_properties $form_name ${prefix}message_body -optional
-    } else {
-        lappend subject_val \
-            {expr ![empty_string_p [string trim $value]]} \
-            "[_ forums.lt_Please_enter_a_subjec]" 
-
-        lappend content_val empty \
-            {expr ![empty_string_p [string trim $value]]} \
-            "[_ forums.lt_Please_enter_a_messag]"
-    }
-
-    template::element set_properties $form_name ${prefix}subject \
-        -validate $subject_val
-
-    template::element set_properties $form_name ${prefix}message_body \
-        -validate $content_val
 
 }
 
