@@ -35,7 +35,7 @@ namespace eval forum::message {
             set message_id [package_instantiate_object -extra_vars $extra_vars forums_message]
 
             get -message_id $message_id -array message
-            if {[info exists message(status)] && [string equal $message(status) approved]} {
+            if {[info exists message(state)] && [string equal $message(state) approved]} {
                 do_notifications -message_id $message_id
             }
         }
