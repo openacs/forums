@@ -102,8 +102,6 @@ set forum_id $message(forum_id)
 set root_message_id $message(root_message_id)
 set message_id_list [db_list select_message_ordering {}]
 
-ds_comment $message_id_list
-
 set message(number) [expr [lsearch $message_id_list $message(message_id)] + 1]
 set message(parent_number) {}
 if { [exists_and_not_null message(parent_id)] } {
