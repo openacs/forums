@@ -10,12 +10,12 @@
                    content,
                    person__name(user_id) as user_name,
                    to_char(posting_date, 'Mon DD YYYY HH24:MI:SS') as posting_date,
-                   tree__tree_level(tree_sortkey) as tree_level,
+                   tree_level(tree_sortkey) as tree_level,
                    state,
                    user_id
             from forums_messages_approved
             where forum_id = :forum_id
-            and tree_sortkey between tree__left(:tree_sortkey) and tree__right(:tree_sortkey)
+            and tree_sortkey between tree_left(:tree_sortkey) and tree_right(:tree_sortkey)
             order by tree_sortkey
         </querytext>
     </fullquery>
@@ -27,12 +27,12 @@
                    content,
                    person__name(user_id) as user_name,
                    to_char(posting_date, 'Mon DD YYYY HH24:MI:SS') as posting_date,
-                   tree__tree_level(tree_sortkey) as tree_level,
+                   tree_level(tree_sortkey) as tree_level,
                    state,
                    user_id
             from forums_messages_approved
             where forum_id = :forum_id
-            and tree_sortkey between tree__left(:tree_sortkey) and tree__right(:tree_sortkey)
+            and tree_sortkey between tree_left(:tree_sortkey) and tree_right(:tree_sortkey)
             order by posting_date, tree_sortkey
         </querytext>
     </fullquery>
@@ -44,12 +44,12 @@
                    content,
                    person__name(user_id) as user_name,
                    to_char(posting_date, 'Mon DD YYYY HH24:MI:SS') as posting_date,
-                   tree__tree_level(tree_sortkey) as tree_level,
+                   tree_level(tree_sortkey) as tree_level,
                    state,
                    user_id
             from forums_messages
             where forum_id = :forum_id
-            and tree_sortkey between tree__left(:tree_sortkey) and tree__right(:tree_sortkey)
+            and tree_sortkey between tree_left(:tree_sortkey) and tree_right(:tree_sortkey)
             order by tree_sortkey
         </querytext>
     </fullquery>
@@ -61,12 +61,12 @@
                    content,
                    person__name(user_id) as user_name,
                    to_char(posting_date, 'Mon DD YYYY HH24:MI:SS') as posting_date,
-                   tree__tree_level(tree_sortkey) as tree_level,
+                   tree_level(tree_sortkey) as tree_level,
                    state,
                    user_id
             from forums_messages
             where forum_id = :forum_id
-            and tree_sortkey between tree__left(:tree_sortkey) and tree__right(:tree_sortkey)
+            and tree_sortkey between tree_left(:tree_sortkey) and tree_right(:tree_sortkey)
             order by posting_date, tree_sortkey
         </querytext>
     </fullquery>

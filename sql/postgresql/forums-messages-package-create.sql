@@ -93,7 +93,7 @@ BEGIN
            from forums_messages where message_id= p_message_id;
 
            select message_id into v_message_id from forums_messages where forum_id= v_forum_id
-           and tree_sortkey= tree__ancestor_key(v_sortkey, 1);
+           and tree_sortkey= tree_ancestor_key(v_sortkey, 1);
 
            return v_message_id;
 END;
@@ -111,7 +111,7 @@ BEGIN
            from forums_messages where message_id= p_message_id;
 
            update forums_messages set open_p=''t''
-           where tree_sortkey between tree__left(v_sortkey) and tree__right(v_sortkey)
+           where tree_sortkey between tree_left(v_sortkey) and tree_right(v_sortkey)
            and forum_id = v_forum_id;
 
            update forums_messages set open_p=''t''
@@ -133,7 +133,7 @@ BEGIN
            from forums_messages where message_id= p_message_id;
 
            update forums_messages set open_p=''f''
-           where tree_sortkey between tree__left(v_sortkey) and tree__right(v_sortkey)
+           where tree_sortkey between tree_left(v_sortkey) and tree_right(v_sortkey)
            and forum_id = v_forum_id;
 
            update forums_messages set open_p=''f''
@@ -178,8 +178,8 @@ BEGIN
            FOR v_message in
            (select * from forums_messages
            where forum_id = v_forum_id and 
-           tree_sortkey between tree__left(v_sortkey) 
-           and tree__right(v_sortkey) order by tree_sortkey desc)
+           tree_sortkey between tree_left(v_sortkey) 
+           and tree_right(v_sortkey) order by tree_sortkey desc)
            LOOP
                 perform forums_message__delete(v_message.message_id);
            END LOOP;
