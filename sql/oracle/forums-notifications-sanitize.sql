@@ -12,8 +12,10 @@ declare
 begin
     for row in (select type_id
                 from notification_types
-                where short_name in (''forums_forum_notif'',''forums_message_notif''))
+                where short_name in ('forums_forum_notif','forums_message_notif'))
     loop
         notification_type.delete(row.type_id);
     end loop;
 end;
+/
+show errors
