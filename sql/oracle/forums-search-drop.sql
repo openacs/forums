@@ -33,9 +33,6 @@
 drop function im_convert;
 drop procedure im_convert_length_check;
 
--- as ctxsys
-connect ctxsys/ctxsys;
-
 declare
 begin
     for row in (select job
@@ -47,9 +44,6 @@ begin
 end;
 /
 show errors
-
--- as normal user
-connect yon/yon;
 
 drop index forums_content_idx;
 
