@@ -33,7 +33,11 @@ namespace eval forum::message {
 
         db_transaction {
             set message_id [package_instantiate_object -extra_vars $extra_vars forums_message]
-            do_notifications -message_id $message_id
+
+            get -message_id $message_id -array message
+            if {[info exists message(status)] && [string equal $message(status) approved]} {
+                do_notifications -message_id $message_id
+            }
         }
 
         return $message_id
@@ -136,7 +140,10 @@ namespace eval forum::message {
     } {
         approve a message
     } {
-        set_state -message_id $message_id -state approved
+        db_transaction {
+            set_state -message_id $message_id -state approved
+            do_notifications -message_id $message_id
+        }
     }
 
     ad_proc -public delete {
@@ -170,4 +177,5 @@ namespace eval forum::message {
     } {
         db_exec_plsql thread_open {}
     }
+
 }
