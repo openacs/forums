@@ -36,6 +36,10 @@ if {[form is_valid search]} {
     if {![empty_string_p $forum_id]} {
         set query search_one_forum
     }
+    
+    if { [parameter::get -parameter UseIntermediaForSearchP -default 0] } {
+        append query "_intermedia"
+    }
 
     db_multirow messages $query {} {
         set posting_date_pretty [lc_time_fmt $posting_date_ansi "%x %X"]

@@ -21,6 +21,7 @@
         </callbacks>
         <parameters>
             <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="DisplayEmoticonsAsImagesP"  default="0" description="Automatically convert smileys like :-) and similar constructs to images when displaying messages in the browser."/>
+            <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="UseIntermediaForSearchP"  default="0" description="Should we use intermedia for searching forums? Intermedia is more scalable, but interprets searches differently from standard search."/>
             <parameter datatype="string"  min_n_values="1"  max_n_values="1"  name="table_bgcolor"  default="#eeeeee" description="This is the color of the first message / table row"/>
             <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="table_border_color"  default="#dddddd" description="The color of the table borders and between the cells, try #ffffff for a cool look"/>
             <parameter datatype="string"  min_n_values="1"  max_n_values="1"  name="table_other_bgcolor"  default="#d9e4f9" description="The bgcolor for the other table rows"/>
