@@ -4,6 +4,7 @@
 --
 -- @author gwong@orchardlabs.com,ben@openforce.biz
 -- @creation-date 2002-05-16
+-- @cvs-id $Id$
 --
 -- The Package for Messages
 --
@@ -105,7 +106,7 @@ begin
 
     return v_message_id;
 end;
-' language 'plpgsql' with(isstrict,iscachable);
+' language 'plpgsql' stable strict;
 
 select define_function_args ('forums_message__thread_open', 'message_id');
 
