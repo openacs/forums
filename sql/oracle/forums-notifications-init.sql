@@ -19,6 +19,7 @@ begin
         impl_id := acs_sc_impl.new (
                       impl_contract_name => 'NotificationType',
                       impl_name => 'forums_forum_notif_type',
+                      impl_pretty_name => 'forums_forum_notif_type',
                       impl_owner_name => 'forums'
                    );
 
@@ -67,6 +68,7 @@ begin
         impl_id := acs_sc_impl.new (
                       impl_contract_name => 'NotificationType',
                       impl_name => 'forums_message_notif_type',
+                      impl_pretty_name => 'forums_message_notif_type',
                       impl_owner_name => 'forums'
                    );
 

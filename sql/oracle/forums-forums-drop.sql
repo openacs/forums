@@ -56,7 +56,7 @@ begin
    select MAX(object_id) into v_object_id from acs_objects where object_type='forums_forum';
    While (v_object_id > 0) loop
 	delete from ncanotes where object_id=v_object_id;
-   	acs_object.delete(
+   	acs_object.del(
 		v_object_id -- object_id
   	);
 	select MAX(object_id) into v_object_id from acs_objects where object_type='forums_forum';

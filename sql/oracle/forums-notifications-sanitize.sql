@@ -41,10 +41,10 @@ begin
           from notification_types
           where short_name in ('forums_forum_notif'))
           loop
-                  notification_type.delete(row.type_id);
+                  notification_type.del(row.type_id);
           end loop;
 
-    acs_sc_binding.delete(
+    acs_sc_binding.del(
       contract_name => 'NotificationType',
       impl_name => 'forums_forum_notif_type'
     );
@@ -61,7 +61,7 @@ begin
       'ProcessReply'
     );
 
-    acs_sc_impl.delete(
+    acs_sc_impl.del(
       'NotificationType',
       'forums_forum_notif_type'
     );
@@ -95,10 +95,10 @@ begin
           from notification_types
           where short_name in ('forums_message_notif'))
           loop
-                  notification_type.delete(row.type_id);
+                  notification_type.del(row.type_id);
           end loop;
 
-    acs_sc_binding.delete(
+    acs_sc_binding.del(
       contract_name => 'NotificationType',
       impl_name => 'forums_message_notif_type'
     );
@@ -115,7 +115,7 @@ begin
       'ProcessReply'
     );
 
-    acs_sc_impl.delete(
+    acs_sc_impl.del(
       'NotificationType',
       'forums_message_notif_type'
     );

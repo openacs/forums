@@ -43,7 +43,7 @@ as
         message_id in forums_messages.message_id%TYPE
     );
 
-    procedure delete (
+    procedure del (
         message_id in forums_messages.message_id%TYPE
     );
 
@@ -199,13 +199,13 @@ as
         where message_id = thread_close.message_id;
     end thread_close;
 
-    procedure delete (
+    procedure del (
         message_id in forums_messages.message_id%TYPE
     )
     is
     begin
-        acs_object.delete(message_id);
-    end delete;
+        acs_object.del(message_id);
+    end del;
 
     procedure delete_thread (
         message_id in forums_messages.message_id%TYPE
@@ -235,11 +235,11 @@ as
                           and tree_sortkey between tree.left(v_sortkey) and tree.right(v_sortkey)
                           order by tree_sortkey desc)
         loop
-            forums_message.delete(v_message.message_id);
+            forums_message.del(v_message.message_id);
         end loop;
 
         -- delete the message itself
-        forums_message.delete(delete_thread.message_id);
+        forums_message.del(delete_thread.message_id);
     end delete_thread;
 
     function name (

@@ -32,7 +32,7 @@ as
         forum_id in forums_forums.forum_id%TYPE
     ) return varchar;
 
-    procedure delete (
+    procedure del (
         forum_id in forums_forums.forum_id%TYPE
     );
 
@@ -90,13 +90,13 @@ as
         return v_name;
     end name;
     
-    procedure delete (
+    procedure del (
         forum_id in forums_forums.forum_id%TYPE
     )
     is
     begin
-        acs_object.delete(forum_id);
-    end delete;
+        acs_object.del(forum_id);
+    end del;
 
 end forums_forum;
 /
