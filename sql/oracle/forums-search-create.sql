@@ -83,17 +83,23 @@ create index forums_content_idx
     indextype is ctxsys.context
     parameters ('datastore forums_user_datastore');
 
+-- as ctxsys
+connect ctxsys/ctxsys;
+
 declare
     v_job                           number;
 begin
     dbms_job.submit(
         job => v_job,
-        what => 'ctx_ddl.sync_index(''forums_content_idx'');',
+        what => 'ctxsys.ctx_ddl.sync_index(''yon.forums_content_idx'');',
         interval => 'sysdate + 1/24'
     );
 end;
 /
 show errors
+
+-- as normal user
+connect yon/yon;
 
 -- ripped off from site-wide-search
 

@@ -33,17 +33,23 @@
 drop function im_convert;
 drop procedure im_convert_length_check;
 
+-- as ctxsys
+connect ctxsys/ctxsys;
+
 declare
 begin
     for row in (select job
                 from user_jobs
-                where what like '%forums_content_idx%')
+                where what like '%yon.forums_content_idx%')
     loop
         dbms_job.remove(job => row.job);
     end loop;
 end;
 /
 show errors
+
+-- as normal user
+connect yon/yon;
 
 drop index forums_content_idx;
 
