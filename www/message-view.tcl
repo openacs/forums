@@ -105,8 +105,10 @@ if {[empty_string_p $message(parent_id)]} {
 set context [list [list "./forum-view?forum_id=$message(forum_id)" "$message(forum_name)"]]
 if {![empty_string_p $message(parent_id)]} {
     lappend context [list "./message-view?message_id=$message(root_message_id)" "Entire Thread"]
+    lappend context {One Message}
+} else {
+    lappend context {One Thread}
 }
-lappend context {One Message}
 
 if {[string equal $forum(presentation_type) flat]} {
     ad_return_template "message-view-flat"

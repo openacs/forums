@@ -50,6 +50,11 @@ element create search forum_id \
 # Get forum data
 forum::get -forum_id $forum_id -array forum
 
+#it is confusing to provide a moderate link for non-moderated forums.
+if { $forum(posting_policy) != "moderated" } {
+    set moderate_p 0
+}
+
 # If disabled!
 if {$forum(enabled_p) != "t"} {
     ad_returnredirect "./"

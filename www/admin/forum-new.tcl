@@ -48,7 +48,8 @@ element create forum new_threads_p \
     -label "Users Can Create New Threads" \
     -datatype integer \
     -widget radio \
-    -options {{yes 1} {no 0}}
+    -options {{yes 1} {no 0}} \
+    -default 1
 
 if {[form is_valid forum]} {
     template::form get_values forum \

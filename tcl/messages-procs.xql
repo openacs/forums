@@ -27,4 +27,12 @@
         </querytext>
     </fullquery>
 
+    <fullquery name="forum::message::new.message_exists_p">
+        <querytext>
+	  select count(message_id)
+	  from forums_messages 
+	  where message_id = :message_id
+        </querytext>
+    </fullquery>
+
 </queryset>

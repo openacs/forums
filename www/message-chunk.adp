@@ -49,11 +49,13 @@
     <td colspan="4" style="padding: 1em">
   </if>
   <else>
-    <td colspan="3" style="padding: 1em">  
+    <td colspan="3" align="left" style="padding: 1em">  
   </else>
 
     <if @message.html_p@ false>
+    <div align="left">
       <%= [ad_text_to_html --  "$message(content)"] %>
+    </div>
     </if>
     <else>
       @message.content@

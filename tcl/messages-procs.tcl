@@ -27,6 +27,7 @@ namespace eval forum::message {
             set user_id [ad_conn user_id]
         }
 
+	set original_message_id $message_id
         # Prepare the variables for instantiation
         set extra_vars [ns_set create]
         oacs_util::vars_to_ns_set -ns_set $extra_vars -var_list {forum_id message_id parent_id subject content html_p user_id}
@@ -38,6 +39,26 @@ namespace eval forum::message {
             if {[info exists message(state)] && [string equal $message(state) approved]} {
                 do_notifications -message_id $message_id
             }
+        }  on_error {
+
+	    db_abort_transaction
+	    
+	    # Check to see if the message with a message_id matching the
+	    # message_id arguement was in the database before calling
+	    # this procedure.  If so, the error is due to a double click 
+	    # and we should continue without returning an error.
+	    
+	    if {![empty_string_p $original_message_id]} {
+		# The was a non-null message_id arguement
+		if {[db_string message_exists_p "
+		select count(message_id) 
+		from forums_messages 
+		where message_id = :message_id"]} {
+		    
+		    return $message_id
+		    
+		}
+	    }
         }
 
         return $message_id
@@ -59,9 +80,33 @@ namespace eval forum::message {
         append new_content "Posted: $message(posting_date)<br>"
         append new_content "\n<br>\n"
         append new_content $message(content)
+	append new_content "<p>-------------------<br>"
 
         # send text for now.
         set new_content [ad_html_to_text $new_content]
+        set html_version $new_content
+
+	set text_version ""
+	append text_version "
+Forum: $message(forum_name)
+Thread: $message(root_message_id)
+Author: $message(user_name) ($message(user_email))
+Posted: $message(posting_date)
+----------------------------------
+[ad_html_to_text $message(content)]
+---------------------------------
+To post a reply to this email or view this message go to: 
+${url}message-view?message_id=$message(root_message_id)
+
+To view Forum $message(forum_name) go to:
+${url}forum-view?forum_id=$message(forum_id)
+
+To email the author($message(user_name)) privately: 
+mailto:$message(user_email)
+"
+        set new_content $text_version
+        ns_log notice "requesting a notification with subject $message(forum_name) $message(subject)" 
+
 
         # Do the notification for the forum
         notification::new \
