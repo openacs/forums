@@ -31,10 +31,10 @@
 <multiple name="responses">
 
 <if @responses.rownum@ odd>
-  <include src="message-chunk" bgcolor="#d9e4f9" moderate_p=@moderate_p@ &message="responses">
+  <include src="message-chunk" bgcolor="#d9e4f9" moderate_p=@moderate_p@ &message="responses" root_subject="@message.root_subject@">
 </if>
 <else>
-  <include src="message-chunk" bgcolor="#eeeeee" moderate_p=@moderate_p@ &message="responses">
+  <include src="message-chunk" bgcolor="#eeeeee" moderate_p=@moderate_p@ &message="responses" root_subject="@message.root_subject@">
 </else>
 
 </multiple>

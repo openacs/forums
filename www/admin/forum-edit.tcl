@@ -16,8 +16,7 @@ element create forum forum_id \
         -label [_ forums.Forum_ID] -datatype integer -widget hidden
 
 element create forum name \
-        -label [_ forums.Name] -datatype text -widget text -html {size 60} -validate { {expr ![empty_string_p [string trim $value]]} {Forum Name can not be blank}
-    }
+        -label [_ forums.Name] -datatype text -widget text -html {size 60} -validate { {expr ![empty_string_p [string trim $value]]} {Forum Name can not be blank} }
 
 element create forum charter \
         -label [_ forums.Charter] -datatype text -widget textarea -html {cols 60 rows 10 wrap soft} -optional
@@ -39,6 +38,9 @@ if {[form is_valid forum]} {
             -charter $charter \
             -presentation_type $presentation_type \
             -posting_policy $posting_policy
+    
+    forum::posting_policy_set -posting_policy $posting_policy \
+        -forum_id $forum_id
 
     # Users can create new threads?
     if {$new_threads_p} {

@@ -66,6 +66,26 @@ namespace eval forum {
         db_1row select_forum {} -column_array row
     }
 
+    ad_proc -public posting_policy_set {
+        {-posting_policy:required}
+        {-forum_id:required}
+    } { 
+        # JCD: this is potentially bad since we are 
+        # just assuming registered_users is the 
+        # right group to be granting forum_write to.
+
+        if {![string equal closed $posting_policy]} { 
+            permission::grant -object_id $forum_id \
+                -party_id [acs_magic_object registered_users] \
+                -privilege forum_write 
+        } else { 
+            permission::revoke -object_id $forum_id \
+                -party_id [acs_magic_object registered_users] \
+                -privilege forum_write 
+        }
+
+    } 
+
     ad_proc -public new_questions_allow {
         {-forum_id:required}
     } {

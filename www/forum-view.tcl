@@ -66,8 +66,8 @@ if {$moderate_p} {
     set query messages_select_moderator
 }
 
-db_multirow -extend { last_modified_pretty } messages $query {} {
-    set last_modified_pretty [lc_time_fmt $last_modified_ansi "%x %X"]
+db_multirow -extend { last_post_pretty } messages $query {} {
+    set last_post_pretty [lc_time_fmt $last_post_ansi "%x %X"]
 }
 
 set notification_chunk [notification::display::request_widget \

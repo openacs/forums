@@ -50,6 +50,7 @@ create table forums_messages (
                                     check (open_p in ('t','f')),
     tree_sortkey                    varbit,
     max_child_sortkey               varbit,
+    last_child_post                 timestamp,
     constraint forums_mess_sk_forum_un
     unique (tree_sortkey, forum_id)
 );

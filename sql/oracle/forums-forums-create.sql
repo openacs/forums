@@ -68,7 +68,8 @@ create table forums_forums (
                                     check (enabled_p in ('t','f')),
     package_id                      integer
                                     constraint forums_package_id_nn
-                                    not null
+                                    not null,
+    last_post                       date
 );
 
 create view forums_forums_enabled

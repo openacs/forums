@@ -22,13 +22,19 @@ element create message subject \
     -label [_ forums.Subject] \
     -datatype text \
     -widget text \
-    -html {size 60}
+    -html {size 60} \
+    -validate { {expr ![empty_string_p [string trim $value]]} {Please enter a subject} }
 
 element create message content \
     -label [_ forums.Body] \
     -datatype text \
     -widget textarea \
-    -html {rows 20 cols 60 wrap soft}
+    -html {rows 20 cols 60 wrap soft} \
+    -validate {
+	empty {expr ![empty_string_p [string trim $value]]} {Please enter a message}
+	html { expr {( [string match [set l_html_p [ns_queryget html_p f]] "t"] && [empty_string_p [set v_message [ad_html_security_check $value]]] ) || [string match $l_html_p "f"] } }
+        {}	
+    }
 
 element create message html_p \
     -label [_ forums.Format]2 \
@@ -58,6 +64,7 @@ element set_properties message subject -value $message(subject)
 element set_properties message content -value $message(content)
 element set_properties message html_p -value $message(html_p)
 
+set message(subject) [ad_quotehtml $message(subject)]
 ad_return_template
 
 

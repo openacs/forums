@@ -22,11 +22,6 @@ begin;
     select acs_privilege__create_privilege('forum_post',null,null);
     select acs_privilege__create_privilege('forum_moderate',null,null);
 
-    -- temporarily drop this trigger to avoid a data-change violation 
-    -- on acs_privilege_hierarchy_index while updating the child privileges.
-
-    drop trigger acs_priv_hier_ins_del_tr on acs_privilege_hierarchy;
-
     -- add children
     select acs_privilege__add_child('create','forum_create');
     select acs_privilege__add_child('write','forum_write');
@@ -37,13 +32,6 @@ begin;
     select acs_privilege__add_child('forum_write','forum_read');
     select acs_privilege__add_child('forum_write','forum_post');
     
-    -- re-enable the trigger before the last insert to force the 
-    -- acs_privilege_hierarchy_index table to be updated.
-
-    create trigger acs_priv_hier_ins_del_tr after insert or delete
-    on acs_privilege_hierarchy for each row
-    execute procedure acs_priv_hier_ins_del_tr ();
-
     -- the last one that will cause all the updates
     select acs_privilege__add_child('read','forum_read');
 
@@ -81,7 +69,8 @@ create table forums_forums (
                                     check (enabled_p in ('t','f')),
     package_id                      integer
                                     constraint forums_package_id_nn
-                                    not null
+                                    not null,
+    last_post                       timestamp
 );
 
 create view forums_forums_enabled
