@@ -22,11 +22,18 @@
 -- @version $Id$
 --
 
--- IMPORTANT:
--- replace all instances of the string "yon" below this line with your schema
--- user and schema password accordingly. also, replace the "connect
--- ctxsys/ctxsys" statement with the appropriate values for your system. need
--- to figure out how to do this in a better way.
+
+
+-- Call this script like this:
+-- 
+-- sqlplus /nolog @forums-search-create.sql <ctxsys-password> <openacs-db-user> <openacs-db-password>
+-- 
+--   &1 = ctxsys password
+--   &2 = OpenACS database user
+--   &3 = OpenACS database password
+
+
+connect &2/&3;
 
 -- as normal user
 create or replace procedure index_message (
@@ -57,7 +64,7 @@ end;
 show errors
 
 -- as ctxsys
-connect ctxsys/ctxsys;
+connect ctxsys/&1;
 
 create or replace procedure s_index_message (
     rid                             in rowid,
@@ -65,16 +72,16 @@ create or replace procedure s_index_message (
 )
 is
 begin
-    yon.index_message(rid, tlob);
+    &2..index_message(rid, tlob);
 end;
 /
 show errors
 
-grant execute on s_index_message to yon;
-grant execute on ctx_ddl to yon;
+grant execute on s_index_message to &2;
+grant execute on ctx_ddl to &2;
 
 -- as normal user
-connect yon/yon;
+connect &2/&3;
 
 execute ctx_ddl.create_preference('forums_user_datastore', 'user_datastore');
 execute ctx_ddl.set_attribute('forums_user_datastore', 'procedure', 's_index_message');
@@ -95,9 +102,6 @@ begin
 end;
 /
 show errors
-
--- as normal user
-connect yon/yon;
 
 -- ripped off from site-wide-search
 
@@ -264,3 +268,6 @@ begin
 end;
 /
 show errors;
+
+exit
+
