@@ -76,7 +76,7 @@
 
 <if @reply_url@ not nil>
   <blockquote>
-    <a href="@reply_url@"><b>#forums.Post_a_Reply#</b></a>
+    <a href="@reply_url@"><b>#forums.Reply_to_first_post_on_page_label#</b></a>
   </blockquote>
 </if>
 

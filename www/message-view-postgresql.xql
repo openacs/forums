@@ -11,7 +11,7 @@
             where  fm.message_id = :root_message_id
             and    fma.forum_id = :forum_id
             and    fma.tree_sortkey between fm.tree_sortkey and tree_right(fm.tree_sortkey)
-            order  by $order_by
+            order  by fma.message_id
         </querytext>
     </fullquery>
 

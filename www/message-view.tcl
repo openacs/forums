@@ -106,6 +106,10 @@ ds_comment $message_id_list
 
 set message(number) [expr [lsearch $message_id_list $message(message_id)] + 1]
 set message(parent_number) {}
+if { [exists_and_not_null message(parent_id)] } {
+    set message(parent_number) [expr [lsearch $message_id_list $message(parent_id)] + 1]
+    set message(parent_direct_url) "[export_vars -base message-view { { message_id $message(root_message_id) } }]\#$message(parent_id)"
+}
 
 
 
@@ -157,7 +161,7 @@ if {![empty_string_p $message(parent_id)]} {
 }
 
 if { $post_p || [ad_conn user_id] == 0 } {
-    set reply_url [export_vars -base message-post { { parent_id $last_message_id } }]
+    set reply_url [export_vars -base message-post { { parent_id $message(message_id) } }]
 }
 
 set thread_url [export_vars -base forum-view { { forum_id $message(forum_id) } }]

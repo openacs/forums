@@ -19,12 +19,12 @@
   <msg key="Confirm_Post_to_Forum">Confirm Post to Forum:</msg>
   <msg key="Create_a_New_Forum">Create a New Forum</msg>
   <msg key="Create_New_Forum">Create New Forum</msg>
-  <msg key="delete">delete</msg>
+  <msg key="delete">Delete</msg>
   <msg key="disable">disable</msg>
   <msg key="disable_it">disable it</msg>
   <msg key="disabled">disabled</msg>
   <msg key="Edit">Edit</msg>
-  <msg key="edit">edit</msg>
+  <msg key="edit">Edit</msg>
   <msg key="Edit_again">Edit again</msg>
   <msg key="Edit_forum">Edit forum</msg>
   <msg key="Edit_Message">Edit Message:</msg>
@@ -48,7 +48,7 @@
   <msg key="ForumID">ForumID</msg>
   <msg key="Forums">Forums</msg>
   <msg key="Forums_Posting_hist_lt">Forums: Posting history for</msg>
-  <msg key="forward">forward</msg>
+  <msg key="forward">Forward</msg>
   <msg key="Fwd">Fwd:</msg>
   <msg key="html">HTML</msg>
   <msg key="Last_Post">Last Post</msg>
@@ -92,6 +92,7 @@
   <msg key="Post_a_Reply">Post a Reply</msg>
   <msg key="Post_to_Forum">Post to Forum:</msg>
   <msg key="Posted">Posted</msg>
+  <msg key="Posted_by">Posted by</msg>
   <msg key="Posting_Date">Posting Date</msg>
   <msg key="Posting_History">Posting History</msg>
   <msg key="Posting_history_for">Posting history for</msg>
@@ -102,7 +103,9 @@
   <msg key="reject">reject</msg>
   <msg key="Rejected">Rejected</msg>
   <msg key="Replies">Replies</msg>
-  <msg key="reply">reply</msg>
+  <msg key="reply">Reply</msg>
+  <msg key="Reply_to_first_post_in_thread">Reply to first post in thread</msg>
+  <msg key="Reply_to_first_post_on_page_label">Reply to first post on this page</msg>
   <msg key="Search">Search:</msg>
   <msg key="Search_1">Search</msg>
   <msg key="Search_colon">Search:</msg>
