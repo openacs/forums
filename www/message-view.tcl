@@ -19,6 +19,10 @@ ad_page_contract {
 
 # Load up the message information
 forum::message::get -message_id $message_id -array message
+if {![array exists message]} {
+    ns_returnnotfound
+    ad_script_abort
+}
 
 # Load up the forum information
 forum::get -forum_id $message(forum_id) -array forum

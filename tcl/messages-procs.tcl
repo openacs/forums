@@ -184,11 +184,15 @@ ad_proc -public forum::message::get {
         set query select_message_with_attachment
     }
 
-    db_1row $query {} -column_array row
-
-    # Convert to user's date/time format
-    set row(posting_date_ansi) [lc_time_system_to_conn $row(posting_date_ansi)]
-    set row(posting_date_pretty) [lc_time_fmt $row(posting_date_ansi) "%x %X"]
+    if {![db_0or1row $query {} -column_array row]} {
+        if {[array exists row]} {
+            array unset row
+        }
+    } else {
+        # Convert to user's date/time format
+        set row(posting_date_ansi) [lc_time_system_to_conn $row(posting_date_ansi)]
+        set row(posting_date_pretty) [lc_time_fmt $row(posting_date_ansi) "%x %X"]
+    }
 }
 
 ad_proc -private forum::message::set_state {
