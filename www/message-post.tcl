@@ -18,7 +18,17 @@ ad_page_contract {
     }
 }
 
-set user_id [ad_conn user_id]
+if { ![empty_string_p [ns_queryget formbutton:post]] } {
+    set action post
+} elseif { ![empty_string_p [ns_queryget formbutton:preview]] } {
+    set action preview
+} elseif { ![empty_string_p [ns_queryget formbutton:edit]] } {
+    set action edit
+} else {
+    set action ""
+}
+
+set user_id [auth::refresh_login]
 
 ##############################
 # Pull out required forum and parent data and
