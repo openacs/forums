@@ -116,9 +116,9 @@ as
         end if;
 
         insert into forums_messages
-        (message_id, forum_id, subject, content, format, user_id, posting_date, parent_id, state)
+        (message_id, forum_id, subject, content, format, user_id, posting_date, last_child_post, parent_id, state)
         values
-        (v_message_id, forum_id, subject, content, format, user_id, posting_date, parent_id, v_state);
+        (v_message_id, forum_id, subject, content, format, user_id, posting_date, posting_date, parent_id, v_state);
 
         select tree_sortkey into v_sortkey
         from forums_messages
@@ -342,11 +342,13 @@ as
         if state = 'approved' and v_cur.state <> 'approved' then
           update forums_messages
           set approved_reply_count = approved_reply_count + 1
-          where message_id = forums_message.root_message_id(v_cur.message_id);
+          where forum_id = v_cur.forum_id
+            and tree_sortkey = tree.ancestor_key(v_cur.tree_sortkey, 1);
         elsif state <> 'approved' and v_cur.state = 'approved' then
           update forums_messages
           set approved_reply_count = approved_reply_count - 1
-          where message_id = forums_message.root_message_id(v_cur.message_id);
+          where forum_id = v_cur.forum_id
+            and tree_sortkey = tree.ancestor_key(v_cur.tree_sortkey, 1);
         end if;
       end if;
 
