@@ -64,7 +64,6 @@ as
     from forums_forums
     where enabled_p = 't';
 
-
 create or replace package body forums_message
 as
 
@@ -86,9 +85,11 @@ as
     ) return forums_messages.message_id%TYPE
     is
         v_message_id acs_objects.object_id%TYPE;
+        v_sortkey forums_messages.tree_sortkey%TYPE;
         v_forum_policy forums_forums.posting_policy%TYPE;
         v_state forums_messages.state%TYPE;
     begin
+
         v_message_id := acs_object.new(
             object_id => message_id,
             object_type => object_type,
@@ -119,6 +120,11 @@ as
         values
         (v_message_id, forum_id, subject, content, html_p, user_id, posting_date, parent_id, v_state);
 
+        -- DRB: Can't use root_message_id() here because it triggers a "mutating table" error
+
+        select tree_sortkey into v_sortkey
+        from forums_messages
+        where message_id = v_message_id;
 
         update forums_forums
         set last_post = posting_date
@@ -126,7 +132,8 @@ as
 
         update forums_messages
         set last_child_post = posting_date
-        where message_id = forums_message.root_message_id(v_message_id);
+        where forum_id = forums_message.new.forum_id
+          and tree_sortkey = tree.ancestor_key(v_sortkey, 1);
 
         return v_message_id;
     end new;
