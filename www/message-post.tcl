@@ -55,7 +55,8 @@ element create message html_p \
     -label [_ forums.Format] \
     -datatype text \
     -widget radio \
-    -options [list [list [_ forums.text] f] [list [_ forums.html] t]]
+    -options [list [list [_ forums.text] f] [list [_ forums.html] t]] \
+    -value f
 
 element create message parent_id \
     -label [_ forums.parent_ID] \
