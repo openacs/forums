@@ -9,7 +9,7 @@
 <table width="95%">
   <tr style="white-space: normal">
     <td align=left>
-      <a href="forum-view?forum_id=@message.forum_id@">Back</a> to @forum.name@
+      #forums.Back_to_thread_link#
     </td>
     <td>
        &nbsp;

@@ -133,6 +133,8 @@ if { $post_p || [ad_conn user_id] == 0 } {
     set reply_url "message-post?[export_vars { { parent_id $last_message_id } }]"
 }
 
+set thread_url [export_vars -base forum-view { { forum_id $message(forum_id) } }]
+
 if {[string equal $forum(presentation_type) flat]} {
     ad_return_template "message-view-flat"
 } else {
