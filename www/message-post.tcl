@@ -170,7 +170,7 @@ if {[form is_valid message]} {
 }
 
 set message_id [db_nextval acs_object_id_seq]
-set subject ""
+#set subject ""
 
 if {![empty_string_p $parent_id]} {
     # get the parent message information
@@ -188,7 +188,10 @@ forum::get -forum_id $forum_id -array forum
 element set_properties message forum_id -value $forum_id
 element set_properties message parent_id -value $parent_id
 element set_properties message message_id -value $message_id
-element set_properties message subject -value $subject
+# only set subject is this is a reply to a previous message
+if {[info exists subject]} {
+    element set_properties message subject -value $subject
+}
 element set_properties message confirm_p -value 0
 element set_properties message subscribe_p -value 0
 
