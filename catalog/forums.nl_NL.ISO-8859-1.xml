@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="forums" package_version="1.0d4" locale="nl_NL" charset="ISO-8859-1">
+<message_catalog package_key="forums" package_version="1.0.5" locale="nl_NL" charset="ISO-8859-1">
 
   <msg key="Administer">Beheren</msg>
   <msg key="Administration">Beheren</msg>
@@ -85,8 +85,8 @@
   <msg key="One_Thread">Eén discussie</msg>
   <msg key="open">open</msg>
   <msg key="Parameters">Parameters</msg>
-  <msg key="parent_ID">ID van bovenliggend object</msg>
-  <msg key="Pending">In afwachting van</msg>
+  <msg key="parent_ID">ID van het bovenliggende element</msg>
+  <msg key="Pending">In behandeling</msg>
   <msg key="Pending_Threads">Lopende discussies</msg>
   <msg key="Post">Plaatsen</msg>
   <msg key="Post_a_Message">Een bericht plaatsen</msg>

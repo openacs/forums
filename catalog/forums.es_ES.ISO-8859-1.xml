@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="forums" package_version="1.0d4" locale="es_ES" charset="ISO-8859-1">
+<message_catalog package_key="forums" package_version="1.0.5" locale="es_ES" charset="ISO-8859-1">
 
   <msg key="Administer">Administrar</msg>
   <msg key="Administration">Administración</msg>
@@ -9,7 +9,7 @@
   <msg key="Attach">¿Adjuntar archivo(s)?</msg>
   <msg key="Attachments">Archivos adjuntos:</msg>
   <msg key="Author">Autor</msg>
-  <msg key="Back_to_thread_label">Regresa a %forum.name%</msg>
+  <msg key="Back_to_thread_label">Regresar a %forum.name%</msg>
   <msg key="Back_to_thread_link">&lt;a href=&quot;%thread_url%&quot;&gt;Volver&lt;/a&gt; a %forum.name%</msg>
   <msg key="Body">Cuerpo del mensaje</msg>
   <msg key="by_Date">Por Fecha</msg>
