@@ -3,11 +3,13 @@
 
   <msg key="Administer">Administrar</msg>
   <msg key="Administration">Administración</msg>
+  <msg key="Anonymous">Anónimo</msg>
   <msg key="approve">Aprobar</msg>
   <msg key="Are_you_sure_you_want_to_delete_lt">¿Está seguro que quiere borrar este mensaje y sus respuestas?</msg>
   <msg key="Attach">¿Adjuntar archivo(s)?</msg>
   <msg key="Attachments">Archivos adjuntos:</msg>
   <msg key="Author">Autor</msg>
+  <msg key="Back_to_thread_label">Regresa a %forum.name%</msg>
   <msg key="Back_to_thread_link">&lt;a href=&quot;%thread_url%&quot;&gt;Volver&lt;/a&gt; a %forum.name%</msg>
   <msg key="Body">Cuerpo del mensaje</msg>
   <msg key="by_Date">Por Fecha</msg>

@@ -84,6 +84,8 @@ if {[form is_request message]} {
         anonymous_p \
         attach_p
     
+    if { [empty_string_p $anonymous_p] } { set anonymous_p 0 }
+
     set action [template::form::get_button message]
     set displayed_user_id [ad_decode \
         [expr {$anonymous_allowed_p && $anonymous_p}] \

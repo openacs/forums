@@ -9,6 +9,10 @@ ad_page_contract {
 
 }
 
+if { ![info exists name] } {
+    set name {}
+}
+
 set package_id [ad_conn package_id]
 
 form create forum
@@ -51,6 +55,7 @@ if { [form is_request forum] } {
     set forum_id [db_nextval acs_object_id_seq]
     element set_properties forum forum_id -value $forum_id
     element set_value forum new_threads_p 1
+    element set_value forum name $name
 }
 
 if {[exists_and_not_null alt_template]} {
