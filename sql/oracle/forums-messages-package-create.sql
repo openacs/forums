@@ -80,10 +80,12 @@ as
     ) return forums_messages.message_id%TYPE
     is
         v_message_id acs_objects.object_id%TYPE;
+        v_package_id acs_objects.package_id%TYPE;
         v_sortkey forums_messages.tree_sortkey%TYPE;
         v_forum_policy forums_forums.posting_policy%TYPE;
         v_state forums_messages.state%TYPE;
     begin
+        select package_id into v_package_id from forums_forums where forum_id = new.forum_id;
 
         v_message_id := acs_object.new(
             object_id => message_id,
@@ -91,7 +93,9 @@ as
             creation_date => creation_date,
             creation_user => creation_user,
             creation_ip => creation_ip,
-            context_id => nvl(context_id, forum_id)
+            context_id => nvl(context_id, forum_id),
+            title => subject,
+            package_id => v_package_id
         );
 
         if state is null

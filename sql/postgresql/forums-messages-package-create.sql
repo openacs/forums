@@ -14,7 +14,7 @@
 
 select define_function_args ('forums_message__new', 'message_id,object_type;forums_message,forum_id,subject,content,html_p,user_id,posting_date,state,parent_id,creation_date,creation_user,creation_ip,context_id');
 
-create function forums_message__new (integer,varchar,integer,varchar,text,char,integer,timestamptz,varchar,integer,timestamptz,integer,varchar,integer)
+create or replace function forums_message__new (integer,varchar,integer,varchar,text,char,integer,timestamptz,varchar,integer,timestamptz,integer,varchar,integer)
 returns integer as '
 declare
     p_message_id                    alias for $1;
@@ -35,14 +35,25 @@ declare
     v_forum_policy                  forums_forums.posting_policy%TYPE;
     v_state                         forums_messages.state%TYPE;
     v_posting_date                  forums_messages.posting_date%TYPE;
+    v_package_id                    acs_objects.package_id%TYPE;
 begin
+
+    select package_id into v_package_id from forums_forums where forum_id = p_forum_id;
+
+    if v_package_id is null then
+        raise exception ''forums_message__new: forum_id % not found'', p_forum_id;
+    end if;
+
     v_message_id := acs_object__new(
         p_message_id,
         p_object_type,
         p_creation_date,
         p_creation_user,
         p_creation_ip,
-        coalesce(p_context_id, p_forum_id)
+        coalesce(p_context_id, p_forum_id),
+        ''t'',
+        p_subject,
+        v_package_id
     );
 
     if p_state is null then
@@ -85,7 +96,7 @@ end;
 
 select define_function_args ('forums_message__root_message_id', 'message_id');
 
-create function forums_message__root_message_id (integer)
+create or replace function forums_message__root_message_id (integer)
 returns integer as '
 declare
     p_message_id                    alias for $1;
@@ -110,7 +121,7 @@ end;
 
 select define_function_args ('forums_message__thread_open', 'message_id');
 
-create function forums_message__thread_open (integer)
+create or replace function forums_message__thread_open (integer)
 returns integer as '
 declare
     p_message_id                    alias for $1;
@@ -137,7 +148,7 @@ end;
 
 select define_function_args ('forums_message__thread_close', 'message_id');
 
-create function forums_message__thread_close (integer)
+create or replace function forums_message__thread_close (integer)
 returns integer as '
 declare
     p_message_id                    alias for $1;
@@ -164,7 +175,7 @@ end;
 
 select define_function_args ('forums_message__delete', 'message_id');
 
-create function forums_message__delete (integer)
+create or replace function forums_message__delete (integer)
 returns integer as '
 declare
     p_message_id                    alias for $1;    
@@ -176,7 +187,7 @@ end;
 
 select define_function_args ('forums_message__delete_thread', 'message_id');
 
-create function forums_message__delete_thread (integer)
+create or replace function forums_message__delete_thread (integer)
 returns integer as '
 declare
     p_message_id                    alias for $1;
@@ -216,7 +227,7 @@ end;
 
 select define_function_args('forums_message__name','message_id');
 
-create function forums_message__name (integer)
+create or replace function forums_message__name (integer)
 returns varchar as '
 declare
     p_message_id                    alias for $1;
