@@ -37,7 +37,9 @@ if {[form is_valid search]} {
         set query search_one_forum
     }
 
-    db_multirow messages $query {}
+    db_multirow messages $query { *SQL* } { 
+        set subject [ad_quotehtml $subject]
+    }
 
 } else {
     set messages:rowcount 0
