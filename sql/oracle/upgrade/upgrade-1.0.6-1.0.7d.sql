@@ -1,15 +1,51 @@
+alter table forums_forums add (thread_count integer default 0);
+alter table forums_forums add (approved_thread_count integer default 0);
 
---
--- The Forums Package
---
--- @author gwong@orchardlabs.com,ben@openforce.biz
--- @creation-date 2002-05-16
---
--- The Package for Messages
---
--- This code is newly concocted by Ben, but with heavy concepts and heavy code
--- chunks lifted from Gilbert. Thanks Orchard Labs!
---
+alter table forums_messages add (reply_count integer default 0);
+alter table forums_messages add (approved_reply_count integer default 0);
+
+create or replace view forums_forums_enabled
+as
+    select *
+    from forums_forums
+    where enabled_p = 't';
+
+create or replace view forums_messages_approved
+as
+    select *
+    from forums_messages
+    where state = 'approved';
+
+create or replace view forums_messages_pending
+as
+    select *
+    from forums_messages
+    where state= 'pending';
+
+update forums_forums
+set approved_thread_count = (select count(message_id)
+                             from forums_messages_approved fm
+                             where fm.forum_id=forums_forums.forum_id
+                               and fm.parent_id is null),
+    thread_count = (select count(message_id)
+                    from forums_messages fm
+                    where fm.forum_id=forums_forums.forum_id
+                      and fm.parent_id is null);
+
+update forums_messages
+set approved_reply_count = (select count(*)
+                            from forums_messages_approved fm1
+                            where fm1.tree_sortkey
+                              between tree.left(forums_messages.tree_sortkey)
+                              and tree.right(forums_messages.tree_sortkey)
+                              and forums_messages.forum_id = fm1.forum_id),
+     reply_count = (select count(*)
+                    from forums_messages fm1
+                    where fm1.tree_sortkey
+                      between tree.left(forums_messages.tree_sortkey)
+                      and tree.right(forums_messages.tree_sortkey)
+                      and forums_messages.forum_id = fm1.forum_id)
+where parent_id is null;
 
 create or replace package forums_message
 as

@@ -69,6 +69,8 @@ create table forums_forums (
     package_id                      integer
                                     constraint forums_package_id_nn
                                     not null,
+    thread_count                    integer default 0,
+    approved_thread_count           integer default 0,
     last_post                       date
 );
 
