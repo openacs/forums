@@ -78,8 +78,8 @@ if { [string equal $forum(presentation_type) flat] } {
 
 db_multirow -extend { posting_date_pretty direct_url number parent_number parent_direct_url } responses $query {} {
     set posting_date_pretty [lc_time_fmt $posting_date_ansi "%x %X"]
-    set direct_url "$direct_url_base\#$message(message_id)"
-    set number [expr [lsearch $message_id_list $message(message_id)] + 1]
+    set direct_url "$direct_url_base\#$message_id"
+    set number [expr [lsearch $message_id_list $message_id] + 1]
     set parent_number [expr [lsearch $message_id_list $parent_id] + 1]
     set parent_direct_url "$direct_url_base\#$parent_id"
 }
