@@ -23,7 +23,6 @@
     <multiple name="responses">
     
     <if @forum.presentation_type@ ne "flat">
-    <% set width [expr 100 - [expr $responses(tree_level) - 1] * 1] %>
     <tr style="padding-top: 1em">
       <td align="left">
         <table align="right" bgcolor="@table_border_color@" width="@width@%">
