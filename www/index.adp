@@ -61,7 +61,7 @@
         <td align="center">
           <if @forums.n_threads@ gt 0>
             @forums.last_modified@
-          </if>
+          </if><else>&nbsp;</else>
         </td>
           </tr>
       </multiple>
