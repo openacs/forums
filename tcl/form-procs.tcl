@@ -6,10 +6,10 @@ ad_library {
     @creation-date 2003-11-12
 }
 
-namespace eval forums {
-namespace eval form {
+namespace eval forums {}
+namespace eval forums::form {}
 
-ad_proc -public message {
+ad_proc -public forums::form::message {
     {-optional:boolean}
     {-prefix {}}
     form_name
@@ -75,7 +75,7 @@ ad_proc -public message {
         -validate $content_val
 }
 
-ad_proc -public post_message {
+ad_proc -public forums::form::post_message {
     {-optional:boolean}
     {-show_anonymous_p 1}
     {-show_attachments_p 1}
@@ -124,7 +124,7 @@ ad_proc -public post_message {
     }
 }
 
-ad_proc -public forward_message {
+ad_proc -public forums::form::forward_message {
     {-prefix {}}
     form_name
 } {
@@ -150,7 +150,7 @@ ad_proc -public forward_message {
     -html {cols 80 rows 10 wrap hard}
 }
 
-ad_proc -public search {
+ad_proc -public forums::form::search {
     {-prefix {}}
     form_name
 } {
@@ -169,7 +169,7 @@ ad_proc -public search {
     -optional
 }
 
-ad_proc -public forum {
+ad_proc -public forums::form::forum {
     {-prefix {}}
     form_name
 } {
@@ -206,7 +206,4 @@ ad_proc -public forum {
       -datatype integer \
       -widget radio \
       -options [list [list [_ forums.Yes] 1] [list [_ forums.No] 0] ] 
-}
-
-}
 }
