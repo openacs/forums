@@ -4,7 +4,13 @@
 
 <p>Please confirm the following post:</p>
 
-<include src="message-preview-chunk" bgcolor="#cccccc" &message="message">
+<% set table_border_color [parameter::get -parameter table_border_color] %>
+
+<center>
+  <table style="color: black; background-color: @table_border_color@ ;" width="95%">
+    <include src="message-chunk" &message="message" preview=1>
+  </table>
+</center>
 
 <form action="message-post" method="post">
   <input type="hidden" name="form:id" value="message">

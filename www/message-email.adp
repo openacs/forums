@@ -4,6 +4,8 @@
 
 <p>Email a copy of the following message:</p>
 
-<include src="message-preview-chunk" bgcolor="#eeeeee" &message="message">
+<table width="100%">
+<include src="message-chunk" bgcolor="#eeeeee" &message="message" preview=1>
+</table>
 
 <formtemplate id="message"></formtemplate>

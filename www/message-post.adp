@@ -3,7 +3,9 @@
 <property name="context_bar">@context_bar@</property>
 
 <if @parent_id@ ne "">
-  <include src="message-preview-chunk" bgcolor="#eeeeee" &message="parent_message">
+  <table style="color: black; background-color: @table_border_color@;"  width="100%">
+    <include src="message-chunk" bgcolor="@table_bgcolor@" &message="parent_message" preview=1>
+  </table>
   <br>
 </if>
 

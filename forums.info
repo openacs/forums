@@ -111,7 +111,9 @@
             <file type="query_file" path="www/user-history.xql"/>
         </files>
         <parameters>
-        <!-- No version parameters -->
+            <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="table_border_color"  default="#dddddd" description="The color of the table borders and between the cells, try #ffffff for a cool look"/>
+            <parameter datatype="string"  min_n_values="1"  max_n_values="1"  name="table_other_bgcolor"  default="#d9e4f9" description="The bgcolor for the other table rows"/>
+            <parameter datatype="string"  min_n_values="1"  max_n_values="1"  name="table_bgcolor"  default="#eeeeee" description="This is the color of the first message / table row"/>
         </parameters>
 
     </version>

@@ -10,7 +10,13 @@ ad_page_contract {
     forum_id:integer,notnull
 }
 
+
 forum::security::require_read_forum -forum_id $forum_id
+
+# get the colors from the params
+set table_border_color [parameter::get -parameter table_border_color]
+set table_bgcolor [parameter::get -parameter table_bgcolor]
+set table_other_bgcolor [parameter::get -parameter table_other_bgcolor]
 
 set package_id [ad_conn package_id]
 set user_id [ad_verify_and_get_user_id]
@@ -33,8 +39,7 @@ form create search -action search
 element create search search_text \
     -label Search \
     -datatype text \
-    -widget text \
-    -html {size 60}
+    -widget text
 
 element create search forum_id \
     -label ForumID \

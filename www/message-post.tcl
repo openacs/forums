@@ -19,6 +19,10 @@ ad_page_contract {
 
 set user_id [ad_verify_and_get_user_id]
 
+# get the colors from the params
+set table_border_color [parameter::get -parameter table_border_color]
+set table_bgcolor [parameter::get -parameter table_bgcolor]
+
 form create message
 
 element create message message_id \
@@ -87,6 +91,7 @@ if {[form is_valid message]} {
         forum::get -forum_id $forum_id -array forum
 
         set confirm_p 1
+        set content [string trimright $content]
         set exported_vars [export_form_vars message_id forum_id parent_id subject content html_p confirm_p]
         
         set message(html_p) $html_p

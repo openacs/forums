@@ -12,6 +12,11 @@ ad_page_contract {
 
 forum::security::require_read_message -message_id $message_id
 
+# get the colors from the params
+set table_border_color [parameter::get -parameter table_border_color]
+set table_bgcolor [parameter::get -parameter table_bgcolor]
+set table_other_bgcolor [parameter::get -parameter table_other_bgcolor]
+
 # Check if the user has admin on the message
 set moderate_p [forum::security::can_moderate_message_p -message_id $message_id]
 if {!${moderate_p}} {
@@ -28,8 +33,7 @@ form create search -action search
 element create search search_text \
     -label Search \
     -datatype text \
-    -widget text \
-    -html {size 60}
+    -widget text
 
 element create search forum_id \
     -label ForumID \
@@ -94,7 +98,6 @@ if {[empty_string_p $message(parent_id)]} {
         -pretty_name $message(subject) \
         -url [ad_conn url]?message_id=$message_id \
     ]
-    append notification_chunk "<br><br>"
 } else {
     set notification_chunk ""
 }
