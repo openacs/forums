@@ -27,10 +27,10 @@ var newcomments = new Array();
 
 // Get an element by ID in a portable manner
 function getid(id) {
-	if(document.all)
-		return document.all(id);
-	else if(document.getElementById)
+       if(document.getElementById)
 		return document.getElementById(id);
+       else if(document.all)
+		return document.all(id);
 	return false;
 }
 
@@ -60,20 +60,29 @@ function toggle(n,move,state,rate) {
     var content = getid('content'+n);
     if(!link || !content || !ifrmdoc)
         return;
+
     // Initialise the link's expandStatus if it hasn't yet been set
-	if(link.expandStatus == null) {
-		if(content.className == 'dynexpanded')
-			link.expandStatus = 1;
-		else
-			link.expandStatus = 0;
-	}
+    if(link.className == '') {
+        if (content.className == 'dynexpanded') { 
+            link.className = 'dynexpanded';
+        } else {
+            link.className = 'dyncollapsed';
+        }
+    }
+    if(link.className == 'dynexpanded') {
+        link.expandStatus = 1;
+    } else { 
+        link.expandStatus = 0;
+    }
+
     var s;
-	if(state != null)
-		s = state;
-	else if(!link.expandStatus)
-		s = 1;	// set to expand
-	else
-		s = 0;	// set to collapse
+    if(state != null)
+        s = state;
+
+    else if(link.className == 'dyncollapsed')
+        s = 1;	// set to expand
+    else
+        s = 0;	// set to collapse
 
     // Immediately return if we aren't changing state at all
     if((s == link.expandStatus) && (rate == null))
@@ -86,7 +95,6 @@ function toggle(n,move,state,rate) {
            || ((s == 0) && content.collapsedContent))) {
         // If we've already grabbed the desired state for this comment,
         // set it right here
-
         setSavedState(n, s);
     }
     else {
@@ -185,6 +193,7 @@ function setState(n,s) {
 	var symbol;
 	if (s) symbol = collapse_symbol;
 	else  symbol = expand_symbol;
+
 	if(link.innerHTML)
 		link.innerHTML = symbol;
 	else if(link.appendChild) {
@@ -192,8 +201,11 @@ function setState(n,s) {
 			link.removeChild(link.firstChild);
 		link.appendChild(document.createTextNode(symbol));
 	}
+
 	link.expandStatus = s;
+
 	content.className = (s? 'dynexpanded' : 'dyncollapsed');
+	link.className = (s? 'dynexpanded' : 'dyncollapsed');
 }
 
 // Called from the iframe's onload event to ship the content into the main
