@@ -146,13 +146,13 @@ as
             update forums_messages
             set approved_reply_count = approved_reply_count + 1,
               reply_count = reply_count + 1,
-              last_child_post = current_timestamp
+              last_child_post = sysdate
             where forum_id = forums_message.new.forum_id
               and tree_sortkey = tree.ancestor_key(v_sortkey, 1);
           else
             update forums_messages
             set reply_count = reply_count + 1,
-              last_child_post = current_timestamp
+              last_child_post = sysdate
             where forum_id = forums_message.new.forum_id
               and tree_sortkey = tree.ancestor_key(v_sortkey, 1);
           end if;
