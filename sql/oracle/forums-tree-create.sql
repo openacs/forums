@@ -21,14 +21,14 @@ declare
         v_max_child_sortkey     forums_messages.max_child_sortkey%TYPE;
         v_parent_sortkey        forums_messages.tree_sortkey%TYPE;
 begin
-   if :new.parent_id is NULL
+   if :new.parent_id is null
    then 
         -- get the max from the forum
         select max_child_sortkey into v_max_child_sortkey
         from forums_forums where forum_id= :new.forum_id
         for update of max_child_sortkey;
 
-        v_parent_sortkey:= NULL;
+        v_parent_sortkey:= null;
    else
         -- get the max child sortkey from parent
         -- grab the lock
@@ -40,15 +40,17 @@ begin
    end if;
 
    -- increment the sortkey
-   v_max_child_sortkey:= lpad(tree.increment_key(v_max_child_sortkey),6,'0');
+   v_max_child_sortkey:= tree.increment_key(v_max_child_sortkey);
 
    if :new.parent_id is null
    then
-      update forums_forums set max_child_sortkey= v_max_child_sortkey
+      update forums_forums
+      set max_child_sortkey = v_max_child_sortkey
       where forum_id= :new.forum_id;
    else
       -- update the parent
-      update forums_messages set max_child_sortkey= v_max_child_sortkey
+      update forums_messages
+      set max_child_sortkey = v_max_child_sortkey
       where message_id= :new.parent_id;
    end if;
 
