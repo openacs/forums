@@ -1,6 +1,6 @@
 <master src="../master">
 <property name="title">Edit Forum: @forum.name@</property>
-<property name="context_bar"></property>
+<property name="context_bar">@context_bar@</property>
 
 <if @forum.enabled_p@ eq t>
 This forum is <b>enabled</b>. You may <a href="forum-disable?forum_id=@forum.forum_id@">disable it</a>.
