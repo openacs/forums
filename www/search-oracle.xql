@@ -14,7 +14,7 @@
             where forums_messages.forum_id = forums_forums.forum_id
             and forums_forums.package_id = :package_id
             and forums_messages.state = 'approved'
-            and contains(forums_messages.content, :search_text, 1) > 0
+            and contains(forums_messages.content, '%' || :search_text || '%', 1) > 0
             order by the_score desc,
                      forums_messages.posting_date desc
         </querytext>
@@ -32,7 +32,7 @@
             and forums_forums.package_id = :package_id
             and forums_messages.forum_id = forums_forums.forum_id
             and forums_messages.state = 'approved'
-            and contains(forums_messages.content, :search_text, 1) > 0
+            and contains(forums_messages.content, '%' || :search_text || '%', 1) > 0
             order by the_score desc,
                      forums_messages.posting_date desc
         </querytext>
