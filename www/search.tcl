@@ -45,9 +45,9 @@ if {[form is_valid search]} {
     set messages:rowcount 0
 }
 
-set context [list [_ forums.Search_1]]
+set page_title [_ forums.Search_Forums]
+set context [list $page_title]
 
-ad_return_template
 
 
 
