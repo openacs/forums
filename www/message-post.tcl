@@ -73,14 +73,11 @@ element create message subscribe_p \
 set attachments_enabled_p [forum::attachments_enabled_p]
 
 if {$attachments_enabled_p} {
-    ns_log Notice "FORUMS: attachments enabled"
     element create message attach_p \
             -label "Attach?" \
             -datatype text \
             -widget hidden \
             -optional
-} else {
-    ns_log Notice "FORUMS: attachments not enabled"
 }
 
 if {[form is_valid message]} {
