@@ -5,25 +5,17 @@
 
     <fullquery name="forum::message::get.select_message">
         <querytext>
-            select message_id,
-                   forum_id,
-                   subject,
-                   content,
-                   person.name(user_id) as user_name, 
-                   party.email(user_id) as user_email,
-                   user_id,
-                   forums_forum.name(forum_id) as forum_name, 
+            select forums_messages.*,
+                   person.name(forums_messages.user_id) as user_name, 
+                   party.email(forums_messages.user_id) as user_email,
+                   forums_forum.name(forums_messages.forum_id) as forum_name, 
                    forums_message.root_message_id(forums_messages.message_id) as root_message_id,
-                   (select subject
+                   (select fm2.subject
                     from forums_messages fm2 
-                    where message_id = forums_message.root_message_id(forums_messages.message_id)) as root_subject, 
-                   to_char(posting_date, 'Mon DD YYYY HH24:MI:SS') as posting_date,
-                   tree_sortkey,
-                   parent_id,
-                   state,
-                   html_p
+                    where fm2.message_id = forums_message.root_message_id(forums_messages.message_id)) as root_subject, 
+                   to_char(forums_messages.posting_date, 'Mon DD YYYY HH24:MI:SS') as posting_date
             from forums_messages
-            where message_id= :message_id
+            where forums_messages.message_id = :message_id
         </querytext>
     </fullquery>
 

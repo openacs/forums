@@ -10,8 +10,12 @@
 <if @moderate_p@>
             | <a href="moderate/message-edit?message_id=@message.message_id@">edit</a>
             | <a href="moderate/message-delete?message_id=@message.message_id@">delete</a>
-            <if @message.state@ ne approved> | <a href="moderate/message-approve?message_id=@message.message_id@">approve</a></if>
-            <if @message.state@ ne rejected> | <a href="moderate/message-reject?message_id=@message.message_id@">reject</a></if>
+<if @message.state@ ne approved>
+            | <a href="moderate/message-approve?message_id=@message.message_id@">approve</a>
+</if>
+<if @message.state@ ne rejected and @message.max_child_sortkey@ nil>
+            | <a href="moderate/message-reject?message_id=@message.message_id@">reject</a>
+</if>
 </if>
           ]
         </small></nobr>
