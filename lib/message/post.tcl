@@ -128,15 +128,9 @@ if {[form is_request message]} {
     }
 
     if { [string equal $action "post"] } {
-        ns_log notice "
-DB --------------------------------------------------------------------------------
-DB DAVE debugging /var/lib/aolserver/openacs-5-1/packages/forums/lib/message/post.tcl
-DB --------------------------------------------------------------------------------
-DB message_body = '${message_body}'
-DB --------------------------------------------------------------------------------"
         set content [template::util::richtext::get_property content $message_body]
         set format [template::util::richtext::get_property format $message_body]
-      forum::message::new \
+        forum::message::new \
           -forum_id $forum_id \
           -message_id $message_id \
           -parent_id $parent_id \
