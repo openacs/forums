@@ -32,6 +32,12 @@ if {!${moderate_p} && ![string equal $message(state) approved]} {
 # Load up the forum information
 forum::get -forum_id $message(forum_id) -array forum
 
+# If disabled!
+if {$forum(enabled_p) != "t"} {
+    ad_returnredirect "./"
+    ad_script_abort
+}
+
 # Check preferences for user
 
 # Set some variables for easy SQL access

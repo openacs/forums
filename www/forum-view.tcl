@@ -31,6 +31,12 @@ if {!${admin_p}} {
 # Get forum data
 forum::get -forum_id $forum_id -array forum
 
+# If disabled!
+if {$forum(enabled_p) != "t"} {
+    ad_returnredirect "./"
+    ad_script_abort
+}
+
 set query messages_select
 if {$moderate_p} {
     set query messages_select_moderator
