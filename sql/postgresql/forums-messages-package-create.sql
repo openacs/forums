@@ -105,7 +105,7 @@ begin
 
     return v_message_id;
 end;
-' language 'plpgsql';
+' language 'plpgsql' with(isstrict,iscachable);
 
 select define_function_args ('forums_message__thread_open', 'message_id');
 

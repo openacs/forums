@@ -38,6 +38,7 @@
             <file type="data_model" db_type="oracle" path="sql/oracle/forums-search-drop.sql"/>
             <file type="data_model" db_type="oracle" path="sql/oracle/forums-tree-create.sql"/>
             <file type="data_model_upgrade" db_type="oracle" path="sql/oracle/upgrade-0.1d-0.2d.sql"/>
+            <file type="data_model_upgrade" db_type="oracle" path="sql/oracle/upgrade-0.2d-0.3d.sql"/>
             <file type="data_model_create" db_type="postgresql" path="sql/postgresql/forums-create.sql"/>
             <file type="data_model_drop" db_type="postgresql" path="sql/postgresql/forums-drop.sql"/>
             <file type="data_model" db_type="postgresql" path="sql/postgresql/forums-forums-create.sql"/>
@@ -53,6 +54,7 @@
             <file type="data_model" db_type="postgresql" path="sql/postgresql/forums-tree-create.sql"/>
             <file type="data_model" db_type="postgresql" path="sql/postgresql/forums-tree-drop.sql"/>
             <file type="data_model_upgrade" db_type="postgresql" path="sql/postgresql/upgrade-0.1d-0.2d.sql"/>
+            <file type="data_model_upgrade" db_type="postgresql" path="sql/postgresql/upgrade-0.2d-0.3d.sql"/>
             <file type="tcl_procs" path="tcl/forum-message-reply-procs.tcl"/>
             <file type="tcl_procs" path="tcl/messages-format-procs.tcl"/>
             <file type="query_file" db_type="oracle" path="tcl/forum-reply-procs-oracle.xql"/>
@@ -102,8 +104,6 @@
             <file type="query_file" db_type="postgresql" path="www/index-postgresql.xql"/>
             <file type="content_page" path="www/index.adp"/>
             <file type="content_page" path="www/index.tcl"/>
-            <file type="content_page" path="www/master.adp"/>
-            <file type="content_page" path="www/master.tcl"/>
             <file type="content_page" path="www/message-attachment-chunk.adp"/>
             <file type="content_page" path="www/message-attachment-chunk.tcl"/>
             <file type="content_page" path="www/message-chunk.adp"/>

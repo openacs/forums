@@ -9,7 +9,7 @@
                    (select count(*)
                     from forums_messages
                     where forums_messages.forum_id = forums_forums_enabled.forum_id
-                    and 1 = tree.tree_level(forums_messages.tree_sortkey)) as n_threads,
+                    and parent_id is null) as n_threads,
                    to_char(last_post, 'YYYY-MM-DD HH24:MI:SS') as last_post_ansi,
                    case when last_post > (sysdate - 1) then 't' else 'f' end as new_p
             from forums_forums_enabled

@@ -55,6 +55,10 @@ create table forums_messages (
     unique (tree_sortkey, forum_id)
 );
 
+-- We do a some big queries on forum_id (thread count on index.tcl) so create a second index 
+-- ordered so it's useful for them
+create unique index forums_mess_forum_sk_un on forums_messages(forum_id, tree_sortkey);
+
 create view forums_messages_approved
 as
     select *
