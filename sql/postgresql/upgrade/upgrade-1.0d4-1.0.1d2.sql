@@ -1,4 +1,8 @@
-alter table forums_messages add format varchar2(30) default 'text/plain';
+alter table forums_messages add format varchar(30);
+alter table forums_messages alter column format set default 'text/plain';
+
+alter table forums_messages add constraint forums_mess_format_ck check (format in ('text/enhanced', 'text/plain', 'text/fixed-width', 'text/html'));
+alter table forums_messages drop column html_p;
 
 update forums_messages
 set format = 'text/html'
