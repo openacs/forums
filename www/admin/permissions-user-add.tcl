@@ -8,9 +8,14 @@ ad_page_contract {
     object_id:integer
 }
 
-forum::get -forum_id $object_id -array forum
+if { $object_id == [ad_conn package_id] } {
+    set what "Package"
+} else {
+    forum::get -forum_id $object_id -array forum
+    set what "$forum(name)"
+}
 
-set page_title "Add User"
+set page_title "Add User on $what"
 
-set context [list [list [export_vars -base permissions { object_id }] "$forum(name) Permissions"] $page_title]
+set context [list [list [export_vars -base permissions { object_id }] "$what Permissions"] $page_title]
 
