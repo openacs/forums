@@ -8,7 +8,7 @@
 
 <if @moderate_p@>
     <tr>
-      <td colspan="4">
+      <td colspan="3">
         <nobr><small>[
 </if>
 
@@ -23,6 +23,12 @@
 <if @moderate_p@>
         ]</small></nobr>
         <br><br>
+      </td>
+      <td align="right">
+<formtemplate id="search">
+        <formwidget id="forum_id">
+        Search:&nbsp;<formwidget id="search_text">
+</formtemplate>
       </td>
     </tr>
 </if>

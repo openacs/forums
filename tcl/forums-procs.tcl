@@ -98,4 +98,5 @@ namespace eval forum {
     } {
         db_dml update_forum_disabled_p {}
     }
+
 }

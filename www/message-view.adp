@@ -4,7 +4,7 @@
 
 <center>
 
-  <table cellpadding="5" width="95%">
+  <table cellpadding="4" width="95%">
     <tr>
       <td colspan="4">
         @notification_chunk@
@@ -13,6 +13,12 @@
           <a href="message-post?forum_id=@forum_id@">Post a New Message</a>
         ]</nobr></small>
 </if>
+      </td>
+      <td align="right">
+<formtemplate id="search">
+        <formwidget id="forum_id">
+        Search:&nbsp;<formwidget id="search_text">
+</formtemplate>
       </td>
     </tr>
   </table>

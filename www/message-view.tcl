@@ -23,6 +23,20 @@ if {!${moderate_p}} {
 # Load up the message information
 forum::message::get -message_id $message_id -array message
 
+form create search -action search
+
+element create search search_text \
+    -label Search \
+    -datatype text \
+    -widget text \
+    -html {size 60}
+
+element create search forum_id \
+    -label ForumID \
+    -datatype text \
+    -widget hidden \
+    -value $message(forum_id)
+
 # Check if the message is approved
 if {!${moderate_p} && ![string equal $message(state) approved]} {
     ad_returnredirect "forum-view?forum_id=$message(forum_id)"

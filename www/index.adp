@@ -6,13 +6,21 @@
 
   <table cellpadding="5" width="95%">
 
-<if @admin_p@>
     <tr>
-      <td colspan="3">
+      <td>
+<if @admin_p@>
         <nobr><small>[ <a href="admin/forum-new">New Forum</a> ]</small></nobr>
+</if>
+<else>&nbsp;</else>
+      </td>
+      <td>&nbsp;</td>
+      <td align="right">
+<formtemplate id="search">
+        <formwidget id="forum_id">
+        Search:&nbsp;<formwidget id="search_text">
+</formtemplate>
       </td>
     </tr>
-</if>
 
   </table>
 

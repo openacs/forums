@@ -28,6 +28,20 @@ if {!${admin_p}} {
     set post_p 1
 }
 
+form create search -action search
+
+element create search search_text \
+    -label Search \
+    -datatype text \
+    -widget text \
+    -html {size 60}
+
+element create search forum_id \
+    -label ForumID \
+    -datatype text \
+    -widget hidden \
+    -value $forum_id
+
 # Get forum data
 forum::get -forum_id $forum_id -array forum
 
