@@ -107,11 +107,13 @@ if {[form is_request message]} {
 
 	if {$format == "html"} {
 	    set content "$content"
+	    
 	} elseif {$format == "pre"} {
 	    set content [ad_text_to_html $content]
-	    
+	    set format "html"
 	} else {
 	    set content [ad_quotehtml $content]
+	    set format "html"
 	}
 
         set exported_vars [export_vars -form {message_id forum_id parent_id subject {message_body $content} format confirm_p subject.spellcheck content.spellcheck anonymous_p attach_p}]
@@ -160,7 +162,7 @@ if {[form is_request message]} {
           -parent_id $parent_id \
           -subject $subject \
           -content $content \
-	  -format "html" \
+	  -format "text/html" \
           -user_id $displayed_user_id
 
       if {[empty_string_p $parent_id]} {
