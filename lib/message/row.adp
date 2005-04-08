@@ -7,7 +7,14 @@
       <li><a href="message-email?message_id=@message.message_id@" class="button">#forums.forward#</a></li>
       <if @moderate_p@>
         <li><a href="moderate/message-edit?message_id=@message.message_id@" class="button">#forums.edit#</a></li>
-        <li><a href="moderate/message-delete?message_id=@message.message_id@" class="button">#forums.delete#</a></li>
+        <li><a href="moderate/message-delete?message_id=@message.message_id@" class="button">#forums.delete#</a></li>	
+	<if @message.parent_id@ nil>
+	  <li><a href="moderate/thread-move?message_id=@message.message_id@" class="button">#forums.Move_thread_to_other_forum#</a></li>
+	  <li><a href="moderate/thread-move-thread?message_id=@message.message_id@" class="button">#forums.Move_thread_to_other_thread#</a></li>
+	</if>
+	<else>
+	  <li><a href="moderate/message-move?message_id=@message.message_id@" class="button">#forums.Move_to_other_thread#</a></li>
+	</else>
         <if @forum_moderated_p@>
           <if @message.state@ ne approved>
             <li><a href="moderate/message-approve?message_id=@message.message_id@" class="button">#forums.approve#</a></li>
