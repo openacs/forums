@@ -29,8 +29,7 @@
 		 where message_id = $message(message_id) 
         </querytext>
     </fullquery>  
-    
-    
+        
     <fullquery name="forums::move_thread::update_last_child_post_initial">
         <querytext>
 	    update forums_messages
@@ -52,7 +51,5 @@
 	    where message_id = :message_id
         </querytext>
     </fullquery>
-
-        
     
 </queryset>

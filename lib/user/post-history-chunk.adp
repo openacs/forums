@@ -56,6 +56,44 @@
 </else>
 
   </table>
+  <p></p>
+  <hr>
+  <p>#forums.Summary_Posting_history_for#</p>
+  <p></p>
+  <table style="color: black; background-color: @table_border_color@;">
+
+    <tr>
+      <th align="center">#forums.Forum#</th>
+      <th align="center">#forums.Number_of_Posts#</th>
+      <th align="center">#forums.Posted#</th>
+    </tr>
+<if @posts:rowcount@ gt 0>
+<multiple name="posts">
+
+  <if @posts.rownum@ odd>
+    <tr style="color: black; background-color: @table_bgcolor@;">
+  </if>
+  <else>
+    <tr style="color: black; background-color: @table_other_bgcolor@;">
+  </else>
+
+      <td><a href="forum-view?forum_id=@posts.forum_id@">@posts.name@</a></td>
+      <td align="center">@posts.num_msg@</td>
+      <td align="center">@posts.last_post@</td>
+
+    </tr>
+
+</multiple>
+</if>
+<else>
+    <tr>
+      <td colspan="3">
+        <i>#forums.No_Postings#</i>
+      </td>
+    </tr>
+</else>
+
+  </table>
 
 </if>
 

@@ -34,5 +34,15 @@
                      forums_messages.posting_date desc
         </querytext>
     </fullquery>
+    
+    <fullquery name="select_num_post">
+        <querytext>
+            select count(user_id) as num_msg, to_char(max(last_child_post), 'YYYY-MM-DD HH24:MI:SS') as last_post, forums_forums.name, forums_forums.forum_id
+            from forums_messages, forums_forums
+            where forums_messages.user_id = :user_id and forums_forums.forum_id = forums_messages.forum_id and package_id = :package_id
+            group by forums_forums.name, forums_forums.forum_id  
+	    order by forums_forums.name asc
+        </querytext>
+    </fullquery>
 
 </queryset>

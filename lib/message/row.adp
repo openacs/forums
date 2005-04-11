@@ -35,12 +35,19 @@
 	<if @presentation_type@ ne flat>
 	  <a href="message-post?parent_id=@message.message_id@">#forums.reply#</a> |
         </if>
-	<a href="message-email?message_id=@message.message_id@">#forums.forward#</a>
+	<a href="message-email?message_id=@message.message_id@">#forums.forward#</a>  
         ]
         <if @moderate_p@>
           <br>
           [ <a href="moderate/message-edit?message_id=@message.message_id@">#forums.edit#</a>
           | <a href="moderate/message-delete?message_id=@message.message_id@">#forums.delete#</a>
+	  <if @message.parent_id@ nil>
+	  | <a href="moderate/thread-move?message_id=@message.message_id@">#forums.Move_thread_to_other_forum#</a> 
+	  | <a href="moderate/thread-move-thread?message_id=@message.message_id@">#forums.Move_thread_to_other_thread#</a> 
+	  </if>
+	  <else>
+	      | <a href="moderate/message-move?message_id=@message.message_id@">#forums.Move_to_other_thread#</a> 
+	  </else>
           
           <if @forum_moderated_p@>
             <if @message.state@ ne approved>

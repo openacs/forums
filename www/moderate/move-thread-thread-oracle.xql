@@ -21,7 +21,6 @@
         </querytext>
     </fullquery>
     
-    
     <fullquery name="forums::move_thread_thread::update_last_child_post">
         <querytext>
 	          update forums_messages
@@ -31,5 +30,6 @@
 		  where message_id = :message_id     
         </querytext>
     </fullquery>
+    
         
 </queryset>

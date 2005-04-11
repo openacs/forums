@@ -55,12 +55,19 @@ template::list::create \
             label {\#forums.Last_Post\#}
             display_col last_modified_pretty
         }
+	statistic {
+	    label {\#forums.Statistics\#}
+	    link_url_col forum_view_statistic
+	    display_col statistic
+	}
     }
 
-db_multirow -extend { forum_view_url last_modified_pretty n_threads_pretty } forums select_forums {} {
+db_multirow -extend { forum_view_url last_modified_pretty n_threads_pretty forum_view_statistic statistic} forums select_forums {} {
     set last_modified_pretty [lc_time_fmt $last_post_ansi "%x %X"]
     set forum_view_url [export_vars -base forum-view { forum_id }]
     set n_threads_pretty [lc_numeric $n_threads]
+    set forum_view_statistic [export_vars -base forum-view-statistic { forum_id }]    
+    set statistic "[_ forums.Statistics]"
 }
 
 if {[exists_and_not_null alt_template]} {
