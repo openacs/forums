@@ -46,12 +46,12 @@ create table forums_messages (
     tree_sortkey                    raw(240),
     max_child_sortkey               raw(100),
     last_child_post                 date,
-    reply_count                     integer 
+    reply_count                     integer default 0
                                     constraint forums_mess_reply_count_ck
-                                    check (reply_count >= 0) default 0,
-    approved_reply_count            integer
+                                    check (reply_count >= 0),
+    approved_reply_count            integer default 0
                                     constraint forums_mess_app_rep_count_ck
-                                    check (approved_reply_count >= 0) default 0,
+                                    check (approved_reply_count >= 0),
     last_poster                     integer
                                     constraint forums_mess_last_poster_fk
                                     references users(user_id),
