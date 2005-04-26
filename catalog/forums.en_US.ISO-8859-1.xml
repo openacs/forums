@@ -7,6 +7,8 @@
   <msg key="Anonymous">Anonymous</msg>
   <msg key="approve">approve</msg>
   <msg key="Are_you_sure_you_want_to_delete_lt">Are you sure you want to delete this message and &lt;strong&gt;all replies to it&lt;/strong&gt;?</msg>
+  <msg key="Are_you_sure_you_want_to_move_this_message_and_obviously_all_of_its_descendents_lt">Are you sure you want to move this message and all of its descendents?</msg>
+  <msg key="Are_you_sure_you_want_to_move_this_thread_and_obviously_all_of_its_descendents_lt">Are you sure you want to move this thread and all of its descendents?</msg>
   <msg key="Attach">Attach?</msg>
   <msg key="Attachments">Attachments:</msg>
   <msg key="Author">Author</msg>
@@ -52,6 +54,8 @@
   <msg key="Forum_Posting">Forum Posting</msg>
   <msg key="ForumID">ForumID</msg>
   <msg key="Forums">Forums</msg>
+  <msg key="Forums_hist_lt">Forums history</msg>
+  <msg key="Forums_History">Forums History</msg>
   <msg key="Forums_Posting_hist_lt">Forums: Posting history for</msg>
   <msg key="forward">Forward</msg>
   <msg key="Fwd">Fwd:</msg>
@@ -61,6 +65,7 @@
   <msg key="html">HTML</msg>
   <msg key="Last_Post">Last Post</msg>
   <msg key="Last_post_in_subject">Last post in subject</msg>
+  <msg key="List_of_users_that_wrote_in_the_forum">List of users that wrote in the forum:</msg>
   <msg key="lt_Email_a_copy_of_the_f">Email a copy of the following message:</msg>
   <msg key="lt_First_post_in_subject">First post in subject</msg>
   <msg key="lt_Forums_Administration">Forums Administration</msg>
