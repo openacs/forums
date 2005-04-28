@@ -14,7 +14,13 @@ ad_page_contract {
 
 
 # Get forum data
-forum::get -forum_id $forum_id -array forum
+if {[catch {forum::get -forum_id $forum_id -array forum} errMsg]} {
+    if {[string equal $::errorCode NOT_FOUND]} {
+        ns_returnnotfound
+        ad_script_abort
+    }
+    error $errMsg $::errorInfo $::errorCode
+}
 
 # If disabled!
 if {$forum(enabled_p) != "t"} {

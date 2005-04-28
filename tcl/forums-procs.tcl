@@ -72,7 +72,9 @@ ad_proc -public forum::get {
 } {
     # Select the info into the upvar'ed Tcl Array
     upvar $array row
-    db_1row select_forum {} -column_array row
+    if {![db_0or1row select_forum {} -column_array row]} {
+        error "Forum $forum_id not found" {} NOT_FOUND
+    }
 }
 
 ad_proc -public forum::posting_policy_set {
