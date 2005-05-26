@@ -63,3 +63,57 @@ ad_proc -private ::install::xml::action::forum-create { node } {
         set ::install::xml::ids($id) $forum_id
     }
 }
+
+ad_proc -public -callback forum::forum_new {
+    {-package_id:required}
+    {-forum_id:required}
+} {
+}
+
+ad_proc -public -callback forum::forum_edit {
+    {-package_id:required}
+    {-forum_id:required}
+} {
+}
+
+ad_proc -public -callback forum::forum_delete {
+    {-package_id:required}
+    {-forum_id:required}
+} {
+}
+
+ad_proc -public -callback forum::message_new {
+    {-package_id:required}
+    {-message_id:required}
+} {
+}
+
+ad_proc -public -callback forum::message_edit {
+    {-package_id:required}
+    {-message_id:required}
+} {
+}
+
+ad_proc -public -callback forum::message_delete {
+    {-package_id:required}
+    {-message_id:required}
+} {
+}
+
+ad_proc -public -callback pm::project_new -impl forums {
+    {-package_id:required}
+    {-project_id:required}
+} {
+    create a new forum for each new project
+} {
+    set pm_name [pm::project::name -project_item_id $project_id]
+
+    foreach forum_package_id [application_link::get_linked -from_package_id $package_id -to_package_key "forums"] {
+	set forum_id [forum::new \
+			  -name $pm_name \
+			  -package_id $forum_package_id \
+			  -no_callback]
+
+	application_data_link::new -this_object_id $project_id -target_object_id $forum_id
+    }
+}
