@@ -18,6 +18,7 @@ ad_proc -public forum::message::new {
     {-content:required}
     {-format "text/plain"}
     {-user_id ""}
+    -no_callback:boolean
 } {
     create a new message
 } {
@@ -46,6 +47,10 @@ ad_proc -public forum::message::new {
         if {[info exists message(state)] && [string equal $message(state) approved]} {
             do_notifications -message_id $message_id
         }
+
+	if {!$no_callback_p} {
+	    callback forum::message_new -package_id [ad_conn package_id] -message_id $message_id
+	}
     }  on_error {
 
         db_abort_transaction
@@ -150,6 +155,7 @@ ad_proc -public forum::message::edit {
     {-subject:required}
     {-content:required}
     {-format:required}
+    -no_callback:boolean
 } {
     Editing a message. There is no versioning here!
     This means this function is for admins only!
@@ -157,6 +163,10 @@ ad_proc -public forum::message::edit {
     # do the update
     db_dml update_message {}
     db_dml update_message_title {}
+
+    if {!$no_callback_p} {
+	callback forum::message_edit -package_id [ad_conn package_id] -message_id $message_id
+    }
 }
 
 ad_proc -public forum::message::set_format {
@@ -229,10 +239,15 @@ ad_proc -public forum::message::approve {
 
 ad_proc -public forum::message::delete {
     {-message_id:required}
+    -no_callback:boolean
 } {
     delete a message and obviously all of its descendents
 } {
     db_transaction {
+	if {!$no_callback_p} {
+	    callback forum::message_delete -package_id [ad_conn package_id] -message_id $message_id
+	}
+
         # Remove the notifications
         notification::request::delete_all -object_id $message_id
 

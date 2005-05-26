@@ -17,6 +17,7 @@ ad_proc -public forum::new {
     {-presentation_type flat}
     {-posting_policy open}
     {-package_id:required}
+    -no_callback:boolean
 } {
     create a new forum
 } {
@@ -27,7 +28,14 @@ ad_proc -public forum::new {
         [list presentation_type $presentation_type] \
         [list posting_policy $posting_policy] \
         [list package_id $package_id]]
-    return [package_instantiate_object -var_list $var_list forums_forum]
+
+    set forum_id [package_instantiate_object -var_list $var_list forums_forum]
+
+    if {!$no_callback_p} {
+	callback forum::forum_new -package_id $package_id -forum_id $forum_id
+    }
+
+    return $forum_id
 }
 
 ad_proc -public forum::edit {
@@ -36,12 +44,17 @@ ad_proc -public forum::edit {
     {-charter ""}
     {-presentation_type flat}
     {-posting_policy open}
+    -no_callback:boolean
 } {
     edit a forum
 } {
     # This is a straight DB update
     db_dml update_forum {}
     db_dml update_forum_object {}
+
+    if {!$no_callback_p} {
+	callback forum::forum_edit -package_id [ad_conn package_id] -forum_id $forum_id
+    }
 }
 
 ad_proc -public forum::attachments_enabled_p {} {
