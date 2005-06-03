@@ -103,6 +103,7 @@ ad_proc -public -callback forum::message_delete {
 ad_proc -public -callback pm::project_new -impl forums {
     {-package_id:required}
     {-project_id:required}
+    {-data:required}
 } {
     create a new forum for each new project
 } {
