@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="forums" package_version="1.0.5" locale="es_GT" charset="ISO-8859-1">
+<message_catalog package_key="forums" package_version="1.1.2d3" locale="es_GT" charset="ISO-8859-1">
 
   <msg key="Administer">Administrar</msg>
   <msg key="Administration">Administración</msg>
   <msg key="Anonymous">Anónimo</msg>
   <msg key="approve">aprobar</msg>
   <msg key="Are_you_sure_you_want_to_delete_lt">¿Está seguro que quiere borrar este mensaje y &lt;strong&gt;todas sus respuestas&lt;/strong&gt;?</msg>
+  <msg key="Are_you_sure_you_want_to_move_this_message_and_obviously_all_of_its_descendents_lt">Está seguro de querer mover este mensaje y obviamente todos sus descendientes?</msg>
+  <msg key="Are_you_sure_you_want_to_move_this_thread_and_obviously_all_of_its_descendents_lt">Está seguro de querer mover este hilo y obviamente todos sus descendientes?</msg>
   <msg key="Attach">¿Adjuntar archivo(s)?</msg>
   <msg key="Attachments">Archivos adjuntos:</msg>
   <msg key="Author">Autor</msg>
@@ -18,6 +20,7 @@
   <msg key="closed">cerrado</msg>
   <msg key="Confirm">¿Confirmar?</msg>
   <msg key="Confirm_Delete">Confirmación para eliminar:</msg>
+  <msg key="Confirm_Move_to">Confirmar Mover a</msg>
   <msg key="Confirm_Post_to_Forum">Confirmación de su mensaje para el foro de discusión:</msg>
   <msg key="Create_a_New_Forum">Crear nuevo foro de discusión</msg>
   <msg key="Create_New_Forum">Crear nuevo foro de discusión</msg>
@@ -37,6 +40,7 @@
   <msg key="enable">habilitar</msg>
   <msg key="enable_it">habilitar</msg>
   <msg key="enabled">habilitado</msg>
+  <msg key="Enter_a_list_of_email">Ingrese un listado de direcciones de correo, opcionalmente con nombres y apellidos. Ellos serán suscritos a este foro. Por ejemplo:</msg>
   <msg key="Entire_Thread">Discusión Completa</msg>
   <msg key="First_Post">Primer Mensaje</msg>
   <msg key="Flat">Sin discusiones indentadas</msg>
@@ -49,12 +53,16 @@
   <msg key="Forum_Posting">Enviando mensaje al foro de discusión</msg>
   <msg key="ForumID">ID del Foro</msg>
   <msg key="Forums">Foros de Discusión</msg>
+  <msg key="Forums_hist_lt">Historial de foros</msg>
+  <msg key="Forums_History">Historial de Foros</msg>
   <msg key="Forums_Posting_hist_lt">Foros de Discusión: Historia de mensajes para</msg>
   <msg key="forward">Reenviar</msg>
   <msg key="Fwd">Re-enviar:</msg>
   <msg key="html">HTML</msg>
+  <msg key="If_checked_create_users">Si está seleccionado, se crearán usuarios que no existan:</msg>
   <msg key="Last_Post">Último Mensaje</msg>
   <msg key="Last_post_in_subject">Últimos mensajes de la discusión</msg>
+  <msg key="List_of_users_that_wrote_in_the_forum">Listado de uusarios que escribiron en este foro:</msg>
   <msg key="lt_Email_a_copy_of_the_f">Enviar una copia del siguiente mensaje:</msg>
   <msg key="lt_First_post_in_subject">Primer mensaje de la discusión</msg>
   <msg key="lt_Forums_Administration">Administración de Foros de Discusión</msg>
@@ -72,15 +80,32 @@
   <msg key="Manage_Forum">Administrar Foro de Discusión:</msg>
   <msg key="ManageModerate">Administrar/Moderar</msg>
   <msg key="Message_ID">ID del Mensaje</msg>
+  <msg key="Message_Subject">Asunto</msg>
   <msg key="Moderate">Moderar</msg>
   <msg key="moderated">moderado</msg>
+  <msg key="Move_message">Mover mensaje</msg>
+  <msg key="Move_message_to_forum">Mover mensaje al foro:</msg>
+  <msg key="Move_message_to_message">Mover mensaje al mensaje</msg>
+  <msg key="Move_thread">Mover hilo</msg>
+  <msg key="Move_thread_to_forum">Mover hilo al foro</msg>
+  <msg key="Move_thread_to_message">Mover mensaje a otro mensaje</msg>
+  <msg key="Move_thread_to_other_forum">Mover hilo a otro foro</msg>
+  <msg key="Move_thread_to_other_thread">Mover hilo a otro hilo</msg>
+  <msg key="Move_thread_to_the_thread">Mover hilo a hilo</msg>
+  <msg key="Move_thread_to_thread">Mover hilo a otro hilo</msg>
+  <msg key="Move_to">Mover a</msg>
+  <msg key="Move_to_other_thread">Mover a otro hilo</msg>
   <msg key="Name">Nombre</msg>
+  <msg key="name">Nombre</msg>
+  <msg key="Name_of_forum">Nombre de Foro</msg>
   <msg key="New_Forum">Nuevo Foro de Discusión</msg>
   <msg key="No">No</msg>
   <msg key="No_Forums">No existen foro de discusión</msg>
   <msg key="No_Messages">No existen mensajes</msg>
   <msg key="No_Postings">No existen mensajes enviados.</msg>
   <msg key="None">Ninguno</msg>
+  <msg key="Number_of_Posts">Número de Mensajes</msg>
+  <msg key="of_forum">del foro</msg>
   <msg key="One_Message">Un Mensaje</msg>
   <msg key="One_Thread">Un hilo</msg>
   <msg key="open">abierto</msg>
@@ -112,12 +137,23 @@
   <msg key="Search_1">Buscar</msg>
   <msg key="Search_colon">Buscar:</msg>
   <msg key="Search_Forums">Buscar Foros de Discusión</msg>
+  <msg key="Selected">Seleccionado</msg>
+  <msg key="Sorry_you_can_not_move_this_message_There_are_no_other_threads">Disculpe. No puede mover este mensaje. No existen otros hilos en este foro.</msg>
+  <msg key="Sorry_you_can_not_move_this_thread_There_are_no_more_threads">Disculpe. No puede mover este hilo. No existen otros hilos.</msg>
+  <msg key="Sorry_you_can_not_move_this_thread_There_are_no_other_forums">Disculpe. No puede mover este hilo. No existen otros foros.</msg>
+  <msg key="Statistics">Estadísticas</msg>
   <msg key="Subject">Título</msg>
   <msg key="Subscribe">¿Suscribirse?</msg>
+  <msg key="Subscribe_others">Suscribir a otros</msg>
+  <msg key="Subscriptions_to_forum">Número de suscripciones a este foro:</msg>
+  <msg key="Summary">Resumen</msg>
+  <msg key="Summary_Posting_history_for">Resumen de Historial de Mensajes</msg>
   <msg key="text">texto</msg>
   <msg key="This_forum_is">Este Foro de Discusión es</msg>
   <msg key="Threaded">Con discusiones indentadas</msg>
   <msg key="Threads">Discusiones</msg>
+  <msg key="User">Usuario</msg>
+  <msg key="Users_that_wrote_in_the_forum">Usuarios que escribieron a este usuario</msg>
   <msg key="View">Ver</msg>
   <msg key="Yes">Sí</msg>
   <msg key="You_may">Puedes</msg>
