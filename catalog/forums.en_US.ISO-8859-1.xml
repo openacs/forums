@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="forums" package_version="1.0.5" locale="en_US" charset="ISO-8859-1">
+<message_catalog package_key="forums" package_version="1.2.0d2" locale="en_US" charset="ISO-8859-1">
 
   <msg key="Admin_for_all">Administrative options for all forums.</msg>
   <msg key="Administer">Administer</msg>
@@ -59,9 +59,9 @@
   <msg key="Forums_Posting_hist_lt">Forums: Posting history for</msg>
   <msg key="forward">Forward</msg>
   <msg key="Fwd">Fwd:</msg>
-  <msg key="help_presentation">&lt;b&gt;Flat&lt;/b&gt; only allows replies at the end of a thread with no nesting or threading, &lt;b&gt;Threaded&lt;/b&gt; allows replies to be made to any post in the thread and the reply will be indented under the post they are associated with.</msg>
-  <msg key="help_posting_policy">&lt;b&gt;Open&lt;/b&gt; allows any users to post and have posts appear immediately, &lt;b&gt;moderated&lt;/b&gt; means posts must be approved by a moderator before others can see them, and &lt;b&gt;closed&lt;/b&gt; means only administrators may post.</msg>
   <msg key="help_new_threads">If &lt;b&gt;No&lt;/b&gt;, users may only reply to existing posts not create new threads.</msg>
+  <msg key="help_posting_policy">&lt;b&gt;Open&lt;/b&gt; allows any users to post and have posts appear immediately, &lt;b&gt;moderated&lt;/b&gt; means posts must be approved by a moderator before others can see them, and &lt;b&gt;closed&lt;/b&gt; means only administrators may post.</msg>
+  <msg key="help_presentation">&lt;b&gt;Flat&lt;/b&gt; only allows replies at the end of a thread with no nesting or threading, &lt;b&gt;Threaded&lt;/b&gt; allows replies to be made to any post in the thread and the reply will be indented under the post they are associated with.</msg>
   <msg key="html">HTML</msg>
   <msg key="Last_Post">Last Post</msg>
   <msg key="Last_post_in_subject">Last post in subject</msg>
@@ -115,9 +115,9 @@
   <msg key="Parameters">Parameters</msg>
   <msg key="parent_ID">parent ID</msg>
   <msg key="Pending">Pending</msg>
-  <msg key="Permissions_for_all">Permissions for all forums.</msg>
-  <msg key="Permission_forum_name">Permissions for &quot;%name%&quot;</msg>
   <msg key="Pending_Threads">Pending Threads</msg>
+  <msg key="Permission_forum_name">Permissions for &quot;%name%&quot;</msg>
+  <msg key="Permissions_for_all">Permissions for all forums.</msg>
   <msg key="Post">Post</msg>
   <msg key="Post_a_Message">Post a Message</msg>
   <msg key="Post_a_New_Message">Post a New Message</msg>
