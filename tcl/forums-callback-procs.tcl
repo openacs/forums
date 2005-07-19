@@ -1,4 +1,7 @@
 ad_library {
+    Library of callbacks implementations
+    for Forums
+    
     Navigation callbacks.
 
     @author Jeff Davis <davis@xarg.net>
@@ -41,3 +44,49 @@ ad_proc -public -callback navigation::package_admin -impl forums {} {
     return $actions
 }
 
+
+ad_proc -callback merge::MergeShowUserInfo -impl forums {
+    -user_id:required
+} {
+    Merge the *forums* of two users.
+    The from_user_id is the user_id of the user
+    that will be deleted and all the *forums*
+    of this user will be mapped to the to_user_id.
+    
+} {
+    set msg "Forums items of $user_id"
+    ns_log Notice $msg
+    set result [list $msg]
+    
+    set last_poster [db_list_of_lists sel_poster {*SQL*} ]
+    set msg "Last Poster of $last_poster"
+    lappend result $msg
+
+    set poster [db_list_of_lists sel_user_id {*SQL*} ]
+    set msg "Poster of $poster"
+    lappend result $msg
+
+    return $result
+}
+
+ad_proc -callback merge::MergePackageUser -impl forums {
+    -from_user_id:required
+    -to_user_id:required
+} {
+    Merge the *forums* of two users.
+    The from_user_id is the user_id of the user
+    that will be deleted and all the *forums*
+    of this user will be mapped to the to_user_id.
+    
+} {
+    set msg "Merging forums" 
+    ns_log Notice $msg
+    set result [list $msg]
+    
+    db_dml upd_poster { *SQL* }
+    db_dml upd_user_id { *SQL* }
+
+    lappend result "Merge of forums is done"
+
+    return $result
+}
