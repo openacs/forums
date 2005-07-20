@@ -90,3 +90,18 @@ ad_proc -callback merge::MergePackageUser -impl forums {
 
     return $result
 }
+
+
+ad_proc -public -callback datamanager::move_forum -impl datamanager {
+     -object_id:required
+     -selected_community:required
+} {
+    Move a faq to another class or community
+} {
+
+#update forums_forums table
+db_dml update_forums {}
+#update acs_objects table (because data redundancy)
+db_dml update_forums_acs_objects {}
+}
+
