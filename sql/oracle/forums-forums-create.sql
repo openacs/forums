@@ -12,29 +12,21 @@
 -- privileges
 declare
 begin
-    -- moderate and post are new privileges
-    -- the rest are obvious inheritance
-    -- forum creation on a package allows a user to create forums
-    -- forum creation on a forum allows a user to create new threads
-    acs_privilege.create_privilege('forum_create',null,null);
-    acs_privilege.create_privilege('forum_write',null,null);
-    acs_privilege.create_privilege('forum_delete',null,null);
-    acs_privilege.create_privilege('forum_read',null,null);
-    acs_privilege.create_privilege('forum_post',null,null);
-    acs_privilege.create_privilege('forum_moderate',null,null);
+    -- The standard privilege 'admin' on a package allows a user to
+    -- create forums (enforced by URL).
+    -- The standard privilege 'create' on a forum allows a user to
+    -- create new threads.
+    -- The standard privilege 'write' on a message allows a user to
+    -- post a follow up message.
 
-    -- add children
-    acs_privilege.add_child('create','forum_create');
-    acs_privilege.add_child('write','forum_write');
-    acs_privilege.add_child('delete','forum_delete');
+    -- forum_moderate lets us grant moderation without granting full admin
+    acs_privilege.create_privilege('forum_moderate',null,null);
     acs_privilege.add_child('admin','forum_moderate');
-    acs_privilege.add_child('forum_moderate','forum_read');
-    acs_privilege.add_child('forum_moderate','forum_post');
-    acs_privilege.add_child('forum_write','forum_read');
-    acs_privilege.add_child('forum_write','forum_post');
-   
-    -- the last one that will cause all the updates
-    acs_privilege.add_child('read','forum_read');
+    acs_privilege.add_child('forum_moderate','create');
+    acs_privilege.add_child('forum_moderate','delete');
+    acs_privilege.add_child('forum_moderate','read');
+    acs_privilege.add_child('forum_moderate','write');
+
 end;
 /
 show errors

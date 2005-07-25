@@ -11,29 +11,20 @@
 
 -- privileges
 begin;
-    -- moderate and post are new privileges
-    -- the rest are obvious inheritance
-    -- forum creation on a package allows a user to create forums
-    -- forum creation on a forum allows a user to create new threads
-    select acs_privilege__create_privilege('forum_create',null,null);
-    select acs_privilege__create_privilege('forum_write',null,null);
-    select acs_privilege__create_privilege('forum_delete',null,null);
-    select acs_privilege__create_privilege('forum_read',null,null);
-    select acs_privilege__create_privilege('forum_post',null,null);
-    select acs_privilege__create_privilege('forum_moderate',null,null);
+    -- The standard privilege 'admin' on a package allows a user to
+    -- create forums (enforced by URL).
+    -- The standard privilege 'create' on a forum allows a user to
+    -- create new threads.
+    -- The standard privilege 'write' on a message allows a user to
+    -- post a follow up message.
 
-    -- add children
-    select acs_privilege__add_child('create','forum_create');
-    select acs_privilege__add_child('write','forum_write');
-    select acs_privilege__add_child('delete','forum_delete');
+    -- forum_moderate lets us grant moderation without granting full admin
+    select acs_privilege__create_privilege('forum_moderate',null,null);
     select acs_privilege__add_child('admin','forum_moderate');
-    select acs_privilege__add_child('forum_moderate','forum_read');
-    select acs_privilege__add_child('forum_moderate','forum_post');
-    select acs_privilege__add_child('forum_write','forum_read');
-    select acs_privilege__add_child('forum_write','forum_post');
-    
-    -- the last one that will cause all the updates
-    select acs_privilege__add_child('read','forum_read');
+    select acs_privilege__add_child('forum_moderate','create');
+    select acs_privilege__add_child('forum_moderate','delete');
+    select acs_privilege__add_child('forum_moderate','read');
+    select acs_privilege__add_child('forum_moderate','write');
 
     --return null;
 end;
