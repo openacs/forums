@@ -1,28 +1,16 @@
 ad_library {
     Automated tests.
-    @author Gerardo Morales (gmorales@gmorales.net)
+    @author Gerardo Morales (gerardo.morales@gmail.net)
     @creation-date 14 June 2005
    
 }
 
 namespace eval forums::twt {
 
-    ad_proc get_one_url { } {
-	Get the url of the first instance founded int the site_node table 
-        } {
-	db_1row first_formu_url {
-	    select site_node__url(node_id) as url
-	    from site_nodes
-	    where object_id in (select package_id from apm_packages
-                                where package_key = 'forums')
-           limit 1;}
-           return $url
-    }
-
     ad_proc new { name } {
-
+    set response 0
     # The Faq Admin page url
-    set forum_admin_page [forums::twt::get_one_url]       
+    set forum_admin_page [aa_get_first_url -package_key forums]       
     ::twt::do_request $forum_admin_page
     # Seting the charter that would be used in the forum creation form
     set charter "[ad_generate_random_string] [ad_generate_random_string]"    
@@ -43,14 +31,16 @@ namespace eval forums::twt {
             aa_error "The forum $name was not created. The forum name or the charter was not founded in the admin page of forums"
 	} else { 
            aa_log "The forum $name was succesfully created"
+           set response 1
 	}
-     	
+return $response     	
 }						      
 
 ad_proc edit { name } {
 
+    set response 0
     # Call to the faq admin page
-    set forum_admin_page [forums::twt::get_one_url]        
+    set forum_admin_page [aa_get_first_url -package_key forums]       
     ::twt::do_request $forum_admin_page 
 
     # Follows the link of administration and then admin the forum
@@ -74,19 +64,21 @@ ad_proc edit { name } {
     if { [catch {tclwebtest::link find "Edited $name"} testerror1] ||[catch {tclwebtest::assert text "$charter"} testerror2 ]  } { 
 	aa_error "The forum $name was not Edited. The forum name or the charter was not founded in the admin page of forums" 
     } else {  
-           aa_log "The forum $name was succesfully edited, new name Edited $name" 
+           aa_log "The forum $name was succesfully edited, new name Edited $name"
+           set response 1 
     } 
-
+    return $response
 
 }
 
 ad_proc new_post {name subject} { 
- 
+
+    set response 0 
     # Seting the Subject and Body of the new post 
     set msgb "[ad_generate_random_string] [ad_generate_random_string 20]"  
  
      # Call to the faq admin page 
-    set forum_admin_page [forums::twt::get_one_url]        
+    set forum_admin_page [aa_get_first_url -package_key forums]        
     ::twt::do_request $forum_admin_page 
 
      
@@ -115,20 +107,21 @@ ad_proc new_post {name subject} {
     if { [catch {tclwebtest::assert text "$msgb"} testerror2 ]  } {  
         aa_error "The body of the message was not correctly posted"  
     } else {   
-        aa_log "The message was succesfully posted"  
+        aa_log "The message was succesfully posted"
+        set response 1
     }  
-
-    }
+return $response
+}
 
 
 ad_proc edit_post {name subject} {  
   
-
+    set response 0
     # Seting the new body of the message
     set msgb2 "[ad_generate_random_string] [ad_generate_random_string 20]"  
  
     # Call to the faq admin page  
-    set forum_admin_page [forums::twt::get_one_url]        
+    set forum_admin_page [aa_get_first_url -package_key forums]        
     ::twt::do_request $forum_admin_page 
 
       
@@ -155,16 +148,17 @@ ad_proc edit_post {name subject} {
         aa_error "The body of the message was not correctly edited"  
     } else {   
         aa_log "The message $subject of the forum $name was succesfully edited"  
+        set response 1
     }  
-
- }
+    return $response 
+}
 
 
 ad_proc delete_post {name subject} {   
    
- 
+    set response 0 
     # Call to the faq admin page   
-    set forum_admin_page [forums::twt::get_one_url]        
+    set forum_admin_page [aa_get_first_url -package_key forums]        
     ::twt::do_request $forum_admin_page 
 
        
@@ -176,10 +170,12 @@ ad_proc delete_post {name subject} {
  
    # Testing if the the message is not in the forum
     if {[catch {tclwebtest::link follow "Edited $subject"}]} { 
-     aa_log "The messaje $subject was succesfully deleted in the forum $name" 
+        aa_log "The messaje $subject was succesfully deleted in the forum $name" 
+        set  response 1
     } else {
-     aa_error "The message $subject of the forum $name was not deleted"
+        aa_error "The message $subject of the forum $name was not deleted"
     }
+    return $response
 } 
 
 
@@ -187,11 +183,12 @@ ad_proc delete_post {name subject} {
 
 ad_proc reply_msg {name subject} {   
    
+    set response 0
     # Seting the new body of the message 
     set msgb_reply "[ad_generate_random_string] [ad_generate_random_string 20]"   
   
     # Call to the faq admin page   
-    set forum_admin_page [forums::twt::get_one_url]        
+    set forum_admin_page [aa_get_first_url -package_key forums]        
     ::twt::do_request $forum_admin_page 
 
        
@@ -216,8 +213,9 @@ ad_proc reply_msg {name subject} {
         aa_error "The body of the replyed message was not correctly posted"   
     } else {    
         aa_log "The reply message to $subject of the forum $name was succesfully posted"   
+        set response 1
     }   
-
+    return $response
 }
 
 }
