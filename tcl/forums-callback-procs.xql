@@ -55,5 +55,39 @@ update acs_objects
 </querytext>
 </fullquery>
 
+<fullquery name="callback::datamanager::copy_forum::impl::datamanager.get_forum_package_id">
+<querytext>
+    SELECT b.object_id as package_id 
+    FROM acs_objects as a,acs_objects as b  
+    WHERE a.context_id=:selected_community and a.object_type='apm_package' and a.object_id=b.context_id and b.title='Forums';
+</querytext>
+</fullquery>
+
+
+<fullquery name="callback::datamanager::copy_forum::impl::datamanager.get_forum_data">
+<querytext>
+    SELECT  name,charter,presentation_type,posting_policy
+    FROM forums_forums
+    WHERE forum_id=:object_id;
+</querytext>
+</fullquery>
+
+<fullquery name="callback::datamanager::copy_forum::impl::datamanager.get_first_messages_list">
+<querytext>
+    SELECT subject,content,user_id,format as formato,parent_id
+    FROM forums_messages
+    WHERE forum_id=:object_id and parent_id IS NULL;
+</querytext>
+</fullquery>
+
+<fullquery name="callback::datamanager::copy_forum::impl::datamanager.get_all_messages_list">
+<querytext>
+    SELECT subject,content,user_id,format as formato,parent_id
+    FROM forums_messages
+    WHERE forum_id=:object_id and parent_id IS NOT NULL;
+</querytext>
+</fullquery>
+
+
 
 </queryset>

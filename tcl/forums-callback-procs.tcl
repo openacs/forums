@@ -105,3 +105,79 @@ db_dml update_forums {}
 db_dml update_forums_acs_objects {}
 }
 
+
+ad_proc -public -callback datamanager::copy_forum -impl datamanager {
+     -object_id:required
+     -selected_community:required
+} {
+    Move a faq to another class or community
+} {
+#get forum's data
+    set forum_id [db_nextval acs_object_id_seq]   
+    db_1row get_forum_package_id {}
+    db_1row get_forum_data {}
+    
+#create the new forums
+    set forum_id [forum::new -forum_id $forum_id \
+        -name $name \
+        -charter $charter \
+        -presentation_type $presentation_type \
+        -posting_policy $posting_policy \
+        -package_id $package_id \
+    ]
+
+#copy the messages??
+   set first_messages 1
+   set all_messages 1   
+
+   if { $first_messages == 1 } {
+#copy the first message of the threads
+       set first_messages_list [db_list_of_lists get_first_messages_list {}]      
+       set first_messages_number [llength $first_messages_list]
+       
+       for {set i 0} {$i < $first_messages_number} {incr i} {
+        #code for copying a messages
+           set message_id  [db_nextval acs_object_id_seq]
+           set subject [lindex [lindex $first_messages_list $i] 0]
+           set content [lindex [lindex $first_messages_list $i] 1]
+           set user_id [lindex [lindex $first_messages_list $i] 2]
+           set formato [lindex [lindex $first_messages_list $i] 3]
+           set parent_id [lindex [lindex $first_messages_list $i] 4]
+
+
+           set message_id [forum::message::new \
+               -forum_id $forum_id \
+               -message_id $message_id \
+               -parent_id $parent_id\
+               -subject $subject\
+               -content $content\
+               -format $formato\
+               -user_id $user_id ] 
+       }
+   
+       if { $all_messages == 1 } {
+#copy all the messages of the threads
+           set all_messages_list [db_list_of_lists get_all_messages_list {}]      
+           set all_messages_number [llength $all_messages_list]
+           
+           for {set i 0} {$i < $all_messages_number} {incr i} {
+               
+           set message_id  [db_nextval acs_object_id_seq]
+           set subject [lindex [lindex $all_messages_list $i] 0]
+           set content [lindex [lindex $all_messages_list $i] 1]
+           set user_id [lindex [lindex $all_messages_list $i] 2]
+           set formato [lindex [lindex $all_messages_list $i] 3]
+           set parent_id [lindex [lindex $all_messages_list $i] 4]
+
+               set message_id [forum::message::new \
+                   -forum_id $forum_id \
+                   -message_id $message_id \
+                   -parent_id $parent_id\
+                   -subject $subject\
+                   -content $content\
+                   -format $formato\                   
+                   -user_id $user_id ]           
+           }
+       }
+   }
+}
