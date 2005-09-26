@@ -30,6 +30,7 @@ if {([forum::new_questions_allowed_p -forum_id $forum_id] && ($forum(posting_pol
 
 if { [template::util::is_true $permissions(admin_p)] } {
     lappend actions [_ forums.Administer] [export_vars -base "admin/forum-edit" { forum_id {return_url [ad_return_url]}}] {}
+    lappend actions [_ forums.Subscribe_others] [export_vars -base "admin/subscribe-others" { forum_id {return_url [ad_return_url]}}] {}
 }
 
 if { [template::util::is_true $permissions(moderate_p)] } {
@@ -136,3 +137,4 @@ db_multirow -extend {
 if {[exists_and_not_null alt_template]} {
   ad_return_template $alt_template
 }
+

@@ -13,24 +13,17 @@
 create function inline_0 ()
 returns integer as '
 begin
-    -- remove children
-    perform acs_privilege__remove_child(''read'',''forum_read'');
-    perform acs_privilege__remove_child(''create'',''forum_create'');
-    perform acs_privilege__remove_child(''write'',''forum_write'');
-    perform acs_privilege__remove_child(''delete'',''forum_delete'');
-    perform acs_privilege__remove_child(''admin'',''forum_moderate'');
-    perform acs_privilege__remove_child(''forum_moderate'',''forum_read'');
-    perform acs_privilege__remove_child(''forum_moderate'',''forum_post'');
-    perform acs_privilege__remove_child(''forum_write'',''forum_read'');
 
-    perform acs_privilege__remove_child(''forum_write'',''forum_post'');
-    
+    delete from acs_permissions where privilege in (''forum_moderate'');
+
+    -- remove children
+    perform acs_privilege__remove_child(''admin'',''forum_moderate'');
+    perform acs_privilege__remove_child(''forum_moderate'',''create'');
+    perform acs_privilege__remove_child(''forum_moderate'',''delete'');
+    perform acs_privilege__remove_child(''forum_moderate'',''read'');
+    perform acs_privilege__remove_child(''forum_moderate'',''write'');
+
     perform acs_privilege__drop_privilege(''forum_moderate'');
-    perform acs_privilege__drop_privilege(''forum_post'');
-    perform acs_privilege__drop_privilege(''forum_read'');
-    perform acs_privilege__drop_privilege(''forum_create'');
-    perform acs_privilege__drop_privilege(''forum_write'');
-    perform acs_privilege__drop_privilege(''forum_delete'');
 
     return null;
 end;' language 'plpgsql';

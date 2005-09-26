@@ -18,8 +18,7 @@
         <querytext>
 	    select message_id, substr(tree_sortkey, 7, length(tree_sortkey)) as child_tree_sortkey 
 	    from forums_messages 
-	    where forum_id = $message(forum_id) 
-	    and tree_sortkey between tree.left('$message(tree_sortkey)') and tree.right ('$message(tree_sortkey)') 
+	    where forum_id = $message(forum_id) and tree_sortkey between tree.left('$message(tree_sortkey)') and tree.right ('$message(tree_sortkey)') 
 	    order by tree_sortkey desc
         </querytext>
     </fullquery>
@@ -41,6 +40,6 @@
             set forum_id = :forum_id, tree_sortkey = '000000'
             where message_id = $message(message_id)
         </querytext>
-    </fullquery>   
+    </fullquery>        
     
 </queryset>

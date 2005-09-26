@@ -54,8 +54,8 @@ if {$confirm_p == 1} {
        db_dml forums::move_thread_thread::update_child_thread_father {} 
        #update the final message: increase reply_count and approved_reply_count
        db_dml forums::move_thread_thread::update_final_reply_count {}          
-    }       
-    
+    }     
+       
     #update the initial message
     set join_tree_sortkey $father_tree_sortkey
     append join_tree_sortkey $father_max_child_sortkey

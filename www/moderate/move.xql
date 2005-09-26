@@ -51,7 +51,6 @@
 </querytext>
 </fullquery>
 
-
 <fullquery name="forums::move_message::update_forum_initial">
 <querytext>
         update forums_forums
@@ -61,6 +60,5 @@
 	where forum_id = $message(forum_id)
 </querytext>
 </fullquery>         
-
 
 </queryset>

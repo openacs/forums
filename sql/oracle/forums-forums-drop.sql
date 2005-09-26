@@ -13,25 +13,16 @@
 declare
 begin
 
-   delete from acs_permissions where privilege in ('forum_moderate','forum_post','forum_read','forum_create','forum_write','forum_delete');
+   delete from acs_permissions where privilege in ('forum_moderate');
 
    -- remove children
-   acs_privilege.remove_child('read','forum_read');
-   acs_privilege.remove_child('create','forum_create');
-   acs_privilege.remove_child('write','forum_write');
-   acs_privilege.remove_child('delete','forum_delete');
    acs_privilege.remove_child('admin','forum_moderate');
-   acs_privilege.remove_child('forum_moderate','forum_read');
-   acs_privilege.remove_child('forum_moderate','forum_post');
-   acs_privilege.remove_child('forum_write','forum_read');
-   acs_privilege.remove_child('forum_write','forum_post');
+   acs_privilege.remove_child('forum_moderate','create');
+   acs_privilege.remove_child('forum_moderate','delete');
+   acs_privilege.remove_child('forum_moderate','read');
+   acs_privilege.remove_child('forum_moderate','write');
    
    acs_privilege.drop_privilege('forum_moderate');
-   acs_privilege.drop_privilege('forum_post');
-   acs_privilege.drop_privilege('forum_read');
-   acs_privilege.drop_privilege('forum_create');
-   acs_privilege.drop_privilege('forum_write');
-   acs_privilege.drop_privilege('forum_delete');
 end;
 /
 show errors

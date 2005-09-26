@@ -84,16 +84,16 @@ ad_proc -public forum::posting_policy_set {
 } { 
     # JCD: this is potentially bad since we are 
     # just assuming registered_users is the 
-    # right group to be granting forum_write to.
+    # right group to be granting write to.
 
     if {![string equal closed $posting_policy]} { 
         permission::grant -object_id $forum_id \
             -party_id [acs_magic_object registered_users] \
-            -privilege forum_write 
+            -privilege write 
     } else { 
         permission::revoke -object_id $forum_id \
             -party_id [acs_magic_object registered_users] \
-            -privilege forum_write 
+            -privilege write 
     }
 
 } 
@@ -108,7 +108,7 @@ ad_proc -public forum::new_questions_allow {
     # Give the public the right to ask new questions
     permission::grant -object_id $forum_id \
             -party_id $party_id \
-            -privilege forum_create
+            -privilege create
     util_memoize_flush_regexp  $forum_id
 }
 
@@ -122,7 +122,7 @@ ad_proc -public forum::new_questions_deny {
     # Revoke the right from the public to ask new questions
     permission::revoke -object_id $forum_id \
             -party_id $party_id \
-            -privilege forum_create
+            -privilege create
     util_memoize_flush_regexp  $forum_id
 }
 
@@ -135,7 +135,7 @@ ad_proc -public forum::new_questions_allowed_p {
     }
     permission::permission_p -object_id $forum_id \
             -party_id $party_id \
-            -privilege forum_create
+            -privilege create
 }
 
 ad_proc -public forum::enable {

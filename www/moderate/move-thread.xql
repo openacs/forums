@@ -12,7 +12,7 @@
 
 <fullquery name="forums::move_thread::get_father_tree_sortkey">
 <querytext>
-        select tree_sortkey as father_tree_sortkey, max_child_sortkey as father_max_child_sortkey 
+        select tree_sortkey as father_tree_sortkey, max_child_sortkey as father_max_child_sortkey
         from forums_messages 
         where message_id= :message_id
 </querytext>

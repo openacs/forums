@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="forums" package_version="1.1.2d1" locale="es_ES" charset="ISO-8859-1">
+<message_catalog package_key="forums" package_version="1.1.2d3" locale="es_ES" charset="ISO-8859-1">
 
   <msg key="Administer">Administrar</msg>
   <msg key="Administration">Administración</msg>
@@ -41,6 +41,7 @@
   <msg key="enable">habilitar</msg>
   <msg key="enable_it">habilitar</msg>
   <msg key="enabled">habilitado</msg>
+  <msg key="Enter_a_list_of_email">Ingrese una lista de correos electrónicos, si desea agregue nombres y apellidos. Ellos serán suscritos automáticamente a este foro. Por ejemplo:</msg>
   <msg key="Entire_Thread">Hilo completo</msg>
   <msg key="First_Post">Primer Mensaje</msg>
   <msg key="Flat">Sin hilos</msg>
@@ -59,6 +60,7 @@
   <msg key="forward">Reenviar</msg>
   <msg key="Fwd">Re-enviar:</msg>
   <msg key="html">html</msg>
+  <msg key="If_checked_create_users">Si se selecciona, se crearán usuarios que no existen. </msg>
   <msg key="Last_Post">Último Mensaje</msg>
   <msg key="Last_post_in_subject">Últimos mensajes del hilo</msg>
   <msg key="List_of_users_that_wrote_in_the_forum">Usuarios que escribieron en el foro: </msg>
@@ -143,6 +145,8 @@
   <msg key="Statistics">Estadísticas</msg>
   <msg key="Subject">Título</msg>
   <msg key="Subscribe">¿Suscribir?</msg>
+  <msg key="Subscribe_others">Suscribir a otros</msg>
+  <msg key="Subscriptions_to_forum">Número de suscripciones para este foro:</msg>
   <msg key="Summary">Resumen de mensajes enviados</msg>
   <msg key="Summary_Posting_history_for">Resumen de mensajes enviados</msg>
   <msg key="text">texto</msg>
