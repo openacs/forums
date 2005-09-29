@@ -84,8 +84,10 @@ ad_proc -public forum::message::do_notifications {
 
     set message_text [ad_html_text_convert -from $message(format) -to text/plain -- $message(content)]
     set message_html [ad_html_text_convert -from $message(format) -to text/html -- $message(content)]
+    set header_message [parameter::get -parameter "HeaderNotificationMessage" -default ""]
 
     set html_version ""
+    append html_version "$header_message <br>\n"
     append html_version "Forum:  <a href=\"${url}forum-view?forum_id=$message(forum_id)\">$message(forum_name)</a><br>\n"
     append html_version "Thread: <a href=\"${url}message-view?message_id=$message(root_message_id)\">$message(root_subject)</a><br>\n"
     append html_version "Author: $message(user_name)<br>\n"
@@ -109,6 +111,7 @@ chment 1]</a></li>"
     set html_version $html_version
 
     set text_version ""
+    append text_version "$header_message"
     append text_version "
 Forum: $message(forum_name)
 Thread: $message(root_message_id)

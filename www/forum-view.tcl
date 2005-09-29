@@ -12,6 +12,9 @@ ad_page_contract {
     page:optional
 }
 
+# Get the parameter to display house rules
+set display_charter_p [parameter::get -parameter "DisplayCharterP" -default 1]
+set charter_url [export_vars -base "charter" -url {forum_id}]
 # Get forum data
 forum::get -forum_id $forum_id -array forum
 

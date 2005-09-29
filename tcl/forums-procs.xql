@@ -17,7 +17,8 @@
             select forum_id,
                    name,
                    posting_policy,
-                   presentation_type
+                   presentation_type,
+		   charter
             from forums_forums
             where package_id = :package_id
             order by name
