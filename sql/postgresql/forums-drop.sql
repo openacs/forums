@@ -8,6 +8,9 @@
 -- lifted from Gilbert's UBB forums. Thanks Orchard Labs.
 --
 
+-- Search
+\i forums-sc-drop.sql
+
 -- notifications
 \i forums-notifications-sanitize.sql
 
@@ -21,6 +24,3 @@
 -- The basic forum constructs
 \i forums-forums-package-drop.sql
 \i forums-forums-drop.sql
-
--- Search
-\i forums-sc-drop.sql
