@@ -35,34 +35,40 @@
  
 <fullquery name="callback::datamanager::move_forum::impl::datamanager.update_forums">
 <querytext>
-        update forums_forums
-	set package_id = (select package_id 
-	from dotlrn_community_applets
-	where community_id = :selected_community and applet_id = (
-	    select applet_id from dotlrn_applets where applet_key = 'dotlrn_forums'
-	))
-	where forum_id = :object_id
-
+    update forums_forums
+	set package_id = :new_package_id 
+    where forum_id = :object_id
 </querytext>
 </fullquery>
+
+<fullquery name="callback::datamanager::delete_forum::impl::datamanager.del_update_forums">
+<querytext>
+    update forums_forums
+	set package_id = :trash_package_id
+    where forum_id = :object_id
+</querytext>
+</fullquery>
+
+
 
 <fullquery name="callback::datamanager::move_forum::impl::datamanager.update_forums_acs_objects">
 <querytext>
-update acs_objects
-    set package_id = (select package_id from dotlrn_community_applets where community_id = :selected_community and applet_id = (select applet_id from dotlrn_applets where applet_key = 'dotlrn_forums')),context_id = (select package_id from dotlrn_community_applets where community_id = :selected_community and applet_id = (select applet_id from dotlrn_applets where applet_key = 'dotlrn_forums'))
+    update acs_objects
+    set package_id = :new_package_id,
+        context_id = :new_package_id
     where object_id = :object_id
-
 </querytext>
 </fullquery>
 
-<fullquery name="callback::datamanager::copy_forum::impl::datamanager.get_forum_package_id">
+
+<fullquery name="callback::datamanager::delete_forum::impl::datamanager.del_update_forums_acs_objects">
 <querytext>
-    SELECT b.object_id as package_id 
-    FROM acs_objects as a,acs_objects as b  
-    WHERE a.context_id=:selected_community and a.object_type='apm_package' and a.object_id=b.context_id and b.title='Forums';
+update acs_objects
+set package_id = :trash_package_id,
+    context_id = :trash_package_id
+where object_id = :object_id
 </querytext>
 </fullquery>
-
 
 <fullquery name="callback::datamanager::copy_forum::impl::datamanager.get_forum_data">
 <querytext>

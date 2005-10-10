@@ -150,3 +150,15 @@ ad_proc -public forum::disable {
 } {
     db_dml update_forum_disabled_p {}
 }
+
+ad_proc forum::get_forum_package {
+    {-community_id}
+} {
+    if {[info exist community_id] == 0} {
+        set community_id [dotlrn_community::get_community_id]        
+    }
+
+    db_1row get_forum_package_id {}
+
+    return $package_id    
+}

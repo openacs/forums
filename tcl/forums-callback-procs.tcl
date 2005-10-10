@@ -96,8 +96,11 @@ ad_proc -public -callback datamanager::move_forum -impl datamanager {
      -object_id:required
      -selected_community:required
 } {
-    Move a faq to another class or community
+    Move a forum to another class or community
 } {
+
+#get the new_package_id
+set new_package_id [forum::get_forum_package -community_id $selected_community]   
 
 #update forums_forums table
 db_dml update_forums {}
@@ -106,15 +109,32 @@ db_dml update_forums_acs_objects {}
 }
 
 
+ad_proc -public -callback datamanager::delete_forum -impl datamanager {
+     -object_id:required
+} {
+    Move a forum to the trash
+} {
+
+#get trash_id
+set trash_package_id [datamanager::get_trash_package_id]    
+
+
+#update forums_forums table
+db_dml del_update_forums {}
+#update acs_objects table (because data redundancy)
+db_dml del_update_forums_acs_objects {}
+}
+
+
 ad_proc -public -callback datamanager::copy_forum -impl datamanager {
      -object_id:required
      -selected_community:required
 } {
-    Move a faq to another class or community
+    Copy a forum to another class or community
 } {
 #get forum's data
     set forum_id [db_nextval acs_object_id_seq]   
-    db_1row get_forum_package_id {}
+    set package_id [forum::get_forum_package -community_id $selected_community]
     db_1row get_forum_data {}
     
 #create the new forums
