@@ -129,6 +129,7 @@ db_dml del_update_forums_acs_objects {}
 ad_proc -public -callback datamanager::copy_forum -impl datamanager {
      -object_id:required
      -selected_community:required
+     {-mode: "empty"}
 } {
     Copy a forum to another class or community
 } {
@@ -147,8 +148,24 @@ ad_proc -public -callback datamanager::copy_forum -impl datamanager {
     ]
 
 #copy the messages??
-   set first_messages 1
-   set all_messages 1   
+    switch $mode {
+        empty {
+           set first_messages 0
+           set all_messages 0
+        }
+        threads {
+           set first_messages 1
+           set all_messages 0
+        }
+        all {
+           set first_messages 1
+           set all_messages 1
+        }
+        default {
+           set first_messages 0
+           set all_messages 0
+        }
+    }
 
    if { $first_messages == 1 } {
 #copy the first message of the threads
