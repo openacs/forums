@@ -218,3 +218,71 @@ ad_proc -public -callback datamanager::copy_forum -impl datamanager {
        }
    }
 }
+
+#Callbacks for application-track 
+
+ad_proc -callback application-track::getApplicationName -impl forums {} { 
+        callback implementation 
+    } {
+        return "forums"
+    }    
+    
+ad_proc -callback application-track::getGeneralInfo -impl forums {} { 
+        callback implementation 
+    } {
+	db_1row my_query {
+    		select count(f.forum_id) as result
+		FROM forums_forums f, dotlrn_communities_full com
+		WHERE com.community_id=:comm_id
+		and apm_package__parent_id(f.package_id) = com.package_id	
+	}
+	
+	return "$result"
+    }
+    
+ad_proc -callback application-track::getSpecificInfo -impl forums {} { 
+        callback implementation 
+    } {
+   	
+	upvar $query_name my_query
+	upvar $elements_name my_elements
+
+	set my_query {
+		SELECT 	f.name as name,f.thread_count as threads,
+			f.last_post, 
+		       	to_char(o.creation_date, 'YYYY-MM-DD HH24:MI:SS') as creation_date
+		FROM forums_forums f,dotlrn_communities_full com,acs_objects o
+		WHERE com.community_id=:class_instance_id
+		and f.forum_id = o.object_id
+		and apm_package__parent_id(f.package_id) = com.package_id
+ }
+		
+	set my_elements {
+    		name {
+	            label "Name"
+	            display_col name	                        
+	 	    html {align center}	 	    
+	 	                
+	        }
+	        threads {
+	            label "Threads"
+	            display_col threads 	      	              
+	 	    html {align center}	 	               
+	        }
+	        creation_date {
+	            label "creation_date"
+	            display_col creation_date 	      	               
+	 	    html {align center}	 	              
+	        }
+	        last_post  {
+	            label "last_post"
+	            display_col last_post 	      	               
+	 	    html {align center}	 	              
+	        }	        
+	        
+	        
+	}
+
+        return "OK"
+    }          
+    
