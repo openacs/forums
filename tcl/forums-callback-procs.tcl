@@ -217,6 +217,7 @@ ad_proc -public -callback datamanager::copy_forum -impl datamanager {
            }
        }
    }
+   return $forum_id 
 }
 
 #Callbacks for application-track 
