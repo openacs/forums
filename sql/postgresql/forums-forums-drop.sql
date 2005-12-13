@@ -31,6 +31,7 @@ end;' language 'plpgsql';
 select inline_0();
 drop function inline_0 ();
 
+DROP INDEX forums_forums_pkg_enable_idx;
 drop view forums_forums_enabled;
 drop table forums_forums;
 
