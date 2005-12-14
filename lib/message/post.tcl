@@ -130,6 +130,7 @@ if {[form is_request message]} {
     if { [string equal $action "post"] } {
         set content [template::util::richtext::get_property content $message_body]
         set format [template::util::richtext::get_property format $message_body]
+
         forum::message::new \
           -forum_id $forum_id \
           -message_id $message_id \

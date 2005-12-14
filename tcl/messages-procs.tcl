@@ -41,6 +41,7 @@ ad_proc -public forum::message::new {
             [list format $format] \
             [list user_id $user_id]]
 
+
         set message_id [package_instantiate_object -var_list $var_list forums_message]
 
         get -message_id $message_id -array message
