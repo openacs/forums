@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <message_catalog package_key="forums" package_version="1.2.0d2" locale="de_DE" charset="ISO-8859-1">
 
-  <msg key="Admin_for_all">Verwaltungsoptionen für alle Foren.</msg>
   <msg key="Administer">Forum verwalten</msg>
   <msg key="Administration">Diskussionsforen verwalten</msg>
   <msg key="Anonymous">Anonym</msg>
   <msg key="approve">Freigeben</msg>
   <msg key="Are_you_sure_you_want_to_delete_lt">Wollen Sie diesen Beitrag und &lt;strong&gt;alle zugehörigen Antworten &lt;/strong&gt; wirklich löschen?</msg>
-  <msg key="Are_you_sure_you_want_to_move_this_message_and_obviously_all_of_its_descendents_lt">Sind Sie sicher das Sie diese Nachricht und alle abhängigen Beiträge verschieben wollen?</msg>
-  <msg key="Are_you_sure_you_want_to_move_this_thread_and_obviously_all_of_its_descendents_lt">Sind sie sicher das Sie den #forums.thread# und all abhängigen Beiträge verschieben wollen?</msg>
-  <msg key="Attach">Anhängen?</msg>
+  <msg key="Attach">Datei Anhängen?</msg>
   <msg key="Attachments">Anhänge:</msg>
   <msg key="Author">Verfasser</msg>
   <msg key="Back_to_thread_label">Zurück zu %forum.name%</msg>
@@ -21,7 +18,6 @@
   <msg key="closed">Geschlossen</msg>
   <msg key="Confirm">Bestätigen</msg>
   <msg key="Confirm_Delete">Löschen bestätigen:</msg>
-  <msg key="Confirm_Move_to">Bestätigung Sie das Verschieben nach</msg>
   <msg key="Confirm_Post_to_Forum">Forumsbeitrag bestätigen:</msg>
   <msg key="Create_a_New_Forum">Neues Forum erstellen</msg>
   <msg key="Create_New_Forum">Neues Forum erstellen</msg>
@@ -33,7 +29,6 @@
   <msg key="edit">Bearbeiten</msg>
   <msg key="Edit_again">Erneut bearbeiten</msg>
   <msg key="Edit_forum">Forum bearbeiten</msg>
-  <msg key="Edit_forum_name">Das forum &quot;%name%&quot; editieren.</msg>
   <msg key="Edit_Message">Forumsbeitrag bearbeiten:</msg>
   <msg key="Email">E-Mail-Adresse</msg>
   <msg key="email_alert_body_header">%user_name% schrieb am %posting_date%:</msg>
@@ -54,16 +49,12 @@
   <msg key="Forum_Posting">Forumsbeitrag</msg>
   <msg key="ForumID">Foren-ID</msg>
   <msg key="Forums">Foren</msg>
-  <msg key="Forums_hist_lt">Foren historie</msg>
-  <msg key="Forums_History">Foren Historie</msg>
   <msg key="Forums_Posting_hist_lt">Foren: Verlauf der Beiträge für</msg>
   <msg key="forward">Weiterleiten</msg>
   <msg key="Fwd">Fwd:</msg>
-  <msg key="help_new_threads">Wenn &lt;b&gt;Nein&lt;/B&gt; können die Benutzer nur auf existierende Nachrichten antworten und nicht neue #forums.threads# anlegen.</msg>
   <msg key="html">HTML</msg>
   <msg key="Last_Post">Letzter Beitrag</msg>
   <msg key="Last_post_in_subject">Letzter Beitrag zum Thema</msg>
-  <msg key="List_of_users_that_wrote_in_the_forum">Liste der Benutzer die in diesem Forum geschrieben haben:</msg>
   <msg key="lt_Email_a_copy_of_the_f">Eine Kopie des folgenden Beitrags per E-Mail versenden:</msg>
   <msg key="lt_First_post_in_subject">Erster Beitrag zum Thema</msg>
   <msg key="lt_Forums_Administration">Diskussionsforen verwalten</msg>
@@ -81,15 +72,8 @@
   <msg key="Manage_Forum">Forum verwalten:</msg>
   <msg key="ManageModerate">Verwalten/Moderieren</msg>
   <msg key="Message_ID">Beitrags-ID</msg>
-  <msg key="Message_Subject">Betreff</msg>
   <msg key="Moderate">Moderieren</msg>
   <msg key="moderated">Moderiert</msg>
-  <msg key="Move_message">Beitrag verschieben</msg>
-  <msg key="Move_message_to_forum">Beitrag in folgendes Forum verschieben:</msg>
-  <msg key="Move_message_to_message">Beitrag zu diesem Beitrag verschieben</msg>
-  <msg key="Move_thread">#forums.thread# verschieben</msg>
-  <msg key="Move_thread_to_forum">#forums.thread# in #forums.forum# verschieben</msg>
-  <msg key="Move_thread_to_message">#forum.message# in diese andere #forum.message# verschieben</msg>
   <msg key="Name">Name</msg>
   <msg key="New_Forum">Neues Forum erstellen</msg>
   <msg key="No">Nein</msg>

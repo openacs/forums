@@ -1,5 +1,5 @@
 ad_library {
-    Navigation callbacks.
+    Forum callbacks.
 
     @author Jeff Davis <davis@xarg.net>
     @creation-date 2005-03-11
@@ -39,5 +39,63 @@ ad_proc -public -callback navigation::package_admin -impl forums {} {
                              [_ forums.Permission_forum_name] {} {}]
     }
     return $actions
+}
+
+ad_proc -public -callback forum::forum_new {
+    {-package_id:required}
+    {-forum_id:required}
+} {
+}
+
+ad_proc -public -callback forum::forum_edit {
+    {-package_id:required}
+    {-forum_id:required}
+} {
+}
+
+ad_proc -public -callback forum::forum_delete {
+    {-package_id:required}
+    {-forum_id:required}
+} {
+}
+
+ad_proc -public -callback forum::message_new {
+    {-package_id:required}
+    {-message_id:required}
+} {
+}
+
+ad_proc -public -callback forum::message_edit {
+    {-package_id:required}
+    {-message_id:required}
+} {
+}
+
+ad_proc -public -callback forum::message_delete {
+    {-package_id:required}
+    {-message_id:required}
+} {
+}
+
+ad_proc -public -callback pm::project_new -impl forums {
+    {-package_id:required}
+    {-project_id:required}
+    {-data:required}
+} {
+    create a new forum for each new project
+} {
+    set pm_name [pm::project::name -project_item_id $project_id]
+
+    foreach forum_package_id [application_link::get_linked -from_package_id $package_id -to_package_key "forums"] {
+	set forum_id [forum::new \
+			  -name $pm_name \
+			  -package_id $forum_package_id \
+			  -no_callback]
+
+	# Automatically allow new threads on this forum
+        forum::new_questions_allow -forum_id $forum_id
+
+	application_data_link::new -this_object_id $project_id -target_object_id $forum_id
+    }
 }
 
