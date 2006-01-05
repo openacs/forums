@@ -108,3 +108,6 @@ set dynamic_script "
   </script>
 "
 
+if {$forum(presentation_type) eq "flat"} {
+    set display_mode flat
+}
