@@ -1,0 +1,118 @@
+#forum-thread { 
+        max-width: 95%;
+        text-align: left;
+        margin-bottom: 5px;
+        margin-left: 1em;
+}
+
+#forum-thread .action-list {
+        float: right;
+        text-align: right;
+        margin-top: 8px;
+        margin-right: 8px;
+}
+
+#forum-thread .details {
+        margin-top: 3px;
+}
+
+#forum-thread .content {
+        text-align: left;
+        padding: 0.5em;
+        margin-bottom: 1em;
+}
+
+#forum-thread .dynexpanded {
+        padding-top: 3px;
+        padding-bottom: 3px;
+        border: 0px;
+}
+
+#forum-thread .dyncollapsed {
+        padding: 0px;
+}
+
+#forum-thread .subject {
+        text-align: left;
+        background: #f0f0f0;
+        padding: 0.5em;
+}
+
+#forum-thread .subject a.title { 
+#        color: blue;
+#        font-weight: bold;
+        text-decoration:none;
+}
+
+#forum-thread .subject .viewed0 {
+}
+
+#forum-thread .subject .viewed1 {
+        font-weight: normal;
+}
+
+#forum-thread .subject .response { 
+        color: black;
+}
+#forum-thread .subject .reference { 
+        color: green;
+}
+
+#forum-thread .attribution {
+  padding-top: 0.5em;
+  color: #aaaaaa;
+}
+
+#forum-thread .attribution a {
+        font-weight: normal;
+}
+
+#forum-thread .odd {
+        background: #d9e4f9;
+}
+
+#forum-thread .even {
+        background: #eeeeee;
+}
+
+#forum-thread .level0 {
+        margin-left: 0em;
+}
+#forum-thread .level1 {
+        margin-left: 1em;
+}
+#forum-thread .level2 {
+        margin-left: 2em;
+}
+#forum-thread .level3 {
+        margin-left: 3em;
+}
+#forum-thread .level4 {
+        margin-left: 4em;
+}
+#forum-thread .level5 {
+        margin-left: 5em;
+}
+#forum-thread .level6 {
+        margin-left: 6em;
+}
+#forum-thread .level7 {
+        margin-left: 7em;
+}
+#forum-thread .level8 {
+        margin-left: 8em;
+}
+#forum-thread .level9 {
+        margin-left: 9em;
+}
+#forum-thread .level10 {
+        margin-left: 10em;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
