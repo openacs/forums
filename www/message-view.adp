@@ -11,7 +11,6 @@
     <link rel="alternate stylesheet" type="text/css" media="all" title="collapse" href="/resources/forums/collapse.css" />
     <link rel="alternate stylesheet" type="text/css" media="all" title="expand" href="/resources/forums/expand.css" />
     <link rel="alternate stylesheet" type="text/css" media="all" title="print" href="/resources/forums/print.css" />
-    <script type="text/javascript" src="/resources/forums/cop.js"></script>
     <script type="text/javascript" src="/resources/forums/forums.js"></script>
     @dynamic_script;noquote@
   </property>
