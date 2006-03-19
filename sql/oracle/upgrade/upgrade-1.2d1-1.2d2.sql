@@ -174,8 +174,8 @@ as
             update forums_messages
             set approved_reply_count = approved_reply_count + 1,
               reply_count = reply_count + 1,
-              last_poster = user_id,
-              last_child_post = sysdate
+              last_poster = forums_message.new.user_id,
+              last_child_post = forums_message.new.posting_date
             where forum_id = forums_message.new.forum_id
               and tree_sortkey = tree.ancestor_key(v_sortkey, 1);
           else
