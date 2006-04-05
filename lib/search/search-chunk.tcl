@@ -29,7 +29,7 @@ if {$searchbox_p} {
         }
 
         db_multirow messages $query {} {
-            set posting_date_pretty [lc_time_fmt $posting_date_ansi "%x %X"]
+            set posting_date [lc_time_fmt $posting_date_ansi "%x %X"]
         }
 
     } else {

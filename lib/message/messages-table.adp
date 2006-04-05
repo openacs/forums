@@ -16,10 +16,10 @@
     <tr bgcolor="@table_other_bgcolor@">
   </else>
 
-      <td>
+      <td align="left">
         <a href="message-view?message_id=@messages.message_id@">@messages.subject@</a>
       </td>
-      <td><a href="user-history?user_id=@messages.user_id@">@messages.user_name@</a></td>
+      <td align="left"><a href="user-history?user_id=@messages.user_id@">@messages.user_name@</a></td>
       <td align="center">@messages.posting_date@</td>
     </tr>
 
