@@ -148,7 +148,7 @@ aa_register_case -cats {db smoke} forum_count_test {
 }
 
 
-aa_register_case -cats {web smoke} web_forum_new {
+aa_register_case -cats {web smoke} -libraries tclwebtest web_forum_new {
        Testing the creation of a forum via web
 } {
 
@@ -170,7 +170,7 @@ aa_register_case -cats {web smoke} web_forum_new {
 
 }
 
-aa_register_case -cats {web smoke} web_forum_edit {
+aa_register_case -cats {web smoke} -libraries tclwebtest web_forum_edit {
         Testing the edition of an existing forum
 } {
 
@@ -194,7 +194,7 @@ aa_register_case -cats {web smoke} web_forum_edit {
     }
 }
 
-aa_register_case -cats {web smoke} web_message_new {
+aa_register_case -cats {web smoke} -libraries tclwebtest web_message_new {
        Posting a new message to an existing forum
 } {
     
@@ -220,7 +220,7 @@ aa_register_case -cats {web smoke} web_message_new {
     }
 }
 
-aa_register_case -cats {web smoke} web_message_edit {
+aa_register_case -cats {web smoke} -libraries tclwebtest web_message_edit {
  Editing a message of a forum
 } {
 
@@ -248,7 +248,7 @@ aa_register_case -cats {web smoke} web_message_edit {
     } 
 }
 
-aa_register_case -cats {web smoke} web_message_reply { 
+aa_register_case -cats {web smoke} -libraries tclwebtest web_message_reply { 
     Post a reply a message in the forum
 } { 
     aa_run_with_teardown -test_code {
@@ -275,7 +275,7 @@ aa_register_case -cats {web smoke} web_message_reply {
     } 
 } 
 
-aa_register_case -cats {web smoke} web_message_delete {  
+aa_register_case -cats {web smoke} -libraries tclwebtest web_message_delete {  
     Delete a message in the forum 
 } {                                                                          
     aa_run_with_teardown -test_code {
