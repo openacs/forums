@@ -156,6 +156,7 @@ ad_proc -public forums::form::forum {
       -datatype richtext \
       -widget richtext \
       -html {cols 60 rows 10 wrap soft} \
+      -validate { {expr [string length $value] <= 4000 } {#forums.charter_max_chars#} } \
       -optional
 
     template::element create $form_name ${prefix}presentation_type \

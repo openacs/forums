@@ -40,7 +40,7 @@ create table forums_forums (
     name                            varchar(200)
                                     constraint forums_name_nn
                                     not null,
-    charter                         varchar(2000),
+    charter                         varchar(4000),
     presentation_type               varchar(100) 
                                     constraint forums_presentation_type_nn
                                     not null
