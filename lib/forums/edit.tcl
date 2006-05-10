@@ -24,7 +24,7 @@ if {[form is_valid forum]} {
 
     forum::edit -forum_id $forum_id \
             -name $name \
-            -charter $charter \
+            -charter [template::util::richtext::get_property contents $charter] \
             -presentation_type $presentation_type \
             -posting_policy $posting_policy
     
@@ -46,7 +46,7 @@ if { [form is_request forum] } {
     element set_properties forum return_url -value $return_url
     element set_properties forum forum_id -value $forum(forum_id)
     element set_properties forum name -value $forum(name)
-    element set_properties forum charter -value $forum(charter)
+    element set_properties forum charter -value [template::util::richtext create $forum(charter) "text/html"]
     element set_properties forum presentation_type -value $forum(presentation_type)
     element set_properties forum posting_policy -value $forum(posting_policy)
     element set_properties forum new_threads_p -value [forum::new_questions_allowed_p -forum_id $forum(forum_id)]

@@ -30,7 +30,7 @@ if {[form is_valid forum]} {
 
     set forum_id [forum::new -forum_id $forum_id \
         -name $name \
-        -charter $charter \
+        -charter [template::util::richtext::get_property contents $charter] \
         -presentation_type $presentation_type \
         -posting_policy $posting_policy \
         -package_id $package_id \
