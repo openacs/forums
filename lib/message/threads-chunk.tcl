@@ -19,28 +19,36 @@ if { $moderate_p } {
 
 set actions [list]
 
+if {![exists_and_not_null page_size]} {
+    set page_size 30
+}
+
+if {![exists_and_not_null base_url]} {
+    set base_url ""
+}
+
 # new postings are allowed if
 
 # 1. Users can create new threads AND the posting policy is open or moderated
 # 2. User is a moderator or adminsitrator
 
 if {([forum::new_questions_allowed_p -forum_id $forum_id] && ($forum(posting_policy) == "open" || $forum(posting_policy) == "moderated")) ||  [template::util::is_true $permissions(admin_p)] ||  [template::util::is_true $permissions(moderate_p)]  } {
-    lappend actions [_ forums.Post_a_New_Message] [export_vars -base "message-post" { forum_id }] {}
+    lappend actions [_ forums.Post_a_New_Message] [export_vars -base "${base_url}message-post" { forum_id }] {}
 }
 
 if { [template::util::is_true $permissions(admin_p)] } {
     lappend actions [_ forums.Administer] [export_vars -base "admin/forum-edit" { forum_id {return_url [ad_return_url]}}] {}
-    lappend actions [_ forums.Subscribe_others] [export_vars -base "admin/subscribe-others" { forum_id {return_url [ad_return_url]}}] {}
+    lappend actions [_ forums.Subscribe_others] [export_vars -base "${base_url}admin/subscribe-others" { forum_id {return_url [ad_return_url]}}] {}
 }
 
 if { [template::util::is_true $permissions(moderate_p)] } {
-    lappend actions [_ forums.ManageModerate] [export_vars -base "moderate/forum" { forum_id }] {}
+    lappend actions [_ forums.ManageModerate] [export_vars -base "${base_url}moderate/forum" { forum_id }] {}
 }
 
 template::list::create \
     -name messages \
     -multirow messages \
-    -page_size 30 \
+    -page_size $page_size \
     -page_query_name messages_select_paginate \
     -pass_properties { moderate_p } \
     -actions $actions \
@@ -117,8 +125,8 @@ db_multirow -extend {
     set posting_date_ansi [lc_time_system_to_conn $posting_date_ansi]
     set posting_date_pretty [lc_time_fmt $posting_date_ansi "%x %X"]
 
-    set message_url [export_vars -base "message-view" { message_id }]
-    set user_url [export_vars -base "user-history" { user_id }]
+    set message_url [export_vars -base "${base_url}message-view" { message_id }]
+    set user_url [export_vars -base "${base_url}user-history" { user_id }]
     set n_messages_pretty [lc_numeric $n_messages]
 
     switch $state {
