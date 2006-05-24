@@ -143,11 +143,14 @@ if {[form is_request message]} {
       # rewritten to paginate internally rather than use the template paginator.
       cache flush "messages,forum_id=$forum_id*"
 
-      if {[empty_string_p $parent_id]} {
-          set redirect_url "[ad_conn package_url]message-view?message_id=$message_id"
-      } else {
-          set redirect_url "[ad_conn package_url]message-view?message_id=$parent_id"
-      }
+	if {[empty_string_p $parent_id]} {
+	    set redirect_message_id $message_id
+	} else {
+	    forum::message::get -message_id $parent_id -array message
+	    set redirect_message_id $message(root_message_id)
+	}
+
+	set redirect_url "[ad_conn package_url]message-view?message_id=[set redirect_message_id]\#$message_id"
 
       # Wrap the notifications URL
       if {![empty_string_p $subscribe_p] && $subscribe_p && [empty_string_p $parent_id]} {
