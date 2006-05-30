@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="forums" package_version="1.0.5" locale="nn_NO" charset="ISO-8859-1">
+<message_catalog package_key="forums" package_version="1.3d1" locale="nn_NO" charset="ISO-8859-1">
 
   <msg key="Administer">Administrer</msg>
   <msg key="Administration">Administrasjon</msg>
@@ -14,7 +14,7 @@
   <msg key="Body">Innhald</msg>
   <msg key="by_Date">etter dato</msg>
   <msg key="by_Forum">etter forum</msg>
-  <msg key="Charter">Avtale</msg>
+  <msg key="Charter">Omtale</msg>
   <msg key="closed">stengt</msg>
   <msg key="Confirm">Bekreft?</msg>
   <msg key="Confirm_Delete">Bekreft sletting:</msg>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="forums" package_version="1.0.5" locale="nl_NL" charset="ISO-8859-1">
+<message_catalog package_key="forums" package_version="1.3d1" locale="nl_NL" charset="ISO-8859-1">
 
   <msg key="Administer">Beheren</msg>
   <msg key="Administration">Beheren</msg>
@@ -49,7 +49,7 @@
   <msg key="Forum_Posting">Forumbericht</msg>
   <msg key="ForumID">Forum ID</msg>
   <msg key="Forums">Forums</msg>
-  <msg key="Forums_Posting_hist_lt">Forums: Berichten overzicht voor:</msg>
+  <msg key="Forums_Posting_hist_lt">Forums: Berichtenoverzicht voor:</msg>
   <msg key="forward">Doorsturen</msg>
   <msg key="Fwd">Doorgestuurd:</msg>
   <msg key="html">html</msg>

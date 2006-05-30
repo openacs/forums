@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="forums" package_version="1.0.5" locale="pt_BR" charset="ISO-8859-1">
+<message_catalog package_key="forums" package_version="1.3d1" locale="pt_BR" charset="ISO-8859-1">
 
   <msg key="Administer">Administrar</msg>
   <msg key="Administration">Administração</msg>
@@ -17,7 +17,7 @@
   <msg key="Charter">Descrição</msg>
   <msg key="closed">fechado</msg>
   <msg key="Confirm">Confirma?</msg>
-  <msg key="Confirm_Delete">Confirmar Apagamento:</msg>
+  <msg key="Confirm_Delete">Confirmar Exclusão:</msg>
   <msg key="Confirm_Post_to_Forum">Confirmar Envio de Mensagem ao Fórum:</msg>
   <msg key="Create_a_New_Forum">Criar um Novo Fórum</msg>
   <msg key="Create_New_Forum">Criar Novo Fórum</msg>
@@ -105,7 +105,7 @@
   <msg key="reject">rejeitar</msg>
   <msg key="Rejected">Rejeitado</msg>
   <msg key="Replies">Respostas</msg>
-  <msg key="reply">reponder</msg>
+  <msg key="reply">Responder</msg>
   <msg key="Reply_to_first_post_in_thread">Responder à primeira postagem do assunto</msg>
   <msg key="Reply_to_first_post_on_page_label">Responder à primeira postagem nesta página</msg>
   <msg key="Search">Busca:</msg>
