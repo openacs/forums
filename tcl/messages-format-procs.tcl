@@ -4,6 +4,19 @@ ad_library {
 
 namespace eval forum::format {
 
+    ad_proc -public reply_subject { parent_subject } {
+    
+        Generates a subject string for a reply to an existing message.
+
+    } {
+        set subject "[_ forums.Re] $parent_subject"
+        
+        # trim multiple leading Re:
+        regsub "^(\s*Re:\s*)*" $subject {Re: } subject
+
+        return $subject
+    }
+
     ad_proc emoticons {
         {-content:required}
     } {
@@ -17,6 +30,9 @@ namespace eval forum::format {
         the img tag that gets constructed here.
     } {
         set emoticons_map [list]
+
+        # if you change this list, consider changing
+        # www/doc/emoticons.adp as well
         foreach { emoticon image } {
             ":-)" "smile" 
             ";-)" "wink"
@@ -28,8 +44,9 @@ namespace eval forum::format {
             ":-/" "think"
         } {
             lappend emoticons_map $emoticon
-            lappend emoticons_map "<img style=\"vertical-align:text-bottom\" src=\"graphics/${image}.gif\" alt=\"$emoticon\" width=\"19\" height=\"19\">"
+            lappend emoticons_map "<img style=\"vertical-align:text-bottom\" src=\"/resources/forums/${image}.gif\" alt=\"$emoticon\" width=\"19\" height=\"19\">"
         }
         return [string map $emoticons_map $content]
     }
+
 }

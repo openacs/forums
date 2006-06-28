@@ -1,21 +1,20 @@
-<master src="master">
-<property name="title">Forum: @forum.name@</property>
-<property name="context_bar">@context_bar@</property>
+<master>
+  <property name="title">@page_title;noquote@</property>
+  <property name="context">@context;noquote@</property>
+  <property name="displayed_object_id">@forum_id;noquote@</property>
 
-<if @admin_p@ eq 1>
-[<a href="admin/forum-edit?forum_id=@forum_id@">Administer this Forum</a>] &nbsp;
+<if @searchbox_p@ true>
+<div style="float: right;">
+  <formtemplate id="search">
+    <formwidget id="forum_id">
+      #forums.Search_colon#&nbsp;
+    <formwidget id="search_text">
+  </formtemplate>
+</div>
 </if>
-<if @moderate_p@ eq 1>
-[<a href="moderate/forum?forum_id=@forum_id@">Manage/Moderate this Forum</a>]
-</if>
+
+<include src="/packages/forums/lib/message/threads-chunk" forum_id="@forum_id@" &="permissions" moderate_p="@permissions.moderate_p@" orderby="@orderby@" &="page" admin_p="@permissions.admin_p@">
 
 <p>
-@notification_chunk@
+@notification_chunk;noquote@
 </p>
-
-<ul>
-<if @post_p@ eq 1><li> <a href="message-post?forum_id=@forum_id@">Post a New Message</a><p></if>
-<multiple name="messages">
-<li> <if @moderate_p@ eq 1 and @messages.state@ ne approved><b><i>(@messages.state@)</i></b> &nbsp;</if> <a href="message-view?message_id=@messages.message_id@">@messages.subject@</a>, by <a href="user-history?user_id=@messages.user_id@">@messages.user_name@</a> on <%= [util_AnsiDatetoPrettyDate $messages(posting_date)] %>
-</multiple>
-</ul>

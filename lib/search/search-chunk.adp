@@ -1,3 +1,4 @@
+<if @searchbox_p@ true>
   <table cellpadding="5" width="95%">
     <tr>
       <td align="right">
@@ -11,3 +12,4 @@
   <br>
 
   <include src="../message/messages-table" &messages="messages">
+</if>

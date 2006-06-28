@@ -67,8 +67,9 @@ if {[form is_request message]} {
     set init_msg(attach_p) 0
 
     form set_values message init_msg
-
+    
 } elseif {[form is_valid message]} {
+
     ##############################
     # Form processing
     #
@@ -77,12 +78,14 @@ if {[form is_request message]} {
         forum_id \
         parent_id \
         subject \
-        content \
-        html_p \
+        message_body \
         confirm_p \
         subscribe_p \
-        anonymous_p 
-    
+        anonymous_p \
+        attach_p
+
+    if { [empty_string_p $anonymous_p] } { set anonymous_p 0 }
+
     set action [template::form::get_button message]
     set displayed_user_id [ad_decode \
         [expr {$anonymous_allowed_p && $anonymous_p}] \
@@ -90,13 +93,16 @@ if {[form is_request message]} {
             0]
 
     if { [string equal $action "preview"] } {
+
         set confirm_p 1
         set subject.spellcheck ":nospell:"
         set content.spellcheck ":nospell:"
-        set content [string trimright $content]
-        set exported_vars [export_form_vars message_id forum_id parent_id subject content html_p confirm_p subject.spellcheck content.spellcheck anonymous_p attach_p]
+        set content [template::util::richtext::get_property content $message_body]
+        set format [template::util::richtext::get_property format $message_body]
+	
+        set exported_vars [export_vars -form {message_id forum_id parent_id subject {message_body $content} {message_body.format $format} confirm_p subject.spellcheck content.spellcheck anonymous_p attach_p}]
         
-        set message(html_p) $html_p
+        set message(format) $format
         set message(subject) $subject
         set message(content) $content
         set message(user_id) $displayed_user_id
@@ -117,19 +123,25 @@ if {[form is_request message]} {
             }
         }
 
-        ad_return_template "/message/post-confirm"
+        ad_return_template "/packages/forums/lib/message/post-confirm"
         return
     }
 
     if { [string equal $action "post"] } {
-      forum::message::new \
+        set content [template::util::richtext::get_property content $message_body]
+        set format [template::util::richtext::get_property format $message_body]
+        forum::message::new \
           -forum_id $forum_id \
           -message_id $message_id \
           -parent_id $parent_id \
           -subject $subject \
           -content $content \
-          -html_p $html_p \
+	  -format $format \
           -user_id $displayed_user_id
+
+      # DRB: Black magic cache flush call which will disappear when list builder is
+      # rewritten to paginate internally rather than use the template paginator.
+      cache flush "messages,forum_id=$forum_id*"
 
       if {[empty_string_p $parent_id]} {
           set redirect_url "[ad_conn package_url]message-view?message_id=$message_id"
@@ -151,8 +163,6 @@ if {[form is_request message]} {
 
       # Wrap the attachments URL
       if {$attachments_enabled_p} {
-          form get_values message attach_p
-
           if { ![empty_string_p $attach_p] && $attach_p} {
               set redirect_url [attachments::add_attachment_url -object_id $message_id -return_url $redirect_url -pretty_name "[_ forums.Forum_Posting] \"$subject\""]
           }

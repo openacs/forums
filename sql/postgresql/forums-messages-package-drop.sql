@@ -11,7 +11,7 @@
 -- chunks lifted from Gilbert. Thanks Orchard Labs!
 --
 
-drop function forums_message__new (integer,varchar,integer,varchar,text,char,integer,timestamp,varchar,integer,timestamp,integer,varchar,integer);
+drop function forums_message__new (integer,varchar,integer,varchar,text,char,integer,timestamptz,varchar,integer,timestamptz,integer,varchar,integer);
 
 drop function forums_message__root_message_id (integer);
 
@@ -23,4 +23,4 @@ drop function forums_message__delete (integer);
 
 drop function forums_message__delete_thread (integer);
 
-
+drop function forums_message__name (integer);

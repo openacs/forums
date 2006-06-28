@@ -1,37 +1,74 @@
-<master src="master">
-<property name="title">Forum @forum.name@: @message.subject@</property>
-<property name="context_bar">@context_bar@</property>
+<master>
+  <property name="title">#forums.Thread_title#</property>
+  <property name="context">@context;noquote@</property>
+  <property name="displayed_object_id">@message_id@</property>
 
-<p>
-@notification_chunk@
-</p>
+  <property name="header_stuff">
+    <link rel="stylesheet" type="text/css" media="all" href="/resources/forums/forums.css" />
+    <link rel="stylesheet" type="text/css" media="print" href="/resources/forums/print.css" />
+    <link rel="alternate stylesheet" type="text/css" media="all" title="flat" href="/resources/forums/flat.css" />
+    <link rel="alternate stylesheet" type="text/css" media="all" title="flat-collapse" href="/resources/forums/flat-collapse.css" />
+    <link rel="alternate stylesheet" type="text/css" media="all" title="collapse" href="/resources/forums/collapse.css" />
+    <link rel="alternate stylesheet" type="text/css" media="all" title="expand" href="/resources/forums/expand.css" />
+    <link rel="alternate stylesheet" type="text/css" media="all" title="print" href="/resources/forums/print.css" />   
+   <!-- <script type="text/javascript" src="/resources/forums/cop.js"></script>-->
+    <script type="text/javascript" src="/resources/forums/forums.js"></script>
+    <script type="text/javascript" src="/resources/forums/message-effects.js"></script>    
+    @ah_sources;noquote@
+    @dynamic_script;noquote@
+  </property>
+  <iframe width="0" height="0" border="0" style="width:0; height:0; border:0;" id="dynamic" name="dynamic" src="about:blank"></iframe>
 
-<if @message.parent_id@ not nil>
-<i>response to <a href="message-view?message_id=@message.root_message_id@">@message.root_subject@</a></i><p>
-</if>
+  <if @searchbox_p@ true>
+    <div style="float: right;">
+      <formtemplate id="search">
+        <formwidget id="forum_id">
+          #forums.Search_colon#&nbsp;
+          <formwidget id="search_text">
+      </formtemplate>
+    </div>
+  </if>
+  <div class="displayLinks" style="float: left; height: 20px;">
+   #forums.Forum_effects#: <a href="message-view?message_id=@message_id@&ajax_effects=1" title="#forums.enable_ajax_effects#" class="button">#forums.Ajax_effects#</a>
+    <a href="message-view?message_id=@message_id@&ajax_effects=0" title="#forums.disable_ajax_effects#" class="button">#forums.No_ajax_effects#</a>
+   
+  </div>
+  <div class="displayLinks" style="float: right;  height: 20px;"> 
+    Display as: <a href="#" onclick="setActiveStyleSheet('flat'); return false;" title="No indentation for replies" class="button">Flat</a>
+    <a href="#" onclick="setActiveStyleSheet('default'); return false;" title="With indentation of replies" class="button">Nested</a>
+    <if @ajax_effects@ eq 1>
+     <a href="#" onclick="collapseChilds('@message.message_id@','@all_messages@'); return false;" title="Just display subjects" class="button">Collapse</a> 
+      <a href="#" onclick="expandChilds('@message.message_id@','@all_messages@'); return false;" title="Display full posts" class="button">Expand</a>    
+    </if>
+    <else>
+      <a href="#" onclick="setActiveStyleSheet('collapse'); return false;" title="Just display subjects" class="button">Collapse</a>
+      <a href="#" onclick="setActiveStyleSheet('expand'); return false;" title="Display full posts" class="button">Expand</a>
+    </else>
+    <a href="#" onclick="setActiveStyleSheet('print'); return false;" title="Printable view" class="button">Print</a>
+  </div>
+  <br> <br> <br>
+  <ul class="action-links">
+    <li><a href="@thread_url@">#forums.Back_to_thread_label#</a></li>   
+  </ul>
 
-<b>@message.subject@</b>
+  <p>@notification_chunk;noquote@</p>
 
-<p>
+  <include src="/packages/forums/lib/message/thread-chunk"   
+    context = @context@
+    ajax_effects = @ajax_effects@
+    &message="message"
+    &forum="forum"
+    &permissions="permissions">
 
-<blockquote>
-@message.content@
-</blockquote>
+    <if @reply_url@ not nil>
+      <if @forum.presentation_type@ eq "flat">
+        <a href="@reply_url@"><b>#forums.Post_a_Reply#</b></a>
+      </if>
+      <else>
+        <a href="@reply_url@"><b>#forums.Reply_to_first_post_on_page_label#</b></a>
+      </else>
+    </if>
 
-<p>
-<if @post_p@ eq 1><a href="message-post?parent_id=@message_id@">Respond!</a></if>
-&nbsp; | &nbsp;
-<a href="message-email?message_id=@message_id@">Email</a>
-
-<if @moderate_p@ eq 1>
-<p>
-<b>Administration:</b> [@message.state@] [ <a href="moderate/message-delete?message_id=@message_id@">delete</a><if @message.state@ ne approved> | <a href="moderate/message-approve?message_id=@message_id@">approve</a></if><if @message.state@ ne rejected> | <a href="moderate/message-reject?message_id=@message_id@">reject</a></if> | <a href="moderate/message-edit?message_id=@message_id@">edit</a>]
-</if>
-
-<h3>Responses</h3>
-
-<ul>
-<multiple name="responses">
-<li> <if @moderate_p@ eq 1 and @responses.state@ ne approved><b><i>(@responses.state@)</i></b> &nbsp;</if> @responses.tree_level@ <a href="message-view?message_id=@responses.message_id@">@responses.subject@</a>, by <a href="user-history?user_id=@responses.user_id@">@responses.user_name@</a> on @responses.posting_date@
-</multiple>
-</ul>
+    <ul class="action-links">
+      <li><a href="@thread_url@">#forums.Back_to_thread_label#</a></li>
+    </ul>

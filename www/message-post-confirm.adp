@@ -1,27 +1,16 @@
-<master src="master">
-<property name="title">Confirm Post to Forum: @forum.name@</property>
-<property name="context_bar"></property>
+<master>
+<property name="title">#forums.Confirm_Post_to_Forum# @forum.name;noquote@</property>
+<property name="context">@context;noquote@</property>
+  <property name="header_stuff">
+    <link rel="stylesheet" type="text/css" media="all" href="/resources/forums/forums.css" />
+    <link rel="alternate stylesheet" type="text/css" media="all" title="flat" href="/resources/forums/flat.css" />
+    <link rel="alternate stylesheet" type="text/css" media="all" title="flat-collapse" href="/resources/forums/flat-collapse.css" />
+    <link rel="alternate stylesheet" type="text/css" media="all" title="collapse" href="/resources/forums/collapse.css" />
+    <link rel="alternate stylesheet" type="text/css" media="all" title="expand" href="/resources/forums/expand.css" />
+    <script language="JavaScript" type="text/javascript" src="/resources/forums/cop.js"></script>
+  </property>
 
-Please confirm the following post:
-<p>
-<b>Subject:</b> @subject@<p>
-<b>Body:</b><br>
-<blockquote>
-@content@
-</blockquote>
-<p>
-<FORM ACTION="message-post" METHOD=POST>
-<input type="hidden" name="form:id" value="message">
-@exported_vars@
-<p>
-<if @parent_id@ nil>
-Would you like to subscribe to responses? 
-<INPUT TYPE="radio" name="subscribe_p" value="0" CHECKED> No
-<INPUT TYPE="radio" name="subscribe_p" value="1"> Yes
-<if @forum_notification_p@ eq 1>
-<br>
-(Note that you are already subscribed to the forum as a whole. You may get duplicate notifications.)
-</if>
-<br></if>
-<INPUT TYPE="submit" value="confirm">
-</FORM>
+<include src="/packages/forums/lib/message/post" forum_id="@forum_id@" 
+                             &parent_message="parent_message"
+                             anonymous_allowed_p="@anonymous_allowed_p@"
+                             attachments_enabled_p="@attachments_enabled_p@">

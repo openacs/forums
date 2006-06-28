@@ -1,54 +1,52 @@
-<if @forum.presentation_type@ eq "flat">
-<table bgcolor="@table_border_color@" cellpadding="5" width="95%">
+
+<!--<li><a href="random-message?rowcount=@responses:rowcount@&forum_id=@forum_id@&message_id=@message.message_id@">Create a random list of messages</a></li>-->
+<!--<br>
+<br>
+<br>-->
+<div id="forum-thread">
+<if @ajax_effects@ eq 1>
+  <include src="row2"
+    rownum=0
+    forum_moderated_p=@forum_moderated_p;noquote@
+    moderate_p=@permissions.moderate_p;noquote@               
+    forum_id=@forum_id;noquote@
+    root_message_id=@root_message_id;noquote@
+    main_message_id=@main_message_id;noquote@
+    table_name=@table_name;noquote@   
+    total_number_messages=@responses:rowcount;noquote@
+    &message="message">         
+    <if @responses:rowcount@ gt 0>      
+      <multiple name="responses">               
+        <include src="row2"
+          rownum=@responses.rownum@          
+          forum_id=@forum_id;noquote@
+          main_message_id=@main_message_id;noquote@          
+          table_name=@table_name;noquote@                                 
+          forum_moderated_p=@forum_moderated_p;noquote@
+          total_number_messages=@responses:rowcount;noquote@
+          root_message_id=@root_message_id;noquote@
+          moderate_p=@permissions.moderate_p;noquote@                              
+          &message="responses">         
+      </multiple>
+    </if>
 </if>
 <else>
-<table bgcolor="@table_border_color@" width="95%">
+ <include src="row"
+    rownum=0
+    forum_moderated_p=@forum_moderated_p;noquote@
+    moderate_p=@permissions.moderate_p;noquote@
+    forum_id=@forum_id;noquote@
+    &message="message">
+    <if @responses:rowcount@ gt 0>
+      <multiple name="responses">
+        <include src="row"
+          rownum=@responses.rownum@
+          forum_id=@forum_id;noquote@
+          forum_moderated_p=@forum_moderated_p;noquote@         
+          moderate_p=@permissions.moderate_p;noquote@
+          &message="responses">
+      </multiple>
+    </if>
 </else>
-  <include src="row"
-           bgcolor="@table_bgcolor;noquote@" 
-           forum_moderated_p=@forum_moderated_p;noquote@ 
-           moderate_p=@permissions.moderate_p;noquote@ 
-           &message="message">
-</table>
-
-<if @responses:rowcount@ gt 0>
-
-  <if @forum.presentation_type@ eq "flat">
-  <table bgcolor="@table_border_color@" cellpadding="5" width="95%">
-  </if>
-  <else>
-  <table width="95%">
-  </if>
-
-    <multiple name="responses">
-    
-    <if @forum.presentation_type@ ne "flat">
-    <% set width [expr 100 - [expr $responses(tree_level) - 1] * 1] %>
-    <tr style="padding-top: 1em">
-      <td align="left">
-        <table align="right" bgcolor="@table_border_color@" width="@width@%">
-    </if>
-          <if @responses.rownum@ odd>
-            <include src="row" 
-                     bgcolor="@table_other_bgcolor;noquote@" 
-                     forum_moderated_p=@forum_moderated_p;noquote@ 
-                     moderate_p=@permissions.moderate_p;noquote@ 
-                     &message="responses">
-          </if>
-          <else>
-            <include src="row" 
-                     bgcolor="@table_bgcolor;noquote@"
-                     forum_moderated_p=@forum_moderated_p;noquote@
-                     moderate_p=@permissions.moderate_p;noquote@
-                     &message="responses">
-          </else>
-    <if @forum.presentation_type@ ne "flat">
-        </table>
-      </td>
-    </tr>
-    </if>
-
-    </multiple>
-  
-  </table>
-</if>
+</div> 
+@response_arrays_stub;noquote@

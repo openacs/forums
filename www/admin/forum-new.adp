@@ -1,5 +1,6 @@
-<master src="../master">
-<property name="title">Create New Forum</property>
-<property name="context_bar"></property>
+<master>
+<property name="title">#forums.Create_New_Forum#</property>
+<property name="context">@context;noquote@</property>
+<property name="focus">forum.name</property>
 
-<formtemplate id="forum"></formtemplate>
+<include src="/packages/forums/lib/forums/new" name="@name@" return_url="../">

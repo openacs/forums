@@ -1,5 +1,5 @@
-<master src="../master">
-<property name="title">Edit Message: @message.subject@</property>
-<property name="context_bar"></property>
+<master>
+<property name="title">#forums.Edit_Message# @message.subject;noquote@</property>
+<property name="context">#forums.Edit#</property>
 
-<formtemplate id="message"></formtemplate>
+<include src="/packages/forums/lib/message/edit" &forum="forum" &message="message" return_url="@return_url@">

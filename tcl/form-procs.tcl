@@ -6,10 +6,10 @@ ad_library {
     @creation-date 2003-11-12
 }
 
-namespace eval forums {
-namespace eval form {
+namespace eval forums {}
+namespace eval forums::form {}
 
-ad_proc -public message {
+ad_proc -public forums::form::message {
     {-optional:boolean}
     {-prefix {}}
     form_name
@@ -21,61 +21,30 @@ ad_proc -public message {
     ##############################
     # Form definition
     #
+
+    if { $optional_p } {
+        set optional_switch "-optional"
+    } else {
+        set optional_switch ""
+    }
+
     template::element create $form_name ${prefix}subject \
         -label [_ forums.Subject] \
         -datatype text \
         -widget text \
-        -html {size 60}
+        -html {size 60} \
+        $optional_switch
 
-    template::element create $form_name ${prefix}content \
+    template::element create $form_name ${prefix}message_body \
         -label [_ forums.Body] \
-        -datatype text \
-        -widget textarea \
+        -datatype richtext \
+        -widget richtext \
         -html {rows 20 cols 60 wrap soft} \
+        $optional_switch
 
-    template::element create $form_name ${prefix}html_p \
-        -label [_ forums.Format] \
-        -datatype text \
-        -widget radio \
-        -options [list [list [_ forums.text] f] [list [_ forums.html] t]] \
-        -value f
-    
-
-    ##############################
-    # Form validation
-    #
-    set subject_val [list]
-    set content_val [list html \
-        {expr {[string match $html_p "f"] || \
-            ([string match $html_p "t"] && \
-             [empty_string_p \
-                [set v_message \
-                    [ad_quotehtml \
-                        [ad_html_security_check $value]]]])}} \
-        {}]
-    
-    if {$optional_p} {
-        template::element set_properties $form_name ${prefix}subject -optional 
-        template::element set_properties $form_name ${prefix}content -optional
-        template::element set_properties $form_name ${prefix}html_p -optional
-    } else {
-        lappend subject_val \
-            {expr ![empty_string_p [string trim $value]]} \
-            "[_ forums.lt_Please_enter_a_subjec]" 
-
-        lappend content_val empty \
-            {expr ![empty_string_p [string trim $value]]} \
-            "[_ forums.lt_Please_enter_a_messag]"
-    }
-
-    template::element set_properties $form_name ${prefix}subject \
-        -validate $subject_val
-
-    template::element set_properties $form_name ${prefix}content \
-        -validate $content_val
 }
 
-ad_proc -public post_message {
+ad_proc -public forums::form::post_message {
     {-optional:boolean}
     {-show_anonymous_p 1}
     {-show_attachments_p 1}
@@ -124,7 +93,7 @@ ad_proc -public post_message {
     }
 }
 
-ad_proc -public forward_message {
+ad_proc -public forums::form::forward_message {
     {-prefix {}}
     form_name
 } {
@@ -150,7 +119,7 @@ ad_proc -public forward_message {
     -html {cols 80 rows 10 wrap hard}
 }
 
-ad_proc -public search {
+ad_proc -public forums::form::search {
     {-prefix {}}
     form_name
 } {
@@ -169,7 +138,7 @@ ad_proc -public search {
     -optional
 }
 
-ad_proc -public forum {
+ad_proc -public forums::form::forum {
     {-prefix {}}
     form_name
 } {
@@ -185,7 +154,7 @@ ad_proc -public forum {
     template::element create $form_name ${prefix}charter \
       -label [_ forums.Charter] \
       -datatype text \
-      -widget textarea \
+      -widget richtext \
       -html {cols 60 rows 10 wrap soft} \
       -optional
 
@@ -193,20 +162,20 @@ ad_proc -public forum {
       -label [_ forums.Presentation] \
       -datatype text \
       -widget select \
+      -help_text [_ forums.help_presentation] \
       -options [list [list [_ forums.Flat] flat] [list [_ forums.Threaded] threaded]]
 
     template::element create $form_name ${prefix}posting_policy \
       -label [_ forums.Posting_Policy] \
       -datatype text \
       -widget select \
+      -help_text [_ forums.help_posting_policy] \
       -options [list [list [_ forums.open] open] [list [_ forums.moderated] moderated] [list [_ forums.closed] closed] ]
 
     template::element create $form_name ${prefix}new_threads_p \
       -label [_ forums.lt_Users_Can_Create_New_] \
       -datatype integer \
       -widget radio \
+      -help_text [_ forums.help_new_threads] \
       -options [list [list [_ forums.Yes] 1] [list [_ forums.No] 0] ] 
-}
-
-}
 }

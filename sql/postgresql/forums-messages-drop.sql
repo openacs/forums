@@ -1,4 +1,3 @@
-
 --
 -- The Forums Package
 --
@@ -9,22 +8,19 @@
 -- lifted from Gilbert. Thanks Orchard Labs!
 --
 
--- privileges
--- NO PRIVILEGES FOR MESSAGES
--- we don't individually permission messages
-
---
--- The Data Model
---
-
+drop view forums_messages_pending;
+drop view forums_messages_approved;
 drop table forums_messages;
 
---
--- Object Type
---
-
+create function inline_0 ()
+returns integer as '
 begin
-        select acs_object_type__drop_type (
-            'forums_message', 'f'
-        );
-end;
+    perform acs_object_type__drop_type (
+        ''forums_message'', ''f''
+    );
+
+    return null;
+end;' language 'plpgsql';
+
+select inline_0();
+drop function inline_0 ();

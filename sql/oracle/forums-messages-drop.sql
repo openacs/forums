@@ -31,3 +31,6 @@ begin
 end;
 /
 show errors
+
+drop view forums_messages_pending;
+drop view forums_messages_approved;

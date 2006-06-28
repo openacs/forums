@@ -1,70 +1,85 @@
-
 ad_page_contract {
     
     Form to create message and insert it
 
-    @author Ben Adida (ben@openforce)
+    @author Ben Adida (ben@openforce.net)
     @creation-date 2002-05-25
-    @cvs-id $id: Exp $
-} {
+    @cvs-id $Id$
+
+} -query {
     {forum_id ""}
     {parent_id ""}
+} -validate {
+    forum_id_or_parent_id {
+        if {[empty_string_p $forum_id] && [empty_string_p $parent_id]} {
+            ad_complain [_ forums.lt_You_either_have_to]
+        }
+    }
 }
 
-# Either forum_id or parent_id has to be non-null
-if {[empty_string_p $forum_id] && [empty_string_p $parent_id]} {
-    # error!
-    return -code error
+if { ![empty_string_p [ns_queryget formbutton:post]] } {
+    set action post
+} elseif { ![empty_string_p [ns_queryget formbutton:preview]] } {
+    set action preview
+} elseif { ![empty_string_p [ns_queryget formbutton:edit]] } {
+    set action edit
+} else {
+    set action ""
 }
 
-# We would use the nice ad_form construct if we could
-form create message
+set user_id [auth::refresh_login]
 
-element create message message_id \
-        -label "Message ID" -datatype integer -widget hidden
+##############################
+# Pull out required forum and parent data and
+# perform security checks 
+#
+if {[empty_string_p $parent_id]} {
+    # no parent_id, therefore new thread
+    # require thread creation privs
+    forum::security::require_post_forum -forum_id $forum_id
 
-element create message subject \
-        -label "Subject" -datatype text -widget text -html {size 60}
-
-element create message content \
-        -label "Body" -datatype text -widget textarea -html {rows 30 cols 60 wrap soft}
-
-element create message parent_id \
-        -label "parent ID" -datatype integer -widget hidden -optional
-
-element create message forum_id \
-        -label "forum ID" -datatype integer -widget hidden
-
-element create message html_p \
-        -label "Format" -datatype text -widget select -options {{text f} {html t}}
-
-if {[form is_valid message]} {
-    template::form get_values message message_id forum_id parent_id subject content html_p
-
-    forum::message::new -forum_id $forum_id \
-            -message_id $message_id \
-            -parent_id $parent_id \
-            -subject $subject \
-            -content $content \
-            -html_p $html_p
-
-    ad_returnredirect "message-view?message_id=$message_id"
-    ad_script_abort
-}
-
-set message_id [db_nextval acs_object_id_seq]
-
-if {[empty_string_p $forum_id]} {
+    forum::get -forum_id $forum_id -array forum
+} else {
     # get the parent message information
     forum::message::get -message_id $parent_id -array parent_message
-    set forum_id $parent_message(forum_id)
+    set parent_message(tree_level) 0
+
+    # see if they're allowed to add to this thread
+    forum::security::require_post_message -message_id $parent_id
+
+    forum::get -forum_id $parent_message(forum_id) -array forum
 }
 
-forum::get -forum_id $forum_id -array forum
+##############################
+# Calculate users rights and forums policy
+#
+set anonymous_allowed_p [expr ([empty_string_p $forum_id] || \
+                               [forum::security::can_post_forum_p \
+                                  -forum_id $forum_id -user_id 0]) && \
+                              ([empty_string_p $parent_id] || \
+                               [forum::security::can_post_message_p \
+                                  -message_id $parent_id -user_id 0])]
 
-# Prepare the other data 
-element set_properties message forum_id -value $forum_id
-element set_properties message parent_id -value $parent_id
-element set_properties message message_id -value $message_id
+set attachments_enabled_p [forum::attachments_enabled_p]
 
-ad_return_template
+##############################
+# Template variables
+#
+
+if {![string equal [template::form::get_button message] "preview"]} {
+    set context [list [list "./forum-view?forum_id=$forum_id" [ad_quotehtml $forum(name)]]]
+
+    if {[empty_string_p $parent_id]} {
+        lappend context [_ forums.Post_a_Message]
+    } else {
+        lappend context [list "./message-view?message_id=$parent_message(message_id)" "$parent_message(subject)"]
+        lappend context [_ forums.Post_a_Reply]
+    }
+} else {
+    set context [list [list "./forum-view?forum_id=$forum_id" [ad_quotehtml $forum(name)]]]
+    lappend context "[_ forums.Post_a_Message]"
+
+    ad_return_template "message-post-confirm"
+}
+
+

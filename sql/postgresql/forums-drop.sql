@@ -21,3 +21,6 @@
 -- The basic forum constructs
 \i forums-forums-package-drop.sql
 \i forums-forums-drop.sql
+
+-- Search
+\i forums-sc-drop.sql

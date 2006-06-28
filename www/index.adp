@@ -1,12 +1,15 @@
-<master src="master">
-<property name="title">Forums</property>
-<property name="context_bar">@context_bar@</property>
+<master>
+<property name="title">#forums.Forums#</property>
+<property name="context">@context;noquote@</property>
 
-<ul>
-<if @admin_p@ eq 1>
-<li> <a href="admin/forum-new">Create New Forum</a><p>
+<if @searchbox_p@ true>
+<div style="float: right;">
+  <formtemplate id="search">
+    <formwidget id="forum_id">
+      #forums.Search_colon#&nbsp;
+    <formwidget id="search_text">
+  </formtemplate>
+</div>
 </if>
-<multiple name="forums">
-<li> <a href="forum-view?forum_id=@forums.forum_id@">@forums.name@</a>
-</multiple>
-</ul>
+
+<include src="/packages/forums/lib/forums/forums-chunk">

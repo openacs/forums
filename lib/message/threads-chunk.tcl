@@ -1,32 +1,61 @@
 ad_page_contract {
-
     one forum view
 
     @author Ben Adida (ben@openforce.net)
     @creation-date 2002-05-24
     @cvs-id $Id$
-
 }
 
 # Get forum data
+
 forum::get -forum_id $forum_id -array forum
 
-set query messages_select
+if {![info exists base_url]} {
+    set base_url ""
+}
+
 if {$moderate_p} {
-    set query messages_select_moderator
+    set replies reply_count
+} else {
+    set replies approved_reply_count
+}
+
+set actions [list]
+
+# new postings are allowed if
+
+# 1. Users can create new threads AND the posting policy is open or
+# moderated 2. User is a moderator or adminsitrator
+
+if {([forum::new_questions_allowed_p \
+	  -forum_id $forum_id] 
+     && ($forum(posting_policy) == "open" || $forum(posting_policy) == "moderated")) || [template::util::is_true $admin_p] || [template::util::is_true $moderate_p]} {
+    lappend actions [_ forums.Post_a_New_Message] [export_vars \
+						       -base "${base_url}message-post" {forum_id}] {}
+}
+
+if {[template::util::is_true $admin_p]} {
+    lappend actions [_ forums.Administer] [export_vars \
+					       -base "${base_url}admin/forum-edit" {forum_id {return_url [ad_return_url]}}] {}
+}
+
+if {[template::util::is_true $moderate_p]} {
+    lappend actions [_ forums.ManageModerate] [export_vars \
+						   -base "${base_url}moderate/forum" {forum_id}] {}
 }
 
 template::list::create \
     -name messages \
     -multirow messages \
-    -pass_properties { moderate_p } \
+    -page_size 30 \
+    -page_query_name messages_select_paginate \
+    -pass_properties {moderate_p} \
+    -actions $actions \
     -elements {
         subject {
             label "#forums.Subject#"
             link_url_col message_url
-            display_template {
-                <if @messages.new_p@><b>@messages.subject@</b></if>
-                <else>@messages.subject@</else>
+            display_template {<if @messages.new_p@><b>@messages.subject@</b></if> <else>@messages.subject@</else>
             }
         }
         state_pretty {
@@ -40,7 +69,7 @@ template::list::create \
         n_messages {
             label "#forums.Replies#"
             display_col n_messages_pretty
-            html { align right }
+            html {align right}
         }
         posting_date {
             label "#forums.First_Post#"
@@ -79,37 +108,38 @@ template::list::create \
         forum_id {}
     }
 
-db_multirow -extend { 
+db_multirow -extend {
     last_child_post_pretty
     posting_date_pretty
     message_url
     user_url
     n_messages_pretty
-    state_pretty
-} messages $query {} {
-    set last_child_post_ansi [lc_time_system_to_conn $last_child_post_ansi]
-    set last_child_post_pretty [lc_time_fmt $last_child_post_ansi "%x %X"]
+    state_pretty} messages messages_select {} {
+	set last_child_post_ansi [lc_time_system_to_conn $last_child_post_ansi]
+	set last_child_post_pretty [lc_time_fmt $last_child_post_ansi "%x %X"]
 
-    set posting_date_ansi [lc_time_system_to_conn $posting_date_ansi]
-    set posting_date_pretty [lc_time_fmt $posting_date_ansi "%x %X"]
+	set posting_date_ansi [lc_time_system_to_conn $posting_date_ansi]
+	set posting_date_pretty [lc_time_fmt $posting_date_ansi "%x %X"]
 
-    set message_url [export_vars -base "message-view" { message_id }]
-    set user_url [export_vars -base "user-history" { user_id }]
-    set n_messages_pretty [lc_numeric $n_messages]
+	set message_url [export_vars \
+			     -base "${base_url}message-view" {message_id}]
+	set user_url [export_vars \
+			  -base "${base_url}user-history" {user_id}]
+	set n_messages_pretty [lc_numeric $n_messages]
 
-    switch $state {
-        pending {
-            set state_pretty [_ forums.Pending]
-        }
-        rejected {
-            set state_pretty [_ forums.Rejected]
-        }
-        default {
-            set state_pretty {}
-        }
+	switch $state {
+	    pending {
+		set state_pretty [_ forums.Pending]
+	    }
+	    rejected {
+		set state_pretty [_ forums.Rejected]
+	    }
+	    default {
+		set state_pretty {}
+	    }
+	}
     }
-}
 
 if {[exists_and_not_null alt_template]} {
-  ad_return_template $alt_template
+    ad_return_template $alt_template
 }

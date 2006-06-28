@@ -3,23 +3,34 @@
         text-align: left;
         margin-bottom: 5px;
         margin-left: 1em;
+        
+
 }
 
 #forum-thread .action-list {
         float: right;
+        text-decoration: none;
         text-align: right;
-        margin-top: 8px;
-        margin-right: 8px;
+        margin-top: 0.5px;
+        margin-right: 0.5px;        
+        background: #f0f0f0;
+        height: 1%;
+        padding-bottom: 6px;
+
+        
 }
 
-#forum-thread .details {
-        margin-top: 3px;
+#forum-thread .details {        
+       margin-top: 2px;      
+       padding-right: 4px;
+       padding-bottom: 2px;     
+       
 }
 
 #forum-thread .content {
         text-align: left;
-        padding: 0.5em;
-        margin-bottom: 1em;
+        padding: 0.2em;
+        margin-bottom: 1em;        
 }
 
 #forum-thread .dynexpanded {
@@ -34,13 +45,14 @@
 
 #forum-thread .subject {
         text-align: left;
-        background: #f0f0f0;
-        padding: 0.5em;
+        background: #f0f0f0;       
+        padding: 0.2em;       
+        display: inline-block;
+        height: 1%;
 }
-
+   
 #forum-thread .subject a.title { 
-#        color: blue;
-#        font-weight: bold;
+
         text-decoration:none;
 }
 
@@ -53,14 +65,16 @@
 
 #forum-thread .subject .response { 
         color: black;
+               
 }
 #forum-thread .subject .reference { 
         color: green;
-}
+}       
 
 #forum-thread .attribution {
   padding-top: 0.5em;
   color: #aaaaaa;
+  display: inline-block;
 }
 
 #forum-thread .attribution a {
@@ -115,4 +129,8 @@
 
 .right {
   float: right;
+}
+
+.details img {
+  border-style: none;
 }

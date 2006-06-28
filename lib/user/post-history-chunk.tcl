@@ -35,6 +35,9 @@ db_multirow -extend { posting_date_pretty } messages $query {} {
     set posting_date_pretty [lc_time_fmt $posting_date_ansi "%x %X"]
 }
 
+# select number of post from this user
+db_multirow posts select_num_post {} 
+
 set dimensional_chunk [ad_dimensional $dimensional_list]
 
 if {[exists_and_not_null alt_template]} {

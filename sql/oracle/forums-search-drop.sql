@@ -1,5 +1,5 @@
 --
---  Copyright (C) 2001, 2002 OpenForce, Inc.
+--  Copyright (C) 2001, 2002 MIT
 --
 --  This file is part of dotLRN.
 --
@@ -22,13 +22,16 @@
 -- @version $Id$
 --
 
--- IMPORTANT:
--- replace all instances of the string "yon" below this line with your schema
--- user and schema password accordingly. also, replace the "connect
--- ctxsys/ctxsys" statement with the appropriate values for your system. need
--- to figure out how to do this in a better way.
+-- Call this script like this:
+-- 
+-- sqlplus /nolog @forums-search-create.sql <ctxsys-password> <openacs-db-user> <openacs-db-password>
+-- 
+--   &1 = ctxsys password
+--   &2 = OpenACS database user
+--   &3 = OpenACS database password
 
--- as normal user
+
+connect &2/&3;
 
 drop function im_convert;
 drop procedure im_convert_length_check;
@@ -37,7 +40,7 @@ declare
 begin
     for row in (select job
                 from user_jobs
-                where what like '%forums_content_idx%')
+                where what like '%&2..forums_content_idx%')
     loop
         dbms_job.remove(job => row.job);
     end loop;
@@ -51,11 +54,13 @@ execute ctx_ddl.unset_attribute('forums_user_datastore', 'procedure');
 execute ctx_ddl.drop_preference('forums_user_datastore');
 
 -- as ctxsys
-connect ctxsys/ctxsys;
+connect ctxsys/&1;
 
 drop procedure s_index_message;
 
 -- as normal user
-connect yon/yon;
+connect &2/&3;
 
 drop procedure index_message;
+
+exit

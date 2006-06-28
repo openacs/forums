@@ -1,19 +1,30 @@
-<?xml version="1.0"?>
+tree_right(<?xml version="1.0"?>
 
 <queryset>
     <rdbms><type>postgresql</type><version>7.1</version></rdbms>
 
     <fullquery name="select_message_ordering">
         <querytext>
-            select fma.message_id
-            from   forums_messages fm,
-                   forums_messages_approved fma
-            where  fm.message_id = :root_message_id
-            and    fma.forum_id = :forum_id
-            and    fma.tree_sortkey between fm.tree_sortkey and tree_right(fm.tree_sortkey)
-            order  by fma.message_id
+	SELECT fma.message_id
+        FROM   forums_messages_approved fma
+        WHERE  fma.forum_id = :forum_id
+          and    fma.tree_sortkey between (select fm.tree_sortkey from forums_messages fm where fm.message_id = :root_message_id)
+          and    (select tree_right(fm.tree_sortkey) from forums_messages fm where fm.message_id = :root_message_id)
+        ORDER  BY fma.message_id
         </querytext>
     </fullquery>
+    
+   <fullquery name="select_message_children">
+        <querytext>
+        SELECT fma.message_id
+        FROM   forums_messages_approved fma
+        WHERE  fma.forum_id = :forum_id
+          and    fma.tree_sortkey between (select fm.tree_sortkey from forums_messages fm where fm.message_id = :message_id)
+          and    (select tree_right(fm.tree_sortkey) from forums_messages fm where fm.message_id = :message_id)
+        ORDER  BY fma.message_id
+        </querytext>
+    </fullquery>
+  
 
     <fullquery name="select_message_responses">
         <querytext>
@@ -21,13 +32,15 @@
                    0 as n_attachments,
                    subject,
                    content,
-                   html_p,
+                   format,
                    person__name(user_id) as user_name,
                    to_char(posting_date, 'YYYY-MM-DD HH24:MI:SS') as posting_date_ansi,
                    tree_level(tree_sortkey) as tree_level,
                    state,
                    user_id,
-                   parent_id
+                   parent_id,
+                   open_p,
+                   max_child_sortkey
             from   $table_name
             where  forum_id = :forum_id
             and    tree_sortkey between tree_left(:tree_sortkey) and tree_right(:tree_sortkey)
@@ -41,13 +54,15 @@
                    (select count(*) from attachments where object_id = message_id) as n_attachments,
                    subject,
                    content,
-                   html_p,
+                   format,
                    person__name(user_id) as user_name,
                    to_char(posting_date, 'YYYY-MM-DD HH24:MI:SS') as posting_date_ansi,
                    tree_level(tree_sortkey) as tree_level,
                    state,
                    user_id,
-                   parent_id
+                   parent_id,
+                   open_p,
+                   max_child_sortkey
             from   $table_name
             where  forum_id = :forum_id
             and    tree_sortkey between tree_left(:tree_sortkey) and tree_right(:tree_sortkey)

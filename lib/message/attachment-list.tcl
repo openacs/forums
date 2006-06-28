@@ -19,6 +19,6 @@ set attachments [attachments::get_attachments -object_id $message(message_id)]
 
 set attachment_graphic [attachments::graphic_url]
 
-if {![exists_and_not_null alt_template]} {
+if {[exists_and_not_null alt_template]} {
   ad_return_template $alt_template
 }
