@@ -19,6 +19,7 @@
   <msg key="by_Date">Por Fecha</msg>
   <msg key="by_Forum">por Foro de Discusión</msg>
   <msg key="Charter">Rama</msg>
+  <msg key="charter_max_chars">Charter exceeds maximum length (4000 characters)</msg>
   <msg key="closed">cerrado</msg>
   <msg key="Confirm">¿Es correcto?</msg>
   <msg key="Confirm_Delete">Confirmación para eliminar:</msg>
