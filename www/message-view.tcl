@@ -82,7 +82,7 @@ if { [empty_string_p $message(parent_id)] } {
 
 set context [list [list "./forum-view?forum_id=$message(forum_id)" "$message(forum_name)"]]
 if {![empty_string_p $message(parent_id)]} {
-    lappend context [list "./message-view?message_id=$message(root_message_id)" "$message(subject)"]
+    lappend context [list "./message-view?message_id=$message(root_message_id)" "$message(root_subject)"]
     lappend context [_ forums.One_Message]
 } else {
     lappend context "$message(subject)"
@@ -108,3 +108,6 @@ set dynamic_script "
   </script>
 "
 
+if {$forum(presentation_type) eq "flat"} {
+    set display_mode flat
+}

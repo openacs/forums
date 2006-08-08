@@ -11,7 +11,6 @@
     <link rel="alternate stylesheet" type="text/css" media="all" title="collapse" href="/resources/forums/collapse.css" />
     <link rel="alternate stylesheet" type="text/css" media="all" title="expand" href="/resources/forums/expand.css" />
     <link rel="alternate stylesheet" type="text/css" media="all" title="print" href="/resources/forums/print.css" />
-    <script type="text/javascript" src="/resources/forums/cop.js"></script>
     <script type="text/javascript" src="/resources/forums/forums.js"></script>
     @dynamic_script;noquote@
   </property>
@@ -26,6 +25,7 @@
       </formtemplate>
     </div>
   </if>
+<if @forum.presentation_type@ ne "flat">
   <div class="displayLinks" style="float: right;"> 
     Display as: <a href="#" onclick="setActiveStyleSheet('flat'); return false;" title="No indentation for replies" class="button">Flat</a>
     <a href="#" onclick="setActiveStyleSheet('default'); return false;" title="With indentation of replies" class="button">Nested</a>
@@ -33,6 +33,7 @@
     <a href="#" onclick="setActiveStyleSheet('expand'); return false;" title="Display full posts" class="button">Expand</a>
     <a href="#" onclick="setActiveStyleSheet('print'); return false;" title="Printable view" class="button">Print</a>
   </div>
+</if>
   <ul class="action-links">
     <li><a href="@thread_url@">#forums.Back_to_thread_label#</a></li>
   </ul>

@@ -21,8 +21,8 @@
         <querytext>
             select fm.message_id,
                    fm.subject,
-                   fm.user_id,
-                   person.name(fm.user_id) as user_name,
+                   fm.last_poster as user_id,
+                   person.name(fm.last_poster) as user_name,
                    to_char(fm.posting_date, 'YYYY-MM-DD HH24:MI:SS') as posting_date_ansi,
                    fm.state,
                    $replies as n_messages,

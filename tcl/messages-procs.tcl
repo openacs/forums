@@ -137,7 +137,8 @@ ${url}forum-view?forum_id=$message(forum_id)
         -response_id $message(message_id) \
         -notif_subject "\[$message(forum_name)\] $message(subject)" \
         -notif_text $text_version \
-        -notif_html $html_version
+        -notif_html $html_version \
+	-notif_user 0
 
     
     # Eventually we need notification for the root message too
@@ -148,7 +149,8 @@ ${url}forum-view?forum_id=$message(forum_id)
         -response_id $message(message_id) \
         -notif_subject "\[$message(forum_name)\] $message(subject)" \
         -notif_text $text_version \
-        -notif_html $html_version
+        -notif_html $html_version \
+	-notif_user 0
 }
     
 ad_proc -public forum::message::edit {

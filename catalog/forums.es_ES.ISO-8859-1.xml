@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="forums" package_version="1.1.2d1" locale="es_ES" charset="ISO-8859-1">
+<message_catalog package_key="forums" package_version="1.3d1" locale="es_ES" charset="ISO-8859-1">
 
+  <msg key="Admin_for_all">Opciones de administración para todos los foros</msg>
   <msg key="Administer">Administrar</msg>
   <msg key="Administration">Administración</msg>
   <msg key="Anonymous">Anónimo</msg>
@@ -18,6 +19,7 @@
   <msg key="by_Date">Por Fecha</msg>
   <msg key="by_Forum">por Foro de Discusión</msg>
   <msg key="Charter">Rama</msg>
+  <msg key="charter_max_chars">Charter exceeds maximum length (4000 characters)</msg>
   <msg key="closed">cerrado</msg>
   <msg key="Confirm">¿Es correcto?</msg>
   <msg key="Confirm_Delete">Confirmación para eliminar:</msg>
@@ -33,6 +35,7 @@
   <msg key="edit">editar</msg>
   <msg key="Edit_again">Modificar de nuevo</msg>
   <msg key="Edit_forum">Editar foro de discusión</msg>
+  <msg key="Edit_forum_name">Editar foro &amp;quot;%name%&amp;quot;</msg>
   <msg key="Edit_Message">Editar Mensaje:</msg>
   <msg key="Email">Email</msg>
   <msg key="email_alert_body_header">El %posting_date%, %user_name% escribió:</msg>
@@ -41,6 +44,7 @@
   <msg key="enable">habilitar</msg>
   <msg key="enable_it">habilitar</msg>
   <msg key="enabled">habilitado</msg>
+  <msg key="Enter_a_list_of_email">Ingrese una lista de correos electrónicos, si desea agregue nombres y apellidos. Ellos serán suscritos automáticamente a este foro. Por ejemplo:</msg>
   <msg key="Entire_Thread">Hilo completo</msg>
   <msg key="First_Post">Primer Mensaje</msg>
   <msg key="Flat">Sin hilos</msg>
@@ -58,7 +62,11 @@
   <msg key="Forums_Posting_hist_lt">Foros de Discusión: Historia de mensajes de</msg>
   <msg key="forward">Reenviar</msg>
   <msg key="Fwd">Re-enviar:</msg>
+  <msg key="help_new_threads">Si se activa &amp;lt;b&amp;gt;No&amp;lt;/b&amp;gt;, los usuarios sólo pueden responder a mensajes existentes, no pueden crear hilos nuevos.</msg>
+  <msg key="help_posting_policy">&amp;lt;b&amp;gt;Abierta&amp;lt;/b&amp;gt; permite a cualquier usuario publicar mensajes y que aprezcan inmediatamente, &amp;lt;b&amp;gt;moderada&amp;lt;/b&amp;gt; significa que los mensajes deben ser aprobados por un moderador antes de que otros los puedan ver y &amp;lt;b&amp;gt;cerrada&amp;lt;/b&amp;gt; quiere decir que sólo los administradores pueden poner mensajes.</msg>
+  <msg key="help_presentation">&amp;lt;b&amp;gt;Sin hilos&amp;lt;/b&amp;gt; sólo permite respuestas al final del hilo sin anidamiento ni hebras, &amp;lt;b&amp;gt;Con hilos&amp;lt;/b&amp;gt; permite que se pueda responder a cualquier mensaje en el hilo y la respuesta será indentada bajo el mensaje al que pertenece la respuesta.</msg>
   <msg key="html">html</msg>
+  <msg key="If_checked_create_users">Si se selecciona, se crearán usuarios que no existen. </msg>
   <msg key="Last_Post">Último Mensaje</msg>
   <msg key="Last_post_in_subject">Últimos mensajes del hilo</msg>
   <msg key="List_of_users_that_wrote_in_the_forum">Usuarios que escribieron en el foro: </msg>
@@ -112,6 +120,8 @@
   <msg key="parent_ID">ID del padre</msg>
   <msg key="Pending">Pendientes</msg>
   <msg key="Pending_Threads">Hilos pendientes</msg>
+  <msg key="Permission_forum_name">Permisos para &amp;quot;%name%&amp;quot;</msg>
+  <msg key="Permissions_for_all">Permisos para todos los foros.</msg>
   <msg key="Post">Enviar</msg>
   <msg key="Post_a_Message">Enviar un mensaje</msg>
   <msg key="Post_a_New_Message">Enviar un nuevo Mensaje</msg>
@@ -128,7 +138,7 @@
   <msg key="Re">Res: </msg>
   <msg key="reject">rechazar</msg>
   <msg key="Rejected">Rechazado</msg>
-  <msg key="Replies">Contestaciones</msg>
+  <msg key="Replies">Respuestas</msg>
   <msg key="reply">Contestar</msg>
   <msg key="Reply_to_first_post_in_thread">Responder al primer mensaje de este hilo</msg>
   <msg key="Reply_to_first_post_on_page_label">Responder al primer mensaje de esta página</msg>
@@ -143,10 +153,13 @@
   <msg key="Statistics">Estadísticas</msg>
   <msg key="Subject">Título</msg>
   <msg key="Subscribe">¿Suscribir?</msg>
+  <msg key="Subscribe_others">Suscribir a otros</msg>
+  <msg key="Subscriptions_to_forum">Número de suscripciones para este foro:</msg>
   <msg key="Summary">Resumen de mensajes enviados</msg>
   <msg key="Summary_Posting_history_for">Resumen de mensajes enviados</msg>
   <msg key="text">texto</msg>
   <msg key="This_forum_is">Este Foro de Discusión es</msg>
+  <msg key="Thread_title">Foro %forum.name%: %message.subject%</msg>
   <msg key="Threaded">Con hilos</msg>
   <msg key="Threads">Hilos</msg>
   <msg key="User">Usuario</msg>

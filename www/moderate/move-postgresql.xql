@@ -31,7 +31,7 @@
 	        where forum_id = :forum_id)
 	    where forum_id = :forum_id
         </querytext>
-    </fullquery>    
+    </fullquery>
     
     <fullquery name="forums::move_message::update_msg">
         <querytext>

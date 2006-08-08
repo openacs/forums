@@ -3,6 +3,7 @@
   <property name="context">@context;noquote@</property>
   <property name="displayed_object_id">@forum_id;noquote@</property>
 
+
 <if @searchbox_p@ true>
 <div style="float: right;">
   <formtemplate id="search">
@@ -12,9 +13,9 @@
   </formtemplate>
 </div>
 </if>
-
-<include src="/packages/forums/lib/message/threads-chunk" forum_id="@forum_id@" &="permissions" moderate_p="@permissions.moderate_p@" orderby="@orderby@" &="page" admin_p="@permissions.admin_p@">
-
 <p>
 @notification_chunk;noquote@
 </p>
+
+<include src="/packages/forums/lib/message/threads-chunk" forum_id="@forum_id@" &="permissions" moderate_p="@permissions.moderate_p@" orderby="@orderby@" &="page" admin_p="@permissions.admin_p@">
+

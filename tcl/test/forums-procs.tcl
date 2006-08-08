@@ -3,6 +3,8 @@ ad_library {
 
     @author Simon Carstensen
     @creation-date 15 November 2003
+    @author Gerardo Morales
+    @author Mounir Lallali
     @cvs-id $Id$
 }
 
@@ -143,4 +145,159 @@ aa_register_case -cats {db smoke} forum_count_test {
             aa_equals "After deletion moderated forum has zero approved threads" $forum(approved_thread_count) 0
             aa_equals "After deletion moderated forum has zero threads" $forum(thread_count) 0
         }
+}
+
+
+aa_register_case -cats {web smoke} -libraries tclwebtest web_forum_new {
+       Testing the creation of a forum via web
+} {
+
+    aa_run_with_teardown -test_code {
+
+	tclwebtest::cookies clear 
+	
+	# Login user 
+	array set user_info [twt::user::create -admin]
+	twt::user::login $user_info(email) $user_info(password)
+    
+	# Create a new forum
+	set name [ad_generate_random_string]
+	set response [forums::twt::new "$name"]
+	aa_display_result -response $response -explanation {Webtest for the creation of a new Forum}
+    
+        twt::user::logout
+    }
+
+}
+
+aa_register_case -cats {web smoke} -libraries tclwebtest web_forum_edit {
+        Testing the edition of an existing forum
+} {
+
+    aa_run_with_teardown -test_code { 
+        
+	tclwebtest::cookies clear 
+        
+	# Login user 
+        array set user_info [twt::user::create -admin] 
+        twt::user::login $user_info(email) $user_info(password) 
+        
+	# Create a forum
+        set name [ad_generate_random_string] 
+        forums::twt::new "$name" 
+        
+	# Edit the created forum
+        set response [forums::twt::edit "$name"]
+        aa_display_result -response $response -explanation {Webtest for the edition of a forum}
+        
+	twt::user::logout 
+    }
+}
+
+aa_register_case -cats {web smoke} -libraries tclwebtest web_message_new {
+       Posting a new message to an existing forum
+} {
+    
+
+    aa_run_with_teardown -test_code {
+	
+	tclwebtest::cookies clear 
+    
+	# Login user 
+	array set user_info [twt::user::create -admin] 
+	twt::user::login $user_info(email) $user_info(password) 
+
+	# Create a forum
+	set name [ad_generate_random_string]  
+	forums::twt::new "$name"
+    
+	# Post a message in the created forum
+	set subject [ad_generate_random_string]
+	set response [forums::twt::new_post "$name" "$subject"]
+	aa_display_result -response $response -explanation {Webtest for posting a message in a forum}
+	
+	twt::user::logout 
+    }
+}
+
+aa_register_case -cats {web smoke} -libraries tclwebtest web_message_edit {
+ Editing a message of a forum
+} {
+
+    aa_run_with_teardown -test_code {
+	
+	tclwebtest::cookies clear 
+    
+	# Login user 
+	array set user_info [twt::user::create -admin] 
+	twt::user::login $user_info(email) $user_info(password) 
+
+	# Create a forum
+	set name [ad_generate_random_string] 
+	forums::twt::new "$name" 
+    
+	# Post a message in the created forum
+	set subject [ad_generate_random_string]
+	forums::twt::new_post "$name" "$subject"
+    
+	# Edit the posted message
+	set response [forums::twt::edit_post "$name" "$subject"]
+	aa_display_result -response $response -explanation {Webtest for editing the message of a forum}
+
+	twt::user::logout
+    } 
+}
+
+aa_register_case -cats {web smoke} -libraries tclwebtest web_message_reply { 
+    Post a reply a message in the forum
+} { 
+    aa_run_with_teardown -test_code {
+	
+	tclwebtest::cookies clear 
+	
+	# Login user 
+	array set user_info [twt::user::create -admin] 
+	twt::user::login $user_info(email) $user_info(password) 
+
+	# Create a forum  
+	set name [ad_generate_random_string]  
+	forums::twt::new "$name"  
+    
+	# Post a message in the created forum 
+	set subject [ad_generate_random_string]
+	forums::twt::new_post "$name" "$subject" 
+    
+	# Edit the posted message 
+	set response [forums::twt::reply_msg "$name" "$subject"]
+	aa_display_result -response $response -explanation {Webtest for posting a reply to a msg in the forum}
+	
+	twt::user::logout
+    } 
+} 
+
+aa_register_case -cats {web smoke} -libraries tclwebtest web_message_delete {  
+    Delete a message in the forum 
+} {                                                                          
+    aa_run_with_teardown -test_code {
+	
+	tclwebtest::cookies clear        
+    
+	# Login user                        
+	array set user_info [twt::user::create -admin] 
+	twt::user::login $user_info(email) $user_info(password) 
+                                
+	# Create a forum           
+	set name [ad_generate_random_string]                        
+	forums::twt::new "$name"                        
+    
+	# Post a message in the created forum  
+	set subject [ad_generate_random_string]
+	forums::twt::new_post "$name" "$subject"  
+    
+	# Edit the posted message  
+	set response [forums::twt::delete_post "$name" "$subject"]
+	aa_display_result -response $response -explanation {Webtest for deleting a message posted in the forum}
+    
+	twt::user::logout  
+    }
 }

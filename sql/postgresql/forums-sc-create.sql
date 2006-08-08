@@ -9,7 +9,7 @@
 -- change to the thread.
 
 create or replace function forums_message_search__itrg ()
-returns opaque as '
+returns trigger as '
 begin
     if new.parent_id is null then
         perform search_observer__enqueue(new.message_id,''INSERT'');
@@ -20,7 +20,7 @@ begin
 end;' language 'plpgsql';
 
 create or replace function forums_message_search__dtrg ()
-returns opaque as '
+returns trigger as '
 declare
      v_root_message_id          forums_messages.message_id%TYPE;
 begin
@@ -39,7 +39,7 @@ begin
 end;' language 'plpgsql';
 
 create or replace function forums_message_search__utrg ()
-returns opaque as '
+returns trigger as '
 begin
     perform search_observer__enqueue(forums_message__root_message_id (old.message_id),''UPDATE'');
     return old;
@@ -59,7 +59,7 @@ for each row execute procedure forums_message_search__utrg ();
 
 -- forums_forums indexing trigger
 create or replace function forums_forums_search__itrg ()
-returns opaque as '
+returns trigger as '
 begin
     perform search_observer__enqueue(new.forum_id,''INSERT'');
 
@@ -67,7 +67,7 @@ begin
 end;' language 'plpgsql';
 
 create or replace function forums_forums_search__utrg ()
-returns opaque as '
+returns trigger as '
 begin
     perform search_observer__enqueue(new.forum_id,''UPDATE'');
 
@@ -75,7 +75,7 @@ begin
 end;' language 'plpgsql';
 
 create or replace function forums_forums_search__dtrg ()
-returns opaque as '
+returns trigger as '
 begin
     perform search_observer__enqueue(old.forum_id,''DELETE'');
 

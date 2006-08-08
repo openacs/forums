@@ -150,8 +150,8 @@ as
             update forums_messages
             set approved_reply_count = approved_reply_count + 1,
               reply_count = reply_count + 1,
-              last_poster = user_id,
-              last_child_post = sysdate
+              last_poster = forums_message.new.user_id,
+              last_child_post = forums_message.new.posting_date
             where forum_id = forums_message.new.forum_id
               and tree_sortkey = tree.ancestor_key(v_sortkey, 1);
           else
@@ -328,6 +328,7 @@ as
     )
     is
       v_cur forums_messages%ROWTYPE;
+	  v_last_child_post forums_messages.last_child_post%TYPE;
     begin
 
       select * into v_cur
@@ -346,12 +347,23 @@ as
         end if;
       else
         if state = 'approved' and v_cur.state <> 'approved' then
-          update forums_messages
-          set approved_reply_count = approved_reply_count + 1,
-                last_poster = (case when v_cur.posting_date > last_child_post then v_cur.user_id else last_poster end),
-                last_child_post = (case when v_cur.posting_date > last_child_post then v_cur.posting_date else last_child_post end)
-          where forum_id = v_cur.forum_id
-            and tree_sortkey = tree.ancestor_key(v_cur.tree_sortkey, 1);
+		  select last_child_post into v_last_child_post 
+			from forums_messages
+			where forum_id = v_cur.forum_id
+			  and tree_sortkey = tree.ancestor_key(v_cur.tree_sortkey, 1);
+		  if v_cur.posting_date > v_last_child_post then
+				update forums_messages
+				set approved_reply_count = approved_reply_count + 1,
+					last_poster = v_cur.user_id,
+					last_child_post = v_cur.posting_date
+				where forum_id = v_cur.forum_id
+					and tree_sortkey = tree.ancestor_key(v_cur.tree_sortkey, 1);
+		  else
+				update forums_messages
+				set approved_reply_count = approved_reply_count + 1
+				where forum_id = v_cur.forum_id
+					and tree_sortkey = tree.ancestor_key(v_cur.tree_sortkey, 1);
+		  end if;
         elsif state <> 'approved' and v_cur.state = 'approved' then
           update forums_messages
           set approved_reply_count = approved_reply_count - 1

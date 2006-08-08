@@ -7,7 +7,6 @@
     <link rel="alternate stylesheet" type="text/css" media="all" title="flat-collapse" href="/resources/forums/flat-collapse.css" />
     <link rel="alternate stylesheet" type="text/css" media="all" title="collapse" href="/resources/forums/collapse.css" />
     <link rel="alternate stylesheet" type="text/css" media="all" title="expand" href="/resources/forums/expand.css" />
-    <script language="JavaScript" type="text/javascript" src="/resources/forums/cop.js"></script>
   </property>
 
 <include src="/packages/forums/lib/message/post" forum_id="@forum_id@" 

@@ -7,21 +7,22 @@
     <initial-install-p>f</initial-install-p>
     <singleton-p>f</singleton-p>
     
-    <version name="1.2.0d2" url="http://openacs.org/repository/download/apm/forums-1.2.0d2.apm">
+    <version name="1.3d1" url="http://openacs.org/repository/download/apm/forums-1.3d1.apm">
         <owner url="http://openacs.org">OpenACS</owner>
         <summary>Online discussion forums.</summary>
-        <release-date>2003-11-10</release-date>
+        <release-date>2006-05-10</release-date>
         <vendor url="http://openacs.org">OpenACS</vendor>
         <description format="text/plain">This online discussion board software is the successor of the original bboard package. The biggest improvement is a scalable datamodel. Forums supports threaded and flat view, moderation, a stand alone search function as well as integration with the OpenACS search package and integration with the notifications package for email alerts. It also supports reply via email.</description>
+        <maturity>0</maturity>
 
-        <provides url="forums" version="1.2.0d2"/>
-        <requires url="acs-kernel" version="5.2.0d2"/>
-        <requires url="acs-subsite" version="5.1.4"/>
+        <provides url="forums" version="1.3d1"/>
+        <requires url="acs-kernel" version="5.2.2"/>
+        <requires url="acs-subsite" version="5.2.2"/>
         <requires url="acs-mail-lite" version="0.1d"/>
-        <requires url="notifications" version="5.1.1"/>
         <requires url="attachments" version="0.5"/>
+        <requires url="notifications" version="5.1.1"/>
 
-       <callbacks>
+        <callbacks>
             <callback type="after-install"  proc="forum::install::package_install"/>
             <callback type="before-uninstall"  proc="forum::install::package_uninstall"/>
             <callback type="before-upgrade"  proc="forum::install::package_upgrade"/>
@@ -29,10 +30,10 @@
         <parameters>
             <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="DisplayEmoticonsAsImagesP"  default="1" description="Automatically convert smileys like :-) and similar constructs to images when displaying messages in the browser."/>
             <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="ForumsSearchBoxP"  default="1" description="Whether to display a forums specific searchbox within the page body (not desirable when there is a sitewide search in the header)."/>
-            <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="UseIntermediaForSearchP"  default="0" description="Should we use intermedia for searching forums? Intermedia is more scalable, but interprets searches differently from standard search."/>
             <parameter datatype="string"  min_n_values="1"  max_n_values="1"  name="table_bgcolor"  default="#eeeeee" description="This is the color of the first message / table row"/>
             <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="table_border_color"  default="#dddddd" description="The color of the table borders and between the cells, try #ffffff for a cool look"/>
             <parameter datatype="string"  min_n_values="1"  max_n_values="1"  name="table_other_bgcolor"  default="#d9e4f9" description="The bgcolor for the other table rows"/>
+            <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="UseIntermediaForSearchP"  default="0" description="Should we use intermedia for searching forums? Intermedia is more scalable, but interprets searches differently from standard search."/>
         </parameters>
 
     </version>

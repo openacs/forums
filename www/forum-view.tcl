@@ -66,3 +66,8 @@ set notification_chunk [notification::display::request_widget \
 
 set page_title "[_ forums.Forum_1] $forum(name)"
 set context [list [ad_quotehtml $forum(name)]]
+
+set type_id [notification::type::get_type_id -short_name forums_forum_notif]
+set notification_count [notification::request::request_count \
+			    -type_id $type_id \
+			    -object_id $forum_id]

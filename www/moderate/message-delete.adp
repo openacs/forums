@@ -3,7 +3,6 @@
   <property name="context">#forums.delete#</property>
   <property name="header_stuff">
     <link rel="stylesheet" type="text/css" media="all" href="/resources/forums/forums.css" />
-    <script language="JavaScript" type="text/javascript" src="/resources/forums/cop.js"></script>
     <script language="JavaScript" type="text/javascript" src="/resources/forums/forums.js"></script>
     <script type="text/javascript"><!--
       collapse_symbol = '<img src="/resources/forums/Collapse16.gif" width="16" height="16" ALT="-" border="0" title="collapse message">';

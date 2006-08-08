@@ -54,13 +54,13 @@
         </querytext>
     </fullquery>
 
-
+    
 <fullquery name="forums::move_thread_thread::update_forum_initial">
 <querytext>
 	update forums_forums
-	set thread_count = :thread_count - 1, approved_thread_count = :approved_thread_count - 1, last_post = (select max(fm.last_child_post) 
-           from forums_messages fm
-           where fm.forum_id = $message(forum_id))
+	set thread_count = :thread_count - 1, approved_thread_count = :approved_thread_count - 1, last_post = (select max(fm.last_child_post)
+	    from forums_messages fm
+            where fm.forum_id = $message(forum_id))
 	where forum_id = $message(forum_id)
 </querytext>
 </fullquery>
@@ -69,7 +69,7 @@
 <fullquery name="forums::move_thread_thread::update_forums_final">
 <querytext>
         update forums_forums
-        set last_post = (select max(last_child_post)
+        set last_post = (select max(last_child_post) 
 	    from forums_messages
 	    where forum_id = :forum_id)
         where forum_id = :forum_id

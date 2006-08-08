@@ -50,7 +50,7 @@ if {$confirm_p == 1} {
     db_0or1row forums::move_thread::get_final_tree_sortkey {}
         
     #update the initial father message: decreasing reply_count and approved_reply_count
-    db_0or1row forums::move_thread::get_father_message_id {}
+    db_0or1row forums::move_thread::get_father_message_id {}    
     db_dml forums::move_thread::update_father_reply_count {}       
     
     #get all descendents
