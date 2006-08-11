@@ -12,7 +12,7 @@ namespace eval forum::format {
         set subject "[_ forums.Re] $parent_subject"
         
         # trim multiple leading Re:
-        regsub "^(\s*Re:\s*)*" $subject {Re: } subject
+        regsub {^(\s*Re:\s*)*} $subject {Re: } subject
 
         return $subject
     }
