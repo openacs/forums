@@ -141,6 +141,7 @@ db_multirow -extend {
             set state_pretty {}
         }
     }
+}
 
 if {[exists_and_not_null alt_template]} {
     ad_return_template $alt_template
