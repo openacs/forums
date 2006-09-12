@@ -13,6 +13,15 @@ ad_page_contract {
 
 # Select the info
 set package_id [ad_conn package_id]
+set subsite_id [ad_conn subsite_id]
+set group_id [application_group::group_id_from_package_id -package_id $subsite_id]
+
+set member_ids [group::get_members -group_id $group_id]
+set member_html ""
+foreach member_id $member_ids {
+    append member_html "<input type=\"checkbox\" name=\"subscriber_ids\" value=\"$member_id\" id=\"subscriber,$member_id\" title=\"\"> [party::name -party_id $member_id]<br>\n"
+}
+
 forum::get -forum_id $forum_id -array forum
 
 # Proper scoping?
@@ -27,8 +36,24 @@ set context [list [_ forums.Subscribe_others]]
 set type forums_forum_notif
 set type_id [notification::type::get_type_id -short_name $type]
 
-set hidden_vars [export_vars -form {forum_id type_id}]
+# Get the list for the members and the ones already subscribed
+set subscribed_members_list [notification::request::subscribers -type_id $type_id -object_id $forum_id]
+set member_ids [group::get_members -group_id $group_id]
+set member_ids [lsort -integer -unique [concat $subscribed_members_list $member_ids]]
 
+set member_html ""
+foreach member_id $member_ids {
+    if {[lsearch $subscribed_members_list $member_id] > -1} {
+	set checked_html "checked"
+    } else {
+	set checked_html ""
+    }
+
+    append member_html "<input type=\"checkbox\" name=\"subscriber_ids\" value=\"$member_id\" id=\"subscriber,$member_id\" $checked_html> [party::name -party_id $member_id]<br>\n"
+}
+
+
+set hidden_vars [export_vars -form {forum_id type_id}]
 
 set intervals [notification::get_intervals -type_id $type_id]
 set interval_html "<select name=\"interval\">"

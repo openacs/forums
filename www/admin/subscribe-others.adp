@@ -5,7 +5,6 @@
 <form method="post" action="subscribe-others-2.tcl">
 
 #forums.Enter_a_list_of_email#
-
 <pre>
 user@example.com, Jane, Austin
 user2@example.com, Emily, Dickinson
@@ -16,7 +15,10 @@ user3@example.com
 #forums.If_checked_create_users#
 <input type="checkbox" value="t" name="create_new_users_p">
 
-<br>
+<p>
+Additionally you can choose from any of the members below:
+<p>@member_html;noquote@
+<p>
 #notifications.Frequency#: @interval_html;noquote@
 
 <br>

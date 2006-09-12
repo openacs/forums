@@ -13,7 +13,8 @@ ad_page_contract {
     {return_url "."}
     interval:notnull
     delivery_method:notnull
-    emails:notnull
+    {emails ""}
+    {subscriber_ids:integer,multiple}
     {create_new_users_p "f"}
 }
 
@@ -40,6 +41,21 @@ set lines [join $emails "\n"]
 
 
 db_transaction {
+
+    # Delete all old requests of this type
+    foreach request_id [notification::request::request_ids -object_id $forum_id -type_id $type_id] {
+	notification::request::delete -request_id $request_id
+    }
+
+    foreach subscriber_id $subscriber_ids {
+	ns_write "subscribing [party::name -party_id $subscriber_id]<br />"
+	notification::request::new \
+	    -type_id $type_id \
+	    -user_id $subscriber_id \
+	    -object_id $forum_id \
+	    -interval_id $interval \
+	    -delivery_method_id $delivery_method
+    }
 
     foreach line $lines {
 	
