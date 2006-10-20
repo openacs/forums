@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="forums" package_version="1.3d1" locale="en_US" charset="ISO-8859-1">
+<message_catalog package_key="forums" package_version="1.3d2" locale="en_US" charset="ISO-8859-1">
 
   <msg key="Admin_for_all">Administrative options for all forums.</msg>
   <msg key="Administer">Administer</msg>
@@ -153,6 +153,7 @@
   <msg key="Subject">Subject</msg>
   <msg key="Subscribe">Subscribe?</msg>
   <msg key="Subscribe_others">Subscribe others</msg>
+  <msg key="subscribe_others">subscribe others</msg>
   <msg key="Subscriptions_to_forum">Number of subscriptions to this forum:</msg>
   <msg key="Summary">Summary</msg>
   <msg key="Summary_Posting_history_for">Summary of posting history</msg>
@@ -165,6 +166,7 @@
   <msg key="Users_that_wrote_in_the_forum">Users that wrote in the forum</msg>
   <msg key="View">View</msg>
   <msg key="Yes">Yes</msg>
+  <msg key="You_can">You can</msg>
   <msg key="You_may">You may</msg>
   <msg key="Your_Note">Your Note</msg>
 </message_catalog>

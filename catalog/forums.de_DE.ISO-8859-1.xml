@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="forums" package_version="1.3d1" locale="de_DE" charset="ISO-8859-1">
+<message_catalog package_key="forums" package_version="1.3d2" locale="de_DE" charset="ISO-8859-1">
 
   <msg key="Administer">Forum verwalten</msg>
   <msg key="Administration">Diskussionsforen verwalten</msg>
@@ -114,12 +114,14 @@
   <msg key="Search_Forums">In Foren suchen</msg>
   <msg key="Subject">Betreff</msg>
   <msg key="Subscribe">Benachrichtigungsfunktion aktivieren?</msg>
+  <msg key="subscribe_others">andere abonnieren</msg>
   <msg key="text">Einfacher Text</msg>
   <msg key="This_forum_is">Dieses Forum ist</msg>
   <msg key="Threaded">Strukturiert</msg>
   <msg key="Threads">Diskussionsthemen</msg>
   <msg key="View">Ansicht</msg>
   <msg key="Yes">Ja</msg>
+  <msg key="You_can">Sie können</msg>
   <msg key="You_may">Sie können es</msg>
   <msg key="Your_Note">Ihr Kommentar</msg>
 </message_catalog>
