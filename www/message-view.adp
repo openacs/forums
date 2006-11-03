@@ -14,7 +14,7 @@
     <script type="text/javascript" src="/resources/forums/forums.js"></script>
     @dynamic_script;noquote@
   </property>
-  <iframe width="0" height="0" border="0" style="width:0; height:0; border:0;" id="dynamic" name="dynamic" src="about:blank" title="Dynamic frame"></iframe>
+  <iframe width="0" height="0" border="0" style="width:0; height:0; border:0;" id="dynamic" name="dynamic" src="about:blank" title=""></iframe>
 
   <if @searchbox_p@ true>
     <div style="float: right;">

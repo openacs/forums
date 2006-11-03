@@ -11,7 +11,7 @@
       sid = '@sid@';
       //--></script>
   </head>
-  <iframe width="0" height="0" border="0" style="width:0;height:0;border:0;" ID="dynamic" NAME="dynamic" SRC="about:blank"></IFRAME>
+  <iframe width="0" height="0" border="0" style="width:0;height:0;border:0;" ID="dynamic" NAME="dynamic" SRC="about:blank" title=""></IFRAME>
   <body onload="copyContent(@cid@,@dynamicmode@)">
     <div id="@cid@"><div>@message.content;noquote@</div></div>
   </body>
