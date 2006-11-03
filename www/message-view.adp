@@ -14,14 +14,15 @@
     <script type="text/javascript" src="/resources/forums/forums.js"></script>
     @dynamic_script;noquote@
   </property>
-  <iframe width="0" height="0" border="0" style="width:0; height:0; border:0;" id="dynamic" name="dynamic" src="about:blank"></iframe>
+  <iframe width="0" height="0" border="0" style="width:0; height:0; border:0;" id="dynamic" name="dynamic" src="about:blank" title="Dynamic frame"></iframe>
 
   <if @searchbox_p@ true>
     <div style="float: right;">
       <formtemplate id="search">
         <formwidget id="forum_id">
-          #forums.Search_colon#&nbsp;
+          <label for="search_text">#forums.Search_colon#&nbsp;
           <formwidget id="search_text">
+	  </label>
       </formtemplate>
     </div>
   </if>

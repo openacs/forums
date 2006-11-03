@@ -3,7 +3,7 @@
     <tr>
       <td align="right">
 <formtemplate id="search">
-        #forums.Search#&nbsp;<formwidget id="search_text">
+        <label for="search_text">#forums.Search#&nbsp;<formwidget id="search_text"></label>
 </formtemplate>
       </td>
     </tr>
