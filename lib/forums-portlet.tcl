@@ -71,7 +71,7 @@ foreach row $hot_topics_ds {
     set name [lindex $row 0]
     set thread_id [lindex $row 1]
     set message_id [lindex $row 2]
-    set url "${base_url}message-view?message_id=${thread_id}\#${message_id}"
+    set url "${base_url}message-view?message_id=${thread_id}&\#${message_id}"
     multirow append hot_topics $name $url
 }
 
