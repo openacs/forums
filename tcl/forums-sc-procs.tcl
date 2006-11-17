@@ -80,7 +80,8 @@ ad_proc -private forum::message::url { message_id } {
     forum::message::get -message_id $message_id -array message
     set forum_id $message(forum_id)
 
-    return "[ad_url][db_string select_forums_package_url {}]message-view?message_id=$message_id"
+
+     return "[db_string select_forums_package_url {}]message-view?message_id=$message_id"
 }
 
 
@@ -124,7 +125,8 @@ ad_proc -private forum::forum::url {
     @author Jeff Davis davis@xarg.net
     @creation_date 2004-04-01
 } {
-    return "[ad_url][db_string select_forums_package_url {}]forum-view?forum_id=$forum_id"
+
+     return "[db_string select_forums_package_url {}]forum-view?forum_id=$forum_id"
 }
 
 
