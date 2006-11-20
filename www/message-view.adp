@@ -28,11 +28,11 @@
   </if>
 <if @forum.presentation_type@ ne "flat">
   <div class="displayLinks" style="float: right;"> 
-    Display as: <a href="#" onclick="setActiveStyleSheet('flat'); return false;" title="No indentation for replies" class="button">Flat</a>
-    <a href="#" onclick="setActiveStyleSheet('default'); return false;" title="With indentation of replies" class="button">Nested</a>
-    <a href="#" onclick="setActiveStyleSheet('collapse'); return false;" title="Just display subjects" class="button">Collapse</a>
-    <a href="#" onclick="setActiveStyleSheet('expand'); return false;" title="Display full posts" class="button">Expand</a>
-    <a href="#" onclick="setActiveStyleSheet('print'); return false;" title="Printable view" class="button">Print</a>
+    #forums.display_as# <a href="#" onclick="setActiveStyleSheet('flat'); return false;" title="#forums.no_indentation_for_replies#" class="button">#forums.flat#</a>
+    <a href="#" onclick="setActiveStyleSheet('default'); return false;" title="#forums.with_indentation_of_replies#" class="button">#forums.nested#</a>
+    <a href="#" onclick="setActiveStyleSheet('collapse'); return false;" title="#forums.just_display_subjects#" class="button">#forums.collapse#</a>
+    <a href="#" onclick="setActiveStyleSheet('expand'); return false;" title="'#forums.display_full_posts#" class="button">#forums.expand#</a>
+    <a href="#" onclick="setActiveStyleSheet('print'); return false;" title="#forums.printable_view#" class="button">#forums.print#</a>
   </div>
 </if>
   <ul class="action-links">

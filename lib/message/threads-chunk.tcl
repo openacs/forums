@@ -110,6 +110,8 @@ template::list::create \
         forum_id {}
     }
 
+set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
+
 db_multirow -extend { 
     last_child_post_pretty
     posting_date_pretty
@@ -125,7 +127,12 @@ db_multirow -extend {
     set posting_date_pretty [lc_time_fmt $posting_date_ansi "%x %X"]
 
     set message_url [export_vars -base "${base_url}message-view" { message_id }]
-    set user_url [export_vars -base "${base_url}user-history" { user_id }]
+    if { $useScreenNameP } {
+	set user_name $screen_name
+	set user_url ""
+    } else {
+	set user_url [export_vars -base "${base_url}user-history" { user_id }]
+    }
     set n_messages_pretty [lc_numeric $n_messages]
 
     switch $state {

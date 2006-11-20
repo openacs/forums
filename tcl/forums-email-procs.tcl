@@ -21,7 +21,12 @@ ad_proc -public forum::email::create_forward_email {
 
     # Variables for I18N message lookup:
     set posting_date $message(posting_date_ansi)
-    set user_name $message(user_name)
+    set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
+    if {$useScreenNameP != 0} {
+	set user_name $message(screen_name)
+    } else {
+	set user_name $message(user_name)
+    }
 
     # Set up the message body
     set new_body "[ad_html_to_text -- $pre_body]"

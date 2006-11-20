@@ -44,7 +44,7 @@ ad_proc -public forum::message::new {
 
         get -message_id $message_id -array message
         if {[info exists message(state)] && [string equal $message(state) approved]} {
-            do_notifications -message_id $message_id
+            do_notifications -message_id $message_id -user_id $user_id
         }
     }  on_error {
 
@@ -73,12 +73,23 @@ ad_proc -public forum::message::new {
     
 ad_proc -public forum::message::do_notifications {
     {-message_id:required}
+    {-user_id ""}
 } {
     # Select all the important information
     forum::message::get -message_id $message_id -array message
 
     set forum_id $message(forum_id)
     set url "[ad_url][db_string select_forums_package_url {}]"
+
+    set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
+    if {($useScreenNameP == 0) && ($user_id != 0)} {
+	if {[empty_string_p $user_id]} {
+	    set user_id [ad_conn user_id]
+	}
+    } else {
+        set user_id [party::get_by_email -email [ad_parameter -package_id [ad_acs_kernel_id] HostAdministrator]]
+    }
+    set notif_user $user_id
 
     set attachments [attachments::get_attachments -object_id $message(message_id)]
 
@@ -88,7 +99,11 @@ ad_proc -public forum::message::do_notifications {
     set html_version ""
     append html_version "Forum:  <a href=\"${url}forum-view?forum_id=$message(forum_id)\">$message(forum_name)</a><br>\n"
     append html_version "Thread: <a href=\"${url}message-view?message_id=$message(root_message_id)\">$message(root_subject)</a><br>\n"
-    append html_version "Author: $message(user_name)<br>\n"
+    if {$useScreenNameP == 0} {
+        append html_version "Author: <a href=\"mailto:$message(user_email)\">$message(user_name)</a><br>\n"
+    } else {
+        append html_version "Author: $message(screen_name)<br>\n"
+    }
     append html_version "Posted: $message(posting_date)<br>"
     append html_version "\n<br>\n"
     append html_version $message_html
@@ -111,8 +126,13 @@ chment 1]</a></li>"
     set text_version ""
     append text_version "
 Forum: $message(forum_name)
-Thread: $message(root_message_id)
-Author: $message(user_name)
+Thread: $message(root_message_id)\n"
+    if {$useScreenNameP == 0} {
+	append text_version "Author: $message(user_name)"
+    } else {
+	append text_version "Author: $message(screen_name)"
+    }
+    append text_version "
 Posted: $message(posting_date)
 ----------------------------------
 $message_text

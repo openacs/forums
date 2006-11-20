@@ -17,8 +17,8 @@
 
         <provides url="forums" version="1.3d1"/>
         <requires url="acs-kernel" version="5.2.2"/>
-        <requires url="acs-subsite" version="5.2.2"/>
         <requires url="acs-mail-lite" version="0.1d"/>
+        <requires url="acs-subsite" version="5.2.2"/>
         <requires url="attachments" version="0.5"/>
         <requires url="notifications" version="5.1.1"/>
 
@@ -34,6 +34,7 @@
             <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="table_border_color"  default="#dddddd" description="The color of the table borders and between the cells, try #ffffff for a cool look"/>
             <parameter datatype="string"  min_n_values="1"  max_n_values="1"  name="table_other_bgcolor"  default="#d9e4f9" description="The bgcolor for the other table rows"/>
             <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="UseIntermediaForSearchP"  default="0" description="Should we use intermedia for searching forums? Intermedia is more scalable, but interprets searches differently from standard search."/>
+            <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="UseScreenNameP"  default="0" description="Should we hide users real name by using the screen name? Defaults to 0 (no) "/>
         </parameters>
 
     </version>
