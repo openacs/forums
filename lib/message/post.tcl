@@ -150,7 +150,7 @@ if {[form is_request message]} {
 	    set redirect_message_id $message(root_message_id)
 	}
 
-	set redirect_url "[ad_conn package_url]message-view?message_id=[set redirect_message_id]\#$message_id"
+	set redirect_url "[ad_conn package_url]message-view?message_id=[set redirect_message_id]&\#$message_id"
 
       # Wrap the notifications URL
       if {![empty_string_p $subscribe_p] && $subscribe_p && [empty_string_p $parent_id]} {
