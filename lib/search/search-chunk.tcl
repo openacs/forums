@@ -6,7 +6,6 @@ ad_page_contract {
 
 }
 set package_id [ad_conn package_id]
-set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
 
 set searchbox_p [parameter::get -parameter ForumsSearchBoxP -package_id $package_id -default 1]
 if {$searchbox_p} {
@@ -28,18 +27,11 @@ if {$searchbox_p} {
         if { [parameter::get -parameter UseIntermediaForSearchP -default 0] } {
             append query "_intermedia"
         }
-	
-	if { $useScreenNameP == 1 } {
-	    db_multirow -extend { screen_name } messages $query {} {
-		set posting_date_pretty [lc_time_fmt $posting_date_ansi "%x %X"]
-		set screen_name [db_string select_screen_name {select screen_name from users where user_id = :user_id}]
-	    }
-	} else {
-	    db_multirow messages $query {} {
-		set posting_date_pretty [lc_time_fmt $posting_date_ansi "%x %X"]
-	    }
-	}
-	
+
+        db_multirow messages $query {} {
+            set posting_date [lc_time_fmt $posting_date_ansi "%x %X"]
+        }
+
     } else {
         set messages:rowcount 0
     }

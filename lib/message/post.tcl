@@ -9,9 +9,6 @@ ad_page_contract {
 }
 
 set user_id [ad_conn user_id]
-set screen_name [db_string select_screen_name { select screen_name from users where user_id = :user_id}]
-set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
-set pvt_home [ad_pvt_home]
 
 if {[array exists parent_message]} {
   set parent_id $parent_message(message_id)
@@ -110,7 +107,6 @@ if {[form is_request message]} {
         set message(content) $content
         set message(user_id) $displayed_user_id
         set message(user_name) [db_string select_name {}]
-	set message(screen_name) $screen_name
         set message(posting_date_ansi) [db_string select_date {}]
         set message(posting_date_pretty) [lc_time_fmt $message(posting_date_ansi) "%x %X"]
 
@@ -154,7 +150,7 @@ if {[form is_request message]} {
 	    set redirect_message_id $message(root_message_id)
 	}
 
-	set redirect_url "[ad_conn package_url]message-view?message_id=[set redirect_message_id]&\#$message_id"
+	set redirect_url "[ad_conn package_url]message-view?message_id=[set redirect_message_id]\#$message_id"
 
       # Wrap the notifications URL
       if {![empty_string_p $subscribe_p] && $subscribe_p && [empty_string_p $parent_id]} {

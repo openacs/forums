@@ -19,7 +19,7 @@
       <td align="left">
         <a href="message-view?message_id=@messages.message_id@">@messages.subject@</a>
       </td>
-      <td align="left"><if @useScreenNameP@ >@messages.screen_name@</if><else><a href="user-history?user_id=@messages.user_id@">@messages.user_name@</a></else></td>
+      <td  align="left"><a href="user-history?user_id=@messages.user_id@">@messages.user_name@</a></td>
       <td align="center">@messages.posting_date@</td>
     </tr>
 

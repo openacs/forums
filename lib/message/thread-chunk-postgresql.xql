@@ -18,22 +18,20 @@
         <querytext>
             select message_id,
                    0 as n_attachments,
-                   t.subject,
-                   t.content,
-                   t.format,
-                   person__name(t.user_id) as user_name,
-                   to_char(t.posting_date, 'YYYY-MM-DD HH24:MI:SS') as posting_date_ansi,
-                   tree_level(t.tree_sortkey) as tree_level,
-                   t.state,
-                   t.user_id,
-                   t.parent_id,
-                   t.open_p,
-                   t.max_child_sortkey,
-                   u.screen_name
-            from   $table_name t, users u
-            where  t.forum_id = :forum_id
-	    and	   u.user_id = t.user_id
-            and    t.tree_sortkey between tree_left(:tree_sortkey) and tree_right(:tree_sortkey)
+                   subject,
+                   content,
+                   format,
+                   person__name(user_id) as user_name,
+                   to_char(posting_date, 'YYYY-MM-DD HH24:MI:SS') as posting_date_ansi,
+                   tree_level(tree_sortkey) as tree_level,
+                   state,
+                   user_id,
+                   parent_id,
+                   open_p,
+                   max_child_sortkey
+            from   $table_name
+            where  forum_id = :forum_id
+            and    tree_sortkey between tree_left(:tree_sortkey) and tree_right(:tree_sortkey)
             order  by $order_by
         </querytext>
     </fullquery>
@@ -41,23 +39,21 @@
     <fullquery name="select_message_responses_attachments">
         <querytext>
             select message_id,
-                   (select count(*) from attachments where object_id = t.message_id) as n_attachments,
-                   t.subject,
-                   t.content,
-                   t.format,
-                   person__name(t.user_id) as user_name,
-                   to_char(t.posting_date, 'YYYY-MM-DD HH24:MI:SS') as posting_date_ansi,
-                   tree_level(t.tree_sortkey) as tree_level,
-                   t.state,
-                   t.user_id,
-                   t.parent_id,
-                   t.open_p,
-                   t.max_child_sortkey,
-		   u.screen_name
-            from   $table_name t, users u
-            where  t.forum_id = :forum_id
-	    and	   u.user_id = t.user_id
-            and    t.tree_sortkey between tree_left(:tree_sortkey) and tree_right(:tree_sortkey)
+                   (select count(*) from attachments where object_id = message_id) as n_attachments,
+                   subject,
+                   content,
+                   format,
+                   person__name(user_id) as user_name,
+                   to_char(posting_date, 'YYYY-MM-DD HH24:MI:SS') as posting_date_ansi,
+                   tree_level(tree_sortkey) as tree_level,
+                   state,
+                   user_id,
+                   parent_id,
+                   open_p,
+                   max_child_sortkey
+            from   $table_name
+            where  forum_id = :forum_id
+            and    tree_sortkey between tree_left(:tree_sortkey) and tree_right(:tree_sortkey)
             order  by $order_by
         </querytext>
     </fullquery>

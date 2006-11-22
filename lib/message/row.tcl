@@ -10,7 +10,6 @@ ad_page_contract {
 }
 
 set viewer_id [ad_conn user_id]
-set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
 
 if {![exists_and_not_null rownum]} { 
     set rownum 1

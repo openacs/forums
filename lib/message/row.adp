@@ -34,26 +34,21 @@
   <if @display_subject_p@ true>
     <if @preview@ nil>
       <div class="subject">
-        <a href="@message.direct_url@" title="#forums.direct_link_to_this_post#" class="reference">@message.number@</a>:
-        <a href="message-view?message_id=@message.message_id@" title="#forums.link_to_this_post_on_a_separate_page#" class="alone">@message.subject@</a>
+        <a href="@message.direct_url@" title="Direct link to this post" class="reference">@message.number@</a>:
+        <a href="message-view?message_id=@message.message_id@" title="Link to this post on a separate page" class="alone">@message.subject@</a>
     </if>
     <else>
       <div class="subject">@message.subject@
     </else>
   </if>
   <else>
-    <div class="subject"><a href="@message.direct_url@" title="#forums.direct_link_to_this_post#" class="reference">@message.number@</a>
+    <div class="subject"><a href="@message.direct_url@" title="Direct link to this post" class="reference">@message.number@</a>
   </else>
   <if @message.parent_number@ not nil>
     <span class="response">(response to <a href="@message.parent_direct_url@" class="reference">@message.parent_number@</a>)</span>
   </if>
     </div>
-    <div class="attribution">
-	#forums.Posted_by# 
-      <if @useScreenNameP@>@message.screen_name@</if>
-      <else><a
-      href="user-history?user_id=@message.user_id@">@message.user_name@</a></else> #forums.on# <span class="post-date">@message.posting_date_pretty@</span>
-  </div>
+    <div class="attribution">#forums.Posted_by# <a href="user-history?user_id=@message.user_id@">@message.user_name@</a> on <span class="post-date">@message.posting_date_pretty@</span></div>
   </div>
 
   <div class="content">
