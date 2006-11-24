@@ -27,6 +27,7 @@
   <msg key="Create_a_New_Forum">Create a New Forum</msg>
   <msg key="Create_New_Forum">Create New Forum</msg>
   <msg key="delete">Delete</msg>
+  <msg key="Direct_link_to_this_post">Direct link to this post</msg>
   <msg key="disable">disable</msg>
   <msg key="disable_it">disable it</msg>
   <msg key="disabled">disabled</msg>
@@ -61,6 +62,7 @@
   <msg key="Forums_Posting_hist_lt">Forums: Posting history for</msg>
   <msg key="forward">Forward</msg>
   <msg key="Fwd">Fwd:</msg>
+  <msg key="goto_thread_subject">Go to thread %messages.subject%</msg>
   <msg key="help_new_threads">If &lt;b&gt;No&lt;/b&gt;, users may only reply to existing posts not create new threads.</msg>
   <msg key="help_posting_policy">&lt;b&gt;Open&lt;/b&gt; allows any users to post and have posts appear immediately, &lt;b&gt;moderated&lt;/b&gt; means posts must be approved by a moderator before others can see them, and &lt;b&gt;closed&lt;/b&gt; means only administrators may post.</msg>
   <msg key="help_presentation">&lt;b&gt;Flat&lt;/b&gt; only allows replies at the end of a thread with no nesting or threading, &lt;b&gt;Threaded&lt;/b&gt; allows replies to be made to any post in the thread and the reply will be indented under the post they are associated with.</msg>
@@ -68,6 +70,7 @@
   <msg key="If_checked_create_users">If checked, create users that don't exist:</msg>
   <msg key="Last_Post">Last Post</msg>
   <msg key="Last_post_in_subject">Last post in subject</msg>
+  <msg key="link_on_separate_page">Link to this post on a separate page</msg>
   <msg key="List_of_users_that_wrote_in_the_forum">List of users that wrote in the forum:</msg>
   <msg key="lt_Email_a_copy_of_the_f">Email a copy of the following message:</msg>
   <msg key="lt_First_post_in_subject">First post in subject</msg>
@@ -146,6 +149,8 @@
   <msg key="Search_colon">Search:</msg>
   <msg key="Search_Forums">Search Forums</msg>
   <msg key="Selected">Selected</msg>
+  <msg key="show_history_user_name">Show %messages.user_name% posting history</msg>
+  <msg key="show_posting_history_message_username">Show %message.user_name% posting history</msg>
   <msg key="Sorry_you_can_not_move_this_message_There_are_no_other_threads">Sorry. You can not move this message. There are no other threads in this forum.</msg>
   <msg key="Sorry_you_can_not_move_this_thread_There_are_no_more_threads">Sorry. You can not move this thread. There are no other threads.</msg>
   <msg key="Sorry_you_can_not_move_this_thread_There_are_no_other_forums">Sorry. You can not move this thread. There are no other forums.</msg>
