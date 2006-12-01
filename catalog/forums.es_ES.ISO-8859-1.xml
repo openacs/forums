@@ -28,6 +28,7 @@
   <msg key="Create_a_New_Forum">Crear nuevo foro de discusión</msg>
   <msg key="Create_New_Forum">Crear nuevo foro de discusión</msg>
   <msg key="delete">Eliminar</msg>
+  <msg key="Direct_link_to_this_post">Enlace directo a este mensaje</msg>
   <msg key="disable">no habilitado</msg>
   <msg key="disable_it">Deshabilitar</msg>
   <msg key="disabled">no habilitado</msg>
@@ -62,6 +63,7 @@
   <msg key="Forums_Posting_hist_lt">Foros de Discusión: Historia de mensajes de</msg>
   <msg key="forward">Reenviar</msg>
   <msg key="Fwd">Re-enviar:</msg>
+  <msg key="goto_thread_subject">Ir al hilo %messages.subject%</msg>
   <msg key="help_new_threads">Si se activa &amp;lt;b&amp;gt;No&amp;lt;/b&amp;gt;, los usuarios sólo pueden responder a mensajes existentes, no pueden crear hilos nuevos.</msg>
   <msg key="help_posting_policy">&amp;lt;b&amp;gt;Abierta&amp;lt;/b&amp;gt; permite a cualquier usuario publicar mensajes y que aprezcan inmediatamente, &amp;lt;b&amp;gt;moderada&amp;lt;/b&amp;gt; significa que los mensajes deben ser aprobados por un moderador antes de que otros los puedan ver y &amp;lt;b&amp;gt;cerrada&amp;lt;/b&amp;gt; quiere decir que sólo los administradores pueden poner mensajes.</msg>
   <msg key="help_presentation">&amp;lt;b&amp;gt;Sin hilos&amp;lt;/b&amp;gt; sólo permite respuestas al final del hilo sin anidamiento ni hebras, &amp;lt;b&amp;gt;Con hilos&amp;lt;/b&amp;gt; permite que se pueda responder a cualquier mensaje en el hilo y la respuesta será indentada bajo el mensaje al que pertenece la respuesta.</msg>
@@ -69,6 +71,7 @@
   <msg key="If_checked_create_users">Si se selecciona, se crearán usuarios que no existen. </msg>
   <msg key="Last_Post">Último Mensaje</msg>
   <msg key="Last_post_in_subject">Últimos mensajes del hilo</msg>
+  <msg key="link_on_separate_page">Abrir mensaje en una nueva página</msg>
   <msg key="List_of_users_that_wrote_in_the_forum">Usuarios que escribieron en el foro: </msg>
   <msg key="lt_Email_a_copy_of_the_f">Enviar una copia del siguiente mensaje:</msg>
   <msg key="lt_First_post_in_subject">Primer mensaje del hilo</msg>
@@ -147,6 +150,8 @@
   <msg key="Search_colon">Buscar:</msg>
   <msg key="Search_Forums">Buscar en Foros de Discusión</msg>
   <msg key="Selected">Seleccionado</msg>
+  <msg key="show_history_user_name">Ver historial de mensajes de %messages.user_name%</msg>
+  <msg key="show_posting_history_message_username">Ver historial de mensajes de %message.user_name%</msg>
   <msg key="Sorry_you_can_not_move_this_message_There_are_no_other_threads">Lo sentimos. No puedes mover este mensaje a otro hilo. No hay otros hilos en este foro.</msg>
   <msg key="Sorry_you_can_not_move_this_thread_There_are_no_more_threads">Lo sentimos. No puedes mover este hilo a otro hilo porque solo existe éste.</msg>
   <msg key="Sorry_you_can_not_move_this_thread_There_are_no_other_forums">Lo sentimos. No puedes mover este hilo a otro foro porque no hay más foros.</msg>
