@@ -99,8 +99,7 @@ ad_proc -public forum::message::do_notifications {
                             <ul> "
 
     foreach attachment $attachments {
-       append html_version "<li><a href=\"[lindex $attachment 2]\">[lindex $atta
-chment 1]</a></li>"
+       append html_version "<li><a href=\"[lindex $attachment 2]\">[lindex $attachment 1]</a></li>"
             }
     append html_version "</ul>"
 
