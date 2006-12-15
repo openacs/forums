@@ -150,7 +150,12 @@ ad_form -html {enctype multipart/form-data} \
 	    }
 	    
 	    ad_return_template "/packages/forums/lib/message/post-confirm"
+            ad_script_abort
 	}
+
+        # DRB: Malte: this redirect_url var isn't used as it is reset in the code below.  Please
+        # review and either discard this line or fix the stuff below ...
+#	set redirect_url "[ad_conn package_url]message-view?message_id=[set redirect_message_id]&\#$message_id"
 
 	if { [string equal $action "post"] } {
 	    set content [template::util::richtext::get_property content $message_body]
