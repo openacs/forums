@@ -6,8 +6,9 @@
 <div style="float: right;">
   <formtemplate id="search">
     <formwidget id="forum_id">
-      #forums.Search_colon#&nbsp;
+      <label for="search_text">#forums.Search_colon#&nbsp;
     <formwidget id="search_text">
+	</label>
   </formtemplate>
 </div>
 </if>

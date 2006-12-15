@@ -14,14 +14,15 @@
     <script type="text/javascript" src="/resources/forums/forums.js"></script>
     @dynamic_script;noquote@
   </property>
-  <iframe width="0" height="0" border="0" style="width:0; height:0; border:0;" id="dynamic" name="dynamic" src="about:blank"></iframe>
+  <iframe width="0" height="0" border="0" style="width:0; height:0; border:0;" id="dynamic" name="dynamic" src="about:blank" title=""></iframe>
 
   <if @searchbox_p@ true>
     <div style="float: right;">
       <formtemplate id="search">
         <formwidget id="forum_id">
-          #forums.Search_colon#&nbsp;
+          <label for="search_text">#forums.Search_colon#&nbsp;
           <formwidget id="search_text">
+	  </label>
       </formtemplate>
     </div>
   </if>
@@ -35,7 +36,7 @@
   </div>
 </if>
   <ul class="action-links">
-    <li><a href="@thread_url@">#forums.Back_to_thread_label#</a></li>
+    <li><a href="@thread_url@" title="#forums.Back_to_thread_label#">#forums.Back_to_thread_label#</a></li>
   </ul>
 
   <p>@notification_chunk;noquote@</p>
@@ -47,13 +48,13 @@
 
     <if @reply_url@ not nil>
       <if @forum.presentation_type@ eq "flat">
-        <a href="@reply_url@"><b>#forums.Post_a_Reply#</b></a>
+        <a href="@reply_url@" title="#forums.Post_a_Reply#"><b>#forums.Post_a_Reply#</b></a>
       </if>
       <else>
-        <a href="@reply_url@"><b>#forums.Reply_to_first_post_on_page_label#</b></a>
+        <a href="@reply_url@" title="#forums.Reply_to_first_post_on_page_label#"><b>#forums.Reply_to_first_post_on_page_label#</b></a>
       </else>
     </if>
 
     <ul class="action-links">
-      <li><a href="@thread_url@">#forums.Back_to_thread_label#</a></li>
+      <li><a href="@thread_url@" title="#forums.Back_to_thread_label#">#forums.Back_to_thread_label#</a></li>
     </ul>

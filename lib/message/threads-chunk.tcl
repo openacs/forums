@@ -36,16 +36,16 @@ if {![exists_and_not_null base_url]} {
 # moderated 2. User is a moderator or adminsitrator
 
 if {([forum::new_questions_allowed_p -forum_id $forum_id] && ($forum(posting_policy) == "open" || $forum(posting_policy) == "moderated")) ||  [template::util::is_true $permissions(admin_p)] ||  [template::util::is_true $permissions(moderate_p)]  } {
-    lappend actions [_ forums.Post_a_New_Message] [export_vars -base "${base_url}message-post" { forum_id }] {}
+    lappend actions [_ forums.Post_a_New_Message] [export_vars -base "${base_url}message-post" { forum_id }] [_ forums.Post_a_New_Message]
 }
 
-if {[template::util::is_true $admin_p]} {
+if { [template::util::is_true $permissions(admin_p)] } {
     lappend actions [_ forums.Administer] [export_vars \
-					       -base "${base_url}admin/forum-edit" {forum_id {return_url [ad_return_url]}}] {}
+					       -base "${base_url}admin/forum-edit" {forum_id {return_url [ad_return_url]}}] [_ forums.Administer]
 }
 
 if { [template::util::is_true $permissions(moderate_p)] } {
-    lappend actions [_ forums.ManageModerate] [export_vars -base "${base_url}moderate/forum" { forum_id }] {}
+    lappend actions [_ forums.ManageModerate] [export_vars -base "${base_url}moderate/forum" { forum_id }] [_ forums.ManageModerate]
 }
 
 template::list::create \
@@ -59,7 +59,10 @@ template::list::create \
         subject {
             label "#forums.Subject#"
             link_url_col message_url
-            display_template {<if @messages.new_p@><b>@messages.subject@</b></if> <else>@messages.subject@</else>
+	    link_html {title "\#forums.goto_thread_subject\#"}
+            display_template {
+                <if @messages.new_p@><b>@messages.subject@</b></if>
+                <else>@messages.subject@</else>
             }
         }
         state_pretty {
@@ -69,6 +72,7 @@ template::list::create \
         user_name {
             label "#forums.Author#"
             link_url_col user_url
+	    link_html {title "\#forums.show_history_user_name\#"}
         }
         n_messages {
             label "#forums.Replies#"
