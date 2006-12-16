@@ -150,7 +150,6 @@ ad_form -html {enctype multipart/form-data} \
 	    }
 	    
 	    ad_return_template "/packages/forums/lib/message/post-confirm"
-            ad_script_abort
 	}
 
         # DRB: Malte: this redirect_url var isn't used as it is reset in the code below.  Please
