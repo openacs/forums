@@ -48,7 +48,7 @@ set form_elements {
 }
 
 # Deal with anonymous postings
-if {[expr {$user_id != 0 && $anonymous_allowed_p}]} {
+if {$user_id != 0 && $anonymous_allowed_p} {
     append form_elements {
 	{anonymous_p:integer(checkbox),optional
 	    {options {{"[_ forums.post_anonymously]" 1}}}
@@ -63,7 +63,7 @@ if {[expr {$user_id != 0 && $anonymous_allowed_p}]} {
 }
 
 # Attachments
-if {[expr {$user_id != 0 && $anonymous_allowed_p}]} {
+if {$user_id != 0} {
     append form_elements {
 	{attach_p:integer(radio),optional
 	    {options {{[_ acs-kernel.common_No] 0} {[_ acs-kernel.common_Yes] 1}}}
