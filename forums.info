@@ -7,7 +7,7 @@
     <initial-install-p>f</initial-install-p>
     <singleton-p>f</singleton-p>
     
-    <version name="1.3d3" url="http://openacs.org/repository/download/apm/forums-1.3d3.apm">
+    <version name="1.3d4" url="http://openacs.org/repository/download/apm/forums-1.3d4.apm">
         <owner url="http://openacs.org">OpenACS</owner>
         <summary>Online discussion forums.</summary>
         <release-date>2006-05-10</release-date>
@@ -15,7 +15,7 @@
         <description format="text/plain">This online discussion board software is the successor of the original bboard package. The biggest improvement is a scalable datamodel. Forums supports threaded and flat view, moderation, a stand alone search function as well as integration with the OpenACS search package and integration with the notifications package for email alerts. It also supports reply via email.</description>
         <maturity>0</maturity>
 
-        <provides url="forums" version="1.3d3"/>
+        <provides url="forums" version="1.3d4"/>
         <requires url="acs-kernel" version="5.3.0d1"/>
         <requires url="acs-subsite" version="5.3.0d1"/>
         <requires url="acs-mail-lite" version="0.1d"/>
