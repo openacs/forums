@@ -136,7 +136,7 @@ ad_proc -public -callback search::datasource -impl forums_message {} {
         return [array get empty]
     }
     set relevant_date $message(posting_date)
-    ns_log debig "DIRK1 -${message(posting_date)}-"
+    ns_log debug "DIRK1 -${message(posting_date)}-"
 
     set tree_sortkey $message(tree_sortkey)
     set forum_id $message(forum_id)
