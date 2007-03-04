@@ -12,6 +12,7 @@ ad_page_contract {
 set table_border_color [parameter::get -parameter table_border_color]
 set table_bgcolor [parameter::get -parameter table_bgcolor]
 set table_other_bgcolor [parameter::get -parameter table_other_bgcolor]
+set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
 
 if {[exists_and_not_null alt_template]} {
   ad_return_template $alt_template
