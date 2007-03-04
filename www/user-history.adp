@@ -4,6 +4,6 @@
 
 <center>
 
-<include src="/packages/forums/lib/user/post-history-chunk" user_id="@user_id@" view="@view@">
+<include src="/packages/forums/lib/user/post-history-chunk" user_id="@user_id@" groupby="@groupby@" view="@view@">
 
 </center>

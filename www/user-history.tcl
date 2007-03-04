@@ -9,6 +9,7 @@ ad_page_contract {
 } {
     user_id:integer,notnull
     {view "date"}
+    {groupby "forum_name"}
 }
 
 # Get user information
