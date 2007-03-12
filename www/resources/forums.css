@@ -34,13 +34,13 @@
 
 #forum-thread .subject {
         text-align: left;
-        background: #f0f0f0;
+        background: #f3f3f3;
         padding: 0.5em;
 }
 
 #forum-thread .subject a.title { 
-#        color: blue;
-#        font-weight: bold;
+        color: blue;
+        font-weight: bold;
         text-decoration:none;
 }
 
@@ -52,15 +52,15 @@
 }
 
 #forum-thread .subject .response { 
-        color: black;
+       
 }
 #forum-thread .subject .reference { 
-        color: green;
+        color: #006f00;
 }
 
 #forum-thread .attribution {
   padding-top: 0.5em;
-  color: #aaaaaa;
+  padding-left: 0.5em;
 }
 
 #forum-thread .attribution a {
@@ -68,11 +68,11 @@
 }
 
 #forum-thread .odd {
-        background: #d9e4f9;
+        background: #e9effb;
 }
 
 #forum-thread .even {
-        background: #eeeeee;
+        background: #f3f3f3;
 }
 
 #forum-thread .level0 {
