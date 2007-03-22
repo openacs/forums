@@ -38,7 +38,7 @@
   <msg key="display_as">Mostrar como:</msg>
   <msg key="display_full_posts">Mostrar los mensajes</msg>
   <msg key="Edit">Editar</msg>
-  <msg key="edit">editar</msg>
+  <msg key="edit">Editar</msg>
   <msg key="Edit_again">Modificar de nuevo</msg>
   <msg key="Edit_forum">Editar foro de discusión</msg>
   <msg key="Edit_forum_name">Editar foro &amp;quot;%name%&amp;quot;</msg>
@@ -71,9 +71,9 @@
   <msg key="forward">Reenviar</msg>
   <msg key="Fwd">Re-enviar:</msg>
   <msg key="goto_thread_subject">Ir al hilo %messages.subject%</msg>
-  <msg key="help_new_threads">Si se activa &amp;lt;b&amp;gt;No&amp;lt;/b&amp;gt;, los usuarios sólo pueden responder a mensajes existentes, no pueden crear hilos nuevos.</msg>
-  <msg key="help_posting_policy">&amp;lt;b&amp;gt;Abierta&amp;lt;/b&amp;gt; permite a cualquier usuario publicar mensajes y que aprezcan inmediatamente, &amp;lt;b&amp;gt;moderada&amp;lt;/b&amp;gt; significa que los mensajes deben ser aprobados por un moderador antes de que otros los puedan ver y &amp;lt;b&amp;gt;cerrada&amp;lt;/b&amp;gt; quiere decir que sólo los administradores pueden poner mensajes.</msg>
-  <msg key="help_presentation">&amp;lt;b&amp;gt;Sin hilos&amp;lt;/b&amp;gt; sólo permite respuestas al final del hilo sin anidamiento ni hebras, &amp;lt;b&amp;gt;Con hilos&amp;lt;/b&amp;gt; permite que se pueda responder a cualquier mensaje en el hilo y la respuesta será indentada bajo el mensaje al que pertenece la respuesta.</msg>
+  <msg key="help_new_threads">Si se activa &quot;No&quot;, los usuarios sólo pueden responder a mensajes existentes, no pueden crear hilos nuevos.</msg>
+  <msg key="help_posting_policy">&quot;Abierta&quot; permite a cualquier usuario publicar mensajes y que aprezcan inmediatamente, &quot;moderada&quot; significa que los mensajes deben ser aprobados por un moderador antes de que otros los puedan ver y &quot;cerrada&quot; quiere decir que sólo los administradores pueden poner mensajes.</msg>
+  <msg key="help_presentation">&quot;Sin hilos&quot; sólo permite respuestas al final del hilo sin anidamiento ni hebras, &quot;Con hilos&quot; permite que se pueda responder a cualquier mensaje en el hilo y la respuesta será indentada bajo el mensaje al que pertenece la respuesta.</msg>
   <msg key="html">html</msg>
   <msg key="If_checked_create_users">Si se selecciona, se crearán usuarios que no existen. </msg>
   <msg key="in_this_forum_your_screename_is_used">En este foro, su screenname será usado en lugar de su nombre completo:</msg>
