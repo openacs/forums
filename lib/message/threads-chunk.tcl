@@ -3,7 +3,6 @@ ad_page_contract {
 
     @author Ben Adida (ben@openforce.net)
     @creation-date 2002-05-24
-<<<<<<< threads-chunk.tcl
     @cvs-id $Id$
 }
 

@@ -136,6 +136,7 @@ ad_form -html {enctype multipart/form-data} \
 	    set message(content) $content
 	    set message(user_id) $displayed_user_id
 	    set message(user_name) [db_string select_name {}]
+	    set message(screen_name) $screen_name
 	    set message(posting_date_ansi) [db_string select_date {}]
 	    set message(posting_date_pretty) [lc_time_fmt $message(posting_date_ansi) "%x %X"]
 	    
