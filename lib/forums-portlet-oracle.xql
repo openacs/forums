@@ -1,5 +1,5 @@
 <queryset>
-<rdbms><type>oracle</type><version></version></rdbms>
+<rdbms><type>oracle</type><version>8.1.6</version></rdbms>
 
 <fullquery name="hot_topics">
 <querytext>
