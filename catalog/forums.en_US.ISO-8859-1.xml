@@ -104,6 +104,7 @@
   <msg key="Move_message">Move message</msg>
   <msg key="Move_message_to_forum">Move message to forum:</msg>
   <msg key="Move_message_to_message">Move message to the message</msg>
+  <msg key="Move_message_to_thread">Move message to thread</msg>
   <msg key="Move_thread">Move thread</msg>
   <msg key="Move_thread_to_forum">Move thread to forum</msg>
   <msg key="Move_thread_to_message">Move message to other message</msg>
