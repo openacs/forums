@@ -3,7 +3,7 @@
   <property name="context">@context;noquote@</property>
   <property name="displayed_object_id">@forum_id;noquote@</property>
 
-
+<h1>@page_title;noquote@</h1>
 <if @searchbox_p@ true>
 <div style="float: right;">
   <formtemplate id="search">
