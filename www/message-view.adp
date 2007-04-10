@@ -1,5 +1,5 @@
 <master>
-  <property name="title">#forums.Thread_title#</property>
+  <property name="title">@page_title;noquote@</property>
   <property name="context">@context;noquote@</property>
   <property name="displayed_object_id">@message_id@</property>
 
@@ -14,6 +14,7 @@
     <script type="text/javascript" src="/resources/forums/forums.js"></script>
     @dynamic_script;noquote@
   </property>
+<h1>@page_title;noquote@</h1>
   <iframe width="0" height="0" border="0" style="width:0; height:0; border:0;" id="dynamic" name="dynamic" src="about:blank" title=""></iframe>
 
   <if @searchbox_p@ true>
