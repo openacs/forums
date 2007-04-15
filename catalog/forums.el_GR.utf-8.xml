@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<message_catalog package_key="forums" package_version="1.3d5" locale="el_GR" charset="utf-8">
+
+  <msg key="Attach">Επισύναψη;</msg>
+  <msg key="Body">Περιεχόμενο</msg>
+  <msg key="No">Όχι</msg>
+  <msg key="Post">Αποστολή</msg>
+  <msg key="Preview">Προεπισκόπηση</msg>
+  <msg key="Subject">Θέμα</msg>
+  <msg key="Yes">Ναι</msg>
+</message_catalog>
