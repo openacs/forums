@@ -78,7 +78,7 @@ set message(tree_level) 0
 
 # More Tcl vars (we might as well use them - Ben)
 if { [string equal $forum(presentation_type) flat] } {
-    set order_by "$table_name.posting_date, tree_sortkey"
+    set order_by "t.posting_date, tree_sortkey"
 } else {
     set order_by "tree_sortkey"
 }

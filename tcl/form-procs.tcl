@@ -39,7 +39,7 @@ ad_proc -public forums::form::message {
         -label [_ forums.Body] \
         -datatype richtext \
         -widget richtext \
-        -html {rows 20 cols 60 wrap soft} \
+        -html {rows 20 cols 60 wrap soft style {width:100%}} \
         $optional_switch
 
 }

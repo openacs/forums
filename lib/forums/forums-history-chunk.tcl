@@ -8,6 +8,7 @@ ad_page_contract {
 }
 
 set package_id [ad_conn package_id]
+set user_id [ad_conn user_id]
 
 # get the colors from the params
 set table_border_color [parameter::get -parameter table_border_color]
@@ -34,6 +35,10 @@ template::list::create \
 	    html {align right}
 	}
     }
+
+# provide screen_name functionality
+set screen_name [db_string select_screen_name { select screen_name from users where user_id = :user_id}]
+set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
 
 db_multirow persons select_users_wrote_post {} 
 

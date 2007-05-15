@@ -10,12 +10,15 @@ ad_page_contract {
 }
 
 set viewer_id [ad_conn user_id]
+set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
+set screen_name [db_string select_screen_name { select screen_name from users where user_id = :viewer_id}]
 
 if {![exists_and_not_null rownum]} { 
     set rownum 1
 }
 
 set message(content) [ad_html_text_convert -from $message(format) -to text/html -- $message(content)]
+set message(screen_name) $screen_name
 
 # convert emoticons to images if the parameter is set
 if { [string is true [parameter::get -parameter DisplayEmoticonsAsImagesP -default 0]] } {

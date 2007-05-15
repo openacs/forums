@@ -111,3 +111,5 @@ set dynamic_script "
 if {$forum(presentation_type) eq "flat"} {
     set display_mode flat
 }
+
+set page_title "#forums.Thread_title#"

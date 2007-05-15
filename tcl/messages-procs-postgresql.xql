@@ -11,12 +11,14 @@
                    party__email(forums_messages.user_id) as user_email,
                    forums_forum__name(forums_messages.forum_id) as forum_name, 
                    forums_message__root_message_id(forums_messages.message_id) as root_message_id,
+		   users.screen_name,
                    (select fm2.subject
                     from forums_messages fm2 
                     where fm2.message_id = forums_message__root_message_id(forums_messages.message_id)) as root_subject, 
                    to_char(forums_messages.posting_date, 'YYYY-MM-DD HH24:MI:SS') as posting_date_ansi
-            from forums_messages
+            from forums_messages, users
             where forums_messages.message_id= :message_id
+	    and forums_messages.user_id = users.user_id
         </querytext>
     </fullquery>
 
@@ -28,12 +30,14 @@
                    party__email(forums_messages.user_id) as user_email,
                    forums_forum__name(forums_messages.forum_id) as forum_name, 
                    forums_message__root_message_id(forums_messages.message_id) as root_message_id,
+		   users.screen_name, 
                    (select fm2.subject
                     from forums_messages fm2 
                     where fm2.message_id = forums_message__root_message_id(forums_messages.message_id)) as root_subject, 
                    to_char(forums_messages.posting_date, 'YYYY-MM-DD HH24:MI:SS') as posting_date_ansi
-            from forums_messages
+            from forums_messages, users
             where forums_messages.message_id= :message_id
+	    and forums_messages.user_id = users.user_id
         </querytext>
     </fullquery>
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="forums" package_version="1.3d1" locale="pt_BR" charset="ISO-8859-1">
+<message_catalog package_key="forums" package_version="1.3d5" locale="pt_BR" charset="ISO-8859-1">
 
   <msg key="Admin_for_all">Opções administrativas para todos os fóruns.</msg>
   <msg key="Administer">Administrar</msg>

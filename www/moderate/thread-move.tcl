@@ -16,5 +16,6 @@ forum::security::require_moderate_message -message_id $message_id
 
 # Select the stuff
 forum::message::get -message_id $message_id -array message
+set title "#forums.Confirm_Move_to# \"$message(subject)\""
 
 ad_return_template

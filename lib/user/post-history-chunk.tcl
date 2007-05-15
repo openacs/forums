@@ -17,6 +17,10 @@ set table_border_color [parameter::get -parameter table_border_color]
 set table_bgcolor [parameter::get -parameter table_bgcolor]
 set table_other_bgcolor [parameter::get -parameter table_other_bgcolor]
 
+# provide screen_name functionality
+set screen_name [db_string select_screen_name { select screen_name from users where user_id = :user_id}]
+set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
+
 # choosing the view
 set dimensional_list "
     {

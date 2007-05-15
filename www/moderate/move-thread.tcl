@@ -94,3 +94,6 @@ set url_vars [export_url_vars msg_id return_url selected_message]
 if {[exists_and_not_null alt_template]} {
   ad_return_template $alt_template
 }
+
+set title "#forums.Move_message_to_thread# \"$subject\""
+set context $title
