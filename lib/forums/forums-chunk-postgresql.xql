@@ -8,7 +8,7 @@
             select forums_forums_enabled.*,
                    approved_thread_count as n_threads,
                    to_char(last_post, 'YYYY-MM-DD HH24:MI:SS') as last_post_ansi,
-                   case when last_post > (now() - interval '1 day') then 't' else 'f' end as new_p
+                   $unread_or_new_query
             from forums_forums_enabled
             where forums_forums_enabled.package_id = :package_id
             and (

@@ -176,6 +176,16 @@ ad_form -html {enctype multipart/form-data} \
 	    # DRB: Black magic cache flush call which will disappear when list builder is
 	    # rewritten to paginate internally rather than use the template paginator.
 	    cache flush "messages,forum_id=$forum_id*"
+
+if { [forum::use_ReadingInfo_p] } {
+	# remove reading info for this thread for all users (mark it unread)
+    set db_antwort [db_string forums_reading_info__remove_msg {
+        select forums_reading_info__remove_msg (
+            :parent_id
+        );
+    }]
+}
+
 	    
 	    if {[empty_string_p $parent_id]} {
 		set redirect_url "[ad_conn package_url]message-view?message_id=$message_id"

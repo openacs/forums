@@ -80,6 +80,17 @@ if { [empty_string_p $message(parent_id)] } {
     set notification_chunk ""
 }
 
+if { [forum::use_ReadingInfo_p] && [string equal $message(state) approved] } {
+    set msg_id $message(root_message_id)
+    set user_id [ad_verify_and_get_user_id]
+    set db_antwort [db_string forums_reading_info__user_add_msg {
+        select forums_reading_info__user_add_msg (
+            :msg_id,
+            :user_id
+        );
+    }]
+}
+
 set context [list [list "./forum-view?forum_id=$message(forum_id)" "$message(forum_name)"]]
 if {![empty_string_p $message(parent_id)]} {
     lappend context [list "./message-view?message_id=$message(root_message_id)" "$message(root_subject)"]

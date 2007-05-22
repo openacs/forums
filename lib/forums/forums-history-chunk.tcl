@@ -15,16 +15,21 @@ set table_border_color [parameter::get -parameter table_border_color]
 set table_bgcolor [parameter::get -parameter table_bgcolor]
 set table_other_bgcolor [parameter::get -parameter table_other_bgcolor]
 
+# provide screen_name functionality
+set screen_name [db_string select_screen_name { select screen_name from users where user_id = :user_id}]
+set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
+
 template::list::create \
     -html {width 50%} \
     -name persons \
     -multirow persons \
     -key message_id \
+    -pass_properties {useScreenNameP screen_name} \
     -elements {
 	name {
 	    label "\#forums.User\#"
 	    html {align left}
-	    display_template {<a href="user-history?user_id=@persons.user_id@">@persons.first_names@ @persons.last_name@</a>}
+            display_template {<if @useScreenNameP@>@screen_name@</if><else><a href="user-history?user_id=@persons.user_id@">@persons.first_names@ @persons.last_name@</a></else>}
 	}
 	num_msg {
 	    label "\#forums.Number_of_Posts\#"
@@ -35,10 +40,6 @@ template::list::create \
 	    html {align right}
 	}
     }
-
-# provide screen_name functionality
-set screen_name [db_string select_screen_name { select screen_name from users where user_id = :user_id}]
-set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
 
 db_multirow persons select_users_wrote_post {} 
 

@@ -25,3 +25,7 @@
 
 -- Search
 \i forums-sc-create.sql
+
+-- Reading info
+\i forums-reading-info-create.sql
+

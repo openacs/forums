@@ -81,6 +81,7 @@
   <msg key="Manage">Verwalten</msg>
   <msg key="Manage_Forum">Forum verwalten:</msg>
   <msg key="ManageModerate">Verwalten/Moderieren</msg>
+  <msg key="mark_all_as_read">alle als gelesen markieren</msg>
   <msg key="Message_ID">Beitrags-ID</msg>
   <msg key="Moderate">Moderieren</msg>
   <msg key="moderated">Moderiert</msg>

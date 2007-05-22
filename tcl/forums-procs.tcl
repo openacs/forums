@@ -163,3 +163,10 @@ ad_proc -public forum::disable {
 } {
     db_dml update_forum_disabled_p {}
 }
+
+ad_proc -public forum::use_ReadingInfo_p {} {
+	# this depends on site-wide package parameters implemented in openacs core
+	# http://openacs.org/bugtracker/openacs/patch?patch%5fnumber=845
+	# return [parameter::get_from_package_key -package_key forums -parameter UseReadingInfo]
+	return 0
+}

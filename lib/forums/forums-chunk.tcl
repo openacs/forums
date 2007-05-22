@@ -18,6 +18,19 @@ set table_border_color [parameter::get -parameter table_border_color]
 set table_bgcolor [parameter::get -parameter table_bgcolor]
 set table_other_bgcolor [parameter::get -parameter table_other_bgcolor]
 
+set useReadingInfo [forum::use_ReadingInfo_p]
+if { $useReadingInfo } {
+    set unread_or_new_query {
+	approved_thread_count-COALESCE((SELECT forums_reading_info_user.threads_read WHERE
+		forums_reading_info_user.forum_id=forums_forums_enabled.forum_id AND forums_reading_info_user.user_id=:user_id),0)
+	as count_unread
+    }
+} else {
+    set unread_or_new_query {
+	case when last_post > (now() - interval '1 day') then 't' else 'f' end as new_p
+    }
+}
+
 set actions [list]
 if { $admin_p } {
     lappend actions [_ forums.New_Forum] "admin/forum-new" {}
@@ -28,11 +41,22 @@ template::list::create \
     -name forums \
     -actions $actions \
     -no_data [_ forums.No_Forums] \
+    -pass_properties useReadingInfo \
     -elements {
         name {
             label {\#forums.Forum_Name\#}
             link_url_col forum_view_url
             display_template {
+		<if @useReadingInfo@>
+		<if  @forums.count_unread@ gt 0>
+		<strong>
+                </if>
+                @forums.name@
+		<if  @forums.count_unread@ gt 0>
+                  </strong>(@forums.count_unread@)
+		</if>
+		</if>
+		<else>
                 <if @forums.new_p@ and @forums.n_threads@ gt 0>
                   <strong>
                 </if>
@@ -40,6 +64,7 @@ template::list::create \
                 <if @forums.new_p@ and @forums.n_threads@ gt 0>
                   </strong>
                 </if>
+		</else>
             }
         }
         charter {

@@ -9,6 +9,7 @@ ad_page_contract {
 } -query {
     forum_id:integer,notnull
     {orderby "last_child_post,desc"}
+		{flush_p 0}
     page:optional
 }
 

@@ -18,5 +18,5 @@
 @notification_chunk;noquote@
 </p>
 
-<include src="/packages/forums/lib/message/threads-chunk" forum_id="@forum_id@" &="permissions" moderate_p="@permissions.moderate_p@" orderby="@orderby@" &="page" admin_p="@permissions.admin_p@">
+<include src="/packages/forums/lib/message/threads-chunk" forum_id="@forum_id@" flush_p="@flush_p@" &="permissions" moderate_p="@permissions.moderate_p@" orderby="@orderby@" &="page" admin_p="@permissions.admin_p@">
 

@@ -6,10 +6,27 @@ ad_page_contract {
     @cvs-id $Id$
 }
 
+if {![info exists flush_p]} {set flush_p 0}
+
+set user_id [ad_verify_and_get_user_id]
 # Get forum data
 
 forum::get -forum_id $forum_id -array forum
 
+set useReadingInfo [forum::use_ReadingInfo_p]
+if { $useReadingInfo } {
+    set unread_or_new_query {
+	case when fi.reading_date is null then 't' else 'f' end as unread_p
+    }
+     set unread_join {
+	left join forums_reading_info fi on fm.message_id=fi.root_message_id and fi.user_id = :user_id
+    }
+} else {
+	set unread_or_new_query {
+	case when fm.last_child_post > (now() - interval '1 day') then 't' else 'f' end as new_p
+    }
+	set unread_join ""
+}
 if {![info exists base_url]} {
     set base_url ""
 }
@@ -48,12 +65,15 @@ if { [template::util::is_true $permissions(moderate_p)] } {
     lappend actions [_ forums.ManageModerate] [export_vars -base "${base_url}moderate/forum" { forum_id }] [_ forums.ManageModerate]
 }
 
+lappend actions [_ forums.mark_all_as_read] [export_vars -base "${base_url}mark_all_readed" { forum_id }] {}
+
 template::list::create \
     -name messages \
     -multirow messages \
     -page_size $page_size \
+    -page_flush_p $flush_p \
     -page_query_name messages_select_paginate \
-    -pass_properties {moderate_p} \
+    -pass_properties {moderate_p useReadingInfo} \
     -actions $actions \
     -elements {
         subject {
@@ -61,8 +81,18 @@ template::list::create \
             link_url_col message_url
 	    link_html {title "\#forums.goto_thread_subject\#"}
             display_template {
-                <if @messages.new_p@><b>@messages.subject@</b></if>
+		<if @useReadingInfo@>
+		<if @messages.unread_p@>
+		<b>@messages.subject@</b>
+		</if>
                 <else>@messages.subject@</else>
+		</if>
+		<else>
+                <if @messages.new_p@>
+		<b>@messages.subject@</b>
+		</if>
+                <else>@messages.subject@</else>
+		</else>
             }
         }
         state_pretty {
