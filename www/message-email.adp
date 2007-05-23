@@ -9,6 +9,8 @@
     <link rel="alternate stylesheet" type="text/css" media="all" title="expand" href="/resources/forums/expand.css" />
   </property>
 
+  <if @link:rowcount@ not nil><property name="&link">link</property></if>
+
   <p>#forums.lt_Email_a_copy_of_the_f#</p>
 
   <div id="forum-thread">

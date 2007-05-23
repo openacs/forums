@@ -10,6 +10,8 @@
     <link rel="alternate stylesheet" type="text/css" media="all" title="expand" href="/resources/forums/expand.css" />
   </property>
 
+  <if @link:rowcount@ not nil><property name="&link">link</property></if>
+
 <include src="/packages/forums/lib/message/post" forum_id="@forum_id@" 
                              &parent_message="parent_message"
                              anonymous_allowed_p="@anonymous_allowed_p@"

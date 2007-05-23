@@ -12,8 +12,13 @@
     <link rel="alternate stylesheet" type="text/css" media="all" title="expand" href="/resources/forums/expand.css" />
     <link rel="alternate stylesheet" type="text/css" media="all" title="print" href="/resources/forums/print.css" />
     <script type="text/javascript" src="/resources/forums/forums.js"></script>
-    @dynamic_script;noquote@
+    <script type="text/javascript" src="/resources/forums/dynamic-comments.js"></script>
+    <script type="text/javascript">@dynamic_script;noquote@</script>
   </property>
+
+<if @link:rowcount@ not nil><property name="&link">link</property></if>
+<if @script:rowcount@ not nil><property name="&script">script</property></if>
+
 <h1>@page_title;noquote@</h1>
   <iframe width="0" height="0" border="0" style="width:0; height:0; border:0;" id="dynamic" name="dynamic" src="about:blank" title=""></iframe>
 
