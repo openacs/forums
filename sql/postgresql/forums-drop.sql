@@ -8,6 +8,9 @@
 -- lifted from Gilbert's UBB forums. Thanks Orchard Labs.
 --
 
+-- Reading info
+\i forums-reading-info-drop.sql
+
 -- Search
 \i forums-sc-drop.sql
 
