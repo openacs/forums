@@ -27,7 +27,7 @@ if { $useReadingInfo } {
     }
 } else {
     set unread_or_new_query {
-	case when last_post > (now() - interval '1 day') then 't' else 'f' end as new_p
+	case when last_post > (current_date - interval '1' day) then 't' else 'f' end as new_p
     }
 }
 
@@ -48,12 +48,12 @@ template::list::create \
             link_url_col forum_view_url
             display_template {
 		<if @useReadingInfo@>
-		<if  @forums.count_unread@ gt 0>
-		<strong>
+		<if @forums.count_unread@ gt 0>
+		  <strong>
                 </if>
                 @forums.name@
 		<if  @forums.count_unread@ gt 0>
-                  </strong>(@forums.count_unread@)
+                  </strong>
 		</if>
 		</if>
 		<else>
@@ -74,6 +74,14 @@ template::list::create \
         n_threads {
             label {\#forums.Threads\#}
             display_col n_threads_pretty
+            display_template {
+		<if @useReadingInfo@>
+		<if  @forums.count_unread@ gt 0>
+		<strong>@forums.count_unread@ new</strong> of
+		</if>
+		</if>
+		@forums.n_threads@
+	    }
             html { align right }
         }
         last_post {
