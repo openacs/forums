@@ -12,8 +12,9 @@ create table forums_reading_info (
                     default current_timestamp
                     constraint forum_read_datetime_nn
                     not null,
-		primary key forums_reading_info_pk (root_message_id,user_id),
+		constraint forums_reading_info_pk primary key (root_message_id,user_id)
 );
+
 create index forums_reading_info_user_index on forums_reading_info (user_id);
 create index forums_reading_info_forum_message_index on forums_reading_info (root_message_id);
 
@@ -29,7 +30,7 @@ create table forums_reading_info_user (
     threads_read    integer 
                     default 0 
                     not null,
-    primary key forums_reading_info_user_pk (forum_id,user_id),              
+    constraint forums_reading_info_user_pk primary key (forum_id,user_id)              
 );
 
 
