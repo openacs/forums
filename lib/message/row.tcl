@@ -39,7 +39,7 @@ if {[exists_and_not_null alt_template]} {
 if {![info exists message(message_id)]} {
     set message(message_id) none
 }
-if {![info exists message(tree_level)]} {
+if {![info exists message(tree_level)] || $presentation_type eq "flat"} {
     set message(tree_level) 0
 }
 

@@ -3,7 +3,7 @@
     <if @preview@ nil>
   <div class="action-list" style="float: right;">
     <ul>
-      <li><a href="message-post?parent_id=@message.message_id@" class="button" title="#forums.reply#">#forums.reply#</a></li>
+      <if @presentation_type@ ne "flat"><li><a href="message-post?parent_id=@message.message_id@" class="button" title="#forums.reply#">#forums.reply#</a></li></if>
       <li><a href="message-email?message_id=@message.message_id@" class="button" title="#forums.forward#">#forums.forward#</a></li>
       <if @moderate_p@>
         <li><a href="moderate/message-edit?message_id=@message.message_id@" class="button" title="#forums.edit#">#forums.edit#</a></li>
