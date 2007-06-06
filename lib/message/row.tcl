@@ -17,6 +17,10 @@ if {![exists_and_not_null rownum]} {
     set rownum 1
 }
 
+if {![exists_and_not_null presentation_type]} {
+    set presentation_type ""
+}
+
 set message(content) [ad_html_text_convert -from $message(format) -to text/html -- $message(content)]
 set message(screen_name) $screen_name
 

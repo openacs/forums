@@ -203,7 +203,7 @@ ad_proc -public forum::message::get {
     {-message_id:required}
     {-array:required}
 } {
-    get the fields for a forum
+    get the fields for a message
 } {
     # Select the info into the upvar'ed Tcl Array
     upvar $array row

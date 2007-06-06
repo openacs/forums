@@ -185,13 +185,9 @@ if { [forum::use_ReadingInfo_p] } {
         );
     }]
 }
-
-	    
-	    if {[empty_string_p $parent_id]} {
-		set redirect_url "[ad_conn package_url]message-view?message_id=$message_id"
-	    } else {
-		set redirect_url "[ad_conn package_url]message-view?message_id=$parent_id"
-	    }
+            # VGUERRA Redirecting to the first message ALWAYS
+            forum::message::get -message_id $message_id -array msg
+            set redirect_url "[ad_conn package_url]message-view?message_id=$msg(root_message_id)" 
 	    
 	    # Wrap the notifications URL
 	    if {![empty_string_p $subscribe_p] && $subscribe_p && [empty_string_p $parent_id]} {
