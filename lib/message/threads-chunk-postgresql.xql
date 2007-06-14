@@ -27,7 +27,7 @@
                    $replies as n_messages,
                    to_char(fm.last_child_post, 'YYYY-MM-DD HH24:MI:SS') as last_child_post_ansi,
 	           u.screen_name,
-		   $unread_or_new_query                   
+		   $unread_or_new_query_clause                   
             from   forums_messages_approved fm $unread_join,
 		   users u
             where fm.forum_id = :forum_id
@@ -48,5 +48,11 @@
       lower(person__name(fm.last_poster)) asc
         </querytext>
     </partialquery>
+
+    <partialquery name="unread_or_new_query">
+	case when fm.last_child_post > (now() - interval '1 day') then 't' else 'f' end as unread_p
+    </partialquery>
+
+
 
 </queryset>
