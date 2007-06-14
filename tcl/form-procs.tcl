@@ -102,7 +102,7 @@ ad_proc -public forums::form::forward_message {
 } {
   template::element create $form_name ${prefix}to_email \
     -label [_ forums.Email] \
-    -datatype text \
+    -datatype email \
     -widget text \
     -html {size 60}
 
