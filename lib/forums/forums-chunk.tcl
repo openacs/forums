@@ -20,16 +20,9 @@ set table_other_bgcolor [parameter::get -parameter table_other_bgcolor]
 
 set useReadingInfo [forum::use_ReadingInfo_p]
 if { $useReadingInfo } {
-    set unread_or_new_query {
-	approved_thread_count-COALESCE(
-				       (SELECT forums_reading_info_user.threads_read 
-					FROM forums_reading_info_user, forums_forums_enabled
-					WHERE forums_reading_info_user.forum_id=forums_forums_enabled.forum_id 
-					AND forums_reading_info_user.user_id=:user_id),0)
-	as count_unread
-    }
+    set unread_or_new_query_clause [db_map unread_or_new_query]
 } else {
-    set unread_or_new_query {
+    set unread_or_new_query_clause {
 	case when last_post > (current_date - interval '1' day) then 't' else 'f' end as new_p
     }
 }
