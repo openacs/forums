@@ -179,11 +179,7 @@ ad_form -html {enctype multipart/form-data} \
 
 if { [forum::use_ReadingInfo_p] } {
 	# remove reading info for this thread for all users (mark it unread)
-    set db_antwort [db_string forums_reading_info__remove_msg {
-        select forums_reading_info__remove_msg (
-            :parent_id
-        );
-    }]
+    set db_antwort [db_exec_plsql forums_reading_info__remove_msg {}]
 }
             # VGUERRA Redirecting to the first message ALWAYS
             forum::message::get -message_id $message_id -array msg

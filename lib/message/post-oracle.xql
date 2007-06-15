@@ -9,4 +9,13 @@
         </querytext>
     </fullquery>
 
+    <fullquery name="forums_reading_info__remove_msg">
+        <querytext>
+	begin
+	  forum_reading_info.remove_msg(:parent_id);
+	end;
+        </querytext>
+    </fullquery>
+
+
 </queryset>

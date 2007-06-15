@@ -9,4 +9,14 @@
         </querytext>
     </fullquery>
 
+    <fullquery name="forums_reading_info__remove_msg">
+        <querytext>
+        select forums_reading_info__remove_msg (
+            :parent_id
+        );
+        </querytext>
+    </fullquery>
+
+
+
 </queryset>
