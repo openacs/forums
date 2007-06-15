@@ -10,12 +10,7 @@ ad_page_contract {
 }
 
     set user_id [ad_verify_and_get_user_id]
-    set db_antwort [db_string forums_reading_info__user_add_forum {
-        select forums_reading_info__user_add_forum (
-            :forum_id,
-            :user_id
-        );
-    }]
+    set db_antwort [db_exec_plsql forums_reading_info__user_add_forum {}]
 
 
 ad_returnredirect forum-view?forum_id=$forum_id
