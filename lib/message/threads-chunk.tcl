@@ -15,14 +15,10 @@ forum::get -forum_id $forum_id -array forum
 
 set useReadingInfo [forum::use_ReadingInfo_p]
 if { $useReadingInfo } {
-    set unread_or_new_query_clause {
-	case when fi.reading_date is null then 't' else 'f' end as unread_p
-    }
-     set unread_join {
-	left join forums_reading_info fi on fm.message_id=fi.root_message_id and fi.user_id = :user_id
-    }
+    set unread_or_new_query_clause [db_map unread_query]
+    set unread_join [db_map unread_join]
 } else {
-    set unread_or_new_query_clause [db_map unread_or_new_query]
+    set unread_or_new_query_clause [db_map new_query]
     set unread_join ""
 }
 if {![info exists base_url]} {
