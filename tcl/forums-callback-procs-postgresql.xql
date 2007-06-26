@@ -35,9 +35,9 @@
       <querytext>
         select subject, content, format
         from forums_messages
-        where message_id=:message_id 
--- lets just get the message instead of the whole thread
--- replace with a connect by
+        where message_id=:message_id or (tree_sortkey between tree_left(:tree_sortkey) and tree_right(:tree_sortkey))
+        and forum_id=:forum_id
+        order by tree_sortkey
       </querytext>
     </fullquery>
 
