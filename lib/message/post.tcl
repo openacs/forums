@@ -69,7 +69,7 @@ if {[expr {$user_id != 0 && $anonymous_allowed_p}]} {
 if {$user_id != 0} {
     append form_elements {
 	{attach_p:integer(radio),optional
-	    {options {{[_ acs-kernel.common_no] 0} {[_ acs-kernel.common_Yes] 1}}}
+	    {options {{[_ acs-kernel.common_No] 0} {[_ acs-kernel.common_Yes] 1}}}
 	    {label "[_ forums.Attach]"}
 	}
     }
