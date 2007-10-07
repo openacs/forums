@@ -53,4 +53,48 @@ if {![empty_string_p $message(parent_id)]} {
 lappend context [list "./message-view?message_id=$message(message_id)" "$message(subject)"]
 lappend context [_ forums.Email_to_a_friend]
 
+if {![template::multirow exists link]} {
+    template::multirow create link rel type href title lang media
+}
+
+template::multirow append link \
+    stylesheet \
+    text/css \
+    /resources/forums/forums.css \
+    "" \
+    [ad_conn language] \
+    all
+
+template::multirow append link \
+    "alternate stylesheet" \
+    text/css \
+    /resources/forums/flat.css \
+    "flat" \
+    [ad_conn language] \
+    all
+
+template::multirow append link \
+    "alternate stylesheet"  \
+    text/css \
+    /resources/forums/flat-collapse.css \
+    "flat-collapse" \
+    [ad_conn language] \
+    all
+
+template::multirow append link \
+    "alternate stylesheet" \
+    text/css \
+    /resources/forums/collapse.css \
+    "collapse" \
+    [ad_conn language] \
+    all 
+
+template::multirow append link \
+    "alternate stylesheet" \
+    text/css \
+    /resources/forums/expand.css \
+    "expand" \
+    [ad_conn language] \
+    all
+
 ad_return_template

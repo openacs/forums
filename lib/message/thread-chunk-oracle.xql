@@ -28,7 +28,7 @@
                    state,
                    user_id,
                    parent_id
-            from  $table_name
+            from  $table_name t
             where forum_id = :forum_id
             and   tree_sortkey between tree.left(:tree_sortkey) and tree.right(:tree_sortkey)
             order by $order_by
@@ -48,7 +48,7 @@
                    state,
                    user_id,
                    parent_id
-            from   $table_name
+            from   $table_name t
             where  forum_id = :forum_id
             and    tree_sortkey between tree.left(:tree_sortkey) and tree.right(:tree_sortkey)
             order  by $order_by

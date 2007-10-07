@@ -90,6 +90,7 @@ set message_ids {}
 db_multirow -extend { posting_date_pretty direct_url number parent_number parent_direct_url reply_p viewed_p open_p} responses $query {} {
     set open_p t
     set tree_level [min [expr {$tree_level - $message(tree_level)}] 10]
+    set posting_date_ansi [lc_time_system_to_conn $posting_date_ansi]
     set posting_date_pretty [lc_time_fmt $posting_date_ansi "%x %X"]
     set direct_url "$direct_url_base\#$message_id"
     set number [expr [lsearch $message_id_list $message_id] + 1]

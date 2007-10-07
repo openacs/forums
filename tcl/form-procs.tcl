@@ -39,7 +39,7 @@ ad_proc -public forums::form::message {
         -label [_ forums.Body] \
         -datatype richtext \
         -widget richtext \
-        -html {rows 20 cols 60 wrap soft style {width:100%}} \
+        -html {rows 20 cols 60 style {width:100%}} \
         $optional_switch
 
 }
@@ -102,7 +102,7 @@ ad_proc -public forums::form::forward_message {
 } {
   template::element create $form_name ${prefix}to_email \
     -label [_ forums.Email] \
-    -datatype text \
+    -datatype email \
     -widget text \
     -html {size 60}
 
@@ -116,7 +116,7 @@ ad_proc -public forums::form::forward_message {
     -label [_ forums.Your_Note] \
     -datatype text \
     -widget textarea \
-    -html {cols 80 rows 10 wrap hard}
+    -html {cols 80 rows 10}
 }
 
 ad_proc -public forums::form::search {
@@ -155,7 +155,7 @@ ad_proc -public forums::form::forum {
       -label [_ forums.Charter] \
       -datatype richtext \
       -widget richtext \
-      -html {cols 60 rows 10 wrap soft} \
+      -html {cols 60 rows 10} \
       -validate { {expr [string length $value] <= 4000 } {#forums.charter_max_chars#} } \
       -optional
 

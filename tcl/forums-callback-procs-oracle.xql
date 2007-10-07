@@ -35,9 +35,8 @@
       <querytext>
         select subject, content, format
         from forums_messages
-        where message_id=:message_id 
--- lets just get the message instead of the whole thread
--- replace with a connect by
+        start with message_id=:message_id 
+        connect by prior message_id = parent_id
       </querytext>
     </fullquery>
 

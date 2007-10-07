@@ -101,8 +101,6 @@ if { $permissions(post_p) || [ad_conn user_id] == 0 } {
 set thread_url [export_vars -base forum-view { { forum_id $message(forum_id) } }]
 
 set dynamic_script "
-  <script type=\"text/javascript\" src=\"/resources/forums/dynamic-comments.js\"></script>
-  <script type=\"text/javascript\">
   <!--
   collapse_symbol = '<img src=\"/resources/forums/Collapse16.gif\" width=\"16\" height=\"16\" ALT=\"collapse message\" border=\"0\" title=\"collapse message\">';
   expand_symbol = '<img src=\"/resources/forums/Expand16.gif\" width=\"16\" height=\"16\" ALT=\"expand message\" border=\"0\" title=\"expand message\">';
@@ -111,11 +109,83 @@ set dynamic_script "
   rootdir = 'messages-get';
   sid = '$message(root_message_id)';
   //-->
-  </script>
 "
 
 if {$forum(presentation_type) eq "flat"} {
     set display_mode flat
 }
+
+# stylesheets
+if {![template::multirow exists link]} {
+    template::multirow create link rel type href title lang media
+}
+
+template::multirow append link \
+    stylesheet \
+    text/css \
+    /resources/forums/forums.css \
+    "" \
+    [ad_conn language] \
+    all
+
+template::multirow append link \
+    stylesheet \
+    text/css \
+    /resources/forums/print.css \
+    "" \
+    [ad_conn language] \
+    print
+    
+template::multirow append link \
+    "alternate stylesheet" \
+    text/css \
+    /resources/forums/flat.css \
+    "flat" \
+    [ad_conn language] \
+    all
+
+template::multirow append link \
+    "alternate stylesheet"  \
+    text/css \
+    /resources/forums/flat-collapse.css \
+    "flat-collapse" \
+    [ad_conn language] \
+    all
+
+template::multirow append link \
+    "alternate stylesheet" \
+    text/css \
+    /resources/forums/collapse.css \
+    "collapse" \
+    [ad_conn language] \
+    all 
+
+template::multirow append link \
+    "alternate stylesheet" \
+    text/css \
+    /resources/forums/expand.css \
+    "expand" \
+    [ad_conn language] \
+    all
+
+# js scripts
+if {![template::multirow exists script]} {
+    template::multirow create script type src charset defer content
+}
+
+template::multirow append script \
+    "text/javascript" \
+    "/resources/forums/forums.js"
+
+template::multirow append script \
+    "text/javascript" \
+    "/resources/forums/dynamic-comments.js"
+
+template::multirow append script \
+    "text/javascript" \
+    "" \
+    "" \
+    "" \
+    $dynamic_script
 
 set page_title "#forums.Thread_title#"

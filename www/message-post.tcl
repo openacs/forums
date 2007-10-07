@@ -66,6 +66,50 @@ set attachments_enabled_p [forum::attachments_enabled_p]
 # Template variables
 #
 
+if {![template::multirow exists link]} {
+    template::multirow create link rel type href title lang media
+}
+
+template::multirow append link \
+    stylesheet \
+    text/css \
+    /resources/forums/forums.css \
+    "" \
+    [ad_conn language] \
+    all
+
+template::multirow append link \
+    "alternate stylesheet" \
+    text/css \
+    /resources/forums/flat.css \
+    "flat" \
+    [ad_conn language] \
+    all
+
+template::multirow append link \
+    "alternate stylesheet"  \
+    text/css \
+    /resources/forums/flat-collapse.css \
+    "flat-collapse" \
+    [ad_conn language] \
+    all
+
+template::multirow append link \
+    "alternate stylesheet" \
+    text/css \
+    /resources/forums/collapse.css \
+    "collapse" \
+    [ad_conn language] \
+    all 
+
+template::multirow append link \
+    "alternate stylesheet" \
+    text/css \
+    /resources/forums/expand.css \
+    "expand" \
+    [ad_conn language] \
+    all
+
 if {![string equal [template::form::get_button message] "preview"]} {
     set context [list [list "./forum-view?forum_id=$forum_id" [ad_quotehtml $forum(name)]]]
 

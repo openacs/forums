@@ -37,7 +37,7 @@ set form_elements {
 	{label "[_ forums.Subject]"}
     }
     {message_body:richtext(richtext) 
-	{html {rows 20 cols 60 wrap soft}}
+	{html {rows 20 cols 60}}
 	{label "[_ forums.Body]"}
     }
     {forum_id:integer(hidden)
