@@ -49,9 +49,6 @@ ad_proc -public forum::message::new {
             do_notifications -message_id $message_id -user_id $user_id
         }
 
-	if {!$no_callback_p} {
-	    callback forum::message_new -package_id [ad_conn package_id] -message_id $message_id
-	}
     }  on_error {
 
         db_abort_transaction
