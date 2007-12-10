@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="forums" package_version="1.3d5" locale="da_DK" charset="ISO-8859-1">
+<message_catalog package_key="forums" locale="da_DK" charset="ISO-8859-1">
 
   <msg key="Administer">Administrér</msg>
   <msg key="Administration">Administration</msg>
