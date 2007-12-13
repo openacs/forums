@@ -116,76 +116,17 @@ if {$forum(presentation_type) eq "flat"} {
 }
 
 # stylesheets
-if {![template::multirow exists link]} {
-    template::multirow create link rel type href title lang media
-}
-
-template::multirow append link \
-    stylesheet \
-    text/css \
-    /resources/forums/forums.css \
-    "" \
-    [ad_conn language] \
-    all
-
-template::multirow append link \
-    stylesheet \
-    text/css \
-    /resources/forums/print.css \
-    "" \
-    [ad_conn language] \
-    print
-    
-template::multirow append link \
-    "alternate stylesheet" \
-    text/css \
-    /resources/forums/flat.css \
-    "flat" \
-    [ad_conn language] \
-    all
-
-template::multirow append link \
-    "alternate stylesheet"  \
-    text/css \
-    /resources/forums/flat-collapse.css \
-    "flat-collapse" \
-    [ad_conn language] \
-    all
-
-template::multirow append link \
-    "alternate stylesheet" \
-    text/css \
-    /resources/forums/collapse.css \
-    "collapse" \
-    [ad_conn language] \
-    all 
-
-template::multirow append link \
-    "alternate stylesheet" \
-    text/css \
-    /resources/forums/expand.css \
-    "expand" \
-    [ad_conn language] \
-    all
-
+set lang [ad_conn language]
+template::head::add_css -href /resources/forums/forums.css -media all -lang $lang
+template::head::add_css -alternate -href /resources/forums/flat.css -media all -lang $lang -title "flat"
+template::head::add_css -alternate -href /resources/forums/flat-collapse.css -media all -lang $lang -title "flat-collapse"
+template::head::add_css -alternate -href /resources/forums/collapse.css -media all -lang $lang -title "collapse"
+template::head::add_css -alternate -href /resources/forums/expand.css -media all -lang $lang -title "expand"
+template::head::add_css -alternate -href /resources/forums/print.css -media print -lang $lang
+ 
 # js scripts
-if {![template::multirow exists script]} {
-    template::multirow create script type src charset defer content
-}
-
-template::multirow append script \
-    "text/javascript" \
-    "/resources/forums/forums.js"
-
-template::multirow append script \
-    "text/javascript" \
-    "/resources/forums/dynamic-comments.js"
-
-template::multirow append script \
-    "text/javascript" \
-    "" \
-    "" \
-    "" \
-    $dynamic_script
+template::head::add_script -type "text/javascript" -src "/resources/forums/forums.js"
+template::head::add_script -type "text/javascript" -src "/resources/forums/dynamic-comments.js"
+template::head::add_script -type "text/javascript" -script $dynamic_script
 
 set page_title "#forums.Thread_title#"
