@@ -8,8 +8,12 @@
 <div style="float: right;">
   <formtemplate id="search">
     <div><formwidget id="forum_id"></div>
-      <div><label for="search_text">#forums.Search_colon#&nbsp;</label></div>
-    <div><formwidget id="search_text"></div>
+    <div style="display: inline">
+       <label for="search_text">
+         #forums.Search_colon#&nbsp;
+         <formwidget id="search_text">
+       </label>
+    </div>
   </formtemplate>
 </div>
 </if>

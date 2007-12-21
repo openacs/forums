@@ -105,7 +105,7 @@ set dynamic_script "
   collapse_symbol = '<img src=\"/resources/forums/Collapse16.gif\" width=\"16\" height=\"16\" ALT=\"collapse message\" border=\"0\" title=\"collapse message\">';
   expand_symbol = '<img src=\"/resources/forums/Expand16.gif\" width=\"16\" height=\"16\" ALT=\"expand message\" border=\"0\" title=\"expand message\">';
   loading_symbol = '<img src=\"/resources/forums/dyn_wait.gif\" width=\"12\" height=\"16\" ALT=\"x\" border=\"0\">';
-  loading_message = '<i>Loading...</i>';
+  loading_message = 'Loading...';
   rootdir = 'messages-get';
   sid = '$message(root_message_id)';
   //-->

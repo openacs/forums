@@ -4,15 +4,16 @@
   <property name="displayed_object_id">@message_id@</property>
 
 <h1>@page_title;noquote@</h1>
-  <iframe width="0" height="0" border="0" style="width:0; height:0; border:0;" id="dynamic" name="dynamic" src="about:blank" title=""></iframe>
 
   <if @searchbox_p@ true>
     <div style="float: right;">
       <formtemplate id="search">
-        <formwidget id="forum_id">
+        <div><formwidget id="forum_id"></div>
+        <div style="display: inline">
           <label for="search_text">#forums.Search_colon#&nbsp;
-          <formwidget id="search_text">
-	  </label>
+            <formwidget id="search_text">
+          </label>
+        </div>
       </formtemplate>
     </div>
   </if>

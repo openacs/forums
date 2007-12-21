@@ -135,7 +135,7 @@ if {[exists_and_not_null alt_template]} {
   ad_return_template $alt_template
 }
 
-set response_arrays_stub "<script language=\"javascript\" type=\"text/javascript\">
+set response_arrays_stub "<script type=\"text/javascript\">
 <!--
 "
 foreach one_parent_id [array names parent_message] {
