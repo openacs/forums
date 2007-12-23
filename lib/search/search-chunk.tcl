@@ -28,18 +28,15 @@ if {$searchbox_p} {
         if { [parameter::get -parameter UseIntermediaForSearchP -default 0] } {
             append query "_intermedia"
         }
-	
-	if { $useScreenNameP == 1 } {
-	    db_multirow -extend { screen_name } messages $query {} {
-		set posting_date_pretty [lc_time_fmt $posting_date_ansi "%x %X"]
-		set screen_name [db_string select_screen_name {select screen_name from users where user_id = :user_id}]
-	    }
-	} else {
-	    db_multirow messages $query {} {
-		set posting_date_pretty [lc_time_fmt $posting_date_ansi "%x %X"]
-	    }
-	}
-	
+    
+        db_multirow -extend { author posting_date_pretty} messages $query {} {
+            set posting_date_pretty [lc_time_fmt $posting_date_ansi "%x %X"]
+            if { $useScreenNameP } {
+                set author [db_string select_screen_name {select screen_name from users where user_id = :user_id}]
+            } else {
+                set author $user_name
+            }
+        }
     } else {
         set messages:rowcount 0
     }

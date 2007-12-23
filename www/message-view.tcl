@@ -56,17 +56,8 @@ if {!${permissions(moderate_p)} && ![string equal $message(state) approved]} {
 #
 ############################################
 
-# Create a search form and action when used
+# Show search box?
 set searchbox_p [parameter::get -parameter ForumsSearchBoxP -default 1]
-if {$searchbox_p} { 
-    form create search -action search
-    forums::form::search search
-
-    if {[form is_request search]} {
-        element set_properties search forum_id -value $message(forum_id)
-    }
-}
-
 
 # If this is a top-level thread, we allow subscriptions here
 if { [empty_string_p $message(parent_id)] } {

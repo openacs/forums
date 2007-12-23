@@ -46,16 +46,9 @@ set admin_url [export_vars -base "admin/forum-edit" { forum_id {return_url [ad_r
 set moderate_url [export_vars -base "moderate/forum" { forum_id }]
 set post_url [export_vars -base "message-post" { forum_id }]
 
-# Create a search form and action when used
+# Show search box?
 set searchbox_p [parameter::get -parameter ForumsSearchBoxP -default 1]
-if {$searchbox_p} { 
-    form create search -action search
-    forums::form::search search
 
-    if {[form is_request search]} {
-        element set_properties search forum_id -value $forum_id
-    }
-}
 # Need to quote forum(name) since it is noquoted on display as part of an 
 # HTML fragment.
 set notification_chunk [notification::display::request_widget \

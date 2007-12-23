@@ -5,17 +5,7 @@
 
 <h1>@page_title;noquote@</h1>
 <if @searchbox_p@ true>
-<div style="float: right;">
-  <formtemplate id="search">
-    <div><formwidget id="forum_id"></div>
-    <div style="display: inline">
-       <label for="search_text">
-         #forums.Search_colon#&nbsp;
-         <formwidget id="search_text">
-       </label>
-    </div>
-  </formtemplate>
-</div>
+  <include src="/packages/forums/lib/search/search-form" forum_id="@forum_id@">
 </if>
 
 <p>

@@ -54,14 +54,14 @@ set root_message_id $message(root_message_id)
 set message_id_list [db_list select_message_ordering {}]
 
 set direct_url_base [export_vars -base [ad_conn url] { { message_id $message(root_message_id) } }]
-set message(direct_url) "$direct_url_base\#$message(message_id)"
+set message(direct_url) "$direct_url_base\#msg_$message(message_id)"
 
 set message(number) [expr [lsearch $message_id_list $message(message_id)] + 1]
 set message(parent_number) {}
 set message(parent_direct_url) ""
 if { [exists_and_not_null message(parent_id)] } {
     set message(parent_number) [expr [lsearch $message_id_list $message(parent_id)] + 1]
-    set message(parent_direct_url) "$direct_url_base\#$message(parent_id)"
+    set message(parent_direct_url) "$direct_url_base\#msg_$message(parent_id)"
     set message(parent_root_url) [export_vars -base [ad_conn url] { { message_id $message(parent_id) } }]
 }
 
@@ -92,10 +92,10 @@ db_multirow -extend { posting_date_pretty direct_url number parent_number parent
     set tree_level [min [expr {$tree_level - $message(tree_level)}] 10]
     set posting_date_ansi [lc_time_system_to_conn $posting_date_ansi]
     set posting_date_pretty [lc_time_fmt $posting_date_ansi "%x %X"]
-    set direct_url "$direct_url_base\#$message_id"
+    set direct_url "$direct_url_base\#msg_$message_id"
     set number [expr [lsearch $message_id_list $message_id] + 1]
     set parent_number [expr [lsearch $message_id_list $parent_id] + 1]
-    set parent_direct_url "$direct_url_base\#$parent_id"
+    set parent_direct_url "$direct_url_base\#msg_$parent_id"
     set parent_root_url [export_vars -base [ad_conn url] {{message_id $parent_id}}]
     set reply_p [expr [string equal $open_p "t"] || [string equal $user_id [ad_conn user_id]]]
     

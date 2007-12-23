@@ -6,17 +6,9 @@
 <h1>@page_title;noquote@</h1>
 
   <if @searchbox_p@ true>
-    <div style="float: right;">
-      <formtemplate id="search">
-        <div><formwidget id="forum_id"></div>
-        <div style="display: inline">
-          <label for="search_text">#forums.Search_colon#&nbsp;
-            <formwidget id="search_text">
-          </label>
-        </div>
-      </formtemplate>
-    </div>
+    <include src="/packages/forums/lib/search/search-form" forum_id="@message.forum_id@">
   </if>
+
   <div class="displayLinks" style="float: right;"> 
     #forums.display_as# <a href="#" onclick="setActiveStyleSheet('collapse'); return false;" title="#forums.just_display_subjects#" class="button">#forums.collapse#</a>
     <a href="#" onclick="setActiveStyleSheet('expand'); return false;" title="'#forums.display_full_posts#" class="button">#forums.expand#</a>

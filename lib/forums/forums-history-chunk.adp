@@ -3,11 +3,9 @@
 </p>
 
 
-<center>
 <if @persons:rowcount@ gt 0>
-<listtemplate name="persons"></listtemplate>
+    <listtemplate name="persons"></listtemplate>
 </if>
 <else>
-   #forums.No_Postings#
+    <p>#forums.No_Postings#</p>
 </else>
-</center>
