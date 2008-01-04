@@ -6,7 +6,7 @@
 
   <div class="action-list">
     <ul>
-      <li><a href="message-delete?@url_vars@&confirm_p=1" class="button">#forums.Yes#</a></li>
+      <li><a href="@confirm_url@" class="button">#forums.Yes#</a></li>
       <li><a href="@return_url@?message_id=@message.message_id@" class="button">#forums.No#</a></li>
     </ul>
   </div>

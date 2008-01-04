@@ -24,7 +24,7 @@ set message_id $message(message_id)
 
 set message(tree_level) 0
 
-set url_vars [export_url_vars message_id return_url]
+set confirm_url [export_vars -base "message-delete" {message_id return_url {confirm_p 1}}]
 
 if {[exists_and_not_null alt_template]} {
   ad_return_template $alt_template
