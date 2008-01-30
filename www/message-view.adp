@@ -10,9 +10,8 @@
   </if>
 
   <div class="displayLinks" style="float: right;"> 
-    #forums.display_as# <a href="#" onclick="setActiveStyleSheet('collapse'); return false;" title="#forums.just_display_subjects#" class="button">#forums.collapse#</a>
-    <a href="#" onclick="setActiveStyleSheet('expand'); return false;" title="'#forums.display_full_posts#" class="button">#forums.expand#</a>
-    <a href="#" onclick="setActiveStyleSheet('print'); return false;" title="#forums.printable_view#" class="button">#forums.print#</a>
+    #forums.display_as# <a href="#" onclick="setActiveStyleSheet('collapse'); return false;" title="#forums.just_display_subjects#" class="button" id="collapse" style="display: none;">#forums.collapse#</a>
+    <a href="#" onclick="setActiveStyleSheet('expand'); return false;" title="'#forums.display_full_posts#" class="button" id="expand" style="display: none;">#forums.expand#</a>
   </div>
   <ul class="action-links">
     <li><a href="@thread_url@" title="#forums.Back_to_thread_label#">#forums.Back_to_thread_label#</a></li>
