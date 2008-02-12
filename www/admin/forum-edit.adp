@@ -8,7 +8,7 @@
 </if>
 <else>
 #forums.This_forum_is# <b>#forums.disabled#</b>. #forums.You_may# <a href="forum-enable?forum_id=@forum.forum_id@">#forums.enable_it#</a>.
-</else>#forums.You_can# <a href="subscribe-others?forum_id=@forum.forum_id@">#forums.subscribe_others#</a>.
+</else>
 <p>
 
 <include src="/packages/forums/lib/forums/edit" &forum="forum" return_url="@return_url@">
