@@ -26,10 +26,12 @@
         padding-top: 3px;
         padding-bottom: 3px;
         border: 0px;
+	display: inline;
 }
 
 #forum-thread .dyncollapsed {
         padding: 0px;
+	display: none;
 }
 
 #forum-thread .subject {
