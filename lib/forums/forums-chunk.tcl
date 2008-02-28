@@ -23,7 +23,7 @@ if { $useReadingInfo } {
     set unread_or_new_query_clause [db_map unread_or_new_query]
 } else {
     set unread_or_new_query_clause {
-	case when last_post > (current_date - interval '1' day) then 't' else 'f' end as new_p
+	case when last_post > (current_date - interval '1 day') then 't' else 'f' end as new_p
     }
 }
 
