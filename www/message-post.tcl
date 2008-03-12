@@ -68,10 +68,10 @@ set attachments_enabled_p [forum::attachments_enabled_p]
 
 set lang [ad_conn language]
 template::head::add_css -href /resources/forums/forums.css -media all -lang $lang
-template::head::add_css -alternate -href /resources/forums/flat.css -media all -lang $lang -title "flat"
-template::head::add_css -alternate -href /resources/forums/flat-collapse.css -media all -lang $lang -title "flat-collapse"
-template::head::add_css -alternate -href /resources/forums/collapse.css -media all -lang $lang -title "collapse"
-template::head::add_css -alternate -href /resources/forums/expand.css -media all -lang $lang -title "expand"
+#template::head::add_css -alternate -href /resources/forums/flat.css -media all -lang $lang -title "flat"
+#template::head::add_css -alternate -href /resources/forums/flat-collapse.css -media all -lang $lang -title "flat-collapse"
+#template::head::add_css -alternate -href /resources/forums/collapse.css -media all -lang $lang -title "collapse"
+#template::head::add_css -alternate -href /resources/forums/expand.css -media all -lang $lang -title "expand"
 
 if {![string equal [template::form::get_button message] "preview"]} {
     set context [list [list "./forum-view?forum_id=$forum_id" [ad_quotehtml $forum(name)]]]
