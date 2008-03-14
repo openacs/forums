@@ -14,6 +14,7 @@
   <msg key="Attachments">Attachments:</msg>
   <msg key="Author">Author</msg>
   <msg key="Available_Forums">Available Forums</msg>
+  <msg key="Available_Messages">Available Messages</msg>
   <msg key="Back_to_thread_label">Back to %forum.name%</msg>
   <msg key="Back_to_thread_link">&lt;a href=&quot;%thread_url%&quot;&gt;Back&lt;/a&gt; to %forum.name%</msg>
   <msg key="Body">Body</msg>
