@@ -197,7 +197,7 @@ as
 		v_target_forum_id 			forums_forums.forum_id%TYPE;
 		v_users             			forums_reading_info%ROWTYPE;
 	begin
-		select forum_id from forums_messages where message_id = p_target_message_id into v_target_forum_id;
+		select forum_id into v_target_forum_id from forums_messages where message_id = p_target_message_id;
 		for v_users in (select user_id from forums_reading_info fri where root_message_id  = p_target_message_id and not exists(select 1 from forums_reading_info where root_message_id = p_source_old_root_message_id and user_id = fri.user_id))
 		loop
 			delete from forums_reading_info where root_message_id = p_target_message_id and user_id = v_users.user_id;
