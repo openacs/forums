@@ -100,7 +100,14 @@ set lang [ad_conn language]
 template::head::add_css -href /resources/forums/forums.css -media all -lang $lang
 template::head::add_css -href /resources/forums/print.css -media print -lang $lang
  
+# set vars for i18n
+template::head::add_script -type "text/javascript" -script [subst {
+    var collapse_alt_text='[_ forums.collapse]';
+    var expand_alt_text='[_ forums.expand]';
+    var collapse_link_title='[_ forums.collapse_message]';
+    var expand_link_title='[_ forums.expand_message]';}] -order 1
+
 # js scripts
-template::head::add_script -type "text/javascript" -src "/resources/forums/forums.js"
+template::head::add_script -type "text/javascript" -src "/resources/forums/forums.js" -order 2
 
 set page_title "#forums.Thread_title#"

@@ -29,7 +29,7 @@
     </if>
     <div class="details">
   <div style="float: left; padding-right: 4px;">
-    <a id="toggle@message.message_id@" class="dynexpanded" href="javascript:void(forums_toggle(@message.message_id@))"><img src="/resources/forums/Collapse16.gif" width="16" height="16" alt="+"></a>
+    <a id="toggle@message.message_id@" class="dynexpanded" href="javascript:void(forums_toggle(@message.message_id@))" title="#forums.collapse_message#"><img src="/resources/forums/Collapse16.gif" width="16" height="16" alt="#forums.collapse#"></a>
   </div>
   <if @display_subject_p@ true>
     <if @preview@ nil>
