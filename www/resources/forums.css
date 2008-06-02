@@ -115,3 +115,8 @@
 .details img {
   border-style: none;
 }
+
+h2.forum-heading {
+  font-size: 1.0em; 
+  font-weight: normal;
+}
