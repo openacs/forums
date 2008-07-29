@@ -11,7 +11,7 @@
           <input type="radio" name="subscribe_p" value="1">#forums.Yes#</input>
 
           <if @forum_notification_p@>
-            <br /><small>#forums.lt_Note_that_you_are_alr#</small>
+            <br><small>#forums.lt_Note_that_you_are_alr#</small>
           </if>
         </if>
         <input type="submit" name="formbutton:post" value="#forums.Post#" />

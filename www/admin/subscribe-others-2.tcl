@@ -48,7 +48,7 @@ db_transaction {
     }
 
     foreach subscriber_id $subscriber_ids {
-	ns_write "subscribing [party::name -party_id $subscriber_id]<br />"
+	ns_write "subscribing [party::name -party_id $subscriber_id]<br>"
 	notification::request::new \
 	    -type_id $type_id \
 	    -user_id $subscriber_id \
@@ -96,7 +96,7 @@ db_transaction {
 
 	}
 
-	ns_write "<br />Name:$fname $lname"
+	ns_write "<br>Name:$fname $lname"
 	
 
 	# user_id is blank if the account doesn't exist or if the
@@ -108,7 +108,7 @@ db_transaction {
 	    if {[string is true $create_new_users_p]} {
 
 		if {[util_email_valid_p $email]} {
-		    ns_write "creating new user: $fname $lname ($email)<br />"
+		    ns_write "creating new user: $fname $lname ($email)<br>"
 
 		    # create new user
 		    set user_exists_p [db_0or1row user_id "select party_id from parties where email = lower(:email) limit 1"]
@@ -135,9 +135,9 @@ db_transaction {
 	    set request_id [notification::request::get_request_id -type_id $type_id -object_id $forum_id -user_id $user_id]
 	    
 	    if {![empty_string_p $request_id]} {
-		ns_write "<br>already subscribed ($fname $lname ($email)<br />"
+		ns_write "<br>already subscribed ($fname $lname ($email)<br>"
 	    } else {
-		ns_write "subscribing ($fname $lname ($email)<br />"
+		ns_write "subscribing ($fname $lname ($email)<br>"
 		notification::request::new \
 		    -type_id $type_id \
 		    -user_id $user_id \
