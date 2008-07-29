@@ -35,11 +35,11 @@
 
  <div class="details">
  <div style="float: left; background-color:#f0f0f0;">  
-	<a  id="toggle@message.message_id@" href="#"  onclick="dynamicExpand('@message.message_id@');return false;"><img src="/resources/forums/Collapse16.gif" width="16" height="16" alt="+"/></a>       
+	<a  id="toggle@message.message_id@" href="#"  onclick="dynamicExpand('@message.message_id@');return false;"><img src="/resources/forums/Collapse16.gif" width="16" height="16" alt="+"></a>       
         <if @total_number_messages@ le @max_number_messages@>
-          <a href="#" title="#forums.Expand_only_direct_reply_of_message#" onclick="expandChilds('@message.message_id@','@children_direct_list@'); return false;"><img src="/resources/forums/expand.png"  width="20" height="20" alt="#forums.Expand_only_direct_reply_of_message#" border="none"/></a>          	
-          <a href="#" title="Expand all messages" onclick="expandChilds('@message.message_id@','@children_string@'); return false;"><img  src="/resources/forums/ExpandAll16.gif" width="15" height="15" alt="#forums.Expand_all_messages#"  border="none"/></a>   
-    	  <a href="#" title="Collapse all messages" onclick="collapseChilds('@message.message_id@','@children_string@'); return false;"><img  src="/resources/forums/CollapseAll16.gif" width="15" height="15" alt="#forums.Collapse_all_messages#" border="none"/></a> 
+          <a href="#" title="#forums.Expand_only_direct_reply_of_message#" onclick="expandChilds('@message.message_id@','@children_direct_list@'); return false;"><img src="/resources/forums/expand.png"  width="20" height="20" alt="#forums.Expand_only_direct_reply_of_message#" style="border:0"></a>          	
+          <a href="#" title="Expand all messages" onclick="expandChilds('@message.message_id@','@children_string@'); return false;"><img  src="/resources/forums/ExpandAll16.gif" width="15" height="15" alt="#forums.Expand_all_messages#"  style="border:0"></a>   
+    	  <a href="#" title="Collapse all messages" onclick="collapseChilds('@message.message_id@','@children_string@'); return false;"><img  src="/resources/forums/CollapseAll16.gif" width="15" height="15" alt="#forums.Collapse_all_messages#" style="border:0"></a> 
    	</if>
  </div>   
   
