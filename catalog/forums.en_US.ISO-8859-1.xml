@@ -106,7 +106,6 @@
   <msg key="Move_message">Move message</msg>
   <msg key="Move_message_to_forum">Move message to forum:</msg>
   <msg key="Move_message_to_message">Move message to the message</msg>
-  <msg key="Move_message_to_thread">Move message to thread</msg>
   <msg key="Move_thread">Move thread</msg>
   <msg key="Move_thread_to_forum">Move thread to forum</msg>
   <msg key="Move_thread_to_message">Move message to other message</msg>
@@ -194,5 +193,5 @@
   <msg key="Yes">Yes</msg>
   <msg key="You_can">You can</msg>
   <msg key="You_may">You may</msg>
-  <msg key="Your_Note">Your Note</msg>
+  <msg key="Your_Note">A Note</msg>
 </message_catalog>
