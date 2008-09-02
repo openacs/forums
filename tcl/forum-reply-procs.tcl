@@ -41,14 +41,15 @@ namespace eval forum::notification {
     ad_proc -public process_reply {
         reply_id
     } {
-        ns_log debug "forum::notification::process_reply: processing reply $reply_id"
 
         # Get the data
         notification::reply::get -reply_id $reply_id -array reply
 
+	# get rid of Outlook HTML DOCTYPE
+	set reply(content) [regsub {<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4\.0 Transitional//EN">} $reply(content) {}]
+
         # Get the message information
         forum::message::get -message_id $reply(object_id) -array message
-        
         # Insert the message
         forum::message::new -forum_id $message(forum_id) \
                 -parent_id $message(message_id) \
