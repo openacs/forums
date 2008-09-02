@@ -155,7 +155,7 @@ ad_proc -public forums::form::forum {
       -label [_ forums.Charter] \
       -datatype richtext \
       -widget richtext \
-      -html {cols 60 rows 10} \
+        -html {cols 60 rows 10 style {width: 100%}} \
       -validate { {expr [string length $value] <= 4000 } {#forums.charter_max_chars#} } \
       -optional
 
