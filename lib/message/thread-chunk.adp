@@ -4,6 +4,7 @@
     forum_moderated_p=@forum_moderated_p;noquote@
     moderate_p=@permissions.moderate_p;noquote@
     presentation_type=@forum.presentation_type@
+    &permissions="permissions"
     &message="message">
     <if @responses:rowcount@ gt 0>
       <multiple name="responses">
@@ -12,6 +13,7 @@
           forum_moderated_p=@forum_moderated_p;noquote@
           moderate_p=@permissions.moderate_p;noquote@
 	  presentation_type=@forum.presentation_type@
+          &permissions="permissions"
           &message="responses">
       </multiple>
     </if>

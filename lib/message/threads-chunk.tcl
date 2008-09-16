@@ -42,12 +42,14 @@ if {![exists_and_not_null base_url]} {
 }
 
 # new postings are allowed if
-
+# 0. The user has post-permissions
 # 1. Users can create new threads AND the posting policy is open or
 # moderated 2. User is a moderator or adminsitrator
 
-if {([forum::new_questions_allowed_p -forum_id $forum_id] && ($forum(posting_policy) == "open" || $forum(posting_policy) == "moderated")) ||  [template::util::is_true $permissions(admin_p)] ||  [template::util::is_true $permissions(moderate_p)]  } {
+if {$permissions(post_p)} {
+  if {([forum::new_questions_allowed_p -forum_id $forum_id] && ($forum(posting_policy) == "open" || $forum(posting_policy) == "moderated")) ||  [template::util::is_true $permissions(admin_p)] ||  [template::util::is_true $permissions(moderate_p)]  } {
     lappend actions [_ forums.Post_a_New_Message] [export_vars -base "${base_url}message-post" { forum_id }] [_ forums.Post_a_New_Message]
+  }
 }
 
 if { [template::util::is_true $permissions(admin_p)] } {
@@ -59,7 +61,9 @@ if { [template::util::is_true $permissions(moderate_p)] } {
     lappend actions [_ forums.ManageModerate] [export_vars -base "${base_url}moderate/forum" { forum_id }] [_ forums.ManageModerate]
 }
 
-lappend actions [_ forums.mark_all_as_read] [export_vars -base "${base_url}mark_all_readed" { forum_id }] {}
+if {$user_id != 0} {
+  lappend actions [_ forums.mark_all_as_read] [export_vars -base "${base_url}mark_all_readed" { forum_id }] {}
+}
 
 template::list::create \
     -name messages \

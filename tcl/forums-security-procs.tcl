@@ -140,6 +140,7 @@ namespace eval forum::security {
 
     ad_proc -public permissions {
         {-forum_id:required}
+        {-user_id ""}
         array_name
     } {
       upvar $array_name array
@@ -149,8 +150,24 @@ namespace eval forum::security {
       if { !$array(admin_p) } {
         array set array [list moderate_p [forum::security::can_moderate_forum_p -forum_id $forum_id]]
         if { !$array(moderate_p) } {
-          array set array [list post_p [expr { [ad_conn user_id] == 0 || [forum::security::can_post_forum_p -forum_id $forum_id] }]]
+          if {$user_id eq ""} {
+            set user_id [ad_conn user_id]
+          }
+          # Set post_p according to permissions ...
+          array set array [list post_p [forum::security::can_post_forum_p -forum_id $forum_id -user_id $user_id]]
+          #
+          # ... alternatively, we could use a parameter to behave like
+          # in earlier versions just leave it is a reminder, if
+          # someone still likes the old behavior.  This code should be
+          # removed later....
+          #
+          # if {$user_id == 0 && [parameter::get -parameter "OfferPostForAnonymousUserP" -default 1]} {
+          #   array set array [list post_p 1]
+          # } else {
+          #   array set array [list post_p [forum::security::can_post_forum_p -forum_id $forum_id -user_id $user_id]]
+          # }
         } else {
+          # moderators can always post
           array set array [list post_p 1]
         }
       } else {

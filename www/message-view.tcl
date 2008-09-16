@@ -33,13 +33,24 @@ if {$forum(enabled_p) != "t"} {
     ad_script_abort
 }
 
+set user_id [ad_conn user_id]
 forum::security::require_read_message -message_id $message_id
-forum::security::permissions -forum_id $message(forum_id) permissions
+forum::security::permissions -forum_id $message(forum_id) -user_id $user_id permissions
 
 # Check if the user has admin on the message
 set permissions(moderate_p) [forum::security::can_moderate_message_p -message_id $message_id]
 if {!${permissions(moderate_p)}} {
+    # Set post_p according to permissions ...
     set permissions(post_p) [forum::security::can_post_forum_p -forum_id $message(forum_id)]
+    # ... alternatively, we could use a parameter to behave like
+    # in earlier versions just leave it is a reminder, if
+    # someone still likes the old behavior.  This code should be
+    # removed later....
+    # if {$user_id == 0 && [parameter::get -parameter "OfferPostForAnonymousUserP" -default 1]} {
+    #   set permissions(post_p) 1
+    # } else {
+    #   set permissions(post_p) [forum::security::can_post_forum_p -forum_id $message(forum_id)]
+    # }
 } else {
     set permissions(post_p) 1
 }
@@ -71,9 +82,8 @@ if { [empty_string_p $message(parent_id)] } {
     set notification_chunk ""
 }
 
-if { [forum::use_ReadingInfo_p] && [string equal $message(state) approved] } {
+if { [forum::use_ReadingInfo_p] && $message(state) eq "approved" } {
     set msg_id $message(root_message_id)
-    set user_id [ad_verify_and_get_user_id]
     set db_antwort [db_exec_plsql forums_reading_info__user_add_msg {}]
 }
 
@@ -85,7 +95,7 @@ if {![empty_string_p $message(parent_id)]} {
     lappend context "$message(subject)"
 }
 
-if { $permissions(post_p) || [ad_conn user_id] == 0 } {
+if { $permissions(post_p) } {
     set reply_url [export_vars -base message-post { { parent_id $message(message_id) } }]
 }
 
