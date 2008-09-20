@@ -47,7 +47,7 @@ if {[template::form is_request message]} {
 }
 
 set context [list [list "./forum-view?forum_id=$message(forum_id)" "$message(forum_name)"]]
-if {![empty_string_p $message(parent_id)]} {
+if {$message(parent_id) ne ""} {
     lappend context [list "./message-view?message_id=$message(root_message_id)" "[_ forums.Entire_Thread]"]
 }
 lappend context [list "./message-view?message_id=$message(message_id)" "$message(subject)"]

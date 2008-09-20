@@ -22,13 +22,13 @@ if { ![exists_and_not_null package_id]
 if { [info exists n] } {
     # need to do a type check, as this is interpolated into the PG query
     # (PG LIMIT clause doesn't accept bind vars)
-    if { ![string is integer $n] || ![expr $n > 0] } {
+    if { ![string is integer $n] || ![expr {$n > 0}] } {
         error "n must be an integer greater than 0"
     }
 } else {
     set n 2
 }
-if { ![info exists cache] || [expr $cache < 0] } {
+if { ![info exists cache] || [expr {$cache < 0}] } {
     set cache 0
 }
 if { ![exists_and_not_null package_id] } {

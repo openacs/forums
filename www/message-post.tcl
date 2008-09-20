@@ -11,7 +11,7 @@ ad_page_contract {
     {parent_id ""}
 } -validate {
     forum_id_or_parent_id {
-        if {[empty_string_p $forum_id] && [empty_string_p $parent_id]} {
+        if {$forum_id eq "" && $parent_id eq ""} {
             ad_complain [_ forums.lt_You_either_have_to]
         }
     }
@@ -33,7 +33,7 @@ set user_id [auth::refresh_login]
 # Pull out required forum and parent data and
 # perform security checks 
 #
-if {[empty_string_p $parent_id]} {
+if {$parent_id eq ""} {
     # no parent_id, therefore new thread
     # require thread creation privs
     forum::security::require_post_forum -forum_id $forum_id
@@ -53,10 +53,10 @@ if {[empty_string_p $parent_id]} {
 ##############################
 # Calculate users rights and forums policy
 #
-set anonymous_allowed_p [expr ([empty_string_p $forum_id] || \
+set anonymous_allowed_p [expr ($forum_id eq "" || \
                                [forum::security::can_post_forum_p \
                                   -forum_id $forum_id -user_id 0]) && \
-                              ([empty_string_p $parent_id] || \
+                              ($parent_id eq "" || \
                                [forum::security::can_post_message_p \
                                   -message_id $parent_id -user_id 0])]
 
@@ -73,10 +73,10 @@ template::head::add_css -href /resources/forums/forums.css -media all -lang $lan
 #template::head::add_css -alternate -href /resources/forums/collapse.css -media all -lang $lang -title "collapse"
 #template::head::add_css -alternate -href /resources/forums/expand.css -media all -lang $lang -title "expand"
 
-if {![string equal [template::form::get_button message] "preview"]} {
+if {[template::form::get_button message] ne "preview" } {
     set context [list [list "./forum-view?forum_id=$forum_id" [ad_quotehtml $forum(name)]]]
 
-    if {[empty_string_p $parent_id]} {
+    if {$parent_id eq ""} {
         lappend context [_ forums.Post_a_Message]
     } else {
         lappend context [list "./message-view?message_id=$parent_message(message_id)" "$parent_message(subject)"]

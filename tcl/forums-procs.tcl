@@ -59,7 +59,7 @@ ad_proc -public forum::edit {
 }
 
 ad_proc -public forum::attachments_enabled_p {} {
-    if {[string eq forums [ad_conn package_key]]} { 
+    if {"forums" eq [ad_conn package_key]} { 
 	set package_id [site_node_apm_integration::child_package_exists_p \
 			    -package_key attachments
 		       ]
@@ -99,7 +99,7 @@ ad_proc -public forum::posting_policy_set {
     # just assuming registered_users is the 
     # right group to be granting write to.
 
-    if {![string equal closed $posting_policy]} { 
+    if {"closed" ne $posting_policy } { 
         permission::grant -object_id $forum_id \
             -party_id [acs_magic_object registered_users] \
             -privilege write 
@@ -115,7 +115,7 @@ ad_proc -public forum::new_questions_allow {
     {-forum_id:required}
     {-party_id ""}
 } {
-    if { [empty_string_p $party_id] } {
+    if { $party_id eq "" } {
         set party_id [acs_magic_object registered_users]
     }
     # Give the public the right to ask new questions
@@ -129,7 +129,7 @@ ad_proc -public forum::new_questions_deny {
     {-forum_id:required}
     {-party_id ""}
 } {
-    if { [empty_string_p $party_id] } {
+    if { $party_id eq "" } {
         set party_id [acs_magic_object registered_users]
     }
     # Revoke the right from the public to ask new questions
@@ -143,7 +143,7 @@ ad_proc -public forum::new_questions_allowed_p {
     {-forum_id:required}
     {-party_id ""}
 } {
-    if { [empty_string_p $party_id] } {
+    if { $party_id eq "" } {
         set party_id [acs_magic_object registered_users]
     }
     permission::permission_p -object_id $forum_id \

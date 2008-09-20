@@ -102,7 +102,7 @@ db_transaction {
 	# user_id is blank if the account doesn't exist or if the
 	# email account looks invalid.
 
-	if {[empty_string_p $user_id]} {
+	if {$user_id eq ""} {
 	    # shall we create the new user?
 
 	    if {[string is true $create_new_users_p]} {
@@ -129,12 +129,12 @@ db_transaction {
 	    
 	}
 	
-	if {![empty_string_p $user_id]} {
+	if {$user_id ne ""} {
 
 	    # Check if subscribed
 	    set request_id [notification::request::get_request_id -type_id $type_id -object_id $forum_id -user_id $user_id]
 	    
-	    if {![empty_string_p $request_id]} {
+	    if {$request_id ne ""} {
 		ns_write "<br>already subscribed ($fname $lname ($email)<br />"
 	    } else {
 		ns_write "subscribing ($fname $lname ($email)<br />"

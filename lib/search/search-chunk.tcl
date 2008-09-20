@@ -21,7 +21,7 @@ if {$searchbox_p} {
         regsub -all {[^[:alnum:]_[:blank:]]} $search_text {} search_text
 
         set query search_all_forums
-        if {![empty_string_p $forum_id]} {
+        if {$forum_id ne ""} {
             set query search_one_forum
         }
         

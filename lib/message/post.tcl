@@ -89,7 +89,7 @@ ad_form -html {enctype multipart/form-data} \
         # Form initialisation
         #
         set message_id [db_nextval acs_object_id_seq]
-        if {[empty_string_p $parent_id]} {
+        if {$parent_id eq ""} {
             set parent_id ""
         } else {
             set forum_id $parent_message(forum_id)
@@ -106,7 +106,7 @@ ad_form -html {enctype multipart/form-data} \
         # Form processing
         #
         
-        if { [empty_string_p $anonymous_p] } { set anonymous_p 0 }
+        if { $anonymous_p eq "" } { set anonymous_p 0 }
         
 
         set action [template::form::get_button message]
@@ -121,7 +121,7 @@ ad_form -html {enctype multipart/form-data} \
                                    0 $user_id \
                                    0]
 
-        if { [string equal $action "preview"] } {
+        if {$action eq "preview"} {
             
             set confirm_p 1
             set subject.spellcheck ":nospell:"
@@ -142,7 +142,7 @@ ad_form -html {enctype multipart/form-data} \
             
             # Let's check if this person is subscribed to the forum
             # in case we might want to subscribe them to the thread
-            if {[empty_string_p $parent_id]} {
+            if {$parent_id eq ""} {
                 if {![empty_string_p [notification::request::get_request_id \
                                           -type_id [notification::type::get_type_id -short_name forums_forum_notif] \
                                           -object_id $forum_id \
@@ -160,7 +160,7 @@ ad_form -html {enctype multipart/form-data} \
         # review and either discard this line or fix the stuff below ...
 #        set redirect_url "[ad_conn package_url]message-view?message_id=[set redirect_message_id]&\#$message_id"
 
-        if { [string equal $action "post"] } {
+        if {$action eq "post"} {
             set content [template::util::richtext::get_property content $message_body]
             set format [template::util::richtext::get_property format $message_body]
             
@@ -186,7 +186,7 @@ if { [forum::use_ReadingInfo_p] } {
             set redirect_url "[ad_conn package_url]message-view?message_id=$msg(root_message_id)" 
             
             # Wrap the notifications URL
-            if {![empty_string_p $subscribe_p] && $subscribe_p && [empty_string_p $parent_id]} {
+            if {$subscribe_p ne "" && $subscribe_p && $parent_id eq ""} {
                 set notification_url [notification::display::subscribe_url \
                                           -type forums_message_notif \
                                           -object_id $message_id \
@@ -199,7 +199,7 @@ if { [forum::use_ReadingInfo_p] } {
             
             # Wrap the attachments URL
             if {$attachments_enabled_p} {
-                if { ![empty_string_p $attach_p] && $attach_p} {
+                if { $attach_p ne "" && $attach_p} {
                     set redirect_url [attachments::add_attachment_url -object_id $message_id -return_url $redirect_url -pretty_name "[_ forums.Forum_Posting] \"$subject\""]
                 }
             }

@@ -28,7 +28,7 @@ if {![array exists message]} {
 forum::get -forum_id $message(forum_id) -array forum
 
 # If disabled!
-if {$forum(enabled_p) != "t"} {
+if {$forum(enabled_p) ne "t"} {
     ad_returnredirect "./"
     ad_script_abort
 }
@@ -56,7 +56,7 @@ if {!${permissions(moderate_p)}} {
 }
 
 # Check if the message is approved
-if {!${permissions(moderate_p)} && ![string equal $message(state) approved]} {
+if {!${permissions(moderate_p)} && $message(state) ne "approved" } {
     ad_returnredirect "forum-view?forum_id=$message(forum_id)"
     ad_script_abort
 }
@@ -71,7 +71,7 @@ if {!${permissions(moderate_p)} && ![string equal $message(state) approved]} {
 set searchbox_p [parameter::get -parameter ForumsSearchBoxP -default 1]
 
 # If this is a top-level thread, we allow subscriptions here
-if { [empty_string_p $message(parent_id)] } {
+if { $message(parent_id) eq "" } {
     set notification_chunk [notification::display::request_widget \
         -type forums_message_notif \
         -object_id $message(message_id) \
@@ -88,7 +88,7 @@ if { [forum::use_ReadingInfo_p] && $message(state) eq "approved" } {
 }
 
 set context [list [list "./forum-view?forum_id=$message(forum_id)" "$message(forum_name)"]]
-if {![empty_string_p $message(parent_id)]} {
+if {$message(parent_id) ne ""} {
     lappend context [list "./message-view?message_id=$message(root_message_id)" "$message(root_subject)"]
     lappend context [_ forums.One_Message]
 } else {

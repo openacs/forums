@@ -2,7 +2,7 @@ ad_page_contract {
 
     Move a thread to other thread of same forum or other forum.
 
-    @author Natalia Pérez (nperper@it.uc3m.es)
+    @author Natalia PÃ©rez (nperper@it.uc3m.es)
     @creation-date 2005-03-29   
 
 } {
@@ -26,10 +26,10 @@ ad_form -name confirmed_move -mode {display} -actions [list [list [_ forums.Yes]
 #get the clicked button
 set action [template::form::get_action confirmed_move]
 
-if {$action == "yes"} {
+if {$action eq "yes"} {
     set confirm_p 1    
 }
-if {$action == "no"} {
+if {$action eq "no"} {
     set confirm_p 2    
 }
 

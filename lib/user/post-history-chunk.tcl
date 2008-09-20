@@ -28,7 +28,7 @@ set dimensional_list "
 "
 
 set query select_messages
-if {[string equal $view forum]} {
+if {$view eq "forum"} {
     set query select_messages_by_forum
     template::list::create \
         -html {style "width: 50%; text-align: center; margin: auto"} \

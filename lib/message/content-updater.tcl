@@ -25,7 +25,7 @@ if {[forum::attachments_enabled_p]} {
 # Find the ordering of messages so it can be consistent
 # with the code that is in thread-chunk
 
-if { [string equal $forum(presentation_type) flat] } {
+if {$forum(presentation_type) eq "flat"} {
     set order_by "fma.posting_date, fma.tree_sortkey"
 } else {
     set order_by "fma.tree_sortkey"

@@ -34,7 +34,7 @@ if {![info exists root_subject]} {
     set display_subject_p 1
 } else {
     regsub {^(Response to |\s*Re:\s*)*} $message(subject) {} subject
-    set display_subject_p [expr ![string equal $subject $root_subject]]
+    set display_subject_p [expr {$subject ne $root_subject }] 
 }
 
 if {[exists_and_not_null alt_template]} {
@@ -48,4 +48,4 @@ if {![info exists message(tree_level)] || $presentation_type eq "flat"} {
 }
 
 set allow_edit_own_p [parameter::get -parameter AllowUsersToEditOwnPostsP -default 0]
-set own_p [expr [string equal $message(user_id) $viewer_id] && $allow_edit_own_p]
+set own_p [expr {$message(user_id) eq $viewer_id && $allow_edit_own_p}]

@@ -7,16 +7,16 @@
     <initial-install-p>f</initial-install-p>
     <singleton-p>f</singleton-p>
     
-    <version name="1.3d7" url="http://openacs.org/repository/download/apm/forums-1.3d7.apm">
+    <version name="1.3d8" url="http://openacs.org/repository/download/apm/forums-1.3d8.apm">
         <owner url="http://openacs.org">OpenACS</owner>
         <summary>Online discussion forums.</summary>
-        <release-date>2007-06-15</release-date>
+        <release-date>2008-09-16</release-date>
         <vendor url="http://openacs.org">OpenACS</vendor>
         <description format="text/plain">This online discussion board software is the successor of the original bboard package. The biggest improvement is a scalable datamodel. Forums supports threaded and flat view, moderation, a stand alone search function as well as integration with the OpenACS search package and integration with the notifications package for email alerts. It also supports reply via email.</description>
         <maturity>0</maturity>
         <package_instance_name>#forums.Forums#</package_instance_name>
 
-        <provides url="forums" version="1.3d7"/>
+        <provides url="forums" version="1.3d8"/>
         <requires url="acs-kernel" version="5.3.1a1"/>
         <requires url="acs-mail-lite" version="5.3.1a1"/>
         <requires url="acs-subsite" version="5.3.1a1"/>
@@ -24,9 +24,9 @@
         <requires url="notifications" version="5.3.0d1"/>
 
         <callbacks>
-            <callback type="after-install"  proc="forum::install::package_install"/>
-            <callback type="before-uninstall"  proc="forum::install::package_uninstall"/>
             <callback type="before-upgrade"  proc="forum::install::package_upgrade"/>
+            <callback type="before-uninstall"  proc="forum::install::package_uninstall"/>
+            <callback type="after-install"  proc="forum::install::package_install"/>
         </callbacks>
         <parameters>
             <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="DisplayEmoticonsAsImagesP"  default="1" description="Automatically convert smileys like :-) and similar constructs to images when displaying messages in the browser."/>

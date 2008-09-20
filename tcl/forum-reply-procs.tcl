@@ -19,7 +19,7 @@ namespace eval forum::notification {
 
 	set object_type [db_string select_object_type {}]
 
-	if {[string compare $object_type "forums_message"] == 0} {
+	if {$object_type eq "forums_message" } {
 
             # object is a message
 	    set message_id $object_id

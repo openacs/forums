@@ -16,7 +16,7 @@ ad_page_contract {
 
 # Get forum data
 if {[catch {forum::get -forum_id $forum_id -array forum} errMsg]} {
-    if {[string equal $::errorCode NOT_FOUND]} {
+    if {$::errorCode eq "NOT_FOUND"} {
         ns_returnnotfound
         ad_script_abort
     }
@@ -24,7 +24,7 @@ if {[catch {forum::get -forum_id $forum_id -array forum} errMsg]} {
 }
 
 # If disabled!
-if {$forum(enabled_p) != "t"} {
+if {$forum(enabled_p) ne "t"} {
     ad_returnredirect "./"
     ad_script_abort
 }
@@ -33,7 +33,7 @@ forum::security::require_read_forum -forum_id $forum_id
 forum::security::permissions -forum_id $forum_id permissions
 
 #it is confusing to provide a moderate link for non-moderated forums.
-if { $forum(posting_policy) != "moderated" } {
+if { $forum(posting_policy) ne "moderated" } {
     set permissions(moderate_p) 0
 }
 

@@ -59,7 +59,7 @@ ad_proc -private ::install::xml::action::forum-create { node } {
                       -posting_policy $posting_policy \
                       -package_id $package_id]
 
-    if {![string equal $id ""]} {
+    if {$id ne "" } {
         set ::install::xml::ids($id) $forum_id
     }
 }

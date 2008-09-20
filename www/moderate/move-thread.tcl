@@ -2,7 +2,7 @@ ad_page_contract {
 
     Move a Message to other thread in the same forum.
 
-    @author Natalia Pérez (nperper@it.uc3m.es)
+    @author Natalia PÃ©rez (nperper@it.uc3m.es)
     @creation-date 2005-03-14   
 
 } {
@@ -25,10 +25,10 @@ ad_form -name confirmed_move -mode {display} -actions [list [list  [_ forums.Yes
 }
 #get the clicked button 
 set action [template::form::get_action confirmed_move]
-if {$action == "yes"} {
+if {$action eq "yes"} {
     set confirm_p 1
 }
-if {$action == "no"} {
+if {$action eq "no"} {
     set confirm_p 2
 }
 
@@ -55,7 +55,7 @@ if {$confirm_p == 1} {
     
     #get all descendents
     db_foreach forums::move_thread::get_all_child {} {
-       #update los ocho primeros dígitos de tree_sortkey
+       #update los ocho primeros dÃ­gitos de tree_sortkey
        set join_tree_sortkey $father_tree_sortkey
        append join_tree_sortkey $father_max_child_sortkey
        append join_tree_sortkey $child_tree_sortkey

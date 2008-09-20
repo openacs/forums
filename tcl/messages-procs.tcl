@@ -24,7 +24,7 @@ ad_proc -public forum::message::new {
 } {
     # If no user_id is provided, we set it
     # to the currently logged-in user
-    if {[empty_string_p $user_id]} {
+    if {$user_id eq ""} {
         set user_id [ad_conn user_id]
     }
 
@@ -45,7 +45,7 @@ ad_proc -public forum::message::new {
         set message_id [package_instantiate_object -var_list $var_list forums_message]
 
         get -message_id $message_id -array message
-        if {[info exists message(state)] && [string equal $message(state) approved]} {
+        if {[info exists message(state)] && $message(state) eq "approved"} {
             do_notifications -message_id $message_id -user_id $user_id
         }
 
@@ -58,7 +58,7 @@ ad_proc -public forum::message::new {
         # this procedure.  If so, the error is due to a double click 
         # and we should continue without returning an error.
         
-        if {![empty_string_p $original_message_id]} {
+        if {$original_message_id ne ""} {
     	# The was a non-null message_id arguement
             if {[db_string message_exists_p  { *SQL* }]} {
     	    return $message_id
@@ -86,7 +86,7 @@ ad_proc -public forum::message::do_notifications {
 
     set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
     if {($useScreenNameP == 0) && ($user_id != 0)} {
-	if {[empty_string_p $user_id]} {
+	if {$user_id eq ""} {
 	    set user_id [ad_conn user_id]
 	}
     } else {
@@ -265,7 +265,7 @@ ad_proc -public forum::message::delete {
 	    callback forum::message_delete -package_id [ad_conn package_id] -message_id $message_id
 	}
 
-			if { [forum::use_ReadingInfo_p] && [expr { [db_string is_root "select parent_id from forums_messages where message_id = :message_id"] == "" } ] } {
+			if { [forum::use_ReadingInfo_p] && [expr { [db_string is_root "select parent_id from forums_messages where message_id = :message_id"] eq "" } ] } {
 				set db_antwort [db_string forums_reading_info__remove_msg {
         select forums_reading_info__remove_msg (
             :message_id
@@ -330,7 +330,7 @@ ad_proc -public forum::message::subject_sort_filter {
 
     set export_vars [ad_export_vars -override [list [list order_by $new_order_by]] {order_by forum_id}]
     set toggle_url "[ad_conn url]?${export_vars}"
-    if { [string equal $order_by posting_date] } {
+    if {$order_by eq "posting_date"} {
         # subject selected
         set subject_link "<b>$subject_label</b>"
         set child_link "<a href=\"$toggle_url\">$child_label</a>"
@@ -353,11 +353,11 @@ ad_proc -public forum::message::initial_message {
 } {
     upvar $message init_msg
 
-    if { [empty_string_p $forum_id] && [empty_string_p $parent] } {
+    if { $forum_id eq "" && $parent eq "" } {
         return -code error [_ forums.lt_You_either_have_to]
     } 
 
-    if { ![empty_string_p $parent] } {
+    if { $parent ne "" } {
         upvar $parent parent_msg
 
         set init_msg(parent_id) $parent_msg(message_id)

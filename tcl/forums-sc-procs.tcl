@@ -33,7 +33,7 @@ ad_proc -private forum::message::datasource { message_id } {
 
     forum::message::get -message_id $message_id -array message
 
-    if { ![empty_string_p $message(parent_id)] } {
+    if { $message(parent_id) ne "" } {
         ns_log Notice "forum::message::datasource was called with a message_id that has a parent - skipping: $message_id"
         return {object_id {} name {} charter {} mime {} storage_type {}}
     }
@@ -50,7 +50,7 @@ ad_proc -private forum::message::datasource { message_id } {
         set root_subject $message(subject)
         regexp {^(?:Re: )+(.*)$} $subject match subject
 
-        if { [string compare $subject $root_subject] != 0 } {
+        if { $subject ne $root_subject  } {
             # different subject
             append combined_content "$subject\n\n"
         }

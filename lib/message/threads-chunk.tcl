@@ -47,7 +47,7 @@ if {![exists_and_not_null base_url]} {
 # moderated 2. User is a moderator or adminsitrator
 
 if {$permissions(post_p)} {
-  if {([forum::new_questions_allowed_p -forum_id $forum_id] && ($forum(posting_policy) == "open" || $forum(posting_policy) == "moderated")) ||  [template::util::is_true $permissions(admin_p)] ||  [template::util::is_true $permissions(moderate_p)]  } {
+  if {([forum::new_questions_allowed_p -forum_id $forum_id] && ($forum(posting_policy) eq "open" || $forum(posting_policy) eq "moderated")) ||  [template::util::is_true $permissions(admin_p)] ||  [template::util::is_true $permissions(moderate_p)]  } {
     lappend actions [_ forums.Post_a_New_Message] [export_vars -base "${base_url}message-post" { forum_id }] [_ forums.Post_a_New_Message]
   }
 }
