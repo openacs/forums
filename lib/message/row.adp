@@ -1,6 +1,6 @@
 <if @rownum@ odd><div id="msg_@message.message_id@" class="odd level@message.tree_level@"></if>
 <else><div id="msg_@message.message_id@" class="even level@message.tree_level@"></else>
-    <if @preview@ nil>
+    <if @preview@ nil and @any_action_p@>
   <div class="action-list" style="float: right;">
     <ul>
       <if @permissions.post_p@ eq 1>

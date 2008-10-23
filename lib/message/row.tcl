@@ -49,3 +49,7 @@ if {![info exists message(tree_level)] || $presentation_type eq "flat"} {
 
 set allow_edit_own_p [parameter::get -parameter AllowUsersToEditOwnPostsP -default 0]
 set own_p [expr {$message(user_id) eq $viewer_id && $allow_edit_own_p}]
+
+set notflat_p [expr {$presentation_type ne "flat"}]
+set post_and_notflat_p [expr {$permissions(post_p) && $notflat_p}]
+set any_action_p [expr { $post_and_notflat_p || $viewer_id || $moderate_p }]
