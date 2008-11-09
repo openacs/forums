@@ -83,7 +83,7 @@ if {[template::form::get_button message] ne "preview" } {
         lappend context [_ forums.Post_a_Reply]
     }
 } else {
-    set context [list [list "./forum-view?forum_id=$forum_id" [ad_quotehtml $forum(name)]]]
+    set context [list [list "./forum-view?forum_id=$forum(forum_id)" [ad_quotehtml $forum(name)]]]
     lappend context "[_ forums.Post_a_Message]"
 
     ad_return_template "message-post-confirm"
