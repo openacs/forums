@@ -60,12 +60,11 @@ ad_proc -public forum::edit {
 
 ad_proc -public forum::attachments_enabled_p {} {
     if {"forums" eq [ad_conn package_key]} { 
-	set package_id [site_node_apm_integration::child_package_exists_p \
-			    -package_key attachments
-		       ]
+      set return_value [site_node_apm_integration::child_package_exists_p -package_id [ad_conn package_id] -package_key attachments]
     } else { 
-	return 0
+      set return_value 0
     }
+    return $return_value
 }
 
 ad_proc -public forum::list_forums {
