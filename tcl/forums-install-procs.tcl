@@ -64,3 +64,23 @@ ad_proc -private ::install::xml::action::forum-create { node } {
     }
 }
 
+
+
+ad_proc -private forum::install::before-uninstantiate {
+  -package_id
+} {
+   Make sure all threads are deleted before the forum is uninstantiated.
+   @author realfsen@km.co.at
+   @creation-date 2009.03.24
+} {
+  # Delete each message in the each forum
+  foreach set_id [forum::list_forums -package_id $package_id] {
+    ad_ns_set_to_tcl_vars $set_id ;# get the forum_id
+    foreach message_id [db_list _ "select message_id from forums_messages where forum_id = :forum_id"] {
+      forum::message::delete -message_id $message_id
+    }
+    db_exec_plsql _ "select forums_forum__delete(:forum_id)"
+    # ÃR: is this really necessary  ??
+    callback::forum::forum_delete::contract -package_id $package_id -forum_id $forum_id
+  }
+}
