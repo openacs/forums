@@ -166,6 +166,7 @@
   <msg key="reply">Contestar</msg>
   <msg key="Reply_to_first_post_in_thread">Responder al primer mensaje de este hilo</msg>
   <msg key="Reply_to_first_post_on_page_label">Responder al primer mensaje de esta página</msg>
+  <msg key="response_to">respuesta a</msg>
   <msg key="Search">Buscar:</msg>
   <msg key="Search_1">Buscar</msg>
   <msg key="Search_colon">Buscar:</msg>

@@ -18,7 +18,7 @@
     <div class="subject"><a href="@message.direct_url@" title="#forums.Direct_link_to_this_post#" class="reference">@message.number@</a>
   </else>
   <if @message.parent_number@ not nil>
-    <span class="response">(response to <a href="@message.parent_direct_url@" class="reference" title="#forums.Direct_link_to_this_post#">@message.parent_number@</a>)</span>
+    <span class="response">(#forums.response_to# <a href="@message.parent_direct_url@" class="reference" title="#forums.Direct_link_to_this_post#">@message.parent_number@</a>)</span>
   </if>
     </div>
     <div class="attribution">

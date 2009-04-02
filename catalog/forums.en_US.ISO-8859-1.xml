@@ -165,6 +165,7 @@
   <msg key="reply">Reply</msg>
   <msg key="Reply_to_first_post_in_thread">Reply to first post in thread</msg>
   <msg key="Reply_to_first_post_on_page_label">Reply to first post on this page</msg>
+  <msg key="response_to">response to</msg>
   <msg key="Search">Search:</msg>
   <msg key="Search_1">Search</msg>
   <msg key="Search_colon">Search:</msg>
