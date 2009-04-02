@@ -185,6 +185,7 @@
   <msg key="Summary_Posting_history_for">Summary of posting history</msg>
   <msg key="text">Plain text</msg>
   <msg key="This_forum_is">This forum is</msg>
+  <msg key="Thread">Thread</msg>
   <msg key="Thread_title">Forum %forum.name%: %message.subject%</msg>
   <msg key="Threaded">Threaded</msg>
   <msg key="Threads">Threads</msg>

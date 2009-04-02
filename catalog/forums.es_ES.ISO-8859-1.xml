@@ -109,7 +109,6 @@
   <msg key="Move_message">Mover mensaje</msg>
   <msg key="Move_message_to_forum">Mover mensaje al foro:</msg>
   <msg key="Move_message_to_message">Mover mensaje a otro mensaje</msg>
-  <msg key="Move_message_to_thread">Mover mensaje a hilo</msg>
   <msg key="Move_thread">Mover hilo</msg>
   <msg key="Move_thread_to_forum">Mover hilo a otro foro</msg>
   <msg key="Move_thread_to_message">Mover mensaje al mensaje: </msg>
@@ -187,6 +186,7 @@
   <msg key="Summary_Posting_history_for">Resumen de mensajes enviados</msg>
   <msg key="text">texto</msg>
   <msg key="This_forum_is">Este foro de discusión está</msg>
+  <msg key="Thread">Hilo</msg>
   <msg key="Thread_title">Foro %forum.name%: %message.subject%</msg>
   <msg key="Threaded">Con hilos</msg>
   <msg key="Threads">Hilos</msg>

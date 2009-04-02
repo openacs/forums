@@ -85,10 +85,10 @@ ad_proc -public forum::message::do_notifications {
     set url "[ad_url][db_string select_forums_package_url {}]"
 
     set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
-    if {($useScreenNameP == 0) && ($user_id != 0)} {
-	if {$user_id eq ""} {
-	    set user_id [ad_conn user_id]
-	}
+    if {($useScreenNameP eq 0) && ($user_id ne 0)} {
+        if { $user_id eq "" } {
+            set user_id $message(user_id)
+        }
     } else {
         set user_id [party::get_by_email -email [ad_parameter -package_id [ad_acs_kernel_id] HostAdministrator]]
     }
@@ -100,20 +100,20 @@ ad_proc -public forum::message::do_notifications {
     set message_html [ad_html_text_convert -from $message(format) -to text/html -- $message(content)]
 
     set html_version ""
-    append html_version "Forum:  <a href=\"${url}forum-view?forum_id=$message(forum_id)\">$message(forum_name)</a><br>\n"
-    append html_version "Thread: <a href=\"${url}message-view?message_id=$message(root_message_id)\">$message(root_subject)</a><br>\n"
+    append html_version "#forums.Forum#:  <a href=\"${url}forum-view?forum_id=$message(forum_id)\">$message(forum_name)</a><br>\n"
+    append html_version "#forums.Thread#: <a href=\"${url}message-view?message_id=$message(root_message_id)\">$message(root_subject)</a><br>\n"
     if {$useScreenNameP == 0} {
-        append html_version "Author: <a href=\"mailto:$message(user_email)\">$message(user_name)</a><br>\n"
+        append html_version "#forums.Author#: <a href=\"mailto:$message(user_email)\">$message(user_name)</a><br>\n"
     } else {
-        append html_version "Author: $message(screen_name)<br>\n"
+        append html_version "#forums.Author#: $message(screen_name)<br>\n"
     }
-    append html_version "Posted: $message(posting_date)<br>"
+    append html_version "#forums.Posted#: $message(posting_date)<br>"
     append html_version "\n<br>\n"
     append html_version $message_html
     append html_version "<p>   "
 
     if {[llength $attachments] > 0} {
-    append html_version "Attachments:
+    append html_version "#forums.Attachments#:
                             <ul> "
 
     foreach attachment $attachments {
@@ -127,22 +127,22 @@ ad_proc -public forum::message::do_notifications {
 
     set text_version ""
     append text_version "
-Forum: $message(forum_name)
-Thread: $message(root_message_id)\n"
+#forums.Forum#: $message(forum_name)
+#forums.Thread#: $message(root_subject)\n"
     if {$useScreenNameP == 0} {
-	append text_version "Author: $message(user_name)"
+	append text_version "#forums.Author#: $message(user_name)"
     } else {
-	append text_version "Author: $message(screen_name)"
+	append text_version "#forums.Author#: $message(screen_name)"
     }
     append text_version "
-Posted: $message(posting_date)
-----------------------------------
+#forums.Posted#: $message(posting_date)
+-----------------------------------------
 $message_text
----------------------------------
-To post a reply to this email or view this message go to: 
+-----------------------------------------
+#forums.To_post_a_reply_to_this_email_or_view_this_message_go_to# 
 ${url}message-view?message_id=$message(root_message_id)
 
-To view Forum $message(forum_name) go to:
+#forums.To_view_Forum_forum_name_go_to#
 ${url}forum-view?forum_id=$message(forum_id)
 "
     # Do the notification for the forum
