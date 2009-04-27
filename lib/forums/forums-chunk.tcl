@@ -23,7 +23,7 @@ if { $useReadingInfo } {
     set unread_or_new_query_clause [db_map unread_or_new_query]
 } else {
     set unread_or_new_query_clause {
-	case when last_post > (current_date - interval '1' day) then 't' else 'f' end as new_p
+        case when last_post > (current_date - interval '1' day) then 't' else 'f' end as new_p
     }
 }
 
@@ -43,52 +43,52 @@ template::list::create \
             label {\#forums.Forum_Name\#}
             link_url_col forum_view_url
             display_template {
-		<if @useReadingInfo@>
-		<if @forums.count_unread@ gt 0>
-		  <strong>
+                <if @useReadingInfo@>
+                  <if @forums.count_unread@ gt 0>
+                    <strong>
+                  </if>
+                  @forums.name@
+                  <if  @forums.count_unread@ gt 0>
+                    </strong>
+                  </if>
                 </if>
-                @forums.name@
-		<if  @forums.count_unread@ gt 0>
-                  </strong>
-		</if>
-		</if>
-		<else>
-                <if @forums.new_p@ and @forums.n_threads@ gt 0>
-                  <strong>
-                </if>
-                @forums.name@
-                <if @forums.new_p@ and @forums.n_threads@ gt 0>
-                  </strong>
-                </if>
-		</else>
+                <else>
+                  <if @forums.new_p@ and @forums.n_threads@ gt 0>
+                    <strong>
+                  </if>
+                  @forums.name@
+                  <if @forums.new_p@ and @forums.n_threads@ gt 0>
+                    </strong>
+                  </if>
+                </else>
             }
         }
         charter {
             label {\#forums.Charter\#}
-	    display_template {@forums.charter;noquote@}
+            display_template {@forums.charter;noquote@}
         }
         n_threads {
             label {\#forums.Threads\#}
             display_col n_threads_pretty
             display_template {
-		<if @useReadingInfo@>
-		<if  @forums.count_unread@ gt 0>
-		<strong>@forums.count_unread@ new</strong> of
-		</if>
-		</if>
-		@forums.n_threads@
-	    }
+                <if @useReadingInfo@>
+                  <if  @forums.count_unread@ gt 0>
+                    <strong>@forums.count_unread@ new</strong> of
+                  </if>
+                </if>
+                @forums.n_threads@
+            }
             html { align right }
         }
         last_post {
             label {\#forums.Last_Post\#}
             display_col last_modified_pretty
         }
-	statistic {
-	    label {\#forums.Statistics\#}
-	    link_url_col forum_view_statistic
-	    display_col statistic
-	}
+        statistic {
+            label {\#forums.Statistics\#}
+            link_url_col forum_view_statistic
+            display_col statistic
+        }
     }
 
 db_multirow -extend { forum_view_url last_modified_pretty n_threads_pretty forum_view_statistic statistic} forums select_forums {} {
@@ -100,5 +100,5 @@ db_multirow -extend { forum_view_url last_modified_pretty n_threads_pretty forum
 }
 
 if {[exists_and_not_null alt_template]} {
-  ad_return_template $alt_template
+    ad_return_template $alt_template
 }
