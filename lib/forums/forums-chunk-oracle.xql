@@ -11,11 +11,7 @@
 		   $unread_or_new_query_clause
             from forums_forums_enabled
             where forums_forums_enabled.package_id = :package_id
-            and (
-                    forums_forums_enabled.posting_policy = 'open'
-                 or forums_forums_enabled.posting_policy = 'moderated'
-                 or 't' = acs_permission.permission_p(forums_forums_enabled.forum_id, :user_id, 'forum_read')
-                )
+            and acs_permission.permission_p(forums_forums_enabled.forum_id, :user_id, 'read') = 't'
             order by forums_forums_enabled.name
         </querytext>
     </fullquery>
