@@ -41,7 +41,7 @@ forum::security::permissions -forum_id $message(forum_id) -user_id $user_id perm
 set permissions(moderate_p) [forum::security::can_moderate_message_p -message_id $message_id]
 if {!${permissions(moderate_p)}} {
     # Set post_p according to permissions ...
-    set permissions(post_p) [forum::security::can_post_forum_p -forum_id $message(forum_id)]
+    set permissions(post_p) [forum::security::can_post_message_p -message_id $message_id]
     # ... alternatively, we could use a parameter to behave like
     # in earlier versions just leave it is a reminder, if
     # someone still likes the old behavior.  This code should be

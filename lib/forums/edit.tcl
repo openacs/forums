@@ -32,7 +32,7 @@ if {[form is_valid forum]} {
         -forum_id $forum_id
 
     # Users can create new threads?
-    if {$new_threads_p} {
+    if { $new_threads_p && $posting_policy ne "closed" } {
         forum::new_questions_allow -forum_id $forum_id
     } else {
         forum::new_questions_deny -forum_id $forum_id

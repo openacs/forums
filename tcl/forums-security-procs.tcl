@@ -62,7 +62,8 @@ namespace eval forum::security {
         {-user_id ""}
         {-forum_id:required}
     } {
-        return [permission::permission_p -party_id $user_id -object_id $forum_id -privilege create]
+        set magic_id [acs_magic_object registered_users]
+        return [expr { [permission::permission_p -party_id $user_id -object_id $forum_id -privilege admin] || [permission::permission_p -party_id $magic_id -object_id $forum_id -privilege create]} ]
     }
 
     ad_proc -public require_post_forum {
@@ -78,7 +79,8 @@ namespace eval forum::security {
         {-user_id ""}
         {-message_id:required}
     } {
-        return [permission::permission_p -party_id $user_id -object_id $message_id -privilege write]
+        set magic_id [acs_magic_object registered_users]
+        return [expr { [permission::permission_p -party_id $magic_id -object_id $message_id -privilege write] || [permission::permission_p -party_id $user_id -object_id $message_id -privilege admin] } ]
     }
 
     ad_proc -public require_post_message {
