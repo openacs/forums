@@ -62,8 +62,12 @@ namespace eval forum::security {
         {-user_id ""}
         {-forum_id:required}
     } {
-        set magic_id [acs_magic_object registered_users]
-        return [expr { [permission::permission_p -party_id $user_id -object_id $forum_id -privilege admin] || [permission::permission_p -party_id $magic_id -object_id $forum_id -privilege create]} ]
+        if { $user_id eq "" } {
+            set magic_id [acs_magic_object registered_users]
+            return [expr { [permission::permission_p -party_id $user_id -object_id $forum_id -privilege admin] || [permission::permission_p -party_id $magic_id -object_id $forum_id -privilege create]} ]
+        } else {
+            return [permission::permission_p -party_id $user_id -object_id $forum_id -privilege create]
+        }
     }
 
     ad_proc -public require_post_forum {
@@ -79,8 +83,12 @@ namespace eval forum::security {
         {-user_id ""}
         {-message_id:required}
     } {
-        set magic_id [acs_magic_object registered_users]
-        return [expr { [permission::permission_p -party_id $magic_id -object_id $message_id -privilege write] || [permission::permission_p -party_id $user_id -object_id $message_id -privilege admin] } ]
+        if { $user_id eq "" } {
+            set magic_id [acs_magic_object registered_users]
+            return [expr { [permission::permission_p -party_id $magic_id -object_id $message_id -privilege write] || [permission::permission_p -party_id $user_id -object_id $message_id -privilege admin] } ]
+        } else {
+            return [permission::permission_p -party_id $user_id -object_id $message_id -privilege write]
+        }
     }
 
     ad_proc -public require_post_message {
@@ -152,12 +160,10 @@ namespace eval forum::security {
       if { !$array(admin_p) } {
         array set array [list moderate_p [forum::security::can_moderate_forum_p -forum_id $forum_id]]
         if { !$array(moderate_p) } {
-          if {$user_id eq ""} {
-            set user_id [ad_conn user_id]
-          }
+
           # Set post_p according to permissions ...
           array set array [list post_p [forum::security::can_post_forum_p -forum_id $forum_id -user_id $user_id]]
-          #
+
           # ... alternatively, we could use a parameter to behave like
           # in earlier versions just leave it is a reminder, if
           # someone still likes the old behavior.  This code should be

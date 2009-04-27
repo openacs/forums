@@ -35,7 +35,7 @@ if {$forum(enabled_p) ne "t"} {
 
 set user_id [ad_conn user_id]
 forum::security::require_read_message -message_id $message_id
-forum::security::permissions -forum_id $message(forum_id) -user_id $user_id permissions
+forum::security::permissions -forum_id $message(forum_id) -- permissions
 
 # Check if the user has admin on the message
 set permissions(moderate_p) [forum::security::can_moderate_message_p -message_id $message_id]
