@@ -57,7 +57,7 @@ template::head::add_css -href /resources/forums/forums.css -media all
 template::head::add_css -href /resources/forums/print.css -media print
 
 set page_title "[_ forums.Forum_1] $forum(name)"
-set context [list [ad_quotehtml $forum(name)]]
+set context [list $forum(name)]
 
 set type_id [notification::type::get_type_id -short_name forums_forum_notif]
 set notification_count [notification::request::request_count \

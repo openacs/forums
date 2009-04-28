@@ -74,7 +74,7 @@ template::head::add_css -href /resources/forums/forums.css -media all -lang $lan
 #template::head::add_css -alternate -href /resources/forums/expand.css -media all -lang $lang -title "expand"
 
 if {[template::form::get_button message] ne "preview" } {
-    set context [list [list "./forum-view?forum_id=$forum(forum_id)" [ad_quotehtml $forum(name)]]]
+    set context [list [list "./forum-view?forum_id=$forum(forum_id)" $forum(name)]]
 
     if {$parent_id eq ""} {
         lappend context [_ forums.Post_a_Message]
@@ -83,7 +83,7 @@ if {[template::form::get_button message] ne "preview" } {
         lappend context [_ forums.Post_a_Reply]
     }
 } else {
-    set context [list [list "./forum-view?forum_id=$forum(forum_id)" [ad_quotehtml $forum(name)]]]
+    set context [list [list "./forum-view?forum_id=$forum(forum_id)" $forum(name)]]
     lappend context "[_ forums.Post_a_Message]"
 
     ad_return_template "message-post-confirm"
