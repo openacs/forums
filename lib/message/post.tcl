@@ -14,9 +14,9 @@ set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
 set pvt_home [ad_pvt_home]
 
 if {[array exists parent_message]} {
-  set parent_id $parent_message(message_id)
+    set parent_id $parent_message(message_id)
 } else {
-  set parent_id ""
+    set parent_id ""
 }
 
 set table_border_color [parameter::get -parameter table_border_color]
@@ -28,7 +28,7 @@ set table_bgcolor [parameter::get -parameter table_bgcolor]
 #
 
 set edit_buttons [list [list [_ forums.Post] post] \
-                        [list [_ forums.Preview] preview]]
+                      [list [_ forums.Preview] preview]]
 
 set form_elements {
     {message_id:key}
@@ -156,10 +156,6 @@ ad_form -html {enctype multipart/form-data} \
             ad_return_template "/packages/forums/lib/message/post-confirm"
         }
 
-        # DRB: Malte: this redirect_url var isn't used as it is reset in the code below.  Please
-        # review and either discard this line or fix the stuff below ...
-#        set redirect_url "[ad_conn package_url]message-view?message_id=[set redirect_message_id]&\#$message_id"
-
         if {$action eq "post"} {
             set content [template::util::richtext::get_property content $message_body]
             set format [template::util::richtext::get_property format $message_body]
@@ -177,10 +173,11 @@ ad_form -html {enctype multipart/form-data} \
             # rewritten to paginate internally rather than use the template paginator.
             cache flush "messages,forum_id=$forum_id*"
 
-if { [forum::use_ReadingInfo_p] } {
-        # remove reading info for this thread for all users (mark it unread)
-    set db_antwort [db_exec_plsql forums_reading_info__remove_msg {}]
-}
+            if { [forum::use_ReadingInfo_p] } {
+                # remove reading info for this thread for all users (mark it unread)
+                set db_antwort [db_exec_plsql forums_reading_info__remove_msg {}]
+            }
+
             # VGUERRA Redirecting to the first message ALWAYS
             forum::message::get -message_id $message_id -array msg
             set redirect_url "[ad_conn package_url]message-view?message_id=$msg(root_message_id)" 
@@ -205,7 +202,20 @@ if { [forum::use_ReadingInfo_p] } {
             }
             
             # Do the redirection
-            ad_returnredirect $redirect_url
+            forum::get -forum_id $forum_id -array forum
+            if { $forum(posting_policy) ne "moderated" } {
+                ad_returnredirect $redirect_url
+            } else {
+                # if the forum is moderated, give some feedback to the user
+                # to inform that the message has been sent and is pending
+                set permissions(moderate_p) [forum::security::can_moderate_message_p -message_id $message_id]
+                if { $permissions(moderate_p) } {
+                    set feedback_msg [_ forums.Message_awaiting_your_approval]
+                } else {
+                    set feedback_msg [_ forums.Message_sent_to_moderator]
+                }
+                ad_returnredirect -message $feedback_msg -- $redirect_url
+            }
             ad_script_abort
         }
     }

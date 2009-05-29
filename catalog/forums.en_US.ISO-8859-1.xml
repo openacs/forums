@@ -101,7 +101,9 @@
   <msg key="Manage_Forum">Manage Forum:</msg>
   <msg key="ManageModerate">Manage/Moderate</msg>
   <msg key="mark_all_as_read">mark all as read</msg>
+  <msg key="Message_awaiting_your_approval">The message is awaiting your approval</msg>
   <msg key="Message_ID">Message ID</msg>
+  <msg key="Message_sent_to_moderator">Your message has been sent to the moderator for its approval</msg>
   <msg key="Message_Subject">Subject</msg>
   <msg key="Moderate">Moderate</msg>
   <msg key="moderated">moderated</msg>

@@ -102,7 +102,9 @@
   <msg key="Manage_Forum">Administrar Foro de Discusión:</msg>
   <msg key="ManageModerate">Administrar/Moderar</msg>
   <msg key="mark_all_as_read">Marcar todos como leídos</msg>
+  <msg key="Message_awaiting_your_approval">El mensaje está en espera de aprobación</msg>
   <msg key="Message_ID">Mensaje ID</msg>
+  <msg key="Message_sent_to_moderator">Su message ha sido enviado al moderador para su aprobación</msg>
   <msg key="Message_Subject">Título</msg>
   <msg key="Moderate">Moderar</msg>
   <msg key="moderated">moderado</msg>
