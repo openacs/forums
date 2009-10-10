@@ -102,6 +102,7 @@
   <msg key="ManageModerate">Manage/Moderate</msg>
   <msg key="mark_all_as_read">mark all as read</msg>
   <msg key="Message_awaiting_your_approval">The message is awaiting your approval</msg>
+  <msg key="Message_content_witheld">Message content witheld from this notification for security reasons.</msg>
   <msg key="Message_ID">Message ID</msg>
   <msg key="Message_sent_to_moderator">Your message has been sent to the moderator for its approval</msg>
   <msg key="Message_Subject">Subject</msg>
@@ -192,6 +193,7 @@
   <msg key="Thread_title">Forum %forum.name%: %message.subject%</msg>
   <msg key="Threaded">Threaded</msg>
   <msg key="Threads">Threads</msg>
+  <msg key="To_view_message_follow_link">To view message content, browse to the referenced link.</msg>
   <msg key="User">User</msg>
   <msg key="Users_that_wrote_in_the_forum">Users that wrote in the forum</msg>
   <msg key="View">View</msg>

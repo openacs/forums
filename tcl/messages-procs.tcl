@@ -99,6 +99,12 @@ ad_proc -public forum::message::do_notifications {
     set message_text [ad_html_text_convert -from $message(format) -to text/plain -- $message(content)]
     set message_html [ad_html_text_convert -from $message(format) -to text/html -- $message(content)]
 
+    set SecureOutboundP [parameter::get -parameter "SecureOutboundP" -default 0]
+    if { $SecureOutboundP && [ns_conn isconnected] && [security::secure_conn_p] } {
+        set message_html "<p>#Forums.Message_content_witheld# #Forums.To_view_message_follow_link#</p>"
+        set message_text [ad_html_text_convert -from text/html -to text/plain -- $message_html]
+    }
+
     set html_version ""
     append html_version "#forums.Forum#:  <a href=\"${url}forum-view?forum_id=$message(forum_id)\">$message(forum_name)</a><br>\n"
     append html_version "#forums.Thread#: <a href=\"${url}message-view?message_id=$message(root_message_id)\">$message(root_subject)</a><br>\n"

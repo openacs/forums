@@ -9,7 +9,7 @@
     <implements-subsite-p>f</implements-subsite-p>
     <inherit-templates-p>t</inherit-templates-p>
     
-    <version name="1.3d9" url="http://openacs.org/repository/download/apm/forums-1.3d9.apm">
+    <version name="1.3d10" url="http://openacs.org/repository/download/apm/forums-1.3d10.apm">
         <owner url="http://openacs.org">OpenACS</owner>
         <summary>Online discussion forums.</summary>
         <release-date>2009-03-27</release-date>
@@ -18,7 +18,7 @@
         <maturity>0</maturity>
         <package_instance_name>#forums.Forums#</package_instance_name>
 
-        <provides url="forums" version="1.3d9"/>
+        <provides url="forums" version="1.3d10"/>
         <requires url="acs-kernel" version="5.3.1a1"/>
         <requires url="acs-mail-lite" version="5.3.1a1"/>
         <requires url="acs-subsite" version="5.3.1a1"/>
@@ -34,6 +34,7 @@
         <parameters>
             <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="DisplayEmoticonsAsImagesP"  default="1" description="Automatically convert smileys like :-) and similar constructs to images when displaying messages in the browser."/>
             <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="ForumsSearchBoxP"  default="1" description="Whether to display a forums specific searchbox within the page body (not desirable when there is a sitewide search in the header)."/>
+            <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="SecureOutboundP"  default="0" description="Should we withhold message content from notifications when the forum message is posted in a secure connection? This helps to keep controlled content available only to subsite members when the forum connection is secure, such as controlled by referencing subsite in acs-subsite's RestrictToSSL parameter."/>
             <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="UseIntermediaForSearchP"  default="0" description="Should we use intermedia for searching forums? Intermedia is more scalable, but interprets searches differently from standard search."/>
             <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="UseReadingInfo"  default="0" description="Should ReadingInfo be stored and displayed for this forum"/>
             <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="UseScreenNameP"  default="0" description="Weather the real user name or only the (anonymous) screenName will be shown in forums. Do not revert to 0 if once set to 1, since this will discard the beforehand granted anonymity."/>
