@@ -63,11 +63,11 @@ namespace eval forum::security {
         {-forum_id:required}
     } {
         if { $user_id eq "" } {
-            set magic_id [acs_magic_object registered_users]
+            set magic_id [acs_magic_object unregistered_visitor]
             return [expr { [permission::permission_p -party_id $user_id -object_id $forum_id -privilege admin] || [permission::permission_p -party_id $magic_id -object_id $forum_id -privilege create]} ]
         } else {
             return [permission::permission_p -party_id $user_id -object_id $forum_id -privilege create]
-        }
+       }
     }
 
     ad_proc -public require_post_forum {
@@ -84,7 +84,7 @@ namespace eval forum::security {
         {-message_id:required}
     } {
         if { $user_id eq "" } {
-            set magic_id [acs_magic_object registered_users]
+            set magic_id [acs_magic_object unregistered_visitor]
             return [expr { [permission::permission_p -party_id $magic_id -object_id $message_id -privilege write] || [permission::permission_p -party_id $user_id -object_id $message_id -privilege admin] } ]
         } else {
             return [permission::permission_p -party_id $user_id -object_id $message_id -privilege write]
