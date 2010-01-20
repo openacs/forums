@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <queryset>
 
-    <fullquery name="callback::MergePackageUser::impl::forums.upd_poster">
+    <fullquery name="callback::merge::MergePackageUser::impl::forums.upd_poster">
         <querytext>	
 	update forums_messages
 	set last_poster = :to_user_id
@@ -9,7 +9,7 @@
         </querytext>
     </fullquery>
 
-    <fullquery name="callback::MergePackageUser::impl::forums.upd_user_id">
+    <fullquery name="callback::merge::MergePackageUser::impl::forums.upd_user_id">
         <querytext>	
         update forums_messages
 	set user_id = :to_user_id
@@ -17,7 +17,7 @@
         </querytext>
     </fullquery>
 
-    <fullquery name="callback::MergeShowUserInfo::impl::forums.sel_user_id">
+    <fullquery name="callback::merge::MergeShowUserInfo::impl::forums.sel_user_id">
         <querytext>	
         select message_id, subject
 	from forums_messages
@@ -25,7 +25,7 @@
         </querytext>
     </fullquery>
 
-    <fullquery name="callback::MergeShowUserInfo::impl::forums.sel_poster">
+    <fullquery name="callback::merge::MergeShowUserInfo::impl::forums.sel_poster">
         <querytext>	
         select message_id, subject
 	from forums_messages
