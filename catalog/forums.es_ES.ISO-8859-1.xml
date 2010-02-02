@@ -103,6 +103,7 @@
   <msg key="ManageModerate">Administrar/Moderar</msg>
   <msg key="mark_all_as_read">Marcar todos como leídos</msg>
   <msg key="Message_awaiting_your_approval">El mensaje está en espera de aprobación</msg>
+  <msg key="Message_content_witheld">El contenido del mensaje ha sido ocultado por razones de seguridad.</msg>
   <msg key="Message_ID">Mensaje ID</msg>
   <msg key="Message_sent_to_moderator">Su message ha sido enviado al moderador para su aprobación</msg>
   <msg key="Message_Subject">Título</msg>
@@ -193,6 +194,7 @@
   <msg key="Thread_title">Foro %forum.name%: %message.subject%</msg>
   <msg key="Threaded">Con hilos</msg>
   <msg key="Threads">Hilos</msg>
+  <msg key="To_view_message_follow_link">Para ver el contenido del mensaje, siga el enlace indicado.</msg>
   <msg key="User">Usuario</msg>
   <msg key="Users_that_wrote_in_the_forum">Usuarios que escribieron en el foro</msg>
   <msg key="View">Ver</msg>
