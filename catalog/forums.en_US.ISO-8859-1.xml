@@ -202,4 +202,7 @@
   <msg key="You_can">You can</msg>
   <msg key="You_may">You may</msg>
   <msg key="Your_Note">A Note</msg>
+  <msg key="go_to_forum">Go to Forum:</msg>
+  <msg key="view_message">View Message:</msg>
+  <msg key="message_moved">Message Moved</msg>
 </message_catalog>

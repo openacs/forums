@@ -22,7 +22,7 @@ ad_page_contract {
         selected {
 	    label #forums.Selected#
 	    display_template {
-	        <input name="selected_message" value="@messages.message_id@" type="radio">		
+	        <input name="selected_message" value="@messages.message_id@" type="radio" title="Move to @messages.name@ @messages.subject@">		
 	    }
 	}
 	message_id {

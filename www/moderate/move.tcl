@@ -71,7 +71,8 @@ if {$confirm_p == 1} {
     db_dml forums::move_message::update_forum_initial {}        
         
     # Redirect to the forum
-    ad_returnredirect "../forum-view?forum_id=$forum_id"
+   
+    ad_returnredirect -message [_ forums.message_moved] "../forum-view?forum_id=$forum_id"
     ad_script_abort
 }
 

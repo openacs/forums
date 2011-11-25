@@ -41,12 +41,12 @@ if {$view eq "forum"} {
                 label "\#forums.Forum\#"
                 hide_p t
                 html {align left}
-                display_template {<a href=\"forum-view?forum_id=@messages.forum_id@\">@messages.forum_name@</a>}
+                display_template {<a href=\"forum-view?forum_id=@messages.forum_id@\" title="#forums.go_to_forum# @messages.forum_name@">@messages.forum_name@</a>}
             }   
             subject {
                 label "\#forums.Subject\#"
                 html {align left}
-                display_template {<a href="message-view?message_id=@messages.message_id@">@messages.subject@</a>}
+                display_template {<a href="message-view?message_id=@messages.message_id@" title="#forums.view_message# @messages.subject@">@messages.subject@</a>}
             }
             posting_date_pretty {
                 label "\#forums.Posted\#"
