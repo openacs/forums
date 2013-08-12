@@ -35,13 +35,21 @@ create table forums_reading_info_user (
 
 
 -- remove reading_info for thread (upon new message, upon message deletion, or state change)
-create or replace function forums_reading_info__remove_msg (integer)
-returns integer as '
-declare
-    p_message_id                    alias for $1;
+
+
+-- added
+select define_function_args('forums_reading_info__remove_msg','message_id');
+
+--
+-- procedure forums_reading_info__remove_msg/1
+--
+CREATE OR REPLACE FUNCTION forums_reading_info__remove_msg(
+   p_message_id integer
+) RETURNS integer AS $$
+DECLARE
 		v_forum_id                      integer;
     v_reading                       RECORD;
-begin
+BEGIN
     select forum_id from forums_messages where message_id = p_message_id into v_forum_id;
 	for v_reading in select user_id
                         from forums_reading_info
@@ -54,19 +62,28 @@ begin
     end loop;
     
     return 0;
-end;
-' language 'plpgsql';
+END;
+
+$$ LANGUAGE plpgsql;
 
 
 -- mark_all_read:
-create or replace function forums_reading_info__user_add_forum (integer,integer)
-returns integer as '
-declare
-    p_forum_id                      alias for $1;
-    p_user_id                       alias for $2;
+
+
+-- added
+select define_function_args('forums_reading_info__user_add_forum','forum_id,user_id');
+
+--
+-- procedure forums_reading_info__user_add_forum/2
+--
+CREATE OR REPLACE FUNCTION forums_reading_info__user_add_forum(
+   p_forum_id integer,
+   p_user_id integer
+) RETURNS integer AS $$
+DECLARE
     v_message                       RECORD;
     v_read_p			    RECORD;
-begin
+BEGIN
     for v_message in select message_id
                         from forums_messages_approved
                         where forum_id = p_forum_id
@@ -84,19 +101,28 @@ begin
 		delete from forums_reading_info_user where forum_id = p_forum_id and user_id = p_user_id;
 		insert into forums_reading_info_user (forum_id,user_id,threads_read) VALUES (p_forum_id,p_user_id,(select approved_thread_count from forums_forums where forum_id = p_forum_id));
     return 0;
-end;
-' language 'plpgsql';
+END;
+
+$$ LANGUAGE plpgsql;
 
 -- mark message read for user
-create or replace function forums_reading_info__user_add_msg (integer,integer)
-returns integer as '
-declare
-    p_root_message_id               alias for $1;
-    p_user_id                       alias for $2;
+
+
+-- added
+select define_function_args('forums_reading_info__user_add_msg','root_message_id,user_id');
+
+--
+-- procedure forums_reading_info__user_add_msg/2
+--
+CREATE OR REPLACE FUNCTION forums_reading_info__user_add_msg(
+   p_root_message_id integer,
+   p_user_id integer
+) RETURNS integer AS $$
+DECLARE
     v_read_p                        RECORD;
 		v_forum_id											integer;
 		v_exists												boolean;
-begin
+BEGIN
 		select forum_id from forums_messages where message_id = p_root_message_id into v_forum_id;
 		select into v_read_p * from forums_reading_info where user_id = p_user_id and root_message_id  = p_root_message_id;
 		if NOT FOUND
@@ -114,25 +140,34 @@ begin
     end if;
 
     return 0;
-end;
-' language 'plpgsql';
+END;
+
+$$ LANGUAGE plpgsql;
 
 -- move thread to other forum
-create or replace function forums_message__move_update_reading_info (integer,integer,integer)
-returns integer as '
-declare
-    p_message_id        alias for $1;
-    p_old_forum_id      alias for $2;
-    p_new_forum_id      alias for $3;
+
+
+-- added
+select define_function_args('forums_message__move_update_reading_info','message_id,old_forum_id,new_forum_id');
+
+--
+-- procedure forums_message__move_update_reading_info/3
+--
+CREATE OR REPLACE FUNCTION forums_message__move_update_reading_info(
+   p_message_id integer,
+   p_old_forum_id integer,
+   p_new_forum_id integer
+) RETURNS integer AS $$
+DECLARE
     v_message           record;
     v_users             record;
     v_read_p            record;
     v_threads           integer;
-begin
-		raise notice ''updating for message %'', p_message_id;
+BEGIN
+		raise notice 'updating for message %', p_message_id;
 		for v_users in select user_id from forums_reading_info where root_message_id  = p_message_id
     loop
-				raise notice ''updating for user %'', v_users.user_id;
+				raise notice 'updating for user %', v_users.user_id;
 				-- down the number of threads read in old forum
 			  update forums_reading_info_user set threads_read = threads_read - 1
 						where forum_id = p_old_forum_id and user_id = v_users.user_id;
@@ -150,19 +185,28 @@ begin
 
     return 1;
 
-end;' language 'plpgsql';
+END;
+$$ LANGUAGE plpgsql;
 
 
 -- move thread to other thread
-create or replace function forums_message__move_thread_thread_update_reading_info (integer,integer, integer)
-returns integer as '
-declare
-    p_source_message_id        alias for $1;
-		p_source_forum_id					alias for $2;
-    p_target_message_id      alias for $3;
+
+
+-- added
+select define_function_args('forums_message__move_thread_thread_update_reading_info','source_message_id,source_forum_id,target_message_id');
+
+--
+-- procedure forums_message__move_thread_thread_update_reading_info/3
+--
+CREATE OR REPLACE FUNCTION forums_message__move_thread_thread_update_reading_info(
+   p_source_message_id integer,
+   p_source_forum_id integer,
+   p_target_message_id integer
+) RETURNS integer AS $$
+DECLARE
 		v_target_forum_id 			integer;
 		v_users									record;
-begin
+BEGIN
 		select forum_id from forums_messages where message_id = p_target_message_id into v_target_forum_id;
 		-- for all users that have read target, but not the source, remove target_info
 		for v_users in select user_id from forums_reading_info fri where root_message_id  = p_target_message_id and not exists(select 1 from forums_reading_info where root_message_id = p_source_message_id and user_id = fri.user_id)
@@ -181,20 +225,29 @@ begin
 		end loop;
     return 1;
 
-end;' language 'plpgsql';
+END;
+$$ LANGUAGE plpgsql;
 
 -- move message to other thread
-create or replace function forums_message__move_thread_update_reading_info (integer,integer,integer)
-returns integer as '
-declare
-    p_source_message_id        alias for $1;
-		p_source_old_root_message_id 	alias for $2;
-    p_target_message_id      alias for $3;
+
+
+-- added
+select define_function_args('forums_message__move_thread_update_reading_info','source_message_id,source_old_root_message_id,target_message_id');
+
+--
+-- procedure forums_message__move_thread_update_reading_info/3
+--
+CREATE OR REPLACE FUNCTION forums_message__move_thread_update_reading_info(
+   p_source_message_id integer,
+   p_source_old_root_message_id integer,
+   p_target_message_id integer
+) RETURNS integer AS $$
+DECLARE
 		v_target_forum_id 			integer;
 		v_users									record;
-begin
+BEGIN
 	select forum_id from forums_messages where message_id = p_target_message_id into v_target_forum_id;
-	raise notice ''v_target_forum_id %'', v_target_forum_id;
+	raise notice 'v_target_forum_id %', v_target_forum_id;
 	-- for all users that have read target, but not the source, remove target_info
 	for v_users in select user_id from forums_reading_info fri where root_message_id  = p_target_message_id and not exists(select 1 from forums_reading_info where root_message_id = p_source_old_root_message_id and user_id = fri.user_id)
     loop
@@ -205,15 +258,22 @@ begin
 		end loop;
 		return 1;
 
-end;' language 'plpgsql';
+END;
+$$ LANGUAGE plpgsql;
 
 
 -- recount reading_info_user from reading_info
-create or replace function forums_message__repair_reading_info ()
-returns integer as '
-declare 
+
+
+--
+-- procedure forums_message__repair_reading_info/0
+--
+CREATE OR REPLACE FUNCTION forums_message__repair_reading_info(
+
+) RETURNS integer AS $$
+DECLARE 
 v_users record;
-begin
+BEGIN
 delete from forums_reading_info_user;
 for v_users in
 select user_id,(select forum_id from forums_messages where message_id = root_message_id) as forum_id, count(root_message_id) as threads_read from forums_reading_info group by forum_id,user_id
@@ -223,4 +283,5 @@ values
 (v_users.forum_id,v_users.user_id,v_users.threads_read);
 end loop;
 return 1;
-end;' language 'plpgsql';
+END;
+$$ LANGUAGE plpgsql;

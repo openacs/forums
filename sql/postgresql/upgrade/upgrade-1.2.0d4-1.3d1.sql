@@ -1,16 +1,23 @@
 -- Update the package ids for projects
-create function inline_0 ()
-returns integer as '
-declare
+
+
+--
+-- procedure inline_0/0
+--
+CREATE OR REPLACE FUNCTION inline_0(
+
+) RETURNS integer AS $$
+DECLARE
     ct RECORD;
-begin
+BEGIN
   for ct in select package_id, forum_id from forums_forums
   loop
 	update acs_objects set package_id = ct.package_id where object_id = ct.forum_id;
   end loop;
 
   return null;
-end;' language 'plpgsql';
+END;
+$$ LANGUAGE plpgsql;
 
 select inline_0();
 drop function inline_0();

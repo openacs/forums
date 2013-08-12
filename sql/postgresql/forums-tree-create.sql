@@ -13,17 +13,23 @@
 -- This is the sortkey code
 --
 
-create function forums_mess_insert_tr ()
-returns opaque as '
-declare
+
+
+--
+-- procedure forums_mess_insert_tr/0
+--
+CREATE OR REPLACE FUNCTION forums_mess_insert_tr(
+
+) RETURNS trigger AS $$
+DECLARE
     v_max_child_sortkey             forums_forums.max_child_sortkey%TYPE;
     v_parent_sortkey                forums_messages.tree_sortkey%TYPE;
-begin
+BEGIN
 
     if new.parent_id is null
     then
 
-        select '''', max_child_sortkey
+        select '', max_child_sortkey
         into v_parent_sortkey, v_max_child_sortkey
         from forums_forums
         where forum_id = new.forum_id
@@ -37,7 +43,7 @@ begin
 
     else
 
-        select coalesce(tree_sortkey, ''''), max_child_sortkey
+        select coalesce(tree_sortkey, ''), max_child_sortkey
         into v_parent_sortkey, v_max_child_sortkey
         from forums_messages
         where message_id = new.parent_id
@@ -54,7 +60,8 @@ begin
     new.tree_sortkey := v_parent_sortkey || v_max_child_sortkey;
 
     return new;
-end;' language 'plpgsql';
+END;
+$$ LANGUAGE plpgsql;
 
 create trigger forums_mess_insert_tr
 before insert on forums_messages

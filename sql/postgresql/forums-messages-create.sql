@@ -79,24 +79,24 @@ as
     from forums_messages
     where state= 'pending';
 
-create or replace function inline_0 ()
-returns integer as '
-begin
+CREATE OR REPLACE FUNCTION inline_0 () RETURNS integer AS $$
+BEGIN
     perform acs_object_type__create_type(
-        ''forums_message'',
-        ''Forums Message'',
-        ''Forums Messages'',
-        ''acs_object'',
-        ''forums_messages'',
-        ''message_id'',
-        ''forums_message'',
-        ''f'',
+        'forums_message',
+        'Forums Message',
+        'Forums Messages',
+        'acs_object',
+        'forums_messages',
+        'message_id',
+        'forums_message',
+        'f',
         null,
-        ''forums_message__name''
+        'forums_message__name'
     );
 
     return null;
-end;' language 'plpgsql';
+END;
+$$ LANGUAGE plpgsql;
 
 select inline_0();
 drop function inline_0 ();

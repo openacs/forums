@@ -8,42 +8,49 @@
 -- til: only indexing full threads. changes to child messages will be treated as 
 -- change to the thread.
 
-create or replace function forums_message_search__itrg ()
-returns trigger as '
-begin
+CREATE OR REPLACE FUNCTION forums_message_search__itrg () RETURNS trigger AS $$
+BEGIN
     if new.parent_id is null then
-        perform search_observer__enqueue(new.message_id,''INSERT'');
+        perform search_observer__enqueue(new.message_id,'INSERT');
     else
-        perform search_observer__enqueue(forums_message__root_message_id(new.parent_id),''UPDATE'');
+        perform search_observer__enqueue(forums_message__root_message_id(new.parent_id),'UPDATE');
     end if;
     return new;
-end;' language 'plpgsql';
+END;
+$$ LANGUAGE plpgsql;
 
-create or replace function forums_message_search__dtrg ()
-returns trigger as '
-declare
+
+
+--
+-- procedure forums_message_search__dtrg/0
+--
+CREATE OR REPLACE FUNCTION forums_message_search__dtrg(
+
+) RETURNS trigger AS $$
+DECLARE
      v_root_message_id          forums_messages.message_id%TYPE;
-begin
+BEGIN
     -- if the deleted msg has a parent then its an UPDATE to a thread, otherwise a DELETE.
 
     if old.parent_id is null then
-        perform search_observer__enqueue(old.message_id,''DELETE'');
+        perform search_observer__enqueue(old.message_id,'DELETE');
     else
         v_root_message_id := forums_message__root_message_id(old.parent_id);
         if not v_root_message_id is null then
-            perform search_observer__enqueue(v_root_message_id,''UPDATE'');
+            perform search_observer__enqueue(v_root_message_id,'UPDATE');
         end if;
     end if;
 
     return old;
-end;' language 'plpgsql';
+END;
+$$ LANGUAGE plpgsql;
 
-create or replace function forums_message_search__utrg ()
-returns trigger as '
-begin
-    perform search_observer__enqueue(forums_message__root_message_id (old.message_id),''UPDATE'');
+CREATE OR REPLACE FUNCTION forums_message_search__utrg () RETURNS trigger AS $$
+BEGIN
+    perform search_observer__enqueue(forums_message__root_message_id (old.message_id),'UPDATE');
     return old;
-end;' language 'plpgsql';
+END;
+$$ LANGUAGE plpgsql;
 
 
 create trigger forums_message_search__itrg after insert on forums_messages
@@ -58,29 +65,29 @@ for each row execute procedure forums_message_search__utrg ();
 
 
 -- forums_forums indexing trigger
-create or replace function forums_forums_search__itrg ()
-returns trigger as '
-begin
-    perform search_observer__enqueue(new.forum_id,''INSERT'');
+CREATE OR REPLACE FUNCTION forums_forums_search__itrg () RETURNS trigger AS $$
+BEGIN
+    perform search_observer__enqueue(new.forum_id,'INSERT');
 
     return new;
-end;' language 'plpgsql';
+END;
+$$ LANGUAGE plpgsql;
 
-create or replace function forums_forums_search__utrg ()
-returns trigger as '
-begin
-    perform search_observer__enqueue(new.forum_id,''UPDATE'');
+CREATE OR REPLACE FUNCTION forums_forums_search__utrg () RETURNS trigger AS $$
+BEGIN
+    perform search_observer__enqueue(new.forum_id,'UPDATE');
 
     return new;
-end;' language 'plpgsql';
+END;
+$$ LANGUAGE plpgsql;
 
-create or replace function forums_forums_search__dtrg ()
-returns trigger as '
-begin
-    perform search_observer__enqueue(old.forum_id,''DELETE'');
+CREATE OR REPLACE FUNCTION forums_forums_search__dtrg () RETURNS trigger AS $$
+BEGIN
+    perform search_observer__enqueue(old.forum_id,'DELETE');
 
     return old;
-end;' language 'plpgsql';
+END;
+$$ LANGUAGE plpgsql;
 
 
 

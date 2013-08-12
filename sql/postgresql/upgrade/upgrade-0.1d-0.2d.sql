@@ -1,11 +1,18 @@
 alter table forums_forums add column last_post timestamptz;
 alter table forums_messages add column last_child_post timestamptz;
 
-create or replace function t () returns integer as '
-declare
+
+
+--
+-- procedure t/0
+--
+CREATE OR REPLACE FUNCTION t(
+
+) RETURNS integer AS $$
+DECLARE
   v_record record;
   v_timestamp timestamptz; 
-begin
+BEGIN
 
   for v_record in select forum_id
                   from forums_forums
@@ -43,7 +50,8 @@ begin
 
   return 1;
 
-end;' language 'plpgsql';
+END;
+$$ LANGUAGE plpgsql;
     
 select t();
 
@@ -68,28 +76,36 @@ as
     from forums_forums
     where enabled_p = 't';
 
-create or replace function forums_message__new (integer,varchar,integer,varchar,text,char,integer,timestamptz,varchar,integer,timestamptz,integer,varchar,integer)
-returns integer as '
-declare
-    p_message_id                    alias for $1;
-    p_object_type                   alias for $2;
-    p_forum_id                      alias for $3;
-    p_subject                       alias for $4;
-    p_content                       alias for $5;
-    p_html_p                        alias for $6;
-    p_user_id                       alias for $7;
-    p_posting_date                  alias for $8;
-    p_state                         alias for $9;
-    p_parent_id                     alias for $10;
-    p_creation_date                 alias for $11;
-    p_creation_user                 alias for $12;
-    p_creation_ip                   alias for $13;
-    p_context_id                    alias for $14;
+
+
+-- added
+select define_function_args('forums_message__new','message_id,object_type,forum_id,subject,content,html_p,user_id,posting_date,state,parent_id,creation_date,creation_user,creation_ip,context_id');
+
+--
+-- procedure forums_message__new/14
+--
+CREATE OR REPLACE FUNCTION forums_message__new(
+   p_message_id integer,
+   p_object_type varchar,
+   p_forum_id integer,
+   p_subject varchar,
+   p_content text,
+   p_html_p char,
+   p_user_id integer,
+   p_posting_date timestamptz,
+   p_state varchar,
+   p_parent_id integer,
+   p_creation_date timestamptz,
+   p_creation_user integer,
+   p_creation_ip varchar,
+   p_context_id integer
+) RETURNS integer AS $$
+DECLARE
     v_message_id                    integer;
     v_forum_policy                  forums_forums.posting_policy%TYPE;
     v_state                         forums_messages.state%TYPE;
     v_posting_date                  forums_messages.posting_date%TYPE;
-begin
+BEGIN
     v_message_id := acs_object__new(
         p_message_id,
         p_object_type,
@@ -105,9 +121,9 @@ begin
         from forums_forums
         where forum_id = p_forum_id;
              
-        if v_forum_policy = ''moderated''
-        then v_state := ''pending'';
-        else v_state := ''approved'';
+        if v_forum_policy = 'moderated'
+        then v_state := 'pending';
+        else v_state := 'approved';
         end if;
     else
         v_state := p_state;
@@ -134,25 +150,34 @@ begin
  
     return v_message_id;
 
-end;
-' language 'plpgsql';
+END;
 
-create or replace function forums_forum__new (integer,varchar,varchar,varchar,varchar,varchar,integer,timestamptz,integer,varchar,integer)
-returns integer as '
-declare
-    p_forum_id                      alias for $1;
-    p_object_type                   alias for $2;
-    p_name                          alias for $3;
-    p_charter                       alias for $4;
-    p_presentation_type             alias for $5;
-    p_posting_policy                alias for $6;
-    p_package_id                    alias for $7;
-    p_creation_date                 alias for $8;
-    p_creation_user                 alias for $9;
-    p_creation_ip                   alias for $10;
-    p_context_id                    alias for $11;
+$$ LANGUAGE plpgsql;
+
+
+
+-- added
+select define_function_args('forums_forum__new','forum_id,object_type,name,charter,presentation_type,posting_policy,package_id,creation_date,creation_user,creation_ip,context_id');
+
+--
+-- procedure forums_forum__new/11
+--
+CREATE OR REPLACE FUNCTION forums_forum__new(
+   p_forum_id integer,
+   p_object_type varchar,
+   p_name varchar,
+   p_charter varchar,
+   p_presentation_type varchar,
+   p_posting_policy varchar,
+   p_package_id integer,
+   p_creation_date timestamptz,
+   p_creation_user integer,
+   p_creation_ip varchar,
+   p_context_id integer
+) RETURNS integer AS $$
+DECLARE
     v_forum_id                      integer;
-begin
+BEGIN
     v_forum_id:= acs_object__new(
         p_forum_id,
         p_object_type,
@@ -168,6 +193,7 @@ begin
     (v_forum_id, p_name, p_charter, p_presentation_type, p_posting_policy, p_package_id);
 
     return v_forum_id;
-end;
-' language 'plpgsql';
+END;
+
+$$ LANGUAGE plpgsql;
 

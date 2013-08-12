@@ -12,15 +12,15 @@ drop view forums_messages_pending;
 drop view forums_messages_approved;
 drop table forums_messages;
 
-create function inline_0 ()
-returns integer as '
-begin
+CREATE OR REPLACE FUNCTION inline_0 () RETURNS integer AS $$
+BEGIN
     perform acs_object_type__drop_type (
-        ''forums_message'', ''f''
+        'forums_message', 'f'
     );
 
     return null;
-end;' language 'plpgsql';
+END;
+$$ LANGUAGE plpgsql;
 
 select inline_0();
 drop function inline_0 ();

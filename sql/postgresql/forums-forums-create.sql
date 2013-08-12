@@ -82,20 +82,21 @@ create function inline_0 ()
 returns integer as'
 begin
     perform acs_object_type__create_type(
-        ''forums_forum'',
-        ''Forums Forum'',
-        ''Forums Forums'',
-        ''acs_object'',
-        ''forums_forums'',
-        ''forum_id'',
-        ''forums_forum'',
-        ''f'',
+        'forums_forum',
+        'Forums Forum',
+        'Forums Forums',
+        'acs_object',
+        'forums_forums',
+        'forum_id',
+        'forums_forum',
+        'f',
         null,
-        ''forums_forum__name''
+        'forums_forum__name'
     );
 
     return null;
-end;' language 'plpgsql';
+END;
+$$ LANGUAGE plpgsql;
 
 select inline_0();
 drop function inline_0();
