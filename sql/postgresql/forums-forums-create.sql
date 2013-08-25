@@ -78,9 +78,12 @@ as
     from forums_forums
     where enabled_p = 't';
 
-create function inline_0 ()
-returns integer as'
-begin
+
+-- procedure inline_0/0
+--
+CREATE OR REPLACE FUNCTION inline_0(
+) RETURNS integer AS $$
+BEGIN
     perform acs_object_type__create_type(
         'forums_forum',
         'Forums Forum',
