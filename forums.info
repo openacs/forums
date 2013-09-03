@@ -19,7 +19,8 @@
         <package_instance_name>#forums.Forums#</package_instance_name>
 
         <provides url="forums" version="1.3d10"/>
-        <requires url="acs-kernel" version="5.5.0"/>
+	<requires url="acs-kernel" version="5.8.0"/>
+        
         <requires url="acs-mail-lite" version="5.5.0"/>
         <requires url="acs-subsite" version="5.5.0"/>
         <requires url="attachments" version="0.10"/>
