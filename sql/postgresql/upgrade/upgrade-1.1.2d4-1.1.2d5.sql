@@ -25,9 +25,9 @@ where privilege = 'forum_delete';
 
 delete from acs_permissions where privilege = 'forum_post';
 
-create function inline_0 ()
-returns integer as'
-begin
+CREATE OR REPLACE FUNCTION inline_0(
+) RETURNS integer AS $$
+BEGIN
   perform acs_privilege__remove_child('read','forum_read');
   perform acs_privilege__remove_child('create','forum_create');
   perform acs_privilege__remove_child('write','forum_write');
