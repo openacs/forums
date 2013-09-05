@@ -271,14 +271,13 @@ ad_proc -public forum::message::delete {
 	    callback forum::message_delete -package_id [ad_conn package_id] -message_id $message_id
 	}
 
-			if { [forum::use_ReadingInfo_p] && [expr { [db_string is_root "select parent_id from forums_messages where message_id = :message_id"] eq "" } ] } {
-				set db_antwort [db_string forums_reading_info__remove_msg {
-        select forums_reading_info__remove_msg (
-            :message_id
-        );
-    }]
-			}
-
+	if { [forum::use_ReadingInfo_p] 
+	     && [db_string is_root "select parent_id from forums_messages where message_id = :message_id"] eq ""  
+	 } {
+	    set db_antwort [db_string forums_reading_info__remove_msg {
+		select forums_reading_info__remove_msg (:message_id);
+	    }]
+	}
 
         # Remove the notifications
         notification::request::delete_all -object_id $message_id
