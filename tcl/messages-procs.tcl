@@ -90,7 +90,7 @@ ad_proc -public forum::message::do_notifications {
             set user_id $message(user_id)
         }
     } else {
-        set user_id [party::get_by_email -email [ad_parameter -package_id [ad_acs_kernel_id] HostAdministrator]]
+        set user_id [party::get_by_email -email [parameter::get -package_id [ad_acs_kernel_id] -parameter HostAdministrator]]
     }
     set notif_user $user_id
 
