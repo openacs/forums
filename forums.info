@@ -12,14 +12,14 @@
     <version name="1.3d10" url="http://openacs.org/repository/download/apm/forums-1.3d10.apm">
         <owner url="http://openacs.org">OpenACS</owner>
         <summary>Online discussion forums.</summary>
-        <release-date>2013-08-30</release-date>
+        <release-date>2013-09-08</release-date>
         <vendor url="http://openacs.org">OpenACS</vendor>
         <description format="text/plain">This online discussion board software is the successor of the original bboard package. The biggest improvement is a scalable datamodel. Forums supports threaded and flat view, moderation, a stand alone search function as well as integration with the OpenACS search package and integration with the notifications package for email alerts. It also supports reply via email.</description>
         <maturity>0</maturity>
         <package_instance_name>#forums.Forums#</package_instance_name>
 
         <provides url="forums" version="1.3d10"/>
-	<requires url="acs-kernel" version="5.8.0"/>
+	<requires url="acs-kernel" version="5.8.1d1"/>
         
         <requires url="acs-mail-lite" version="5.5.0"/>
         <requires url="acs-subsite" version="5.5.0"/>
