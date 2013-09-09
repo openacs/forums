@@ -83,7 +83,7 @@ if {$confirm_p == 2} {
    #if confirm_p is no then return to the message view
    ad_returnredirect "../message-view?message_id=$message(message_id)"
 }
-set url_vars [export_url_vars message_id return_url selected_forum]
+set url_vars [export_vars -url {message_id return_url selected_forum}]
 
 if {[exists_and_not_null alt_template]} {
   ad_return_template $alt_template
