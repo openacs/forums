@@ -333,7 +333,7 @@ ad_proc -public forum::message::subject_sort_filter {
     set child_label "[_ forums.Last_post_in_subject]"
     set new_order_by [ad_decode $order_by posting_date last_child_post posting_date]
 
-    set export_vars [export_vars -override [list [list order_by $new_order_by]] {order_by forum_id}]
+    set export_vars [ad_export_vars -override [list [list order_by $new_order_by]] {order_by forum_id}]
     set toggle_url "[ad_conn url]?${export_vars}"
     if {$order_by eq "posting_date"} {
         # subject selected
