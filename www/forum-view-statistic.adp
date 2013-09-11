@@ -1,5 +1,5 @@
 <master>
-<property name="title">#forums.Forums_hist_lt# @name;noquote@</property>
+<property name="doc(title)">#forums.Forums_hist_lt# @name;noquote@</property>
 <property name="context">@context;noquote@</property>
 
 
