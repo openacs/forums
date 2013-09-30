@@ -52,6 +52,6 @@ if { [form is_request forum] } {
     element set_properties forum new_threads_p -value [forum::new_questions_allowed_p -forum_id $forum(forum_id)]
 }
 
-if {[exists_and_not_null alt_template]} {
+if {([info exists alt_template] && $alt_template ne "")} {
   ad_return_template $alt_template
 }

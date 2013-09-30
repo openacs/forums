@@ -13,11 +13,11 @@ set viewer_id [ad_conn user_id]
 set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
 set screen_name [db_string select_screen_name { select screen_name from users where user_id = :viewer_id}]
 
-if {![exists_and_not_null rownum]} { 
+if {(![info exists rownum] || $rownum eq "")} { 
     set rownum 1
 }
 
-if {![exists_and_not_null presentation_type]} {
+if {(![info exists presentation_type] || $presentation_type eq "")} {
     set presentation_type ""
 }
 
@@ -37,7 +37,7 @@ if {![info exists root_subject]} {
     set display_subject_p [expr {$subject ne $root_subject }] 
 }
 
-if {[exists_and_not_null alt_template]} {
+if {([info exists alt_template] && $alt_template ne "")} {
   ad_return_template $alt_template
 }
 if {![info exists message(message_id)]} {

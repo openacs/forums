@@ -86,6 +86,6 @@ if {$confirm_p == 2} {
 }
 set url_vars [export_vars -url {msg_id return_url selected_message}]
 
-if {[exists_and_not_null alt_template]} {
+if {([info exists alt_template] && $alt_template ne "")} {
   ad_return_template $alt_template
 }

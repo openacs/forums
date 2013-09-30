@@ -15,8 +15,8 @@ ad_page_contract {
 }
 
 # validate args
-if { ![exists_and_not_null package_id]
-     && ![exists_and_not_null base_url] } {
+if { (![info exists package_id] || $package_id eq "")
+     && (![info exists base_url] || $base_url eq "") } {
     error "package_id and/or base_url must be given"
 }
 if { [info exists n] } {
@@ -31,11 +31,11 @@ if { [info exists n] } {
 if { ![info exists cache] || [expr {$cache < 0}] } {
     set cache 0
 }
-if { ![exists_and_not_null package_id] } {
+if { (![info exists package_id] || $package_id eq "") } {
     set package_id [site_node::get_element \
                         -url $base_url -element object_id]
 }
-if { ![exists_and_not_null base_url] } {
+if { (![info exists base_url] || $base_url eq "") } {
     set base_url [lindex [site_node::get_url_from_object_id \
                               -object_id $package_id] 0]
 }

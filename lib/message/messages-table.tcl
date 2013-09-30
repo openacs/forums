@@ -28,6 +28,6 @@ template::list::create -name results -multirow messages -no_data "#forums.No_Mes
     }
 }
 
-if {[exists_and_not_null alt_template]} {
+if {([info exists alt_template] && $alt_template ne "")} {
   ad_return_template $alt_template
 }

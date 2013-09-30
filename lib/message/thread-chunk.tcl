@@ -59,7 +59,7 @@ set message(direct_url) "$direct_url_base\#msg_$message(message_id)"
 set message(number) [expr {[lsearch $message_id_list $message(message_id)] + 1}]
 set message(parent_number) {}
 set message(parent_direct_url) ""
-if { [exists_and_not_null message(parent_id)] } {
+if { [info exists message(parent_id)] && $message(parent_id) ne "" } {
     set message(parent_number) [expr {[lsearch $message_id_list $message(parent_id)] + 1}]
     set message(parent_direct_url) "$direct_url_base\#msg_$message(parent_id)"
     set message(parent_root_url) [export_vars -base [ad_conn url] { { message_id $message(parent_id) } }]
@@ -131,7 +131,7 @@ db_multirow -extend { posting_date_pretty direct_url number parent_number parent
 
 set message(tree_level) 0
 
-if {[exists_and_not_null alt_template]} {
+if {[info exists alt_template] && $alt_template ne ""} {
   ad_return_template $alt_template
 }
 
