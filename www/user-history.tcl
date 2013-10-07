@@ -13,7 +13,7 @@ ad_page_contract {
 }
 
 # Get user information
-oacs::user::get -user_id $user_id -array user
+acs_user::get -user_id $user_id -array user
 
 set context [list [_ forums.Posting_History]]
 
