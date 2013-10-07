@@ -43,7 +43,7 @@ set member_ids [lsort -integer -unique [concat $subscribed_members_list $member_
 
 set member_html ""
 foreach member_id $member_ids {
-    if {[lsearch $subscribed_members_list $member_id] > -1} {
+    if {$member_id in $subscribed_members_list} {
 	set checked_html "checked"
     } else {
 	set checked_html ""
