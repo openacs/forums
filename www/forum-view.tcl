@@ -24,7 +24,7 @@ if {[catch {forum::get -forum_id $forum_id -array forum} errMsg]} {
 }
 
 # If disabled!
-if {$forum(enabled_p) ne "t"} {
+if {$forum(enabled_p) != "t"} {
     ad_returnredirect "./"
     ad_script_abort
 }

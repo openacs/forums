@@ -66,7 +66,7 @@ if { [info exists message(parent_id)] && $message(parent_id) ne "" } {
 }
 
 set message(open_p) "t"
-set message(reply_p) [expr {$message(open_p) eq "t" || $message(user_id) eq [ad_conn user_id]}]
+set message(reply_p) [expr {$message(open_p) == "t" || $message(user_id) eq [ad_conn user_id]}]
 set message(tree_level) 0
 
 
@@ -97,7 +97,7 @@ db_multirow -extend { posting_date_pretty direct_url number parent_number parent
     set parent_number [expr {[lsearch $message_id_list $parent_id] + 1}]
     set parent_direct_url "$direct_url_base\#msg_$parent_id"
     set parent_root_url [export_vars -base [ad_conn url] {{message_id $parent_id}}]
-    set reply_p [expr {$open_p eq "t" || $user_id eq [ad_conn user_id]}]
+    set reply_p [expr {$open_p == "t" || $user_id eq [ad_conn user_id]}]
     
     # DEDS: get the response ids the tcl way or else we need to hit
     # the db for each response to count its children

@@ -28,7 +28,7 @@ if {![array exists message]} {
 forum::get -forum_id $message(forum_id) -array forum
 
 # If disabled!
-if {$forum(enabled_p) ne "t"} {
+if {$forum(enabled_p) != "t"} {
     ad_returnredirect "./"
     ad_script_abort
 }
