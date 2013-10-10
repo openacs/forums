@@ -11,7 +11,6 @@ ad_page_contract {
 
 set viewer_id [ad_conn user_id]
 set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
-set screen_name [db_string select_screen_name { select screen_name from users where user_id = :viewer_id}]
 
 if {(![info exists rownum] || $rownum eq "")} { 
     set rownum 1
@@ -22,6 +21,12 @@ if {(![info exists presentation_type] || $presentation_type eq "")} {
 }
 
 set message(content) [ad_html_text_convert -from $message(format) -to text/html -- $message(content)]
+
+if {$useScreenNameP} {
+    acs_user::get -user_id $viewer_id -array user_info
+    set screen_name $user_info(screen_name)
+}
+
 set message(screen_name) $screen_name
 
 # convert emoticons to images if the parameter is set
