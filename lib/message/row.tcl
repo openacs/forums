@@ -24,10 +24,12 @@ set message(content) [ad_html_text_convert -from $message(format) -to text/html 
 
 if {$useScreenNameP} {
     acs_user::get -user_id $viewer_id -array user_info
-    set screen_name $user_info(screen_name)
+    set message(screen_name) $user_info(screen_name)
+} else {
+    set message(screen_name) ""
 }
 
-set message(screen_name) $screen_name
+
 
 # convert emoticons to images if the parameter is set
 if { [string is true [parameter::get -parameter DisplayEmoticonsAsImagesP -default 0]] } {
