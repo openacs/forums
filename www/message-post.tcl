@@ -11,9 +11,19 @@ ad_page_contract {
     {parent_id ""}
 } -validate {
     forum_id_or_parent_id {
-        if {$forum_id eq "" && $parent_id eq ""} {
-            ad_complain [_ forums.lt_You_either_have_to]
-        }
+      if {$forum_id eq "" && $parent_id eq ""} {
+	ad_complain [_ forums.lt_You_either_have_to]
+      }
+      #
+      # GN: why can't we use {forum_id:integer ""} above? if we do so, the
+      # forum_id is not set!
+      #
+      if {$forum_id ne "" && ![string is integer $forum_id]} {
+	ad_complain [_ acs_templating.Invalid_integer]
+      }
+      if {$parent_id ne "" && ![string is integer $parent_id]} {
+        ad_complain [_ acs-templating.Invalid_integer]
+      }
     }
 }
 
