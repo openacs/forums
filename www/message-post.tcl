@@ -27,11 +27,11 @@ ad_page_contract {
     }
 }
 
-if { ![empty_string_p [ns_queryget formbutton:post]] } {
+if { [ns_queryget formbutton:post] ne "" } {
     set action post
-} elseif { ![empty_string_p [ns_queryget formbutton:preview]] } {
+} elseif { [ns_queryget formbutton:preview] ne "" } {
     set action preview
-} elseif { ![empty_string_p [ns_queryget formbutton:edit]] } {
+} elseif { [ns_queryget formbutton:edit] ne "" } {
     set action edit
 } else {
     set action ""

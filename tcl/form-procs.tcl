@@ -149,7 +149,7 @@ ad_proc -public forums::form::forum {
       -datatype text \
       -widget text \
       -html {size 60} \
-      -validate { {expr ![empty_string_p [string trim $value]]} {Forum Name can not be blank} }
+      -validate { {expr [string trim $value] ne ""} {Forum Name can not be blank} }
 
     template::element create $form_name ${prefix}charter \
       -label [_ forums.Charter] \
