@@ -10,6 +10,9 @@ ad_page_contract {
     message_id:integer,notnull
 }
 
+# require login to avoid abuse from spammers
+auth::require_login
+
 forum::security::require_read_message -message_id $message_id
 
 # Get the message information
