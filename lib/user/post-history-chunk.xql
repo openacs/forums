@@ -15,6 +15,7 @@
             where forums_messages.user_id = :user_id
             and forums_messages.forum_id = forums_forums.forum_id
             and forums_forums.package_id = :package_id
+	    order by forums_messages.posting_date desc
         </querytext>
     </fullquery>
 
