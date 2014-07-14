@@ -6,7 +6,7 @@
 <h1>@page_title;noquote@</h1>
 
   <if @searchbox_p@ true>
-    <include src="/packages/forums/lib/search/search-form" forum_id="@message.forum_id@">
+    <include src="/packages/forums/lib/search/search-form" forum_id="@message.forum_id;literal@">
   </if>
 
   <ul class="action-links">
