@@ -6,7 +6,7 @@ ad_page_contract {
     @creation-date 2004-09-06
 
 } {
-    forum_id:integer,notnull
+    forum_id:naturalnum,notnull
 }
 
     set user_id [ad_conn user_id]

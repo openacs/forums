@@ -7,7 +7,7 @@ ad_page_contract {
     
 
 } {
-    message_id:integer,notnull
+    message_id:naturalnum,notnull
     {table_name "forums_messages" }
 }
 

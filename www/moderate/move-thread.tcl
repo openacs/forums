@@ -6,7 +6,7 @@ ad_page_contract {
     @creation-date 2005-03-14   
 
 } {
-    msg_id:integer,notnull    
+    msg_id:naturalnum,notnull    
     selected_message:integer,notnull
     {confirm_p 0}
 }

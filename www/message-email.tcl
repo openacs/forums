@@ -7,7 +7,7 @@ ad_page_contract {
     @cvs-id $Id$
 
 } {
-    message_id:integer,notnull
+    message_id:naturalnum,notnull
 }
 
 # require login to avoid abuse from spammers

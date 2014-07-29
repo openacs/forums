@@ -7,7 +7,7 @@ ad_page_contract {
     @cvs-id $Id$
 
 } {
-    forum_id:integer,notnull
+    forum_id:naturalnum,notnull
 }
 
 # Check that the user can moderate the forum

@@ -6,7 +6,7 @@ ad_page_contract {
     @creation-date 2005-03-14   
 
 } {
-    message_id:integer,notnull    
+    message_id:naturalnum,notnull    
     selected_forum:integer,notnull
     {confirm_p 0}
 }

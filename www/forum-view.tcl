@@ -7,7 +7,7 @@ ad_page_contract {
     @cvs-id $Id$
 
 } -query {
-    forum_id:integer,notnull
+    forum_id:naturalnum,notnull
     {orderby "last_child_post,desc"}
 		{flush_p 0}
     page:naturalnum,optional
