@@ -104,7 +104,7 @@ ad_proc -public -callback pm::project_new -impl forums {
 ad_proc -public -callback search::datasource -impl forums_message {} {
 
     @author dave@thedesignexperience.org
-    @creation_date 2005-06-07
+    @creation-date 2005-06-07
 
     returns a datasource for the search package
     this is the content that will be indexed by the full text
@@ -193,7 +193,7 @@ ad_proc -public -callback search::datasource -impl forums_message {} {
 ad_proc -public -callback search::url -impl forums_message {} {
 
     @author dave@thedesignexperience.org
-    @creation_date 2005-06-08
+    @creation-date 2005-06-08
 
     returns a url for a message to the search package
 
@@ -212,7 +212,7 @@ ad_proc -public -callback search::datasource -impl forums_forum {} {
     search engine.
 
     @author Jeff Davis davis@xarg.net
-    @creation_date 2004-04-01
+    @creation-date 2004-04-01
 } {
 
     set forum_id $object_id
@@ -229,7 +229,7 @@ ad_proc -public -callback search::url -impl forums_forum {} {
     returns a url for a forum to the search package
 
     @author Jeff Davis davis@xarg.net
-    @creation_date 2004-04-01
+    @creation-date 2004-04-01
 
 } {
     set forum_id $object_id
