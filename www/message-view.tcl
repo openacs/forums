@@ -39,7 +39,7 @@ forum::security::permissions -forum_id $message(forum_id) -- permissions
 
 # Check if the user has admin on the message
 set permissions(moderate_p) [forum::security::can_moderate_message_p -message_id $message_id]
-if {!${permissions(moderate_p)}} {
+if { !$permissions(moderate_p) } {
     # Set post_p according to permissions ...
     set permissions(post_p) [forum::security::can_post_message_p -message_id $message_id]
     # ... alternatively, we could use a parameter to behave like
@@ -56,7 +56,7 @@ if {!${permissions(moderate_p)}} {
 }
 
 # Check if the message is approved
-if {!${permissions(moderate_p)} && $message(state) ne "approved" } {
+if {!$permissions(moderate_p) && $message(state) ne "approved" } {
     ad_returnredirect "forum-view?forum_id=$message(forum_id)"
     ad_script_abort
 }
