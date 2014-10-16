@@ -20,12 +20,12 @@
         <package_instance_name>#forums.Forums#</package_instance_name>
 
         <provides url="forums" version="1.3d10"/>
-	<requires url="acs-kernel" version="5.8.1a3"/>
+	<requires url="acs-kernel" version="5.8.1b1"/>
         
-        <requires url="acs-mail-lite" version="5.8.1a3"/>
-        <requires url="acs-subsite" version="5.8.1a3"/>
+        <requires url="acs-mail-lite" version="5.8.1b1"/>
+        <requires url="acs-subsite" version="5.8.1b1"/>
         <requires url="attachments" version="0.10"/>
-        <requires url="notifications" version="5.8.1a3"/>
+        <requires url="notifications" version="5.8.1b1"/>
 
         <callbacks>
             <callback type="before-upgrade"  proc="forum::install::package_upgrade"/>
