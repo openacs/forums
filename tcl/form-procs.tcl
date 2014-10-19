@@ -145,19 +145,19 @@ ad_proc -public forums::form::forum {
     Constructs the elements of a form for creating/editing a forum
 } {
     template::element create $form_name ${prefix}name \
-      -label [_ forums.Name] \
-      -datatype text \
-      -widget text \
-      -html {size 60} \
-      -validate { {expr [string trim $value] ne ""} {Forum Name can not be blank} }
+	-label [_ forums.Name] \
+	-datatype text \
+	-widget text \
+	-html {size 60} \
+	-validate { {expr {[string trim $value] ne ""}} {Forum Name can not be blank} }
 
     template::element create $form_name ${prefix}charter \
-      -label [_ forums.Charter] \
-      -datatype richtext \
-      -widget richtext \
+	-label [_ forums.Charter] \
+	-datatype richtext \
+	-widget richtext \
         -html {cols 60 rows 10 style {width: 100%}} \
-      -validate { {expr [string length $value] <= 4000 } {#forums.charter_max_chars#} } \
-      -optional
+	-validate { {expr {[string length $value] <= 4000} } {#forums.charter_max_chars#} } \
+								-optional
 
     template::element create $form_name ${prefix}presentation_type \
       -label [_ forums.Presentation] \
