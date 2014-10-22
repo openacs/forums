@@ -28,6 +28,9 @@ if { [info exists n] } {
 } else {
     set n 2
 }
+if {![info exists class]} {
+    set class ""
+}
 if { ![info exists cache] || [expr {$cache < 0}] } {
     set cache 0
 }
@@ -49,14 +52,10 @@ if { ![info exists show_empty_p] } {
 
 # obtain data (use list rather than multirow, as its easier to cache)
 # identification problems (need package_id + n as part of key)
-set new_topics_script "# /packages/forums/lib/forums-portlet.tcl
-set n $n
-db_list_of_lists new_topics {} -bind { package_id $package_id }"
-set hot_topics_script "# /packages/forums/lib/forums-portlet.tcl
-set n $n
-db_list_of_lists hot_topics {} -bind { package_id $package_id }"
-set new_topics_ds [util_memoize $new_topics_script $cache]
-set hot_topics_ds [util_memoize $hot_topics_script $cache]
+set new_topics_ds [db_list_of_lists -cache_key "new_topics_${n}_$package_id" \
+		       new_topics {}]
+set hot_topics_ds [db_list_of_lists -cache_key "hot_topics_${n}_$package_id" \
+		       hot_topics {}]
 
 multirow create new_topics name url
 foreach row $new_topics_ds {
