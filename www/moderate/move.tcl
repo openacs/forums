@@ -6,7 +6,7 @@ ad_page_contract {
     @creation-date 2005-03-14   
 
 } {
-    message_id:integer,notnull    
+    message_id:naturalnum,notnull    
     selected_forum:integer,notnull
     {confirm_p 0}
 }
@@ -20,7 +20,10 @@ forum::security::require_moderate_message -message_id $message_id
 forum::message::get -message_id $message_id -array message
 
 #form to confirm if a user want to move the thread
-ad_form -name confirmed_move -mode {display} -actions [list [list [_ forums.Yes] yes] [list No no] ] -export { message_id return_url selected_forum} -html {enctype multipart/form-data} -form {
+ad_form -name confirmed_move -mode {display} \
+    -actions [list [list [_ forums.Yes] yes] [list No no] ] \
+    -export { message_id return_url selected_forum} \
+    -html {enctype multipart/form-data} -form {
  {data:text(hidden)                     {value 0}}
 } 
 #get the clicked button
@@ -83,8 +86,8 @@ if {$confirm_p == 2} {
    #if confirm_p is no then return to the message view
    ad_returnredirect "../message-view?message_id=$message(message_id)"
 }
-set url_vars [export_url_vars message_id return_url selected_forum]
+set url_vars [export_vars -url {message_id return_url selected_forum}]
 
-if {[exists_and_not_null alt_template]} {
+if {[info exists alt_template] && $alt_template ne ""} {
   ad_return_template $alt_template
 }

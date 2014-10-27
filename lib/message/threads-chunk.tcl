@@ -8,7 +8,7 @@ ad_page_contract {
 
 if {![info exists flush_p]} {set flush_p 0}
 
-set user_id [ad_verify_and_get_user_id]
+set user_id [ad_conn user_id]
 # Get forum data
 
 forum::get -forum_id $forum_id -array forum
@@ -33,11 +33,11 @@ if {$moderate_p} {
 
 set actions [list]
 
-if {![exists_and_not_null page_size]} {
+if {![info exists page_size] || $page_size eq ""} {
     set page_size 30
 }
 
-if {![exists_and_not_null base_url]} {
+if {![info exists base_url] || $base_url eq ""} {
     set base_url ""
 }
 
@@ -47,22 +47,31 @@ if {![exists_and_not_null base_url]} {
 # moderated 2. User is a moderator or adminsitrator
 
 if {$permissions(post_p)} {
-  if {([forum::new_questions_allowed_p -forum_id $forum_id] && ($forum(posting_policy) eq "open" || $forum(posting_policy) eq "moderated")) ||  [template::util::is_true $permissions(admin_p)] ||  [template::util::is_true $permissions(moderate_p)]  } {
-    lappend actions [_ forums.Post_a_New_Message] [export_vars -base "${base_url}message-post" { forum_id }] [_ forums.Post_a_New_Message]
+  if {(
+       [forum::new_questions_allowed_p -forum_id $forum_id] 
+       && ($forum(posting_policy) eq "open" || $forum(posting_policy) eq "moderated")
+       )
+      || [template::util::is_true $permissions(admin_p)] 
+      || [template::util::is_true $permissions(moderate_p)]  
+  } {
+    lappend actions [_ forums.Post_a_New_Message] \
+	[export_vars -base "${base_url}message-post" { forum_id }] [_ forums.Post_a_New_Message]
   }
 }
 
 if { [template::util::is_true $permissions(admin_p)] } {
-    lappend actions [_ forums.Administer] [export_vars \
-					       -base "${base_url}admin/forum-edit" {forum_id {return_url [ad_return_url]}}] [_ forums.Administer]
+    lappend actions [_ forums.Administer] \
+	[export_vars -base "${base_url}admin/forum-edit" {forum_id {return_url [ad_return_url]}}] [_ forums.Administer]
 }
 
 if { [template::util::is_true $permissions(moderate_p)] } {
-    lappend actions [_ forums.ManageModerate] [export_vars -base "${base_url}moderate/forum" { forum_id }] [_ forums.ManageModerate]
+    lappend actions [_ forums.ManageModerate] \
+	[export_vars -base "${base_url}moderate/forum" { forum_id }] [_ forums.ManageModerate]
 }
 
 if { $useReadingInfo } {
-    lappend actions [_ forums.mark_all_as_read] [export_vars -base "${base_url}mark-all-read" { forum_id }] {}
+    lappend actions [_ forums.mark_all_as_read] \
+	[export_vars -base "${base_url}mark-all-read" { forum_id }] {}
 }
 
 template::list::create \
@@ -184,6 +193,6 @@ db_multirow -extend {
     }
 }
 
-if {[exists_and_not_null alt_template]} {
+if {([info exists alt_template] && $alt_template ne "")} {
     ad_return_template $alt_template
 }

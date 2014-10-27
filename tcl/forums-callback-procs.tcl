@@ -104,7 +104,7 @@ ad_proc -public -callback pm::project_new -impl forums {
 ad_proc -public -callback search::datasource -impl forums_message {} {
 
     @author dave@thedesignexperience.org
-    @creation_date 2005-06-07
+    @creation-date 2005-06-07
 
     returns a datasource for the search package
     this is the content that will be indexed by the full text
@@ -136,15 +136,14 @@ ad_proc -public -callback search::datasource -impl forums_message {} {
         return [array get empty]
     }
     set relevant_date $message(posting_date)
-    ns_log debug "DIRK1 -${message(posting_date)}-"
 
     set tree_sortkey $message(tree_sortkey)
     set forum_id $message(forum_id)
     set combined_content ""
-    set subjects [list]
-    lappend subjects $message(subject)
+
     array set forum [forum::get -forum_id $message(forum_id) -array forum]
     set package_id $forum(package_id)
+
     db_foreach messages "" {
 
         # include the subject in the text if it is different from the thread's subject
@@ -156,12 +155,28 @@ ad_proc -public -callback search::datasource -impl forums_message {} {
             append combined_content "$subject\n\n"
         }
 
-        append combined_content [ad_html_text_convert -from $format -to text/plain -- $content]
+	#
+	# GN: The standard conversion from "text/enhanced" to
+	# "text/plain" converts first from "text/enhanced" to
+	# "text/html" and then from "text/html" to "text/plain". This
+	# can take for large forums posting a long time (e.g a few
+	# minutes on openacs.org). Since this function is used just
+	# for the summarizer (when listing a short paragraph in the
+	# context of the search result), we can live here with a much
+	# simpler version, which computes the same in less than one
+	# ms.
+	#
+	if {$message(format) eq "text/enhanced"} {
+	    regsub -all {<p>} $content "\n\n" content
+	    regsub -all {(<?/[^>]*>)} $content "" content
+	} else {
+	    set content [ad_html_text_convert -from $format -to text/plain -- $content]
+	}
+        append combined_content $content
 
         # In case this text is not only used for indexing but also for display, beautify it
         append combined_content "\n\n"
         set relevant_date $message(posting_date)
-        ns_log debug "DIRK2 -${message(posting_date)}-"
     }
 
     return [list object_id $message(message_id) \
@@ -178,7 +193,7 @@ ad_proc -public -callback search::datasource -impl forums_message {} {
 ad_proc -public -callback search::url -impl forums_message {} {
 
     @author dave@thedesignexperience.org
-    @creation_date 2005-06-08
+    @creation-date 2005-06-08
 
     returns a url for a message to the search package
 
@@ -197,7 +212,7 @@ ad_proc -public -callback search::datasource -impl forums_forum {} {
     search engine.
 
     @author Jeff Davis davis@xarg.net
-    @creation_date 2004-04-01
+    @creation-date 2004-04-01
 } {
 
     set forum_id $object_id
@@ -214,7 +229,7 @@ ad_proc -public -callback search::url -impl forums_forum {} {
     returns a url for a forum to the search package
 
     @author Jeff Davis davis@xarg.net
-    @creation_date 2004-04-01
+    @creation-date 2004-04-01
 
 } {
     set forum_id $object_id

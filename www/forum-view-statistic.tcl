@@ -2,11 +2,11 @@ ad_page_contract {
     
     Forums History 
 
-    @author Natalia Pérez (nperper@it.uc3m.es)
+    @author Natalia PÃ©rez (nperper@it.uc3m.es)
     @creation-date 2005-03-17    
 
 } {
-    forum_id:integer,notnull    
+    forum_id:naturalnum,notnull    
 }
 
 # Get user information

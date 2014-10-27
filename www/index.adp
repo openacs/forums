@@ -1,5 +1,5 @@
 <master>
-<property name="title">#forums.Forums#</property>
+<property name="doc(title)">#forums.Forums#</property>
 <property name="context">@context;noquote@</property>
 
 <if @searchbox_p@ true>

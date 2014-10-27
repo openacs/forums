@@ -7,8 +7,11 @@ ad_page_contract {
     @cvs-id $Id$
 
 } {
-    message_id:integer,notnull
+    message_id:naturalnum,notnull
 }
+
+# require login to avoid abuse from spammers
+auth::require_login
 
 forum::security::require_read_message -message_id $message_id
 

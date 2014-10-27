@@ -16,7 +16,7 @@ namespace eval forum::message {}
 ad_proc -private forum::message::datasource { message_id } {
     @param message_id
     @author dave@thedesignexperience.org
-    @creation_date 2002-08-07
+    @creation-date 2002-08-07
 
     returns a datasource for the search package
     this is the content that will be indexed by the full text
@@ -76,7 +76,7 @@ ad_proc -private forum::message::datasource { message_id } {
 ad_proc -private forum::message::url { message_id } {
     @param message_id
     @author dave@thedesignexperience.org
-    @creation_date 2002-08-07
+    @creation-date 2002-08-07
 
     returns a url for a message to the search package
 
@@ -100,7 +100,7 @@ ad_proc -private forum::forum::datasource {
     @param forum_id
 
     @author Jeff Davis davis@xarg.net
-    @creation_date 2004-04-01
+    @creation-date 2004-04-01
 } {
     if {![db_0or1row datasource {
         select
@@ -127,7 +127,7 @@ ad_proc -private forum::forum::url {
     @param forum_id
 
     @author Jeff Davis davis@xarg.net
-    @creation_date 2004-04-01
+    @creation-date 2004-04-01
 } {
 
      return "[db_string select_forums_package_url {}]forum-view?forum_id=$forum_id"

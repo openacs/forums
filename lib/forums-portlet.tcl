@@ -15,8 +15,8 @@ ad_page_contract {
 }
 
 # validate args
-if { ![exists_and_not_null package_id]
-     && ![exists_and_not_null base_url] } {
+if { (![info exists package_id] || $package_id eq "")
+     && (![info exists base_url] || $base_url eq "") } {
     error "package_id and/or base_url must be given"
 }
 if { [info exists n] } {
@@ -28,14 +28,17 @@ if { [info exists n] } {
 } else {
     set n 2
 }
+if {![info exists class]} {
+    set class ""
+}
 if { ![info exists cache] || [expr {$cache < 0}] } {
     set cache 0
 }
-if { ![exists_and_not_null package_id] } {
+if { (![info exists package_id] || $package_id eq "") } {
     set package_id [site_node::get_element \
                         -url $base_url -element object_id]
 }
-if { ![exists_and_not_null base_url] } {
+if { (![info exists base_url] || $base_url eq "") } {
     set base_url [lindex [site_node::get_url_from_object_id \
                               -object_id $package_id] 0]
 }
@@ -49,14 +52,10 @@ if { ![info exists show_empty_p] } {
 
 # obtain data (use list rather than multirow, as its easier to cache)
 # identification problems (need package_id + n as part of key)
-set new_topics_script "# /packages/forums/lib/forums-portlet.tcl
-set n $n
-db_list_of_lists new_topics {} -bind { package_id $package_id }"
-set hot_topics_script "# /packages/forums/lib/forums-portlet.tcl
-set n $n
-db_list_of_lists hot_topics {} -bind { package_id $package_id }"
-set new_topics_ds [util_memoize $new_topics_script $cache]
-set hot_topics_ds [util_memoize $hot_topics_script $cache]
+set new_topics_ds [db_list_of_lists -cache_key "new_topics_${n}_$package_id" \
+		       new_topics {}]
+set hot_topics_ds [db_list_of_lists -cache_key "hot_topics_${n}_$package_id" \
+		       hot_topics {}]
 
 multirow create new_topics name url
 foreach row $new_topics_ds {

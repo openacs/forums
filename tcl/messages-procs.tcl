@@ -90,7 +90,7 @@ ad_proc -public forum::message::do_notifications {
             set user_id $message(user_id)
         }
     } else {
-        set user_id [party::get_by_email -email [ad_parameter -package_id [ad_acs_kernel_id] HostAdministrator]]
+        set user_id [party::get_by_email -email [parameter::get -package_id [ad_acs_kernel_id] -parameter HostAdministrator]]
     }
     set notif_user $user_id
 
@@ -271,14 +271,13 @@ ad_proc -public forum::message::delete {
 	    callback forum::message_delete -package_id [ad_conn package_id] -message_id $message_id
 	}
 
-			if { [forum::use_ReadingInfo_p] && [expr { [db_string is_root "select parent_id from forums_messages where message_id = :message_id"] eq "" } ] } {
-				set db_antwort [db_string forums_reading_info__remove_msg {
-        select forums_reading_info__remove_msg (
-            :message_id
-        );
-    }]
-			}
-
+	if { [forum::use_ReadingInfo_p] 
+	     && [db_string is_root "select parent_id from forums_messages where message_id = :message_id"] eq ""  
+	 } {
+	    set db_antwort [db_string forums_reading_info__remove_msg {
+		select forums_reading_info__remove_msg (:message_id);
+	    }]
+	}
 
         # Remove the notifications
         notification::request::delete_all -object_id $message_id
@@ -334,7 +333,7 @@ ad_proc -public forum::message::subject_sort_filter {
     set child_label "[_ forums.Last_post_in_subject]"
     set new_order_by [ad_decode $order_by posting_date last_child_post posting_date]
 
-    set export_vars [ad_export_vars -override [list [list order_by $new_order_by]] {order_by forum_id}]
+    set export_vars [export_vars -override [list [list order_by $new_order_by]] {order_by forum_id}]
     set toggle_url "[ad_conn url]?${export_vars}"
     if {$order_by eq "posting_date"} {
         # subject selected

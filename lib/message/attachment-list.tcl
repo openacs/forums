@@ -10,7 +10,7 @@ if {![array exists message]} {
     ad_return_complaint 1 "[_ forums.lt_need_to_provide_a_mes]"
 }
 
-if {![exists_and_not_null bgcolor]} {
+if {(![info exists bgcolor] || $bgcolor eq "")} {
     set bgcolor "#ffffff"
 }
 
@@ -24,6 +24,6 @@ foreach attachment [attachments::get_attachments -object_id $message(message_id)
 
 set attachment_graphic [attachments::graphic_url]
 
-if {[exists_and_not_null alt_template]} {
+if {([info exists alt_template] && $alt_template ne "")} {
   ad_return_template $alt_template
 }

@@ -6,7 +6,7 @@ ad_page_contract {
     @creation-date 2005-03-14   
 
 } {
-    msg_id:integer,notnull    
+    msg_id:naturalnum,notnull    
     selected_message:integer,notnull
     {confirm_p 0}
 }
@@ -20,7 +20,10 @@ forum::security::require_moderate_message -message_id $msg_id
 forum::message::get -message_id $msg_id -array message
 
 #form to confirm 
-ad_form -name confirmed_move -mode {display} -actions [list [list  [_ forums.Yes]  yes] [list No no] ] -export { msg_id return_url selected_message} -html {enctype multipart/form-data} -form {
+ad_form -name confirmed_move -mode {display} \
+    -actions [list [list  [_ forums.Yes]  yes] [list No no] ] \
+    -export { msg_id return_url selected_message} \
+    -html {enctype multipart/form-data} -form {
     {data:text(hidden) {value 0}}
 }
 #get the clicked button 
@@ -89,9 +92,9 @@ if {$confirm_p == 2} {
     ad_returnredirect "../message-view?message_id=$message(message_id)"
 }
 
-set url_vars [export_url_vars msg_id return_url selected_message]
+set url_vars [export_vars -url {msg_id return_url selected_message}]
 
-if {[exists_and_not_null alt_template]} {
+if {[info exists alt_template] && $alt_template ne ""} {
   ad_return_template $alt_template
 }
 

@@ -7,7 +7,7 @@ ad_page_contract {
     @cvs-id $Id$
 
 } {
-    forum_id:integer,notnull
+    forum_id:naturalnum,notnull
 }
 
 forum::disable -forum_id $forum_id

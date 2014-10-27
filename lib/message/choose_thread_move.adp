@@ -1,4 +1,4 @@
-<property name="title">@title;noquote@</property>
+<property name="doc(title)">@title;noquote@</property>
 <property name="context">@context;noquote@</property>
   
 <p> #forums.Move_thread_to_thread#</p>

@@ -1,12 +1,12 @@
 <master>
-  <property name="title">@page_title;noquote@</property>
+  <property name="doc(title)">@page_title;noquote@</property>
   <property name="context">@context;noquote@</property>
   <property name="displayed_object_id">@message_id@</property>
 
 <h1>@page_title;noquote@</h1>
 
   <if @searchbox_p@ true>
-    <include src="/packages/forums/lib/search/search-form" forum_id="@message.forum_id@">
+    <include src="/packages/forums/lib/search/search-form" forum_id="@message.forum_id;literal@">
   </if>
 
   <ul class="action-links">

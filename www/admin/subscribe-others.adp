@@ -1,5 +1,5 @@
 <master>
-<property name="title">Subscribe others to forum: @forum.name;noquote@</property>
+<property name="doc(title)">Subscribe others to forum: @forum.name;noquote@</property>
 <property name="context">@context;noquote@</property>
 
 <form method="post" action="subscribe-others-2.tcl">

@@ -2,11 +2,11 @@ ad_page_contract {
 
     Move a Message to other forum
 
-    @author Natalia Pérez (nperper@it.uc3m.es)
+    @author Natalia PÃ©rez (nperper@it.uc3m.es)
     @creation-date 2005-03-14    
 
 } {
-    message_id:integer,notnull
+    message_id:naturalnum,notnull
     {return_url "../message-view"}
     {confirm_p 0}
 }

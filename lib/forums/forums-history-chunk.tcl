@@ -2,7 +2,7 @@ ad_page_contract {
     
     Forums History 
 
-    @author Natalia Pérez (nperper@it.uc3m.es)
+    @author Natalia PÃ©rez (nperper@it.uc3m.es)
     @creation-date 2005-03-17    
 
 }
@@ -43,6 +43,6 @@ template::list::create \
 
 db_multirow persons select_users_wrote_post {} 
 
-if {[exists_and_not_null alt_template]} {
+if {([info exists alt_template] && $alt_template ne "")} {
   ad_return_template $alt_template
 }

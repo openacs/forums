@@ -6,7 +6,7 @@ ad_page_contract {
     @creation-date 2005-03-29   
 
 } {
-    msg_id:integer,notnull    
+    msg_id:naturalnum,notnull    
     selected_message:integer,notnull    
     {confirm_p 0}
 }
@@ -84,8 +84,8 @@ set return_url "../message-view"
 if {$confirm_p == 2} {
    ad_returnredirect "../message-view?message_id=$message(message_id)"
 }
-set url_vars [export_url_vars msg_id return_url selected_message]
+set url_vars [export_vars -url {msg_id return_url selected_message}]
 
-if {[exists_and_not_null alt_template]} {
+if {([info exists alt_template] && $alt_template ne "")} {
   ad_return_template $alt_template
 }

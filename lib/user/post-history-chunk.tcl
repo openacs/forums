@@ -14,8 +14,17 @@ set package_id [ad_conn package_id]
 
 # provide screen_name functionality
 set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
-set screen_name [db_string select_screen_name { select screen_name from users where user_id = :user_id}]
+
+if {$useScreenNameP} {
+
+   acs_user::get -user_id $viewer_id -array user_info
+   set message(screen_name) $user_info(screen_name)
+
+} else {
+   set message(screen_name) ""
+}
 set user_link [acs_community_member_link -user_id $user_id]
+
 
 # choosing the view
 set dimensional_list "
@@ -116,6 +125,6 @@ db_multirow -extend { posting_date_pretty } posts select_num_post {} {
 
 set dimensional_chunk [ad_dimensional $dimensional_list]
 
-if {[exists_and_not_null alt_template]} {
+if {([info exists alt_template] && $alt_template ne "")} {
     ad_return_template $alt_template
 }

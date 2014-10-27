@@ -7,8 +7,8 @@ ad_page_contract {
     @cvs-id $Id$
 
 } {
-    forum_id:integer,notnull
-    type_id:integer,notnull
+    forum_id:naturalnum,notnull
+    type_id:naturalnum,notnull
     {lines ""}
     {return_url "."}
     interval:notnull

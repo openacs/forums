@@ -58,6 +58,6 @@ if { [form is_request forum] } {
     element set_value forum name $name
 }
 
-if {[exists_and_not_null alt_template]} {
+if {([info exists alt_template] && $alt_template ne "")} {
   ad_return_template $alt_template
 }

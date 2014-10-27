@@ -7,10 +7,10 @@ ad_page_contract {
     @cvs-id $Id$
 
 } -query {
-    forum_id:integer,notnull
+    forum_id:naturalnum,notnull
     {orderby "last_child_post,desc"}
 		{flush_p 0}
-    page:optional
+    page:naturalnum,optional
 }
 
 
@@ -24,7 +24,7 @@ if {[catch {forum::get -forum_id $forum_id -array forum} errMsg]} {
 }
 
 # If disabled!
-if {$forum(enabled_p) ne "t"} {
+if {$forum(enabled_p) != "t"} {
     ad_returnredirect "./"
     ad_script_abort
 }
