@@ -110,7 +110,7 @@
 <!-------------- For IE  --------------->
 
  <if @rownum@ eq 0>
-     <SCRIPT FOR=window EVENT=onload LANGUAGE="JScript">
+     <SCRIPT FOR="window" EVENT="onload" LANGUAGE="JScript">
           showExpandedOnLoad('@message.message_id@','@children_direct_list@','@children_string@');
      </SCRIPT>
  </if>
