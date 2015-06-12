@@ -15,7 +15,7 @@ ad_page_contract {
     delivery_method:notnull
     {emails ""}
     {subscriber_ids:integer,multiple}
-    {create_new_users_p "f"}
+    {create_new_users_p:boolean "f"}
 }
 
 # Select the info

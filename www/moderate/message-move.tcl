@@ -8,7 +8,7 @@ ad_page_contract {
 } {
     message_id:naturalnum,notnull
     {return_url "../message-view"}
-    {confirm_p 0}
+    {confirm_p:boolean 0}
 }
 
 # Check that the user can moderate the forum

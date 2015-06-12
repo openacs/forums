@@ -8,7 +8,7 @@ ad_page_contract {
 } {
     message_id:naturalnum,notnull    
     selected_forum:integer,notnull
-    {confirm_p 0}
+    {confirm_p:boolean 0}
 }
 
 set table_border_color [parameter::get -parameter table_border_color]
