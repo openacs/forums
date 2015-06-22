@@ -9,7 +9,7 @@ ad_page_contract {
 } {
     forum_id:naturalnum,notnull
     type_id:naturalnum,notnull
-    {lines ""}
+    {lines}
     {return_url "."}
     interval:notnull
     delivery_method:notnull
@@ -151,4 +151,4 @@ db_transaction {
 }
 
 ns_write "<p>Complete</p>"
-ns_write "<a href=\"$return_url\">return</a>"
+ns_write [subst {<a href="[ns_quotehtml $return_url]">return</a>}]

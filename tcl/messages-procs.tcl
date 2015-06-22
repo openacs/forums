@@ -101,7 +101,8 @@ ad_proc -public forum::message::do_notifications {
 
     set SecureOutboundP [parameter::get -parameter "SecureOutboundP" -default 0]
     if { $SecureOutboundP && [ns_conn isconnected] && [security::secure_conn_p] } {
-        set message_html "<p>#forums.Message_content_witheld# #forums.To_view_message_follow_link# <a href=\"${url}message-view?message_id=$message(root_message_id)\">${url}message-view?message_id=$message(root_message_id)</a></p>"
+	set href ${url}message-view?message_id=$message(root_message_id)
+        set message_html "<p>#forums.Message_content_witheld# #forums.To_view_message_follow_link# <a href=\"[ns_quotehtml $href]\">[ns_quotehtml $href]</a></p>"
         set message_text [ad_html_text_convert -from text/html -to text/plain -- $message_html]
     }
 
@@ -338,10 +339,10 @@ ad_proc -public forum::message::subject_sort_filter {
     if {$order_by eq "posting_date"} {
         # subject selected
         set subject_link "<b>$subject_label</b>"
-        set child_link "<a href=\"$toggle_url\">$child_label</a>"
+        set child_link "<a href=\"[ns_quotehtml $toggle_url]\">$child_label</a>"
     } else {
         # child selected
-        set subject_link "<a href=\"$toggle_url\">$subject_label</a>"
+        set subject_link "<a href=\"[ns_quotehtml $toggle_url]\">$subject_label</a>"
         set child_link "<b>$child_label</b>"
     }
     set sort_filter "$subject_link | $child_link"
