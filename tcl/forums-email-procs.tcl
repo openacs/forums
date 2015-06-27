@@ -31,12 +31,15 @@ ad_proc -public forum::email::create_forward_email {
     # Set up the message body
     set new_body "[ad_html_to_text -- $pre_body]"
     append new_body "\n\n===================================\n\n"
-    append new_body "[_ forums.email_alert_body_header]
+    append new_body [subst {[_ forums.email_alert_body_header]
 [_ forums.Forum_1] $message(forum_name)
-Thread: $message(root_subject)\n\n"
+Thread: $message(root_subject)\n
+}]
     append new_body [ad_html_text_convert -from $message(format) -to text/plain -- $message(content)]
-
-    append new_body "\n\n-- \n[ad_url][ad_conn package_url]message-view?[export_vars -anchor $message(message_id) [list [list message_id $message(root_message_id)]]]\n"
+    set url [export_vars \
+		 -base "[ad_url][ad_conn package_url]message-view" \
+		 -anchor $message(message_id) {{message_id $message(root_message_id)}}]
+    append new_body "\n\n-- \n$url\n"
 
     return $new_body
 }

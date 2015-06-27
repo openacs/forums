@@ -84,7 +84,7 @@ set return_url "../message-view"
 if {$confirm_p == 2} {
    ad_returnredirect "../message-view?message_id=$message(message_id)"
 }
-set url_vars [export_vars -url {msg_id return_url selected_message}]
+set url_vars [export_vars {msg_id return_url selected_message}]
 
 if {([info exists alt_template] && $alt_template ne "")} {
   ad_return_template $alt_template
