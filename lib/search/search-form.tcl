@@ -6,7 +6,7 @@
 # @creation-date 2007-12-23
 # @cvs-id $Id$
 
-form create search -action search
+form create search -action search -has_submit 1
 forums::form::search search
 
 if { [form is_request search] && [info exists forum_id] } {

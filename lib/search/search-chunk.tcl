@@ -10,7 +10,7 @@ set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
 
 set searchbox_p [parameter::get -parameter ForumsSearchBoxP -package_id $package_id -default 1]
 if {$searchbox_p} {
-    form create search
+    form create search -has_submit 1
     forums::form::search search
 
     if {[form is_valid search]} {
