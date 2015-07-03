@@ -1,6 +1,6 @@
 <master>
   <property name="doc(title)">#forums.Email_Message# @message.forum_name;noquote@ - @message.subject;noquote@</property>
-  <property name="context">@context;noquote@</property>
+  <property name="context">@context;literal@</property>
 
   <p>#forums.lt_Email_a_copy_of_the_f#</p>
 

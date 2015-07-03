@@ -87,7 +87,7 @@ template::list::create \
             label "#forums.Subject#"
             display_template {
                 <h2 class="forum-heading">
-                 <a href="@messages.message_url@" title="#forums.goto_thread_subject#">
+		<a href="@messages.message_url@" title="#forums.goto_thread_subject#">
                   <if @useReadingInfo@>
                    <if @messages.unread_p@>
                     <b>@messages.subject@</b>

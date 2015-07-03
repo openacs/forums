@@ -1,6 +1,6 @@
 <master>
 <property name="doc(title)">#forums.Forums#</property>
-<property name="context">@context;noquote@</property>
+<property name="context">@context;literal@</property>
 
 <if @searchbox_p@ true>
   <include src="/packages/forums/lib/search/search-form">
