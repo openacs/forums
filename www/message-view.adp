@@ -3,7 +3,7 @@
   <property name="context">@context;literal@</property>
   <property name="displayed_object_id">@message_id;literal@</property>
 
-<h1>@page_title;noquote@</h1>
+<h1>@page_title@</h1>
 
   <if @searchbox_p@ true>
     <include src="/packages/forums/lib/search/search-form" forum_id="@message.forum_id;literal@">

@@ -40,7 +40,8 @@
   </div>
   </div>
     <if @preview@ nil and @any_action_p@>
-  <div class="action-list">
+    <if @permissions.post_p@ eq 1 or @moderate_p@ or @viewer_id@ ne "0">
+    <div class="action-list">
     <ul>
       <if @permissions.post_p@ eq 1>
         <if @presentation_type@ ne "flat"><li><a href="message-post?parent_id=@message.message_id@" class="button" title="#forums.reply#">#forums.reply#</a></li></if>
@@ -68,6 +69,7 @@
         </if>
       </if>
     </ul>
-  </div>
+    </div>
     </if>
+    </if>    
 </div>
