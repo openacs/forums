@@ -8,7 +8,7 @@ ad_page_contract {
 
 } {
     message_id:naturalnum,notnull
-    {display_mode ""}
+    {display_mode:word ""}
 }
 
 #######################
