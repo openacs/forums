@@ -11,4 +11,4 @@
 </else>
 <p>
 
-<include src="/packages/forums/lib/forums/edit" &forum="forum" return_url="@return_url@">
+<include src="/packages/forums/lib/forums/edit" &forum="forum" return_url="@return_url;literal@">

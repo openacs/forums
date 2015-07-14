@@ -4,4 +4,4 @@
 
 <h3>#forums.Pending_Threads#</h3>
 
-<include src="/packages/forums/lib/message/pending-list-chunk" forum_id="@forum_id@">
+<include src="/packages/forums/lib/message/pending-list-chunk" forum_id="@forum_id;literal@">

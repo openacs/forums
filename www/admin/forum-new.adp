@@ -3,4 +3,4 @@
 <property name="context">@context;literal@</property>
 <property name="focus">forum.name</property>
 
-<include src="/packages/forums/lib/forums/new" name="@name@" return_url="../">
+<include src="/packages/forums/lib/forums/new" name="@name;literal@" return_url="../">
