@@ -22,9 +22,8 @@ template::list::create \
             label {}
             sub_class narrow
             display_template {
-                <a href="@forums.edit_url@" title="#forums.Edit_forum# @forums.name@"><img src="/shared/images/Edit16.gif" height="16" width="16" border="0">
+                <a href="@forums.edit_url@" title="#forums.Edit_forum# @forums.name@"><img src="/shared/images/Edit16.gif" height="16" width="16" alt="edit"></a>
             }
-            link_url_col edit_url
         }
         name {
             label "#forums.Forum_Name#"
@@ -35,10 +34,10 @@ template::list::create \
             html { align center }
             display_template {
                 <if @forums.enabled_p@ true>
-                  <a href="@forums.disable_url@" title="Disable forum @forums.name@"><img src="/resources/acs-subsite/checkboxchecked.gif" height="13" width="13" border="0" style="background-color: white;" alt="\#forums.disable\#"></a>
+                  <a href="@forums.disable_url@" title="Disable forum @forums.name@"><img src="/resources/acs-subsite/checkboxchecked.gif" height="13" width="13" style="background-color: white;" alt="\#forums.disable\#"></a>
                 </if>
                 <else>
-                  <a href="@forums.enable_url@" title="Enable forum @forums.name@"><img src="/resources/acs-subsite/checkbox.gif" height="13" width="13" border="0" style="background-color: white;" alt="\#forums.enable\#"></a>
+                  <a href="@forums.enable_url@" title="Enable forum @forums.name@"><img src="/resources/acs-subsite/checkbox.gif" height="13" width="13" style="background-color: white;" alt="\#forums.enable\#"></a>
                 </else>
             }
         }
