@@ -88,3 +88,9 @@ if {$is_direct_children == -1 } {
 ## Ends New ##
 set allow_edit_own_p [parameter::get -parameter AllowUsersToEditOwnPostsP -default 0]
 set own_p [expr {$message(user_id) eq $viewer_id && $allow_edit_own_p}]
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

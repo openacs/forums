@@ -169,3 +169,8 @@ ad_proc -public forum::use_ReadingInfo_p {} {
 	# return [parameter::get_from_package_key -package_key forums -parameter UseReadingInfo]
 	return 0
 }
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

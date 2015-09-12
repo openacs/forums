@@ -47,3 +47,9 @@ set context [list "[_ forums.Available_Forums]"]
 set title "[_ forums.Available_Forums]"
 
 		
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

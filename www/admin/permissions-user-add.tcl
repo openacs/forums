@@ -18,3 +18,9 @@ if { $object_id == [ad_conn package_id] } {
 set page_title "Add User on $what"
 
 set context [list [list [export_vars -base permissions { object_id }] "$what Permissions"] $page_title]
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

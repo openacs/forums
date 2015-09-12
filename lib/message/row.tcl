@@ -64,3 +64,9 @@ if { [info exists preview] } {
     set post_and_notflat_p [expr {$permissions(post_p) && $notflat_p}]
     set any_action_p [expr { $post_and_notflat_p || $viewer_id || $moderate_p }]
 }
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

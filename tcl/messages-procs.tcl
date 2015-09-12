@@ -375,3 +375,9 @@ ad_proc -public forum::message::initial_message {
         set init_msg(parent_id) ""
     }
 }
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

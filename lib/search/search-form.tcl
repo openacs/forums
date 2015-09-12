@@ -12,3 +12,9 @@ forums::form::search search
 if { [form is_request search] && [info exists forum_id] } {
     element set_properties search forum_id -value $forum_id
 }
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

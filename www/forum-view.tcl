@@ -63,3 +63,9 @@ set type_id [notification::type::get_type_id -short_name forums_forum_notif]
 set notification_count [notification::request::request_count \
 			    -type_id $type_id \
 			    -object_id $forum_id]
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

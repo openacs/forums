@@ -301,3 +301,8 @@ aa_register_case -cats {web smoke} -libraries tclwebtest web_message_delete {
 	twt::user::logout  
     }
 }
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

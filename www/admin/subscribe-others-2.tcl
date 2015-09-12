@@ -152,3 +152,9 @@ db_transaction {
 
 ns_write "<p>Complete</p>"
 ns_write [subst {<a href="[ns_quotehtml $return_url]">return</a>}]
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

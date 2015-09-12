@@ -100,3 +100,8 @@ if {[info exists alt_template] && $alt_template ne ""} {
 
 set title "#forums.Move_message_to_thread# \"$subject\""
 set context $title
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

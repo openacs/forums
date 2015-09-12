@@ -18,3 +18,9 @@ acs_user::get -user_id $user_id -array user
 set context [list [_ forums.Posting_History]]
 
 ad_return_template
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

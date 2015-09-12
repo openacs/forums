@@ -91,3 +91,9 @@ set url_vars [export_vars {message_id return_url selected_forum}]
 if {[info exists alt_template] && $alt_template ne ""} {
   ad_return_template $alt_template
 }
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

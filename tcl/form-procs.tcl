@@ -180,3 +180,9 @@ ad_proc -public forums::form::forum {
       -help_text [_ forums.help_new_threads] \
       -options [list [list [_ forums.Yes] 1] [list [_ forums.No] 0] ] 
 }
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

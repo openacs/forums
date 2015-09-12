@@ -64,3 +64,9 @@ template::head::add_css -alternate -href /resources/forums/collapse.css -media a
 template::head::add_css -alternate -href /resources/forums/expand.css -media all -lang $lang -title "expand"
 
 ad_return_template
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

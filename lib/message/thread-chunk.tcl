@@ -151,3 +151,9 @@ append response_arrays_stub "-->
 "
 
 set return_url [ad_return_url]
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

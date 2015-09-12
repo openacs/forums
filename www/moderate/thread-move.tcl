@@ -19,3 +19,9 @@ forum::message::get -message_id $message_id -array message
 set title "#forums.Confirm_Move_to# \"$message(subject)\""
 
 ad_return_template
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

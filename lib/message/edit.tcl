@@ -40,3 +40,9 @@ element set_properties message message_body -value [list $message(content) $mess
 if {[info exists alt_template]} {
   ad_return_template $alt_template
 }
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

@@ -121,3 +121,9 @@ template::head::add_script -type "text/javascript" -script [subst {
 template::head::add_script -type "text/javascript" -src "/resources/forums/forums.js" -order 2
 
 set page_title [_ forums.Thread_title]
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

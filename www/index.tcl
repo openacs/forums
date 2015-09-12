@@ -14,3 +14,9 @@ set admin_p [permission::permission_p -party_id $user_id -object_id $package_id 
 set searchbox_p [parameter::get -parameter ForumsSearchBoxP -package_id $package_id -default 1]
 
 set context {}
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

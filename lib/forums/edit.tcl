@@ -55,3 +55,9 @@ if { [form is_request forum] } {
 if {([info exists alt_template] && $alt_template ne "")} {
   ad_return_template $alt_template
 }
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:
