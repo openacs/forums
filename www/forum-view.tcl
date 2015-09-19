@@ -44,14 +44,7 @@ set post_url [export_vars -base "message-post" { forum_id }]
 # Show search box?
 set searchbox_p [parameter::get -parameter ForumsSearchBoxP -default 1]
 
-# Need to quote forum(name) since it is noquoted on display as part of an 
-# HTML fragment.
-set notification_chunk [notification::display::request_widget \
-    -type forums_forum_notif \
-    -object_id $forum_id \
-    -pretty_name $forum(name) \
-    -url [ad_conn url]?forum_id=$forum_id \
-]
+set forum_url [ad_conn url]?forum_id=$forum_id
 
 template::head::add_css -href /resources/forums/forums.css -media all
 template::head::add_css -href /resources/forums/print.css -media print

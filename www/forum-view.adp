@@ -9,7 +9,16 @@
 </if>
 
 <p>
-@notification_chunk;noquote@
-</p>
+<include src="/packages/notifications/lib/notification-widget" type="forums_forum_notif"
+	 object_id="@forum_id;literal@"
+	 pretty_name="@forum.name;literal@"
+	 url="@forum_url;literal@" >
 
-<include src="/packages/forums/lib/message/threads-chunk" &="forum_id" &="flush_p" &="permissions" moderate_p="@permissions.moderate_p;literal@" &="orderby" &="page" admin_p="@permissions.admin_p;literal@">
+<include src="/packages/forums/lib/message/threads-chunk"
+	 &="forum_id"
+	 &="flush_p"
+	 &="permissions"
+	 moderate_p="@permissions.moderate_p;literal@"
+	 &="orderby"
+	 &="page"
+	 admin_p="@permissions.admin_p;literal@" >
