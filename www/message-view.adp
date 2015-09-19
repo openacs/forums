@@ -13,12 +13,18 @@
     <li><a href="@thread_url@" title="#forums.Back_to_thread_label#">#forums.Back_to_thread_label#</a></li>
   </ul>
 
-  <p>@notification_chunk;noquote@</p>
+<if @message_url@ not nil>
+<p>
+<include src="/packages/notifications/lib/notification-widget" type="forums_message_notif"
+	 object_id="@message.message_id;literal@"
+	 pretty_name="@message.subject;literal@"
+	 url="@message_url;literal@" >
+</if>
 
-  <include src="/packages/forums/lib/message/thread-chunk"
-    &message="message"
-    &forum="forum"
-    &permissions="permissions">
+<include src="/packages/forums/lib/message/thread-chunk"
+      &message="message"
+      &forum="forum"
+      &permissions="permissions" >
 
     <if @reply_url@ not nil>
       <if @forum.presentation_type@ eq "flat">

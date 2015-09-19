@@ -72,14 +72,7 @@ set searchbox_p [parameter::get -parameter ForumsSearchBoxP -default 1]
 
 # If this is a top-level thread, we allow subscriptions here
 if { $message(parent_id) eq "" } {
-    set notification_chunk [notification::display::request_widget \
-        -type forums_message_notif \
-        -object_id $message(message_id) \
-        -pretty_name $message(subject) \
-        -url [ad_conn url]?message_id=$message(message_id) \
-    ]
-} else {
-    set notification_chunk ""
+    set message_url [export_vars -base [ad_conn url] {message_id $message(message_id)}]
 }
 
 if { [forum::use_ReadingInfo_p] && $message(state) eq "approved" } {
