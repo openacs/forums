@@ -1,4 +1,4 @@
-ad_page_contract {
+ad_include_contract {
     
     Posting History for a User
 
@@ -7,7 +7,10 @@ ad_page_contract {
     @cvs-id $Id$
 
 } {
-    groupby:optional
+    user_id:naturalnum,notnull
+    {groupby:word "forum_name"}
+    {view:word "date"}
+    {alt_template ""}
 }
 
 set package_id [ad_conn package_id]
@@ -17,7 +20,7 @@ set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
 
 if {$useScreenNameP} {
 
-   acs_user::get -user_id $viewer_id -array user_info
+   acs_user::get -user_id $user_id -array user_info
    set message(screen_name) $user_info(screen_name)
 
 } else {
@@ -27,14 +30,13 @@ set user_link [acs_community_member_link -user_id $user_id]
 
 
 # choosing the view
-set dimensional_list "
-    {
-        view \"[_ forums.View]:\" date {
-            {date \"[_ forums.by_Date]\" {}}
-            {forum \"[_ forums.by_Forum]\" {}}
-        }
-    }
-"
+set dimensional_list [subst {
+    { view "[_ forums.View]:" date {
+        {date "[_ forums.by_Date]" {}}
+        {forum "[_ forums.by_Forum]" {}}
+    }}
+}]
+
 
 set query select_messages
 if {$view eq "forum"} {
@@ -125,7 +127,7 @@ db_multirow -extend { posting_date_pretty } posts select_num_post {} {
 
 set dimensional_chunk [ad_dimensional $dimensional_list]
 
-if {([info exists alt_template] && $alt_template ne "")} {
+if {$alt_template ne ""} {
     ad_return_template $alt_template
 }
 
