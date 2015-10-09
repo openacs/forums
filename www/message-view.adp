@@ -10,7 +10,7 @@
   </if>
 
   <ul class="action-links">
-    <li><a href="@thread_url@" title="#forums.Back_to_thread_label#">#forums.Back_to_thread_label#</a></li>
+    <li><a href="@thread_url;noi18n@" title="#forums.Back_to_thread_label#">#forums.Back_to_thread_label#</a></li>
   </ul>
 
 <if @message_url@ not nil>
