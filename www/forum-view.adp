@@ -11,7 +11,7 @@
 <p>
 <include src="/packages/notifications/lib/notification-widget" type="forums_forum_notif"
 	 object_id="@forum_id;literal@"
-	 pretty_name="@forum.name;literal@"
+	 pretty_name="@forum.name@"
 	 url="@forum_url;literal@" >
 
 <include src="/packages/forums/lib/message/threads-chunk"
