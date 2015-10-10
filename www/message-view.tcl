@@ -113,7 +113,7 @@ template::head::add_script -type "text/javascript" -script [subst {
 # js scripts
 template::head::add_script -type "text/javascript" -src "/resources/forums/forums.js" -order 2
 
-set page_title [_ forums.Thread_title]
+set doc(title) [_ forums.Thread_title]
 
 # Local variables:
 #    mode: tcl
