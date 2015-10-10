@@ -20,7 +20,12 @@ if {(![info exists presentation_type] || $presentation_type eq "")} {
     set presentation_type ""
 }
 
+#set message(content) [::util::disk_cache_eval \
+                          -call [list ad_html_text_convert -from $message(format) -to text/html -- $message(content)] \
+                          -key fragments \
+                          -id $message(message_id)]
 set message(content) [ad_html_text_convert -from $message(format) -to text/html -- $message(content)]
+
 
 if {$useScreenNameP} {
     acs_user::get -user_id $viewer_id -array user_info
