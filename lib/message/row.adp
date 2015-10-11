@@ -1,11 +1,11 @@
-<if @rownum@ odd><div id="msg_@message.message_id@" class="odd level@message.tree_level@"></if>
+<if @rownum;literal@ odd><div id="msg_@message.message_id@" class="odd level@message.tree_level@"></if>
 <else><div id="msg_@message.message_id@" class="even level@message.tree_level@"></else>
     <div class="details">
   <div style="float: left; padding-right: 4px;">
     <a id="toggle@message.message_id@" class="dynexpanded" href="javascript:void(forums_toggle(@message.message_id@))" title="#forums.collapse_message#"><img src="/resources/forums/Collapse16.gif" width="16" height="16" alt="#forums.collapse#"></a>
   </div>
-  <if @display_subject_p@ true>
-    <if @preview@ nil>
+  <if @display_subject_p;literal@>
+    <if @preview;literal@ false>
       <div class="subject">
         <a href="@message.direct_url@" title="#forums.Direct_link_to_this_post#" class="reference">@message.number@</a>:
         <a href="message-view?message_id=@message.message_id@" title="#forums.link_on_separate_page#" class="alone">@message.subject@</a>
@@ -23,7 +23,7 @@
     </div>
     <div class="attribution">
 	#forums.Posted_by# 
-      <if @useScreenNameP@>@message.screen_name@</if>
+      <if @useScreenNameP;literal@>@message.screen_name@</if>
       <else><a href="user-history?user_id=@message.user_id@"
       title="#forums.show_posting_history_message_username#">@message.user_name@</a></else> #forums.on# <span class="post-date">@message.posting_date_pretty@</span>
   </div>
@@ -39,17 +39,17 @@
     </if>
   </div>
   </div>
-    <if @preview@ nil and @any_action_p@>
-    <if @permissions.post_p@ eq 1 or @moderate_p@ or @viewer_id@ ne "0">
+    <if @preview;literal@ false and @any_action_p;literal@>
+    <if @permissions.post_p;literal@ eq 1 or @moderate_p;literal@ or @viewer_i;literal@ ne "0">
     <div class="action-list">
     <ul>
-      <if @permissions.post_p@ eq 1>
-        <if @presentation_type@ ne "flat"><li><a href="message-post?parent_id=@message.message_id@" class="button" title="#forums.reply#">#forums.reply#</a></li></if>
+      <if @permissions.post_p;literal@ eq 1>
+        <if @presentation_type;literal@ ne "flat"><li><a href="message-post?parent_id=@message.message_id@" class="button" title="#forums.reply#">#forums.reply#</a></li></if>
       </if>
-      <if @viewer_id@ ne "0">
+      <if @viewer_id;literal@ ne "0">
          <li><a href="message-email?message_id=@message.message_id@" class="button" title="#forums.forward#">#forums.forward#</a></li>
       </if>
-      <if @moderate_p@>
+      <if @moderate_p;literal@>
         <li><a href="moderate/message-edit?message_id=@message.message_id@" class="button" title="#forums.edit#">#forums.edit#</a></li>
         <li><a href="moderate/message-delete?message_id=@message.message_id@" class="button" title="#forums.delete#">#forums.delete#</a></li>	
 	<if @message.parent_id@ nil>
@@ -59,11 +59,11 @@
 	<else>
 	  <li><a href="moderate/message-move?message_id=@message.message_id@" class="button" title="#forums.Move_to_other_thread#">#forums.Move_to_other_thread#</a></li>
 	</else>
-        <if @forum_moderated_p@>
-          <if @message.state@ ne approved>
+        <if @forum_moderated_p;literal@>
+          <if @message.state;literal@ ne approved>
             <li><a href="moderate/message-approve?message_id=@message.message_id@" class="button" title="#forums.approve#">#forums.approve#</a></li>
           </if>
-          <if @message.state@ ne rejected and @message.max_child_sortkey@ nil>
+          <if @message.state;literal@ ne rejected and @message.max_child_sortkey@ nil>
             <li><a href="moderate/message-reject?message_id=@message.message_id@" class="button" title="#forums.reject#">#forums.reject#</a></li>
           </if>
         </if>

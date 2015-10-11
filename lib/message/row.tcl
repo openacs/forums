@@ -1,31 +1,34 @@
-ad_page_contract {
+ad_include_contract {
 
-    a message chunk to be included in a table listing of messages
+    A message chunk to be included in a table listing of messages
 
     @author yon (yon@openforce.net)
     @author arjun (arjun@openforce.net)
     @creation-date 2002-06-02
     @cvs-id $Id$
 
+} {
+    {rownum:integer 1}
+    {presentation_type:word ""}
+    {forum_moderated_p:boolean 0}
+    {moderate_p:boolean 0}
+    {preview:boolean 0}
+    {alt_template:token ""}
+    {permissions}
+    {message}
 }
 
 set viewer_id [ad_conn user_id]
 set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
 
-if {(![info exists rownum] || $rownum eq "")} { 
-    set rownum 1
-}
-
-if {(![info exists presentation_type] || $presentation_type eq "")} {
-    set presentation_type ""
-}
-
-#set message(content) [::util::disk_cache_eval \
+if {0 && [info exists message(message_id)]} {
+    set message(content) [::util::disk_cache_eval \
                           -call [list ad_html_text_convert -from $message(format) -to text/html -- $message(content)] \
                           -key fragments \
                           -id $message(message_id)]
-set message(content) [ad_html_text_convert -from $message(format) -to text/html -- $message(content)]
-
+} else {
+    set message(content) [ad_html_text_convert -from $message(format) -to text/html -- $message(content)]
+}
 
 if {$useScreenNameP} {
     acs_user::get -user_id $viewer_id -array user_info
@@ -35,21 +38,14 @@ if {$useScreenNameP} {
 }
 
 
-
 # convert emoticons to images if the parameter is set
 if { [string is true [parameter::get -parameter DisplayEmoticonsAsImagesP -default 0]] } {
     set message(content) [forum::format::emoticons -content $message(content)]
 }
 
-# JCD: display subject only if changed from the root subject
-if {![info exists root_subject]} {
-    set display_subject_p 1
-} else {
-    regsub {^(Response to |\s*Re:\s*)*} $message(subject) {} subject
-    set display_subject_p [expr {$subject ne $root_subject }] 
-}
+set display_subject_p 1
 
-if {([info exists alt_template] && $alt_template ne "")} {
+if {$alt_template ne ""} {
   ad_return_template $alt_template
 }
 if {![info exists message(message_id)]} {
@@ -62,7 +58,7 @@ if {![info exists message(tree_level)] || $presentation_type eq "flat"} {
 set allow_edit_own_p [parameter::get -parameter AllowUsersToEditOwnPostsP -default 0]
 set own_p [expr {$message(user_id) eq $viewer_id && $allow_edit_own_p}]
 
-if { [info exists preview] } {
+if { $preview } {
     set any_action_p 0
 } else {
     set notflat_p [expr {$presentation_type ne "flat"}]
