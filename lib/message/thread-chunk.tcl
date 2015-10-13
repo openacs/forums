@@ -31,7 +31,7 @@ if {[forum::attachments_enabled_p]} {
     set query select_message_responses
 }
 
-# We set a Tcl variable for moderation now (Ben)
+# Set the table_name depending on moderation
 if { $permissions(moderate_p) } {
     set table_name "forums_messages"
 } else {

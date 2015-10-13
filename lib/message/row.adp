@@ -40,10 +40,10 @@
   </div>
   </div>
     <if @preview;literal@ false and @any_action_p;literal@>
-    <if @permissions.post_p;literal@ eq 1 or @moderate_p;literal@ or @viewer_i;literal@ ne "0">
+    <if @post_p;literal@ eq 1 or @moderate_p;literal@ or @viewer_i;literal@ ne "0">
     <div class="action-list">
     <ul>
-      <if @permissions.post_p;literal@ eq 1>
+      <if @post_p;literal@ eq 1>
         <if @presentation_type;literal@ ne "flat"><li><a href="message-post?parent_id=@message.message_id@" class="button" title="#forums.reply#">#forums.reply#</a></li></if>
       </if>
       <if @viewer_id;literal@ ne "0">

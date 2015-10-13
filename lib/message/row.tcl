@@ -12,9 +12,9 @@ ad_include_contract {
     {presentation_type:word ""}
     {forum_moderated_p:boolean 0}
     {moderate_p:boolean 0}
+    {post_p:boolean 0}
     {preview:boolean 0}
     {alt_template:token ""}
-    {permissions}
     {message}
 }
 
@@ -62,7 +62,7 @@ if { $preview } {
     set any_action_p 0
 } else {
     set notflat_p [expr {$presentation_type ne "flat"}]
-    set post_and_notflat_p [expr {$permissions(post_p) && $notflat_p}]
+    set post_and_notflat_p [expr {$post_p && $notflat_p}]
     set any_action_p [expr { $post_and_notflat_p || $viewer_id || $moderate_p }]
 }
 
