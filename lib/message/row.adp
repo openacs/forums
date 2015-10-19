@@ -8,10 +8,10 @@
     <if @preview;literal@ false>
       <div class="subject">
         <a href="@message.direct_url@" title="#forums.Direct_link_to_this_post#" class="reference">@message.number@</a>:
-        <a href="message-view?message_id=@message.message_id@" title="#forums.link_on_separate_page#" class="alone">@message.subject@</a>
+        <a href="message-view?message_id=@message.message_id@" title="#forums.link_on_separate_page#" class="alone">@message.subject;noi18n@</a>
     </if>
     <else>
-      <div class="subject">@message.subject@
+      <div class="subject">@message.subject;noi18n@
     </else>
   </if>
   <else>
@@ -30,7 +30,7 @@
   </div>
 
   <div class="content">
-  <div id="content@message.message_id@" class="dynexpanded">@message.content;noquote@
+  <div id="content@message.message_id@" class="dynexpanded">@message.content;literal@
     <if @message.n_attachments@ not nil and @message.n_attachments@ gt 0>
       <div class="attachments">
         #forums.Attachments#
