@@ -318,11 +318,11 @@ ad_proc -callback merge::MergeShowUserInfo -impl forums {
     ns_log Notice $msg
     set result [list $msg]
     
-    set last_poster [db_list_of_lists sel_poster {*SQL*} ]
+    set last_poster [db_list_of_lists sel_poster {} ]
     set msg "Last Poster of $last_poster"
     lappend result $msg
 
-    set poster [db_list_of_lists sel_user_id {*SQL*} ]
+    set poster [db_list_of_lists sel_user_id {} ]
     set msg "Poster of $poster"
     lappend result $msg
 
@@ -343,8 +343,8 @@ ad_proc -callback merge::MergePackageUser -impl forums {
     ns_log Notice $msg
     set result [list $msg]
     
-    db_dml upd_poster { *SQL* }
-    db_dml upd_user_id { *SQL* }
+    db_dml upd_poster {}
+    db_dml upd_user_id {}
 
     lappend result "Merge of forums is done"
 

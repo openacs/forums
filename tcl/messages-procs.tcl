@@ -60,7 +60,7 @@ ad_proc -public forum::message::new {
         
         if {$original_message_id ne ""} {
     	# The was a non-null message_id arguement
-            if {[db_string message_exists_p  { *SQL* }]} {
+            if {[db_string message_exists_p {}]} {
     	    return $message_id
             } else {
                 # OK - it wasn't a simple double-click, so bomb

@@ -34,9 +34,9 @@ ad_page_contract {
 	}
     }
 
-db_0or1row get_tree_sortkey { }
+db_0or1row get_tree_sortkey {}
         
-db_foreach get_parent_id { } {    
+db_foreach get_parent_id {} {    
     db_multirow messages get_messages "
         select message_id, subject from forums_messages where forum_id = $message(forum_id) and message_id <> $message(message_id) and parent_id is null and message_id <> :parent_id
     "
