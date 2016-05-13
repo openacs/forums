@@ -14,8 +14,8 @@
             where  forums_messages.forum_id = forums_forums.forum_id
             and    forums_forums.package_id = :package_id
             and    forums_messages.state = 'approved'
-            and    upper(forums_messages.subject || ' ' || forums_messages.content || ' ' || person__name(forums_messages.user_id))
-                       like '%' || upper(:search_text) || '%'
+            and    forums_messages.subject || ' ' || forums_messages.content || ' ' || person__name(forums_messages.user_id)
+                       ilike :search_pattern
             order  by forums_messages.posting_date desc
         </querytext>
     </fullquery>
@@ -32,8 +32,8 @@
             and    forums_forums.package_id = :package_id
             and    forums_messages.forum_id = forums_forums.forum_id
             and    forums_messages.state = 'approved'
-            and    upper(forums_messages.subject || ' ' || forums_messages.content || ' ' || person__name(forums_messages.user_id))
-                       like '%' || upper(:search_text) || '%'
+            and    forums_messages.subject || ' ' || forums_messages.content || ' ' || person__name(forums_messages.user_id)
+                       ilike :search_pattern
             order  by forums_messages.posting_date desc
         </querytext>
     </fullquery>

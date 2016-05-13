@@ -35,7 +35,8 @@ if {$searchbox_p} {
         if { [parameter::get -parameter UseIntermediaForSearchP -default 0] } {
             append query "_intermedia"
         }
-    
+
+        set search_pattern "%${search_text}%"
         db_multirow -extend { author posting_date_pretty} messages $query {} {
             set posting_date_pretty [lc_time_fmt $posting_date_ansi "%x %X"]
             if { $useScreenNameP } {
