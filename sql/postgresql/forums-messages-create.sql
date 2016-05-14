@@ -37,12 +37,10 @@ create table forums_messages (
     parent_id                       integer
                                     constraint forum_mess_parent_id_fk
                                     references forums_messages (message_id),
-    open_p                          char(1)
-                                    default 't'
+    open_p                          boolean
+                                    default true
                                     constraint forum_mess_open_p_nn
-                                    not null
-                                    constraint forum_mess_open_p_ck
-                                    check (open_p in ('t','f')),
+                                    not null,
     tree_sortkey                    varbit,
     max_child_sortkey               varbit,
     last_child_post                 timestamptz,

@@ -52,12 +52,10 @@ create table forums_forums (
                                     constraint forums_posting_policy_ck
                                     check (posting_policy in ('open','moderated','closed')),
     max_child_sortkey               varbit,
-    enabled_p                       char(1)
-                                    default 't'
+    enabled_p                       boolean
+                                    default true
                                     constraint forums_enabled_p_nn
-                                    not null
-                                    constraint forums_enabled_p_ck
-                                    check (enabled_p in ('t','f')),
+                                    not null,
     package_id                      integer
                                     constraint forums_package_id_nn
                                     not null,
@@ -76,7 +74,7 @@ create view forums_forums_enabled
 as
     select *
     from forums_forums
-    where enabled_p = 't';
+    where enabled_p = true;
 
 
 -- procedure inline_0/0
