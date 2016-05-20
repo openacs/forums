@@ -8,7 +8,7 @@ ad_page_contract {
 
 } {
     message_id:naturalnum,notnull
-    {return_url "../message-view"}
+    {return_url:localurl "../message-view"}
 }
 
 forum::message::get -message_id $message_id -array message

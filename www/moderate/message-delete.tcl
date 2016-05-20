@@ -8,7 +8,7 @@ ad_page_contract {
 
 } {
     message_id:naturalnum,notnull
-    {return_url "../message-view"}
+    {return_url:localurl "../message-view"}
     {confirm_p:boolean 0}
 }
 

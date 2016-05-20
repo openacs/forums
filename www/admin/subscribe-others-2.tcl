@@ -10,7 +10,7 @@ ad_page_contract {
     forum_id:naturalnum,notnull
     type_id:naturalnum,notnull
     {lines}
-    {return_url "."}
+    {return_url:localurl "."}
     interval:notnull
     delivery_method:notnull
     {emails ""}
