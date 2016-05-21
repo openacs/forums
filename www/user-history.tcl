@@ -8,8 +8,14 @@ ad_page_contract {
 
 } {
     user_id:naturalnum,notnull
-    {view "date"}
+    {view:word "date"}
     {groupby "forum_name"}
+} -validate {
+    valid_user -requires user_id {
+        if {![person::person_p -party_id $user_id]} {
+            ad_complain "Invalid user_id"
+        }
+    }
 }
 
 # Get user information
