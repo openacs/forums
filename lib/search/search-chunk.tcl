@@ -25,9 +25,10 @@ if {$searchbox_p} {
         set search_text [string trim $search_text]
 
         # don't search for empty search strings
-        if {$search_text eq ""} {
+        if {[string length $search_text] < 3} {
             set name search_text
-            ad_complain [_ acs-tcl.lt_name_is_not_valid]
+            set min_length 3
+            ad_complain [_ lt_name_is_too_short__Pl]
             set messages:rowcount 0
             return
         }
