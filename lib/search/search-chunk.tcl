@@ -20,6 +20,18 @@ if {$searchbox_p} {
         # don't crash interMedia
         regsub -all {[^[:alnum:]_[:blank:]]} $search_text {} search_text
 
+        # replace subsequent spaces
+        regsub -all {\s+} $search_txt " " search_text
+        set search_text [string trim $search_text]
+
+        # don't search for empty search strings
+        if {$search_text eq ""} {
+            set name search_text
+            ad_complain [_ acs-tcl.lt_name_is_not_valid]
+            set messages:rowcount 0
+            return
+        }
+
         set query search_all_forums
         if {$forum_id ne ""} {
             set query search_one_forum
