@@ -39,9 +39,8 @@ if {$searchbox_p} {
 	    if {![string is integer -strict $forum_id]} {
 		ns_log warning "forum_id <$forum_id> is not an integer: probably a security check or an attempted injection"
 		set name forum_id
-		ad_complain [_ acs-tcl.lt_name_is_not_an_intege]
-		set messages:rowcount 0
-		return
+                ad_page_contract_handle_datasource_error [_ acs-tcl.lt_name_is_not_an_intege]
+                ad_script_abort
 	    }
         }
         
