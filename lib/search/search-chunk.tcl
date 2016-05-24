@@ -28,7 +28,7 @@ if {$searchbox_p} {
         if {[string length $search_text] < 3} {
             set name search_text
             set min_length 3
-            ad_complain [_ lt_name_is_too_short__Pl]
+            ad_complain [_ acs-tcl.lt_name_is_too_short__Pl]
             set messages:rowcount 0
             return
         }
