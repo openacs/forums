@@ -21,7 +21,7 @@ if {$searchbox_p} {
         regsub -all {[^[:alnum:]_[:blank:]]} $search_text {} search_text
 
         # replace subsequent spaces
-        regsub -all {\s+} $search_txt " " search_text
+        regsub -all {\s+} $search_text " " search_text
         set search_text [string trim $search_text]
 
         # don't search for empty search strings
