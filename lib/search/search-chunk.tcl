@@ -29,9 +29,8 @@ if {$searchbox_p} {
             set name search_text
             set min_length 3
             set actual_length [string length $search_text]
-            ad_complain [_ acs-tcl.lt_name_is_too_short__Pl]
-            set messages:rowcount 0
-            return
+            ad_page_contract_handle_datasource_error [_ acs-tcl.lt_name_is_too_short__Pl]
+            ad_script_abort
         }
 
         set query search_all_forums
