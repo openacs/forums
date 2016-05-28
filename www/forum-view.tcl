@@ -8,9 +8,9 @@ ad_page_contract {
 
 } -query {
     forum_id:naturalnum,notnull
-    {orderby:token "last_child_post,desc"}
-    {flush_p:boolean 0}
-    page:naturalnum,optional
+    {orderby:token,notnull "last_child_post,desc"}
+    {flush_p:boolean,notnull 0}
+    page:naturalnum,optional,notnull
 }
 
 
