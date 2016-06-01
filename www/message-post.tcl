@@ -19,7 +19,7 @@ ad_page_contract {
       # forum_id is not set!
       #
       if {$forum_id ne "" && ![string is integer $forum_id]} {
-	ad_complain [_ acs_templating.Invalid_integer]
+	ad_complain [_ acs-templating.Invalid_integer]
       }
       if {$parent_id ne "" && ![string is integer $parent_id]} {
         ad_complain [_ acs-templating.Invalid_integer]
