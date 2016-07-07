@@ -40,7 +40,7 @@
   </div>
   </div>
     <if @preview;literal@ false and @any_action_p;literal@>
-    <if @post_p;literal@ eq 1 or @moderate_p;literal@ or @viewer_i;literal@ ne "0">
+    <if @post_p;literal@ eq 1 or @moderate_p;literal@ or @viewer_id;literal@ ne "0">
     <div class="action-list">
     <ul>
       <if @post_p;literal@ eq 1>
