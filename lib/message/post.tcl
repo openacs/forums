@@ -51,7 +51,7 @@ set form_elements {
 }
 
 # Deal with anonymous postings
-if {[expr {$user_id != 0 && $anonymous_allowed_p}]} {
+if {$user_id != 0 && $anonymous_allowed_p} {
     append form_elements {
         {anonymous_p:integer(checkbox),optional
             {options {{"[_ forums.post_anonymously]" 1}}}
