@@ -22,7 +22,7 @@ if { (![info exists package_id] || $package_id eq "")
 if { [info exists n] } {
     # need to do a type check, as this is interpolated into the PG query
     # (PG LIMIT clause doesn't accept bind vars)
-    if { ![string is integer $n] || ![expr {$n > 0}] } {
+    if { ![string is integer $n] || $n > 0 } {
         error "n must be an integer greater than 0"
     }
 } else {
@@ -31,14 +31,14 @@ if { [info exists n] } {
 if {![info exists class]} {
     set class ""
 }
-if { ![info exists cache] || [expr {$cache < 0}] } {
+if { ![info exists cache] || $cache < 0 } {
     set cache 0
 }
-if { (![info exists package_id] || $package_id eq "") } {
+if { ![info exists package_id] || $package_id eq "" } {
     set package_id [site_node::get_element \
                         -url $base_url -element object_id]
 }
-if { (![info exists base_url] || $base_url eq "") } {
+if { ![info exists base_url] || $base_url eq "" } {
     set base_url [lindex [site_node::get_url_from_object_id \
                               -object_id $package_id] 0]
 }
