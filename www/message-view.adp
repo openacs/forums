@@ -28,10 +28,10 @@
 
     <if @reply_url@ not nil>
       <if @forum.presentation_type@ eq "flat">
-        <a href="@reply_url@" title="#forums.Post_a_Reply#"><b>#forums.Post_a_Reply#</b></a>
+        <a href="@reply_url@" title="#forums.Post_a_Reply#"><strong>#forums.Post_a_Reply#</strong></a>
       </if>
       <else>
-        <a href="@reply_url@" title="#forums.Reply_to_first_post_on_page_label#"><b>#forums.Reply_to_first_post_on_page_label#</b></a>
+        <a href="@reply_url@" title="#forums.Reply_to_first_post_on_page_label#"><strong>#forums.Reply_to_first_post_on_page_label#</strong></a>
       </else>
     </if>
 

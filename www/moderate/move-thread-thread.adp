@@ -1,7 +1,7 @@
 <master>
 <table width="95%">
  
-  <b>#forums.Move_thread_to_the_thread# <i>@subject@</i> #forums.of_forum# <i>@name@</i> </b> 
+  <strong>#forums.Move_thread_to_the_thread# <em>@subject@</em> #forums.of_forum# <em>@name@</em> </strong> 
  <p></p>
   #forums.Are_you_sure_you_want_to_move_this_message_and_obviously_all_of_its_descendents_lt#
   <p>
