@@ -18,4 +18,3 @@
       </multiple>
     </if>
 </div>
-@response_arrays_stub;noquote@

@@ -135,9 +135,7 @@ if {[info exists alt_template] && $alt_template ne ""} {
   ad_return_template $alt_template
 }
 
-set response_arrays_stub "<script type=\"text/javascript\">
-<!--
-"
+set response_arrays_stub ""
 foreach one_parent_id [array names parent_message] {
     set one_children_list $parent_message($one_parent_id)
     if {[llength $one_children_list] == 1} {
@@ -146,9 +144,9 @@ foreach one_parent_id [array names parent_message] {
     }
     append response_arrays_stub "  forums_replies\[$one_parent_id\] = new Array([join $one_children_list ","]);\n"
 }
-append response_arrays_stub "-->
-</script>
-"
+if {$response_arrays_stub ne ""} {
+    template::add_body_script -script $response_arrays_stub
+}
 
 set return_url [ad_return_url]
 
