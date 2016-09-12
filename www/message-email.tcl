@@ -36,7 +36,7 @@ if {[form is_valid message]} {
 
     # Send the email
     acs_mail_lite::send -to_addr $to_email \
-        -from_addr [cc_email_from_party [ad_conn user_id]] \
+        -from_addr [party::email -party_id [ad_conn user_id]] \
         -subject $subject \
         -body $email_body
 
