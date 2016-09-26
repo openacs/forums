@@ -33,7 +33,7 @@ ad_proc -public forum::new {
     set forum_id [package_instantiate_object -var_list $var_list forums_forum]
 
     if {!$no_callback_p} {
-	callback forum::forum_new -package_id $package_id -forum_id $forum_id
+        callback forum::forum_new -package_id $package_id -forum_id $forum_id
     }
 
     return $forum_id
@@ -54,7 +54,7 @@ ad_proc -public forum::edit {
     db_dml update_forum_object {}
 
     if {!$no_callback_p} {
-	callback forum::forum_edit -package_id [ad_conn package_id] -forum_id $forum_id
+        callback forum::forum_edit -package_id [ad_conn package_id] -forum_id $forum_id
     }
 }
 
@@ -164,11 +164,31 @@ ad_proc -public forum::disable {
 }
 
 ad_proc -public forum::use_ReadingInfo_p {} {
-	# this depends on site-wide package parameters implemented in openacs core
-	# http://openacs.org/bugtracker/openacs/patch?patch%5fnumber=845
-	# return [parameter::get_from_package_key -package_key forums -parameter UseReadingInfo]
-	return 0
+    # this depends on site-wide package parameters implemented in openacs core
+    # http://openacs.org/bugtracker/openacs/patch?patch%5fnumber=845
+    # return [parameter::get_from_package_key -package_key forums -parameter UseReadingInfo]
+    return 0
 }
+
+ad_proc forum::valid_forum_id_p {
+    {-forum_id:required}
+    {-package_id}
+} {
+    checks forum_id
+} {
+    if {[info exists package_id] && [db_0or1row check_forum_id {
+        select forum_id from forums_forums where forum_id = :forum_id and package_id = package_id
+    }]} {
+        set result true
+    } elseif {![info exists package_id]} {
+        select forum_id from forums_forums where forum_id = :forum_id
+    } else {
+        set result false
+    }
+
+    return $result
+}
+    
 # Local variables:
 #    mode: tcl
 #    tcl-indent-level: 4
