@@ -61,10 +61,19 @@ set own_p [expr {$message(user_id) eq $viewer_id && $allow_edit_own_p}]
 if { $preview } {
     set any_action_p 0
 } else {
-    set notflat_p [expr {$presentation_type ne "flat"}]
+    set notflat_p          [expr {$presentation_type ne "flat"}]
     set post_and_notflat_p [expr {$post_p && $notflat_p}]
-    set any_action_p [expr { $post_and_notflat_p || $viewer_id || $moderate_p }]
+    set any_action_p       [expr {$post_and_notflat_p || $viewer_id || $moderate_p}]
 }
+
+template::add_body_script -script [subst {
+    document.getElementById('toggle$message(message_id)').addEventListener('click', function (event) {
+        event.preventDefault();
+        forums_toggle('$message(message_id)');
+        return false;
+    }, false);
+}]
+
 
 # Local variables:
 #    mode: tcl
