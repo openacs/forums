@@ -177,7 +177,7 @@ ad_proc forum::valid_forum_id_p {
     checks forum_id
 } {
     if {[info exists package_id] && [db_0or1row check_forum_id {
-        select forum_id from forums_forums where forum_id = :forum_id and package_id = package_id
+        select forum_id from forums_forums where forum_id = :forum_id and package_id = :package_id
     }]} {
         set result true
     } elseif {![info exists package_id] && [db_0or1row check_forum_id {
