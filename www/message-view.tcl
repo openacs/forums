@@ -9,6 +9,14 @@ ad_page_contract {
 } {
     message_id:naturalnum,notnull
     {display_mode:word ""}
+} -validate {
+    valid_message_id -requires {message_id:naturalnum} {
+        # Load up the message information
+        forum::message::get -message_id $message_id -array message
+        if {![array exists message]} {
+            ad_complain "Invalid message_id"
+        }
+    }
 }
 
 #######################
@@ -17,12 +25,6 @@ ad_page_contract {
 #
 #######################
 
-# Load up the message information
-forum::message::get -message_id $message_id -array message
-if {![array exists message]} {
-    ns_returnnotfound
-    ad_script_abort
-}
 
 # Load up the forum information
 forum::get -forum_id $message(forum_id) -array forum
