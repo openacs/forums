@@ -71,7 +71,6 @@ template::list::create \
     -name messages \
     -multirow messages \
     -page_size $page_size \
-    -page_size_variable_p 1 \
     -page_flush_p $flush_p \
     -page_query_name messages_select_paginate \
     -pass_properties {moderate_p useReadingInfo} \
