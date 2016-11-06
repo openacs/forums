@@ -21,4 +21,5 @@
 	 moderate_p="@permissions.moderate_p;literal@"
 	 &="orderby"
 	 &="page"
+ 	 &="page_size"
 	 admin_p="@permissions.admin_p;literal@" >

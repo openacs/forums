@@ -1,12 +1,16 @@
-ad_page_contract {
+ad_include_contract {
     one forum view
 
     @author Ben Adida (ben@openforce.net)
     @creation-date 2002-05-24
     @cvs-id $Id$
+} {
+    forum_id:naturalnum,notnull
+    {orderby:token,notnull "last_child_post,desc"}
+    {flush_p:boolean,notnull 0}
+    {page_size:naturalnum,notnull 30}
+    {base_url ""}
 }
-
-if {![info exists flush_p]} {set flush_p 0}
 
 set user_id [ad_conn user_id]
 # Get forum data
@@ -21,9 +25,6 @@ if { $useReadingInfo } {
     set unread_or_new_query_clause [db_map new_query]
     set unread_join ""
 }
-if {![info exists base_url]} {
-    set base_url ""
-}
 
 if {$moderate_p} {
     set replies reply_count
@@ -32,14 +33,6 @@ if {$moderate_p} {
 }
 
 set actions [list]
-
-if {![info exists page_size] || $page_size eq ""} {
-    set page_size 30
-}
-
-if {![info exists base_url] || $base_url eq ""} {
-    set base_url ""
-}
 
 # new postings are allowed if
 # 0. The user has post-permissions
@@ -78,6 +71,7 @@ template::list::create \
     -name messages \
     -multirow messages \
     -page_size $page_size \
+    -page_size_variable_p 1 \
     -page_flush_p $flush_p \
     -page_query_name messages_select_paginate \
     -pass_properties {moderate_p useReadingInfo} \

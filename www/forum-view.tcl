@@ -11,6 +11,7 @@ ad_page_contract {
     {orderby:token,notnull "last_child_post,desc"}
     {flush_p:boolean,notnull 0}
     page:naturalnum,optional,notnull
+    page_size:naturalnum,optional,notnull
 }
 
 
