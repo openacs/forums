@@ -3,7 +3,7 @@
             
  <if @preview@ nil>
     <div class="action-list" style="float: right; text-decoration: none; background-color: #f0f0f0; ">
-    <div id= "actions@message.message_id@">
+    <div id="actions@message.message_id@">
     <ul>
        <li><a href="message-post?parent_id=@message.message_id@" title="#forums.reply#" class="button">#forums.reply#</a></li>
       <li><a href="message-email?message_id=@message.message_id@" title="#forums.forward#" class="button">#forums.forward#</a></li>
@@ -67,7 +67,7 @@
 
 
 <div class="join">
-<div id ="join@message.message_id@" style="display:none;">
+<div id="join@message.message_id@" style="display:none;">
     <if @display_subject_p@ true>
        <if @preview@ nil>
            &nbsp;
