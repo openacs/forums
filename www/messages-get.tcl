@@ -13,6 +13,9 @@ if {$dynamicmode} {
     set message(content) {}
 }
 
+template::add_body_handler -event onload -script [subst {
+    copyContent('$cid','$dynamicmode');
+}]
 
 # Local variables:
 #    mode: tcl

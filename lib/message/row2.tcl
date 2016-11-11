@@ -100,6 +100,10 @@ if {$total_number_messages <= $max_number_messages} {
     }]
 }
 
+template::add_body_handler -event onload -script [subst {
+    showExpandedOnLoad('$message(message_id)','$children_direct_list','$children_string');
+}]
+
 
 # Local variables:
 #    mode: tcl
