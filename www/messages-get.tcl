@@ -13,7 +13,7 @@ if {$dynamicmode} {
     set message(content) {}
 }
 
-template::add_body_handler -event onload -script [subst {
+template::add_body_handler -event "load" -script [subst {
     copyContent('$cid','$dynamicmode');
 }]
 
