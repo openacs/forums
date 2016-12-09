@@ -61,10 +61,12 @@
   <msg key="forward">Weiterleiten</msg>
   <msg key="Fwd">Fwd:</msg>
   <msg key="html">HTML</msg>
+  <msg key="If_checked_create_users">Ereuge neue Benutzer, wenn diese noch nicht angelegt sind:</msg>
   <msg key="in_this_forum_your_screename_is_used">In diesem Forum wird anstatt ihres Namens ihr Alias angezeigt:</msg>
   <msg key="just_display_subjects">Zeige nur die Ueberschriften</msg>
   <msg key="Last_Post">Letzter Beitrag</msg>
   <msg key="Last_post_in_subject">Letzter Beitrag zum Thema</msg>
+  <msg key="List_of_users_that_wrote_in_the_forum">Liste von Benutzern, die Beiträge geschrieben haben:</msg>
   <msg key="lt_Email_a_copy_of_the_f">Eine Kopie des folgenden Beitrags per E-Mail versenden:</msg>
   <msg key="lt_First_post_in_subject">Erster Beitrag zum Thema</msg>
   <msg key="lt_Forums_Administration">Diskussionsforen verwalten</msg>
@@ -146,6 +148,7 @@
   <msg key="Subject">Betreff</msg>
   <msg key="Subscribe">Benachrichtigungsfunktion aktivieren?</msg>
   <msg key="subscribe_others">andere abonnieren</msg>
+  <msg key="Subscriptions_to_forum">Anzahl der subskribierten Benutzer:</msg>
   <msg key="text">Einfacher Text</msg>
   <msg key="This_forum_is">Dieses Forum ist</msg>
   <msg key="Threaded">Strukturiert</msg>
@@ -156,4 +159,7 @@
   <msg key="You_can">Sie können</msg>
   <msg key="You_may">Sie können es</msg>
   <msg key="Your_Note">Ihr Kommentar</msg>
+  <msg key="go_to_forum">Gehe zum Forum:</msg>
+  <msg key="view_message">Beitrag ansehen:</msg>
+  <msg key="message_moved">Beitrag verschoben</msg>  
 </message_catalog>
