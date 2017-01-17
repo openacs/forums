@@ -40,16 +40,16 @@
   </div>
   </div>
     <if @preview;literal@ false and @any_action_p;literal@>
-    <if @post_p;literal@ eq 1 or @moderate_p;literal@ or @viewer_id;literal@ ne "0">
+    <if @post_p;literal@ true or @moderate_p;literal@ true or @viewer_id;literal@ ne "0">
     <div class="action-list">
     <ul>
-      <if @post_p;literal@ eq 1>
+      <if @post_p;literal@ true>
         <if @presentation_type;literal@ ne "flat"><li><a href="message-post?parent_id=@message.message_id@" class="button" title="#forums.reply#">#forums.reply#</a></li></if>
       </if>
       <if @viewer_id;literal@ ne "0">
          <li><a href="message-email?message_id=@message.message_id@" class="button" title="#forums.forward#">#forums.forward#</a></li>
       </if>
-      <if @moderate_p;literal@>
+      <if @moderate_p;literal@ true>
         <li><a href="moderate/message-edit?message_id=@message.message_id@" class="button" title="#forums.edit#">#forums.edit#</a></li>
         <li><a href="moderate/message-delete?message_id=@message.message_id@" class="button" title="#forums.delete#">#forums.delete#</a></li>	
 	<if @message.parent_id@ nil>
