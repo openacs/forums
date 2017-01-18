@@ -10,7 +10,7 @@
           <input type="radio" name="subscribe_p" value="0" checked>#forums.No#</input>
           <input type="radio" name="subscribe_p" value="1">#forums.Yes#</input>
 
-          <if @forum_notification_p@>
+          <if @forum_notification_p;literal@ true>
             <br><small>#forums.lt_Note_that_you_are_alr#</small>
           </if>
         </if>

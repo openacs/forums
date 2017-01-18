@@ -4,7 +4,7 @@
   <div style="float: left; padding-right: 4px;">
     <a id="toggle@message.message_id@" class="dynexpanded" href="#" title="#forums.collapse_message#"><img src="/resources/forums/Collapse16.gif" width="16" height="16" alt="#forums.collapse#"></a>
   </div>
-  <if @display_subject_p;literal@>
+  <if @display_subject_p;literal@ true>
     <if @preview;literal@ false>
       <div class="subject">
         <a href="@message.direct_url@" title="#forums.Direct_link_to_this_post#" class="reference">@message.number@</a>:
@@ -39,7 +39,7 @@
     </if>
   </div>
   </div>
-    <if @preview;literal@ false and @any_action_p;literal@>
+    <if @preview;literal@ false and @any_action_p;literal@ true>
     <if @post_p;literal@ true or @moderate_p;literal@ true or @viewer_id;literal@ ne "0">
     <div class="action-list">
     <ul>
@@ -59,7 +59,7 @@
 	<else>
 	  <li><a href="moderate/message-move?message_id=@message.message_id@" class="button" title="#forums.Move_to_other_thread#">#forums.Move_to_other_thread#</a></li>
 	</else>
-        <if @forum_moderated_p;literal@>
+        <if @forum_moderated_p;literal@ true>
           <if @message.state;literal@ ne approved>
             <li><a href="moderate/message-approve?message_id=@message.message_id@" class="button" title="#forums.approve#">#forums.approve#</a></li>
           </if>

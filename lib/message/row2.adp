@@ -7,7 +7,7 @@
     <ul>
        <li><a href="message-post?parent_id=@message.message_id@" title="#forums.reply#" class="button">#forums.reply#</a></li>
       <li><a href="message-email?message_id=@message.message_id@" title="#forums.forward#" class="button">#forums.forward#</a></li>
-      <if @moderate_p@>
+      <if @moderate_p@ true>
         <li><a href="moderate/message-edit?message_id=@message.message_id@" class="button">#forums.Edit#</a></li>
         <li><a href="moderate/message-delete?message_id=@message.message_id@" class="button">#forums.delete#</a></li>	
 	<if @message.parent_id@ nil>
@@ -17,7 +17,7 @@
 	<else>
 	  <li><a href="moderate/message-move?message_id=@message.message_id@" class="button">#forums.Move_to_other_thread#</a></li>
 	</else>
-        <if @forum_moderated_p@>
+        <if @forum_moderated_p@ true>
           <if @message.state@ ne approved>
             <li><a href="moderate/message-approve?message_id=@message.message_id@" class="button">#forums.approve#</a></li>
           </if>
