@@ -3,7 +3,7 @@
 <p>
   #forums.Posting_history_for#
   <strong>
-    <if @useScreenNameP@>@message.screen_name@</if>
+    <if @useScreenNameP;literal@ true>@message.screen_name@</if>
     <else>@user_link;noquote@</else>
   </strong>
 </p>

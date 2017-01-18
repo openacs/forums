@@ -5,7 +5,7 @@
 
 <h1>@doc.title@</h1>
 
-  <if @searchbox_p@ true>
+  <if @searchbox_p;literal@ true>
     <include src="/packages/forums/lib/search/search-form" forum_id="@message.forum_id;literal@">
   </if>
 

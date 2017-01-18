@@ -1,4 +1,4 @@
-<if @searchbox_p@ true>
+<if @searchbox_p;literal@ true>
     <div style="display: block; text-align: right;">
       <formtemplate id="search">
         <div><formwidget id="forum_id"></div>

@@ -4,7 +4,7 @@
   <property name="displayed_object_id">@forum_id;literal@</property>
 
 <h1>@page_title@</h1>
-<if @searchbox_p@ true>
+<if @searchbox_p;literal@ true>
   <include src="/packages/forums/lib/search/search-form" &="forum_id">
 </if>
 

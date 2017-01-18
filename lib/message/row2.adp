@@ -7,7 +7,7 @@
     <ul>
        <li><a href="message-post?parent_id=@message.message_id@" title="#forums.reply#" class="button">#forums.reply#</a></li>
       <li><a href="message-email?message_id=@message.message_id@" title="#forums.forward#" class="button">#forums.forward#</a></li>
-      <if @moderate_p@ true>
+      <if @moderate_p;literal@ true>
         <li><a href="moderate/message-edit?message_id=@message.message_id@" class="button">#forums.Edit#</a></li>
         <li><a href="moderate/message-delete?message_id=@message.message_id@" class="button">#forums.delete#</a></li>	
 	<if @message.parent_id@ nil>
@@ -17,7 +17,7 @@
 	<else>
 	  <li><a href="moderate/message-move?message_id=@message.message_id@" class="button">#forums.Move_to_other_thread#</a></li>
 	</else>
-        <if @forum_moderated_p@ true>
+        <if @forum_moderated_p;literal@ true>
           <if @message.state@ ne approved>
             <li><a href="moderate/message-approve?message_id=@message.message_id@" class="button">#forums.approve#</a></li>
           </if>
@@ -43,7 +43,7 @@
   
 
 <div id="subject@message.message_id@" style="display:inline">
-  <if @display_subject_p@ true>
+  <if @display_subject_p;literal@ true>
     <if @preview@ nil>
         <div class="subject">
         &nbsp;
@@ -68,7 +68,7 @@
 
 <div class="join">
 <div id="join@message.message_id@" style="display:none;">
-    <if @display_subject_p@ true>
+    <if @display_subject_p;literal@ true>
        <if @preview@ nil>
            &nbsp;
            <a href="@message.direct_url@" title="Direct link to this post" class="reference">@message.number@</a>:
@@ -92,7 +92,7 @@
 
  <div class="content">
  <div id="content@message.message_id@">
-   <if @is_direct_child@ eq 1>
+   <if @is_direct_child;literal@ true>
       @message.content;noquote@
       <if @message.n_attachments@ not nil and @message.n_attachments@ gt 0>
          <div class="attachments">
