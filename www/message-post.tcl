@@ -7,8 +7,8 @@ ad_page_contract {
     @cvs-id $Id$
 
 } -query {
-    {forum_id ""}
-    {parent_id ""}
+    {forum_id:integer ""}
+    {parent_id:integer ""}
 } -validate {
     forum_id_or_parent_id {
         if {$forum_id eq "" && $parent_id eq ""} {
