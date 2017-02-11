@@ -12,7 +12,7 @@ ad_page_contract {
     {groupby "forum_name"}
 } -validate {
     valid_user -requires user_id {
-        if {![person::person_p -party_id $user_id]} {
+        if {$user_id == 0 || ![person::person_p -party_id $user_id]} {
             ad_complain "Invalid user_id"
         }
     }
