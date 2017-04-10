@@ -178,6 +178,14 @@ ad_form -html {enctype multipart/form-data} \
                 set db_antwort [db_exec_plsql forums_reading_info__remove_msg {}]
             }
 
+            set permissions(moderate_p) [forum::security::can_moderate_message_p -message_id $message_id]
+
+            db_transaction {
+                if { $permissions(moderate_p) } {
+                    forum::message::set_state -message_id $message_id -state "approved"
+                }
+            }
+
             # VGUERRA Redirecting to the first message ALWAYS
             forum::message::get -message_id $message_id -array msg
             set redirect_url "[ad_conn package_url]message-view?message_id=$msg(root_message_id)" 
@@ -202,20 +210,18 @@ ad_form -html {enctype multipart/form-data} \
             }
             
             # Do the redirection
-            forum::get -forum_id $forum_id -array forum
-            if { $forum(posting_policy) ne "moderated" } {
-                ad_returnredirect $redirect_url
-            } else {
-                # if the forum is moderated, give some feedback to the user
-                # to inform that the message has been sent and is pending
-                set permissions(moderate_p) [forum::security::can_moderate_message_p -message_id $message_id]
-                if { $permissions(moderate_p) } {
-                    set feedback_msg [_ forums.Message_awaiting_your_approval]
-                } else {
+            if { !$permissions(moderate_p) } {
+                forum::get -forum_id $forum_id -array forum
+                if { $forum(posting_policy) eq "moderated" } {
+                    # if the forum is moderated, give some feedback to the user
+                    # to inform that the message has been sent and is pending                    
                     set feedback_msg [_ forums.Message_sent_to_moderator]
+                    ad_returnredirect -message $feedback_msg -- $redirect_url
+                    ad_script_abort
                 }
-                ad_returnredirect -message $feedback_msg -- $redirect_url
             }
+
+            ad_returnredirect $redirect_url
             ad_script_abort
         }
     }
