@@ -54,12 +54,12 @@ ad_proc -public forum::message::new {
         db_abort_transaction
         
         # Check to see if the message with a message_id matching the
-        # message_id arguement was in the database before calling
+        # message_id argument was in the database before calling
         # this procedure.  If so, the error is due to a double click 
         # and we should continue without returning an error.
         
         if {$original_message_id ne ""} {
-    	# The was a non-null message_id arguement
+    	# The was a non-null message_id argument
             if {[db_string message_exists_p {}]} {
     	    return $message_id
             } else {
