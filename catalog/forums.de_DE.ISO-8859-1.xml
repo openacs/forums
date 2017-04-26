@@ -57,7 +57,7 @@
   <msg key="expand_message">Nachricht ausklappe</msg>
   <msg key="First_Post">Erster Beitrag</msg>
   <msg key="Flat">Chronologisch geordnet</msg>
-  <msg key="flat">flach</msg>
+  <msg key="flat">Chronologisch geordnet</msg>
   <msg key="Format">Format</msg>
   <msg key="Forum">Forum</msg>
   <msg key="Forum_1">Forum:</msg>
@@ -79,7 +79,7 @@
 </msg>
   <msg key="help_posting_policy">&lt;b&gt;Offen&lt;/b&gt; erlaubt Postings von jedem Benutzer, die sofort aufscheinen, &lt;b&gt;moderiert&lt;/b&gt; bedeutet dass Postings müssen von einem Moderator genehmigt werden, bevor sie von anderen gesehen werden können und &lt;b&gt;geschlossen&lt;/b&gt; bedeutet dass nur Administrator Posting verfassen können.
 </msg>
-  <msg key="help_presentation">&lt;b&gt;Flach&lt;/b&gt; erlaubt nur Antworten am Ende des Threads ohne Verschachtelung, &lt;b&gt;Threaded&lt;/b&gt; erlaubt Antworten zu jedem Posting im Thread, die Antwort wird unter dem zugeordneten Posting eingerückt.</msg>
+  <msg key="help_presentation">&lt;b&gt;Chronologisch geordnet&lt;/b&gt; erlaubt nur Antworten am Ende des Threads ohne Verschachtelung, &lt;b&gt;Strukturiert&lt;/b&gt; erlaubt Antworten zu jedem Posting im Thread, die Antwort wird unter dem zugeordneten Posting eingerückt.</msg>
   <msg key="html">HTML</msg>
   <msg key="If_checked_create_users">Wenn ausgewählt, erstelle Benutzer die nicht existieren</msg>
   <msg key="in_this_forum_your_screename_is_used">In diesem Forum wird anstatt ihres Namens ihr Alias angezeigt:</msg>
