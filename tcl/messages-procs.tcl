@@ -273,7 +273,7 @@ ad_proc -public forum::message::delete {
 	}
 
 	if { [forum::use_ReadingInfo_p] 
-	     && [db_string is_root "select parent_id from forums_messages where message_id = :message_id"] eq ""  
+	     && [db_string is_root "select parent_id from forums_messages where message_id = :message_id" -default ""] eq ""
 	 } {
 	    set db_antwort [db_string forums_reading_info__remove_msg {
 		select forums_reading_info__remove_msg (:message_id);
