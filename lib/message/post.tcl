@@ -30,10 +30,13 @@ set table_bgcolor [parameter::get -parameter table_bgcolor]
 set edit_buttons [list [list [_ forums.Post] post] \
                       [list [_ forums.Preview] preview]]
 
+# maybe we could get this value from information_schema...
+set max_subject_chars 200
+
 set form_elements {
     {message_id:key}
     {subject:text(text)
-        {html {size 60}}
+        {html {maxlength $max_subject_chars size 60}}        
         {label "[_ forums.Subject]"}
     }
     {message_body:richtext(richtext) 
@@ -105,6 +108,15 @@ ad_form -html {enctype multipart/form-data} \
         ##############################
         # Form processing
         #
+
+        # UI should prevent this from triggering, but we check anyway
+        if {[string length $subject] > $max_subject_chars} {
+            set name          [_ forums.Subject]
+            set max_length    $max_subject_chars
+            set actual_length [string length $subject]
+            template::form::set_error message subject [_ acs-tcl.lt_name_is_too_long__Ple]
+            break
+        }
         
         if { $anonymous_p eq "" } { set anonymous_p 0 }
         
