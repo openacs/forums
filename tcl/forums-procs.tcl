@@ -164,7 +164,7 @@ ad_proc -public forum::disable {
 }
 
 ad_proc -public forum::use_ReadingInfo_p {} {
-    # this depends on site-wide package parameters implemented in openacs core
+    # this depends on site-wide package parameters implemented in OpenACS core
     # http://openacs.org/bugtracker/openacs/patch?patch%5fnumber=845
     # return [parameter::get_from_package_key -package_key forums -parameter UseReadingInfo]
     return 0
