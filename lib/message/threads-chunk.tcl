@@ -168,6 +168,8 @@ db_multirow -extend {
     if { $useScreenNameP } {
 	set user_name $screen_name
 	set user_url ""
+    } elseif {$user_id eq ""} {
+        set user_url ""
     } else {
 	set user_url [export_vars -base "${base_url}user-history" { user_id }]
     }
