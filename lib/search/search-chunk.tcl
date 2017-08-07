@@ -20,22 +20,35 @@ if {$searchbox_p} {
         # don't crash interMedia
         regsub -all {[^[:alnum:]_[:blank:]]} $search_text {} search_text
 
+        # replace subsequent spaces
+        regsub -all {\s+} $search_text " " search_text
+        set search_text [string trim $search_text]
+
+        # don't search for empty search strings
+        if {[string length $search_text] < 3} {
+            set name search_text
+            set min_length 3
+            set actual_length [string length $search_text]
+            ad_page_contract_handle_datasource_error [_ acs-tcl.lt_name_is_too_short__Pl]
+            ad_script_abort
+        }
+
         set query search_all_forums
         if {$forum_id ne ""} {
             set query search_one_forum
 	    if {![string is integer -strict $forum_id]} {
 		ns_log warning "forum_id <$forum_id> is not an integer: probably a security check or an attempted injection"
 		set name forum_id
-		ad_complain [_ acs-tcl.lt_name_is_not_an_intege]
-		set messages:rowcount 0
-		return
+                ad_page_contract_handle_datasource_error [_ acs-tcl.lt_name_is_not_an_intege]
+                ad_script_abort
 	    }
         }
         
         if { [parameter::get -parameter UseIntermediaForSearchP -default 0] } {
             append query "_intermedia"
         }
-    
+
+        set search_pattern "%${search_text}%"
         db_multirow -extend { author posting_date_pretty} messages $query {} {
             set posting_date_pretty [lc_time_fmt $posting_date_ansi "%x %X"]
             if { $useScreenNameP } {
@@ -52,3 +65,9 @@ if {$searchbox_p} {
         ad_return_template $alt_template
     }
 }
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

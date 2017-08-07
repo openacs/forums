@@ -13,3 +13,9 @@ ad_page_contract {
 set context [list [_ forums.Create_New_Forum]]
 
 ad_return_template
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

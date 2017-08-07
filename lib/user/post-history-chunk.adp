@@ -2,10 +2,10 @@
 
 <p>
   #forums.Posting_history_for#
-  <b>
-    <if @useScreenNameP@>@screen_name@</if>
+  <strong>
+    <if @useScreenNameP;literal@ true>@message.screen_name@</if>
     <else>@user_link;noquote@</else>
-  </b>
+  </strong>
 </p>
 
 <div>@dimensional_chunk;noquote@</div>

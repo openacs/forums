@@ -36,7 +36,7 @@ if {[form is_valid message]} {
 
     # Send the email
     acs_mail_lite::send -to_addr $to_email \
-        -from_addr [cc_email_from_party [ad_conn user_id]] \
+        -from_addr [party::email -party_id [ad_conn user_id]] \
         -subject $subject \
         -body $email_body
 
@@ -64,3 +64,9 @@ template::head::add_css -alternate -href /resources/forums/collapse.css -media a
 template::head::add_css -alternate -href /resources/forums/expand.css -media all -lang $lang -title "expand"
 
 ad_return_template
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

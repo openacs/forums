@@ -8,7 +8,7 @@ ad_page_contract {
 
 } {
     message_id:naturalnum,notnull
-    {return_url "../message-view"}
+    {return_url:localurl "../message-view"}
 }
 
 # Check that the user can moderate the forum
@@ -21,3 +21,9 @@ ad_returnredirect "$return_url?message_id=$message_id"
 
 
 
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

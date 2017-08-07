@@ -15,7 +15,7 @@
             and    forums_forums.package_id = :package_id
             and    forums_messages.state = 'approved'
             and    upper(forums_messages.subject || ' ' || dbms_lob.substr(forums_messages.content,2500) || ' ' || person.name(forums_messages.user_id))
-                       like '%' || upper(:search_text) || '%'
+                       like upper(:search_pattern)
             order  by forums_messages.posting_date desc
         </querytext>
     </fullquery>
@@ -33,7 +33,7 @@
             and    forums_messages.forum_id = forums_forums.forum_id
             and    forums_messages.state = 'approved'
             and    upper(forums_messages.subject || ' ' || dbms_lob.substr(forums_messages.content,3500) || ' ' || person.name(forums_messages.user_id))
-                       like '%' || upper(:search_text) || '%'
+                       like upper(:search_pattern)
             order  by forums_messages.posting_date desc
         </querytext>
     </fullquery>
@@ -49,7 +49,7 @@
             where forums_messages.forum_id = forums_forums.forum_id
             and forums_forums.package_id = :package_id
             and forums_messages.state = 'approved'
-            and contains(forums_messages.content, '%' || :search_text || '%', 1) > 0
+            and contains(forums_messages.content, :search_pattern , 1) > 0
             order by the_score desc,
                      forums_messages.posting_date desc
         </querytext>
@@ -67,7 +67,7 @@
             and forums_forums.package_id = :package_id
             and forums_messages.forum_id = forums_forums.forum_id
             and forums_messages.state = 'approved'
-            and contains(forums_messages.content, '%' || :search_text || '%', 1) > 0
+            and contains(forums_messages.content, :search_pattern, 1) > 0
             order by the_score desc,
                      forums_messages.posting_date desc
         </querytext>

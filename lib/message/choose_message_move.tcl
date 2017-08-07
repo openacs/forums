@@ -7,7 +7,7 @@ ad_page_contract {
 	@author Natalia Perez (nperper@it.uc3m.es)
 	@creation-date 2005-03-17	
 } {
-    {return_url "../message-view"}
+    {return_url:localurl "../message-view"}
 } -properties {
 	context:onevalue
 } -validate {
@@ -34,9 +34,9 @@ ad_page_contract {
 	}
     }
 
-db_0or1row get_tree_sortkey { }
+db_0or1row get_tree_sortkey {}
         
-db_foreach get_parent_id { } {    
+db_foreach get_parent_id {} {    
     db_multirow messages get_messages "
         select message_id, subject from forums_messages where forum_id = $message(forum_id) and message_id <> $message(message_id) and parent_id is null and message_id <> :parent_id
     "
@@ -49,3 +49,9 @@ set context [list "[_ forums.Available_Messages]"]
 set title "[_ forums.Available_Messages]"
 
 		
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

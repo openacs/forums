@@ -170,12 +170,12 @@ BEGIN
     where message_id = p_message_id;
 
     update forums_messages
-    set open_p = 't'
+    set open_p = true
     where tree_sortkey between tree_left(v_sortkey) and tree_right(v_sortkey)
     and forum_id = v_forum_id;
 
     update forums_messages
-    set open_p = 't'
+    set open_p = true
     where message_id = p_message_id;
 
     return 0;
@@ -203,12 +203,12 @@ BEGIN
     where message_id = p_message_id;
 
     update forums_messages
-    set open_p = 'f'
+    set open_p = false
     where tree_sortkey between tree_left(v_sortkey) and tree_right(v_sortkey)
     and forum_id = v_forum_id;
 
     update forums_messages
-    set open_p = 'f'
+    set open_p = false
     where message_id = p_message_id;
 
     return 0;

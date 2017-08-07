@@ -8,7 +8,7 @@ ad_page_contract {
 
 } {
     forum_id:naturalnum,notnull
-    {return_url "."}
+    {return_url:localurl "."}
 }
 
 # Select the info
@@ -23,3 +23,9 @@ if {$package_id != $forum(package_id)} {
 }
 
 set context [list [_ forums.Edit_forum]]
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

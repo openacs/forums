@@ -7,7 +7,7 @@ ad_page_contract {
 
 } {
     message_id:naturalnum,notnull
-    {return_url "../message-view"}
+    {return_url:localurl "../message-view"}
     {confirm_p:boolean 0}
 }
 
@@ -18,3 +18,9 @@ forum::security::require_moderate_message -message_id $message_id
 forum::message::get -message_id $message_id -array message
 
 ad_return_template
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

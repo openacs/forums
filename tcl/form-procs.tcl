@@ -156,8 +156,8 @@ ad_proc -public forums::form::forum {
 	-datatype richtext \
 	-widget richtext \
         -html {cols 60 rows 10 style {width: 100%}} \
-	-validate { {expr {[string length $value] <= 4000} } {#forums.charter_max_chars#} } \
-								-optional
+	-validate { {expr {[string length $value] <= 4000} } {\#forums.charter_max_chars#} } \
+	-optional
 
     template::element create $form_name ${prefix}presentation_type \
       -label [_ forums.Presentation] \
@@ -180,3 +180,9 @@ ad_proc -public forums::form::forum {
       -help_text [_ forums.help_new_threads] \
       -options [list [list [_ forums.Yes] 1] [list [_ forums.No] 0] ] 
 }
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

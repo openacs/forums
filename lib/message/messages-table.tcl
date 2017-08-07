@@ -31,3 +31,9 @@ template::list::create -name results -multirow messages -no_data "#forums.No_Mes
 if {([info exists alt_template] && $alt_template ne "")} {
   ad_return_template $alt_template
 }
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

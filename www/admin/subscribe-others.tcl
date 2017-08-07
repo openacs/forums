@@ -8,7 +8,7 @@ ad_page_contract {
 
 } {
     forum_id:naturalnum,notnull
-    {return_url "."}
+    {return_url:localurl "."}
 }
 
 # Select the info
@@ -75,3 +75,9 @@ foreach dm $delivery_methods {
 append delivery_html "</select>"
 
 
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

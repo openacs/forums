@@ -264,6 +264,7 @@ $$ LANGUAGE plpgsql;
 
 -- recount reading_info_user from reading_info
 
+select define_function_args('forums_message__repair_reading_info','');
 
 --
 -- procedure forums_message__repair_reading_info/0

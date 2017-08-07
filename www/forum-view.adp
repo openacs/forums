@@ -4,12 +4,22 @@
   <property name="displayed_object_id">@forum_id;literal@</property>
 
 <h1>@page_title@</h1>
-<if @searchbox_p@ true>
+<if @searchbox_p;literal@ true>
   <include src="/packages/forums/lib/search/search-form" &="forum_id">
 </if>
 
 <p>
-@notification_chunk;noquote@
-</p>
+<include src="/packages/notifications/lib/notification-widget" type="forums_forum_notif"
+	 object_id="@forum_id;literal@"
+	 pretty_name="@forum.name@"
+	 url="@forum_url;literal@" >
 
-<include src="/packages/forums/lib/message/threads-chunk" &="forum_id" &="flush_p" &="permissions" moderate_p="@permissions.moderate_p;literal@" &="orderby" &="page" admin_p="@permissions.admin_p;literal@">
+<include src="/packages/forums/lib/message/threads-chunk"
+	 &="forum_id"
+	 &="flush_p"
+	 &="permissions"
+	 moderate_p="@permissions.moderate_p;literal@"
+	 &="orderby"
+	 &="page"
+ 	 &="page_size"
+	 admin_p="@permissions.admin_p;literal@" >

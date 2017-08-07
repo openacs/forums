@@ -84,3 +84,9 @@ ad_proc -private forum::install::before-uninstantiate {
     callback::forum::forum_delete::contract -package_id $package_id -forum_id $forum_id
   }
 }
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

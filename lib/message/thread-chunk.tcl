@@ -31,7 +31,7 @@ if {[forum::attachments_enabled_p]} {
     set query select_message_responses
 }
 
-# We set a Tcl variable for moderation now (Ben)
+# Set the table_name depending on moderation
 if { $permissions(moderate_p) } {
     set table_name "forums_messages"
 } else {
@@ -99,7 +99,7 @@ db_multirow -extend { posting_date_pretty direct_url number parent_number parent
     set parent_root_url [export_vars -base [ad_conn url] {{message_id $parent_id}}]
     set reply_p [expr {$open_p == "t" || $user_id eq [ad_conn user_id]}]
     
-    # DEDS: get the response ids the tcl way or else we need to hit
+    # DEDS: get the response ids the Tcl way or else we need to hit
     # the db for each response to count its children
     if {$tree_level == 1} {
         # leftmost so this is a new parent. truncate the list of ids.
@@ -135,9 +135,7 @@ if {[info exists alt_template] && $alt_template ne ""} {
   ad_return_template $alt_template
 }
 
-set response_arrays_stub "<script type=\"text/javascript\">
-<!--
-"
+set response_arrays_stub ""
 foreach one_parent_id [array names parent_message] {
     set one_children_list $parent_message($one_parent_id)
     if {[llength $one_children_list] == 1} {
@@ -146,8 +144,14 @@ foreach one_parent_id [array names parent_message] {
     }
     append response_arrays_stub "  forums_replies\[$one_parent_id\] = new Array([join $one_children_list ","]);\n"
 }
-append response_arrays_stub "-->
-</script>
-"
+if {$response_arrays_stub ne ""} {
+    template::add_body_script -script $response_arrays_stub
+}
 
 set return_url [ad_return_url]
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

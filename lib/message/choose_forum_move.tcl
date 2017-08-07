@@ -7,7 +7,7 @@ ad_page_contract {
 	@author Natalia Perez (nperper@it.uc3m.es)
 	@creation-date 2005-03-15	
 } {
-    {return_url "../message-view"}
+    {return_url:localurl "../message-view"}
 } -properties {
 	context:onevalue
 } -validate {
@@ -47,3 +47,9 @@ set context [list "[_ forums.Available_Forums]"]
 set title "[_ forums.Available_Forums]"
 
 		
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

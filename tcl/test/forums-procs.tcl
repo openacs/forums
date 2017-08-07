@@ -25,7 +25,7 @@ aa_register_case -cats {api smoke} forum_new {
                 select 1 from forums_forums where forum_id = :forum_id
             } -default "0"]
 
-            aa_equals "forum was created succesfully" $success_p 1
+            aa_equals "forum was created successfully" $success_p 1
         }
 }
 
@@ -52,7 +52,7 @@ aa_register_case -cats {api smoke} forum_message_new {
                 select 1 from forums_messages where message_id = :message_id
             } -default "0"]
 
-            aa_equals "message was created succesfully" $success_p 1
+            aa_equals "message was created successfully" $success_p 1
         }
 }
 
@@ -301,3 +301,8 @@ aa_register_case -cats {web smoke} -libraries tclwebtest web_message_delete {
 	twt::user::logout  
     }
 }
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

@@ -7,23 +7,22 @@ ad_page_contract {
     @cvs-id $Id$
 
 } -query {
-    {forum_id ""}
-    {parent_id ""}
+    {forum_id:integer ""}
+    {parent_id:integer ""}
 } -validate {
     forum_id_or_parent_id {
-      if {$forum_id eq "" && $parent_id eq ""} {
-	ad_complain [_ forums.lt_You_either_have_to]
-      }
-      #
-      # GN: why can't we use {forum_id:integer ""} above? if we do so, the
-      # forum_id is not set!
-      #
-      if {$forum_id ne "" && ![string is integer $forum_id]} {
-	ad_complain [_ acs_templating.Invalid_integer]
-      }
-      if {$parent_id ne "" && ![string is integer $parent_id]} {
-        ad_complain [_ acs-templating.Invalid_integer]
-      }
+        if {$forum_id eq "" && $parent_id eq ""} {
+          ad_complain [_ forums.lt_You_either_have_to]
+        }
+        if {$forum_id ne "" && ![string is integer $forum_id]} {
+            ad_complain [_ acs-templating.Invalid_integer]
+        }
+        if {$forum_id ne "" && ![forum::valid_forum_id_p -forum_id $forum_id]} {
+            ad_complain [_ acs-templating.Invalid_integer]
+        }
+        if {$parent_id ne "" && ![string is integer $parent_id]} {
+            ad_complain [_ acs-templating.Invalid_integer]
+        }
     }
 }
 
@@ -63,12 +62,12 @@ if {$parent_id eq ""} {
 ##############################
 # Calculate users rights and forums policy
 #
-set anonymous_allowed_p [expr {($forum_id eq "" || \
-                               [forum::security::can_post_forum_p \
-                                  -forum_id $forum_id -user_id 0]) && \
-                              ($parent_id eq "" || \
-                               [forum::security::can_post_message_p \
-                                  -message_id $parent_id -user_id 0])}]
+set anonymous_allowed_p [expr {($forum_id eq ""
+                                || [forum::security::can_post_forum_p \
+                                        -forum_id $forum_id -user_id 0])
+                               && ($parent_id eq ""
+                                   || [forum::security::can_post_message_p \
+                                           -message_id $parent_id -user_id 0])}]
 
 set attachments_enabled_p [forum::attachments_enabled_p]
 
@@ -100,3 +99,9 @@ if {[template::form::get_button message] ne "preview" } {
 }
 
 
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

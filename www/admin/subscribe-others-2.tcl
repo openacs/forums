@@ -10,7 +10,7 @@ ad_page_contract {
     forum_id:naturalnum,notnull
     type_id:naturalnum,notnull
     {lines}
-    {return_url "."}
+    {return_url:localurl "."}
     interval:notnull
     delivery_method:notnull
     {emails ""}
@@ -152,3 +152,9 @@ db_transaction {
 
 ns_write "<p>Complete</p>"
 ns_write [subst {<a href="[ns_quotehtml $return_url]">return</a>}]
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

@@ -21,3 +21,9 @@ if {![array exists message]} {
 
 # Load up the forum information
 forum::get -forum_id $message(forum_id) -array forum
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

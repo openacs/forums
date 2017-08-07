@@ -54,13 +54,13 @@ ad_proc -public forum::message::new {
         db_abort_transaction
         
         # Check to see if the message with a message_id matching the
-        # message_id arguement was in the database before calling
+        # message_id argument was in the database before calling
         # this procedure.  If so, the error is due to a double click 
         # and we should continue without returning an error.
         
         if {$original_message_id ne ""} {
-    	# The was a non-null message_id arguement
-            if {[db_string message_exists_p  { *SQL* }]} {
+    	# The was a non-null message_id argument
+            if {[db_string message_exists_p {}]} {
     	    return $message_id
             } else {
                 # OK - it wasn't a simple double-click, so bomb
@@ -273,7 +273,7 @@ ad_proc -public forum::message::delete {
 	}
 
 	if { [forum::use_ReadingInfo_p] 
-	     && [db_string is_root "select parent_id from forums_messages where message_id = :message_id"] eq ""  
+	     && [db_string is_root "select parent_id from forums_messages where message_id = :message_id" -default ""] eq ""
 	 } {
 	    set db_antwort [db_string forums_reading_info__remove_msg {
 		select forums_reading_info__remove_msg (:message_id);
@@ -375,3 +375,9 @@ ad_proc -public forum::message::initial_message {
         set init_msg(parent_id) ""
     }
 }
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

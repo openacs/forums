@@ -8,10 +8,16 @@ ad_page_contract {
 
 } {
     message_id:naturalnum,notnull
-    {return_url "../message-view"}
+    {return_url:localurl "../message-view"}
 }
 
 forum::message::get -message_id $message_id -array message
 forum::get -forum_id $message(forum_id) -array forum
 
 ad_return_template
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

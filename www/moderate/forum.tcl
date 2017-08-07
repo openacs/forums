@@ -17,3 +17,9 @@ forum::security::require_moderate_forum -forum_id $forum_id
 forum::get -forum_id $forum_id -array forum
 
 ad_return_template
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

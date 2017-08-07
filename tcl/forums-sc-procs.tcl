@@ -181,3 +181,9 @@ ad_proc -private forum::sc::register_message_fts_impl {} {
     acs_sc::impl::new_from_spec -spec $spec
 }
 
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

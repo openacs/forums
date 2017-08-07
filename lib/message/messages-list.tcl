@@ -10,3 +10,9 @@ db_multirow -extend {link} messages messages {
         set posted [lc_time_fmt $posted "%x %X"]
         set link "message-view?message_id=$message_id"
 }
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

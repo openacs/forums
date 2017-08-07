@@ -37,3 +37,9 @@ set message(content) [ad_html_text_convert -from $message(format) -to text/html 
 # convert emoticons to images if the parameter is set
 if { [string is true [parameter::get -parameter DisplayEmoticonsAsImagesP -default 0]] } {
     set message(content) [forum::format::emoticons -content $message(content)]}
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

@@ -1,5 +1,5 @@
 <p>
-  #forums.Users_that_wrote_in_the_forum# <b>@name@</b>
+  #forums.Users_that_wrote_in_the_forum# <strong>@name@</strong>
 </p>
 
 

@@ -30,10 +30,13 @@ set table_bgcolor [parameter::get -parameter table_bgcolor]
 set edit_buttons [list [list [_ forums.Post] post] \
                       [list [_ forums.Preview] preview]]
 
+# maybe we could get this value from information_schema...
+set max_subject_chars 200
+
 set form_elements {
     {message_id:key}
     {subject:text(text)
-        {html {size 60}}
+        {html {maxlength $max_subject_chars size 60}}        
         {label "[_ forums.Subject]"}
     }
     {message_body:richtext(richtext) 
@@ -51,7 +54,7 @@ set form_elements {
 }
 
 # Deal with anonymous postings
-if {[expr {$user_id != 0 && $anonymous_allowed_p}]} {
+if {$user_id != 0 && $anonymous_allowed_p} {
     append form_elements {
         {anonymous_p:integer(checkbox),optional
             {options {{"[_ forums.post_anonymously]" 1}}}
@@ -105,6 +108,15 @@ ad_form -html {enctype multipart/form-data} \
         ##############################
         # Form processing
         #
+
+        # UI should prevent this from triggering, but we check anyway
+        if {[string length $subject] > $max_subject_chars} {
+            set name          [_ forums.Subject]
+            set max_length    $max_subject_chars
+            set actual_length [string length $subject]
+            template::form::set_error message subject [_ acs-tcl.lt_name_is_too_long__Ple]
+            break
+        }
         
         if { $anonymous_p eq "" } { set anonymous_p 0 }
         
@@ -178,6 +190,14 @@ ad_form -html {enctype multipart/form-data} \
                 set db_antwort [db_exec_plsql forums_reading_info__remove_msg {}]
             }
 
+            set permissions(moderate_p) [forum::security::can_moderate_message_p -message_id $message_id]
+
+            db_transaction {
+                if { $permissions(moderate_p) } {
+                    forum::message::set_state -message_id $message_id -state "approved"
+                }
+            }
+
             # VGUERRA Redirecting to the first message ALWAYS
             forum::message::get -message_id $message_id -array msg
             set redirect_url "[ad_conn package_url]message-view?message_id=$msg(root_message_id)" 
@@ -202,20 +222,18 @@ ad_form -html {enctype multipart/form-data} \
             }
             
             # Do the redirection
-            forum::get -forum_id $forum_id -array forum
-            if { $forum(posting_policy) ne "moderated" } {
-                ad_returnredirect $redirect_url
-            } else {
-                # if the forum is moderated, give some feedback to the user
-                # to inform that the message has been sent and is pending
-                set permissions(moderate_p) [forum::security::can_moderate_message_p -message_id $message_id]
-                if { $permissions(moderate_p) } {
-                    set feedback_msg [_ forums.Message_awaiting_your_approval]
-                } else {
+            if { !$permissions(moderate_p) } {
+                forum::get -forum_id $forum_id -array forum
+                if { $forum(posting_policy) eq "moderated" } {
+                    # if the forum is moderated, give some feedback to the user
+                    # to inform that the message has been sent and is pending                    
                     set feedback_msg [_ forums.Message_sent_to_moderator]
+                    ad_returnredirect -message $feedback_msg -- $redirect_url
+                    ad_script_abort
                 }
-                ad_returnredirect -message $feedback_msg -- $redirect_url
             }
+
+            ad_returnredirect $redirect_url
             ad_script_abort
         }
     }
@@ -224,3 +242,9 @@ ad_form -html {enctype multipart/form-data} \
 if {([info exists alt_template] && $alt_template ne "")} {
     ad_return_template $alt_template
 }
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

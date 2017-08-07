@@ -13,3 +13,12 @@ if {$dynamicmode} {
     set message(content) {}
 }
 
+template::add_body_handler -event "load" -script [subst {
+    copyContent('$cid','$dynamicmode');
+}]
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

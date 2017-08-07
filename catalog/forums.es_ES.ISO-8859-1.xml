@@ -17,7 +17,7 @@
   <msg key="Available_Forums">Foros disponibles</msg>
   <msg key="Available_Messages">Mensajes disponibles</msg>
   <msg key="Back_to_thread_label">Regresar a %forum.name%</msg>
-  <msg key="Back_to_thread_link">&lt;a href=&quot;%thread_url%&quot;&gt;Volver&lt;/a&gt; a %forum.name%</msg>
+  <msg key="Back_to_thread_link">&lt;a href=&#34;%thread_url%&#34;&gt;Volver&lt;/a&gt; a %forum.name%</msg>
   <msg key="Body">Cuerpo del mensaje</msg>
   <msg key="by_Date">Por fecha</msg>
   <msg key="by_Forum">por foro</msg>
@@ -58,7 +58,7 @@
   <msg key="expand_message">Expandir mensaje</msg>
   <msg key="First_Post">Primer mensaje</msg>
   <msg key="Flat">Sin hilos</msg>
-  <msg key="flat">Plano</msg>
+  <msg key="flat">sin hilos</msg>
   <msg key="Format">Formato</msg>
   <msg key="Forum">Foro de discusión</msg>
   <msg key="Forum_1">Foro de discusión:</msg>
@@ -73,10 +73,11 @@
   <msg key="Forums_Posting_hist_lt">Foros de Discusión: Historia de mensajes de</msg>
   <msg key="forward">Reenviar</msg>
   <msg key="Fwd">Re-enviar:</msg>
+  <msg key="go_to_forum">Ir al foro:</msg>
   <msg key="goto_thread_subject">Ir al hilo %messages.subject%</msg>
-  <msg key="help_new_threads">Si se activa &quot;No&quot;, los usuarios sólo pueden responder a mensajes existentes, no pueden crear hilos nuevos.</msg>
-  <msg key="help_posting_policy">&quot;Abierta&quot; permite a cualquier usuario publicar mensajes y que aprezcan inmediatamente, &quot;moderada&quot; significa que los mensajes deben ser aprobados por un moderador antes de que otros los puedan ver y &quot;cerrada&quot; quiere decir que sólo los administradores pueden poner mensajes.</msg>
-  <msg key="help_presentation">&quot;Sin hilos&quot; sólo permite respuestas al final del hilo sin anidamiento ni hebras, &quot;Con hilos&quot; permite que se pueda responder a cualquier mensaje en el hilo y la respuesta será indentada bajo el mensaje al que pertenece la respuesta.</msg>
+  <msg key="help_new_threads">Si se activa &#34;No&#34;, los usuarios sólo pueden responder a mensajes existentes, no pueden crear hilos nuevos.</msg>
+  <msg key="help_posting_policy">&#34;Abierta&#34; permite a cualquier usuario publicar mensajes y que aprezcan inmediatamente, &#34;moderada&#34; significa que los mensajes deben ser aprobados por un moderador antes de que otros los puedan ver y &#34;cerrada&#34; quiere decir que sólo los administradores pueden poner mensajes.</msg>
+  <msg key="help_presentation">&#34;Sin hilos&#34; sólo permite respuestas al final del hilo sin anidamiento ni hebras, &#34;Con hilos&#34; permite que se pueda responder a cualquier mensaje en el hilo y la respuesta será indentada bajo el mensaje al que pertenece la respuesta.</msg>
   <msg key="html">html</msg>
   <msg key="If_checked_create_users">Si se selecciona, se crearán usuarios que no existen. </msg>
   <msg key="in_this_forum_your_screename_is_used">En este foro, su screenname será usado en lugar de su nombre completo:</msg>
@@ -105,6 +106,7 @@
   <msg key="Message_awaiting_your_approval">El mensaje está en espera de aprobación</msg>
   <msg key="Message_content_witheld">El contenido del mensaje ha sido ocultado por razones de seguridad.</msg>
   <msg key="Message_ID">Mensaje ID</msg>
+  <msg key="message_moved">Mensaje movido</msg>
   <msg key="Message_sent_to_moderator">Su message ha sido enviado al moderador para su aprobación</msg>
   <msg key="Message_Subject">Título</msg>
   <msg key="Moderate">Moderar</msg>
@@ -198,6 +200,7 @@
   <msg key="User">Usuario</msg>
   <msg key="Users_that_wrote_in_the_forum">Usuarios que escribieron en el foro</msg>
   <msg key="View">Ver</msg>
+  <msg key="view_message">Ver mensaje:</msg>
   <msg key="with_indentation_of_replies">Con indentación de las respuestas</msg>
   <msg key="Yes">Sí</msg>
   <msg key="You_can">Puede</msg>

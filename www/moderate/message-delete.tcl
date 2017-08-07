@@ -8,7 +8,7 @@ ad_page_contract {
 
 } {
     message_id:naturalnum,notnull
-    {return_url "../message-view"}
+    {return_url:localurl "../message-view"}
     {confirm_p:boolean 0}
 }
 
@@ -26,3 +26,9 @@ template::head::add_css -href /resources/forums/forums.css -media all -lang $lan
 template::head::add_script -type "text/javascript" -src "/resources/forums/forums.js"
 
 ad_return_template
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

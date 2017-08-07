@@ -2,7 +2,7 @@
 <property name="doc(title)">#forums.Forums#</property>
 <property name="context">@context;literal@</property>
 
-<if @searchbox_p@ true>
+<if @searchbox_p;literal@ true>
   <include src="/packages/forums/lib/search/search-form">
 </if>
 

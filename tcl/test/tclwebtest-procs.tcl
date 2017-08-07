@@ -38,7 +38,7 @@ namespace eval forums::twt {
 	    if { [catch {tclwebtest::link find $name} testerror1] ||[catch {tclwebtest::assert text $charter} testerror2 ]  } {
 		aa_error "The forum $name was not created. The forum name or the charter was not founded in the admin page of forums"
 	    } else { 
-		aa_log "The forum $name was succesfully created"
+		aa_log "The forum $name was successfully created"
 		set response 1
 	    }
 
@@ -83,7 +83,7 @@ namespace eval forums::twt {
 	    if { [catch {tclwebtest::link find "Edited $name"} testerror1] ||[catch {tclwebtest::assert text "$charter"} testerror2 ]  } { 
 		aa_error "The forum $name was not Edited. The forum name or the charter was not founded in the admin page of forums" 
 	    } else {  
-		aa_log "The forum $name was succesfully edited, new name Edited $name"
+		aa_log "The forum $name was successfully edited, new name Edited $name"
 		set response 1 
 	    } 
 	
@@ -131,7 +131,7 @@ namespace eval forums::twt {
 	    if { [catch {tclwebtest::assert text "$msgb"} testerror2 ]  } {  
 		aa_error "The body of the message was not correctly posted"  
 	    } else {   
-		aa_log "The message was succesfully posted"
+		aa_log "The message was successfully posted"
 		set response 1
 	    }        
 	
@@ -180,7 +180,7 @@ namespace eval forums::twt {
 	    if { [catch {tclwebtest::assert text "$msgb2"} testerror2 ]  } {  
 		aa_error "The body of the message was not correctly edited"  
 	    } else {   
-		aa_log "The message $subject of the forum $name was succesfully edited"  
+		aa_log "The message $subject of the forum $name was successfully edited"  
 		set response 1
 	    }  
 	
@@ -210,7 +210,7 @@ namespace eval forums::twt {
 	if {[string first "forum-view" $response_url]!=-1 && [string first $forum_admin_page $response_url]!=-1 } {
 	    
 	    if {[catch {tclwebtest::link follow "Edited $subject"}]} { 
-		aa_log "The message $subject was succesfully deleted in the forum $name" 
+		aa_log "The message $subject was successfully deleted in the forum $name" 
 		set  response 1
 	    } else {
 		aa_error "The message $subject of the forum $name was not deleted"
@@ -259,7 +259,7 @@ namespace eval forums::twt {
 	    if { [catch {tclwebtest::assert text "$msgb_reply"} testerror2 ]  } {   
 		aa_error "The body of the replyed message was not correctly posted"   
 	    } else {    
-		aa_log "The reply message to $subject of the forum $name was succesfully posted"   
+		aa_log "The reply message to $subject of the forum $name was successfully posted"   
 		set response 1
 	    }
 
@@ -271,3 +271,8 @@ namespace eval forums::twt {
     }
 
 }
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

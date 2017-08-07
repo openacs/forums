@@ -9,6 +9,14 @@ ad_page_contract {
 } {
     message_id:naturalnum,notnull
     {display_mode:word ""}
+} -validate {
+    valid_message_id -requires {message_id:naturalnum} {
+        # Load up the message information
+        forum::message::get -message_id $message_id -array message
+        if {![array exists message]} {
+            ad_complain "Invalid message_id"
+        }
+    }
 }
 
 #######################
@@ -17,12 +25,6 @@ ad_page_contract {
 #
 #######################
 
-# Load up the message information
-forum::message::get -message_id $message_id -array message
-if {![array exists message]} {
-    ns_returnnotfound
-    ad_script_abort
-}
 
 # Load up the forum information
 forum::get -forum_id $message(forum_id) -array forum
@@ -72,14 +74,7 @@ set searchbox_p [parameter::get -parameter ForumsSearchBoxP -default 1]
 
 # If this is a top-level thread, we allow subscriptions here
 if { $message(parent_id) eq "" } {
-    set notification_chunk [notification::display::request_widget \
-        -type forums_message_notif \
-        -object_id $message(message_id) \
-        -pretty_name $message(subject) \
-        -url [ad_conn url]?message_id=$message(message_id) \
-    ]
-} else {
-    set notification_chunk ""
+    set message_url [export_vars -base [ad_conn url] {message_id $message(message_id)}]
 }
 
 if { [forum::use_ReadingInfo_p] && $message(state) eq "approved" } {
@@ -120,4 +115,10 @@ template::head::add_script -type "text/javascript" -script [subst {
 # js scripts
 template::head::add_script -type "text/javascript" -src "/resources/forums/forums.js" -order 2
 
-set page_title [_ forums.Thread_title]
+set doc(title) [_ forums.Thread_title]
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

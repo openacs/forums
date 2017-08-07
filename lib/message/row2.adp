@@ -3,11 +3,11 @@
             
  <if @preview@ nil>
     <div class="action-list" style="float: right; text-decoration: none; background-color: #f0f0f0; ">
-    <div id= "actions@message.message_id@">
+    <div id="actions@message.message_id@">
     <ul>
        <li><a href="message-post?parent_id=@message.message_id@" title="#forums.reply#" class="button">#forums.reply#</a></li>
       <li><a href="message-email?message_id=@message.message_id@" title="#forums.forward#" class="button">#forums.forward#</a></li>
-      <if @moderate_p@>
+      <if @moderate_p;literal@ true>
         <li><a href="moderate/message-edit?message_id=@message.message_id@" class="button">#forums.Edit#</a></li>
         <li><a href="moderate/message-delete?message_id=@message.message_id@" class="button">#forums.delete#</a></li>	
 	<if @message.parent_id@ nil>
@@ -17,7 +17,7 @@
 	<else>
 	  <li><a href="moderate/message-move?message_id=@message.message_id@" class="button">#forums.Move_to_other_thread#</a></li>
 	</else>
-        <if @forum_moderated_p@>
+        <if @forum_moderated_p;literal@ true>
           <if @message.state@ ne approved>
             <li><a href="moderate/message-approve?message_id=@message.message_id@" class="button">#forums.approve#</a></li>
           </if>
@@ -31,23 +31,21 @@
     </div>
  </if>
 
-
-
  <div class="details">
  <div style="float: left; background-color:#f0f0f0;">  
-	<a  id="toggle@message.message_id@" href="#"  onclick="dynamicExpand('@message.message_id@');return false;"><img src="/resources/forums/Collapse16.gif" width="16" height="16" alt="+"></a>       
+	<a id="toggle@message.message_id@" href="#"><img src="/resources/forums/Collapse16.gif" width="16" height="16" alt="+"></a>       
         <if @total_number_messages@ le @max_number_messages@>
-          <a href="#" title="#forums.Expand_only_direct_reply_of_message#" onclick="expandChilds('@message.message_id@','@children_direct_list@'); return false;"><img src="/resources/forums/expand.png"  width="20" height="20" alt="#forums.Expand_only_direct_reply_of_message#" style="border:0"></a>          	
-          <a href="#" title="Expand all messages" onclick="expandChilds('@message.message_id@','@children_string@'); return false;"><img  src="/resources/forums/ExpandAll16.gif" width="15" height="15" alt="#forums.Expand_all_messages#"  style="border:0"></a>   
-    	  <a href="#" title="Collapse all messages" onclick="collapseChilds('@message.message_id@','@children_string@'); return false;"><img  src="/resources/forums/CollapseAll16.gif" width="15" height="15" alt="#forums.Collapse_all_messages#" style="border:0"></a> 
+          <a id="expand-direct-@message.message_id@" href="#" title="#forums.Expand_only_direct_reply_of_message#"><img src="/resources/forums/expand.png"  width="20" height="20" alt="#forums.Expand_only_direct_reply_of_message#" style="border:0;"></a>
+          <a id="expand-all-@message.message_id@" href="#" title="Expand all messages"><img src="/resources/forums/ExpandAll16.gif" width="15" height="15" alt="#forums.Expand_all_messages#"  style="border:0;"></a>
+    	  <a id="collapse-all-@message.message_id@" href="#" title="Collapse all messages"><img src="/resources/forums/CollapseAll16.gif" width="15" height="15" alt="#forums.Collapse_all_messages#" style="border:0;"></a>
    	</if>
- </div>   
+ </div>
   
 
-<div id= subject@message.message_id@ style="display:inline">
-  <if @display_subject_p@ true>    
-    <if @preview@ nil>   
-        <div class="subject" >  
+<div id="subject@message.message_id@" style="display:inline">
+  <if @display_subject_p;literal@ true>
+    <if @preview@ nil>
+        <div class="subject">
         &nbsp;
         <a href="@message.direct_url@" title="Direct link to this post" class="reference">@message.number@</a>:
         <a href="message-view?message_id=@message.message_id@" title="Link to this post on a separate page" class="alone">@message.subject@</a>
@@ -69,8 +67,8 @@
 
 
 <div class="join">
-<div id ="join@message.message_id@" style="display:none;">
-    <if @display_subject_p@ true>
+<div id="join@message.message_id@" style="display:none;">
+    <if @display_subject_p;literal@ true>
        <if @preview@ nil>
            &nbsp;
            <a href="@message.direct_url@" title="Direct link to this post" class="reference">@message.number@</a>:
@@ -94,7 +92,7 @@
 
  <div class="content">
  <div id="content@message.message_id@">
-   <if @is_direct_child@ eq 1>
+   <if @is_direct_child;literal@ true>
       @message.content;noquote@
       <if @message.n_attachments@ not nil and @message.n_attachments@ gt 0>
          <div class="attachments">
@@ -107,15 +105,4 @@
  </div>
 </div>
 
-<!-------------- For IE  --------------->
-
- <if @rownum@ eq 0>
-     <SCRIPT FOR="window" EVENT="onload" LANGUAGE="JScript">
-          showExpandedOnLoad('@message.message_id@','@children_direct_list@','@children_string@');
-     </SCRIPT>
- </if>
- 
-
- <!--------------For other browsers --------------->
-      <body onload="showExpandedOnLoad('@message.message_id@','@children_direct_list@','@children_string@')">
      

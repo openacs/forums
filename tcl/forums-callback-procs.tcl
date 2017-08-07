@@ -15,12 +15,14 @@ ad_proc -public -callback navigation::package_admin -impl forums {} {
 
     # Check for admin on the package...
     if {[permission::permission_p -object_id $package_id -privilege admin -party_id $user_id]} {
-        lappend actions [list LINK admin/ [_ acs-kernel.common_Administration] {} [_ forums.Admin_for_all]]
-
-        lappend actions [list LINK \
-                             [export_vars -base admin/permissions {{object_id $package_id}}] \
-                             [_ acs-kernel.common_Permissions] {} [_ forums.Permissions_for_all]]
-        lappend  actions [list LINK admin/forum-new [_ forums.Create_a_New_Forum] {} {}]
+        lappend actions \
+            [list LINK \
+                 admin/ \
+                 [_ acs-kernel.common_Administration] {} [_ forums.Admin_for_all]] \
+            [list LINK \
+                 [export_vars -base admin/permissions {{object_id $package_id}}] \
+                 [_ acs-kernel.common_Permissions] {} [_ forums.Permissions_for_all]] \
+            [list LINK admin/forum-new [_ forums.Create_a_New_Forum] {} {}]
     }
 
     # check for admin on the individual forums.
@@ -28,17 +30,18 @@ ad_proc -public -callback navigation::package_admin -impl forums {} {
         select forum_id, name, enabled_p
         from forums_forums
         where package_id = :package_id
-        and exists (select 1 from acs_object_party_privilege_map pm
-                    where pm.object_id = forum_id
-                    and pm.party_id = :user_id
-                    and pm.privilege = 'admin')
     } {
-        lappend actions [list SECTION "Forum $name ([ad_decode $enabled_p t [_ forums.enabled] [_ forums.disabled]])" {}]
+        if {[permission::permission_p -object_id $forum_id -privilege admin -party_id $user_id]} {
 
-        lappend actions [list LINK [export_vars -base admin/forum-edit forum_id] \
-                             [_ forums.Edit_forum_name] {} {}]
-        lappend actions [list LINK [export_vars -base admin/permissions {{object_id $forum_id} return_url}] \
-                             [_ forums.Permission_forum_name] {} {}]
+            lappend actions \
+                [list SECTION "Forum $name ([ad_decode $enabled_p t [_ forums.enabled] [_ forums.disabled]])" {}] \
+                [list LINK \
+                     [export_vars -base admin/forum-edit forum_id] \
+                     [_ forums.Edit_forum_name] {} {}] \
+                [list LINK \
+                     [export_vars -base admin/permissions {{object_id $forum_id} return_url}] \
+                     [_ forums.Permission_forum_name] {} {}]
+        }
     }
     return $actions
 }
@@ -318,11 +321,11 @@ ad_proc -callback merge::MergeShowUserInfo -impl forums {
     ns_log Notice $msg
     set result [list $msg]
     
-    set last_poster [db_list_of_lists sel_poster {*SQL*} ]
+    set last_poster [db_list_of_lists sel_poster {} ]
     set msg "Last Poster of $last_poster"
     lappend result $msg
 
-    set poster [db_list_of_lists sel_user_id {*SQL*} ]
+    set poster [db_list_of_lists sel_user_id {} ]
     set msg "Poster of $poster"
     lappend result $msg
 
@@ -343,8 +346,8 @@ ad_proc -callback merge::MergePackageUser -impl forums {
     ns_log Notice $msg
     set result [list $msg]
     
-    db_dml upd_poster { *SQL* }
-    db_dml upd_user_id { *SQL* }
+    db_dml upd_poster {}
+    db_dml upd_user_id {}
 
     lappend result "Merge of forums is done"
 
@@ -417,3 +420,9 @@ ad_proc -callback application-track::getSpecificInfo -impl forums {} {
 
         return "OK"
     }
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

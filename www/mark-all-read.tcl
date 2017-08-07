@@ -14,3 +14,9 @@ ad_page_contract {
 
 
 ad_returnredirect forum-view?forum_id=$forum_id
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

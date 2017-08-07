@@ -8,8 +8,14 @@ ad_page_contract {
 
 } {
     user_id:naturalnum,notnull
-    {view "date"}
+    {view:word "date"}
     {groupby "forum_name"}
+} -validate {
+    valid_user -requires user_id {
+        if {$user_id == 0 || ![person::person_p -party_id $user_id]} {
+            ad_complain "Invalid user_id"
+        }
+    }
 }
 
 # Get user information
@@ -18,3 +24,9 @@ acs_user::get -user_id $user_id -array user
 set context [list [_ forums.Posting_History]]
 
 ad_return_template
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

@@ -14,3 +14,9 @@ db_1row get_forum_name "select name from forums_forums where forum_id= :forum_id
 set context [list [_ forums.Forums_History]]
 
 ad_return_template
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:
