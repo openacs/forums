@@ -33,7 +33,7 @@ template::list::create \
             label "Enabled"
             html { align center }
             display_template {
-                <if @forums.enabled_p@ true>
+                <if @forums.enabled_p;literal@ true>
                   <a href="@forums.disable_url@" title="Disable forum @forums.name@"><img src="/resources/acs-subsite/checkboxchecked.gif" height="13" width="13" style="background-color: white;" alt="\#forums.disable\#"></a>
                 </if>
                 <else>

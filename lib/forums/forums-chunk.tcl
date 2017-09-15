@@ -53,11 +53,11 @@ template::list::create \
                   </if>
                 </if>
                 <else>
-                  <if @forums.new_p@ and @forums.n_threads@ gt 0>
+                  <if @forums.new_p;literal@ true> and @forums.n_threads@ gt 0>
                     <strong>
                   </if>
                   @forums.name@
-                  <if @forums.new_p@ and @forums.n_threads@ gt 0>
+                  <if @forums.new_p;literal@ true> and @forums.n_threads@ gt 0>
                     </strong>
                   </if>
                 </else>

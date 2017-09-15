@@ -82,13 +82,13 @@ template::list::create \
                 <h2 class="forum-heading">
 		<a href="@messages.message_url@" title="#forums.goto_thread_subject#">
                   <if @useReadingInfo@>
-                   <if @messages.unread_p@>
+                   <if @messages.unread_p;literal@ true>
                     <b>@messages.subject@</b>
                    </if>
                    <else>@messages.subject@</else>
                   </if>
                   <else>
-                   <if @messages.new_p@>
+                   <if @messages.new_p;literal@ true>
                     <b>@messages.subject@</b>
                    </if>
                    <else>@messages.subject@</else>
