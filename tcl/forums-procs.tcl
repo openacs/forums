@@ -85,8 +85,16 @@ ad_proc -public forum::get {
 } {
     # Select the info into the upvar'ed Tcl Array
     upvar $array row
-    if {![db_0or1row select_forum {} -column_array row]} {
-        error "Forum $forum_id not found" {} NOT_FOUND
+
+    set global_varname ::forum_${forum_id}
+
+    if {[info exists $global_varname]} {
+        array set row [array get $global_varname]
+    } else {
+        if {![db_0or1row select_forum {} -column_array row]} {
+            error "Forum $forum_id not found" {} NOT_FOUND
+        }
+        array set $global_varname [array get row]
     }
 }
 
