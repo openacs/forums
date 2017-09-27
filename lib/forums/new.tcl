@@ -36,9 +36,6 @@ if {[form is_valid forum]} {
         -package_id $package_id \
     ]
 
-    forum::posting_policy_set -posting_policy $posting_policy \
-        -forum_id $forum_id
-    
     # Users can create new threads?
     if { $new_threads_p && $posting_policy ne "closed" } {
         forum::new_questions_allow -forum_id $forum_id

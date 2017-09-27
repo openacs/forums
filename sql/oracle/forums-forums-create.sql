@@ -58,6 +58,12 @@ create table forums_forums (
                                     not null
                                     constraint forums_enabled_p_ck
                                     check (enabled_p in ('t','f')),
+    new_questions_allowed_p         char(1)
+                                    default 't'
+                                    constraint forums_new_questions_allowed_p_nn
+                                    not null
+                                    constraint forums_new_questions_allowed_p_ck
+                                    check (enabled_p in ('t','f')),
     package_id                      integer
                                     constraint forums_package_id_nn
                                     not null,

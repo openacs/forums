@@ -190,7 +190,7 @@ ad_form -html {enctype multipart/form-data} \
                 set db_antwort [db_exec_plsql forums_reading_info__remove_msg {}]
             }
 
-            set permissions(moderate_p) [forum::security::can_moderate_message_p -message_id $message_id]
+            set permissions(moderate_p) [forum::security::can_moderate_forum_p -forum_id $forum_id]
 
             db_transaction {
                 if { $permissions(moderate_p) } {

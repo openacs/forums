@@ -21,7 +21,7 @@ ad_proc -public forum::new {
     -no_callback:boolean
 } {
     create a new forum
-} {
+} {    
     set var_list [list \
         [list forum_id $forum_id] \
         [list name $name] \
@@ -90,64 +90,65 @@ ad_proc -public forum::get {
     }
 }
 
-ad_proc -public forum::posting_policy_set {
+ad_proc -deprecated -public forum::posting_policy_set {
     {-posting_policy:required}
     {-forum_id:required}
 } { 
-    # JCD: this is potentially bad since we are 
-    # just assuming registered_users is the 
-    # right group to be granting write to.
+    # # JCD: this is potentially bad since we are 
+    # # just assuming registered_users is the 
+    # # right group to be granting write to.
 
-    if {"closed" ne $posting_policy } { 
-        permission::grant -object_id $forum_id \
-            -party_id [acs_magic_object registered_users] \
-            -privilege write 
-    } else { 
-        permission::revoke -object_id $forum_id \
-            -party_id [acs_magic_object registered_users] \
-            -privilege write 
-    }
-
+    # if {"closed" ne $posting_policy } { 
+    #     permission::grant -object_id $forum_id \
+    #         -party_id [acs_magic_object registered_users] \
+    #         -privilege write 
+    # } else { 
+    #     permission::revoke -object_id $forum_id \
+    #         -party_id [acs_magic_object registered_users] \
+    #         -privilege write 
+    # }
 } 
 
 ad_proc -public forum::new_questions_allow {
     {-forum_id:required}
     {-party_id ""}
 } {
-    if { $party_id eq "" } {
-        set party_id [acs_magic_object registered_users]
+    if { $party_id ne "" } {
+        ad_log warning "Attribute party_id is deprecated and was ignored."
     }
-    # Give the public the right to ask new questions
-    permission::grant -object_id $forum_id \
-            -party_id $party_id \
-            -privilege create
-    util_memoize_flush_regexp  $forum_id
+    
+    db_dml query {
+        update forums_forums set
+        new_questions_allowed_p = true
+        where forum_id = :forum_id
+    }
 }
 
 ad_proc -public forum::new_questions_deny {
     {-forum_id:required}
     {-party_id ""}
 } {
-    if { $party_id eq "" } {
-        set party_id [acs_magic_object registered_users]
+    if { $party_id ne "" } {
+        ad_log warning "Attribute party_id is deprecated and was ignored."
     }
-    # Revoke the right from the public to ask new questions
-    permission::revoke -object_id $forum_id \
-            -party_id $party_id \
-            -privilege create
-    util_memoize_flush_regexp  $forum_id
+    
+    db_dml query {
+        update forums_forums set
+        new_questions_allowed_p = false
+        where forum_id = :forum_id
+    }
 }
 
 ad_proc -public forum::new_questions_allowed_p {
     {-forum_id:required}
     {-party_id ""}
 } {
-    if { $party_id eq "" } {
-        set party_id [acs_magic_object registered_users]
+    if { $party_id ne "" } {
+        ad_log warning "Attribute party_id is deprecated and was ignored."
     }
-    permission::permission_p -object_id $forum_id \
-            -party_id $party_id \
-            -privilege create
+
+    forum::get -forum_id $forum_id -array forum    
+    return $forum(new_questions_allowed_p)
 }
 
 ad_proc -public forum::enable {

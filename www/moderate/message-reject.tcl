@@ -12,7 +12,8 @@ ad_page_contract {
 }
 
 # Check that the user can moderate the forum
-forum::security::require_moderate_message -message_id $message_id
+forum::message::get -message_id $message_id -array message
+forum::security::require_moderate_forum -forum_id $message(forum_id)
 
 # Reject the message
 forum::message::reject -message_id $message_id

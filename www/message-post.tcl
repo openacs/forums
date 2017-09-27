@@ -48,13 +48,17 @@ if {$parent_id eq ""} {
     forum::security::require_post_forum -forum_id $forum_id
 
     forum::get -forum_id $forum_id -array forum
+    # check if we can post new threads
+    if {!$forum(new_questions_allowed_p)} {
+        forum::security::do_abort
+    }
 } else {
     # get the parent message information
     forum::message::get -message_id $parent_id -array parent_message
     set parent_message(tree_level) 0
 
     # see if they're allowed to add to this thread
-    forum::security::require_post_message -message_id $parent_id
+    forum::security::require_post_forum -forum_id $parent_message(forum_id)
 
     forum::get -forum_id $parent_message(forum_id) -array forum
 }
@@ -66,8 +70,8 @@ set anonymous_allowed_p [expr {($forum_id eq ""
                                 || [forum::security::can_post_forum_p \
                                         -forum_id $forum_id -user_id 0])
                                && ($parent_id eq ""
-                                   || [forum::security::can_post_message_p \
-                                           -message_id $parent_id -user_id 0])}]
+                                   || [forum::security::can_post_forum_p \
+                                           -forum_id $parent_message(forum_id) -user_id 0])}]
 
 set attachments_enabled_p [forum::attachments_enabled_p]
 

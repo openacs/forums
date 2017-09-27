@@ -36,16 +36,11 @@ set actions [list]
 
 # new postings are allowed if
 # 0. The user has post-permissions
-# 1. Users can create new threads AND the posting policy is open or
-# moderated 2. User is a moderator or adminsitrator
+# 1. Users can create new threads or user is a moderator or adminsitrator
 
 if {$permissions(post_p)} {
-  if {(
-       [forum::new_questions_allowed_p -forum_id $forum_id] 
-       && ($forum(posting_policy) eq "open" || $forum(posting_policy) eq "moderated")
-       )
-      || [template::util::is_true $permissions(admin_p)] 
-      || [template::util::is_true $permissions(moderate_p)]  
+    if {($permissions(moderate_p) ||
+         [forum::new_questions_allowed_p -forum_id $forum_id])
   } {
     lappend actions [_ forums.Post_a_New_Message] \
 	[export_vars -base "${base_url}message-post" { forum_id }] [_ forums.Post_a_New_Message]

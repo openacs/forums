@@ -28,9 +28,6 @@ if {[form is_valid forum]} {
             -presentation_type $presentation_type \
             -posting_policy $posting_policy
     
-    forum::posting_policy_set -posting_policy $posting_policy \
-        -forum_id $forum_id
-
     # Users can create new threads?
     if { $new_threads_p && $posting_policy ne "closed" } {
         forum::new_questions_allow -forum_id $forum_id
