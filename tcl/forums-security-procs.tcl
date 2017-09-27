@@ -140,7 +140,7 @@ namespace eval forum::security {
         {-message_id:required}
     } {
         forum::message::get -message_id $message_id -array message        
-        return [require_moderate_forum_p -forum_id $message(forum_id) -user_id $user_id]
+        return [require_moderate_forum -forum_id $message(forum_id) -user_id $user_id]
     }
 
     # admin == moderate!
