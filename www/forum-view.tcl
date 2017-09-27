@@ -33,11 +33,6 @@ if {$forum(enabled_p) != "t"} {
 forum::security::require_read_forum -forum_id $forum_id
 forum::security::permissions -forum_id $forum_id -- permissions
 
-#it is confusing to provide a moderate link for non-moderated forums.
-if { $forum(posting_policy) ne "moderated" } {
-    set permissions(moderate_p) 0
-}
-
 set admin_url [export_vars -base "admin/forum-edit" { forum_id {return_url [ad_return_url]}}]
 set moderate_url [export_vars -base "moderate/forum" { forum_id }]
 set post_url [export_vars -base "message-post" { forum_id }]
