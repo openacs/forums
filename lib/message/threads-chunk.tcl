@@ -170,7 +170,7 @@ db_multirow -extend {
     }
     set n_messages_pretty [lc_numeric $n_messages]
 
-    switch $state {
+    switch -- $state {
         pending {
             set state_pretty [_ forums.Pending]
         }
