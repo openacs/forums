@@ -43,6 +43,10 @@ namespace eval forum::security {
     } {
         if {[ad_conn user_id] == 0} {
             return false
+        } elseif {[can_moderate_forum_p \
+                       -forum_id $forum_id \
+                       -user_id  $user_id]} {
+            return true
         } else {
             forum::get -forum_id $forum_id -array forum
             return [expr {$forum(posting_policy) ne "closed"}]
