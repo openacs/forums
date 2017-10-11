@@ -45,12 +45,14 @@ set user_id [auth::refresh_login]
 if {$parent_id eq ""} {
     # no parent_id, therefore new thread
     # require thread creation privs
-    forum::security::require_post_forum -forum_id $forum_id
-
     forum::get -forum_id $forum_id -array forum
-    # check if we can post new threads
-    if {!$forum(new_questions_allowed_p)} {
-        forum::security::do_abort
+    
+    if {![forum::security::can_moderate_forum_p -forum_id $forum_id]} {
+        forum::security::require_post_forum -forum_id $forum_id
+        # check if we can post new threads
+        if {!$forum(new_questions_allowed_p)} {
+            forum::security::do_abort
+        }
     }
 } else {
     # get the parent message information
@@ -58,7 +60,9 @@ if {$parent_id eq ""} {
     set parent_message(tree_level) 0
 
     # see if they're allowed to add to this thread
-    forum::security::require_post_forum -forum_id $parent_message(forum_id)
+    if {![forum::security::can_moderate_forum_p -forum_id $forum_id]} {
+        forum::security::require_post_forum -forum_id $parent_message(forum_id)
+    }
 
     forum::get -forum_id $parent_message(forum_id) -array forum
 }
