@@ -43,7 +43,7 @@ template::list::create \
             label {\#forums.Forum_Name\#}
             link_url_col forum_view_url
             display_template {
-                <if @useReadingInfo@>
+                <if @useReadingInfo;literal@ true>
                   <if @forums.count_unread@ gt 0>
                     <strong>
                   </if>
@@ -71,7 +71,7 @@ template::list::create \
             label {\#forums.Threads\#}
             display_col n_threads_pretty
             display_template {
-                <if @useReadingInfo@>
+                <if @useReadingInfo;literal@ true>
                   <if  @forums.count_unread@ gt 0>
                     <strong>@forums.count_unread@ new</strong> of
                   </if>
