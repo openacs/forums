@@ -29,7 +29,7 @@ template::list::create \
 	name {
 	    label "\#forums.User\#"
 	    html {align left}
-            display_template {<if @useScreenNameP@ true>@screen_name@</if><else><a href="user-history?user_id=@persons.user_id@">@persons.first_names@ @persons.last_name@</a></else>}
+            display_template {<if @useScreenNameP;literal@ true>@screen_name@</if><else><a href="user-history?user_id=@persons.user_id@">@persons.first_names@ @persons.last_name@</a></else>}
 	}
 	num_msg {
 	    label "\#forums.Number_of_Posts\#"
