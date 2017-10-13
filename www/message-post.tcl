@@ -12,16 +12,16 @@ ad_page_contract {
 } -validate {
     forum_id_or_parent_id {
         if {$forum_id eq "" && $parent_id eq ""} {
-          ad_complain [_ forums.lt_You_either_have_to]
-        }
-        if {$forum_id ne "" && ![string is integer $forum_id]} {
-            ad_complain [_ acs-templating.Invalid_integer]
+            ad_complain [_ forums.lt_You_either_have_to]
         }
         if {$forum_id ne "" && ![forum::valid_forum_id_p -forum_id $forum_id]} {
             ad_complain [_ acs-templating.Invalid_integer]
         }
-        if {$parent_id ne "" && ![string is integer $parent_id]} {
-            ad_complain [_ acs-templating.Invalid_integer]
+        if {$parent_id ne ""} {
+            forum::message::get -message_id $parent_id -array parent_message
+            if {![info exists parent_message]} {
+                ad_complain [_ acs-templating.Invalid_integer]
+            }
         }
     }
 }
@@ -56,7 +56,6 @@ if {$parent_id eq ""} {
     }
 } else {
     # get the parent message information
-    forum::message::get -message_id $parent_id -array parent_message
     set parent_message(tree_level) 0
 
     # see if they're allowed to add to this thread
