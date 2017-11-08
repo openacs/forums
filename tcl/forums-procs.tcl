@@ -18,10 +18,12 @@ ad_proc -public forum::new {
     {-presentation_type flat}
     {-posting_policy open}
     {-package_id:required}
+    {-new_questions_allowed_p t}
+    {-anonymous_allowed_p f}
     -no_callback:boolean
 } {
     create a new forum
-} {    
+} {
     set var_list [list \
         [list forum_id $forum_id] \
         [list name $name] \
@@ -32,6 +34,13 @@ ad_proc -public forum::new {
 
     set forum_id [package_instantiate_object -var_list $var_list forums_forum]
 
+    db_dml update_extra_cols {
+        update forums_forums set
+           new_questions_allowed_p = :new_questions_allowed_p,
+           anonymous_allowed_p     = :anonymous_allowed_p
+        where forum_id = :forum_id
+    }
+
     if {!$no_callback_p} {
         callback forum::forum_new -package_id $package_id -forum_id $forum_id
     }
@@ -41,14 +50,25 @@ ad_proc -public forum::new {
 
 ad_proc -public forum::edit {
     {-forum_id:required}
-    {-name:required}
-    {-charter ""}
-    {-presentation_type flat}
-    {-posting_policy open}
+    -name
+    -charter
+    -presentation_type
+    -posting_policy
+    -new_questions_allowed_p
+    -anonymous_allowed_p
     -no_callback:boolean
 } {
-    edit a forum
+    Edit a forum
 } {
+    forum::get -forum_id $forum_id -array forum
+    foreach var {
+        name charter presentation_type posting_policy
+        new_questions_allowed_p anonymous_allowed_p} {
+        if {![info exists $var]} {
+            set $var $forum($var)
+        }
+    }
+    
     # This is a straight DB update
     db_dml update_forum {}
     db_dml update_forum_object {}

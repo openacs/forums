@@ -59,6 +59,9 @@ create table forums_forums (
     new_questions_allowed_p         boolean
                                     default true
                                     not null,
+    anonymous_allowed_p             boolean
+                                    default false
+                                    not null,                                    
     package_id                      integer
                                     constraint forums_package_id_nn
                                     not null,

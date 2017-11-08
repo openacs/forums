@@ -3,19 +3,23 @@
 
     <fullquery name="forum::edit.update_forum">
         <querytext>
-            update forums_forums
-            set name= :name,
-                charter= :charter,
-                presentation_type= :presentation_type,
-                posting_policy= :posting_policy
-            where forum_id = :forum_id
+          update forums_forums set
+             name                    = :name,
+             charter                 = :charter,
+             presentation_type       = :presentation_type,
+             posting_policy          = :posting_policy,
+             new_questions_allowed_p = :new_questions_allowed_p,
+             anonymous_allowed_p     = :anonymous_allowed_p
+          where forum_id = :forum_id
         </querytext>
     </fullquery>
 
     <fullquery name="forum::edit.update_forum_object">
         <querytext>
-            update acs_objects 
-            set title= :name
+          update acs_objects set
+             title          = :name,
+             last_modified  = current_timestamp,
+             modifying_user = [ad_conn user_id]
             where object_id = :forum_id
         </querytext>
     </fullquery>

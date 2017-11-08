@@ -41,16 +41,21 @@ namespace eval forum::security {
         {-user_id ""}
         {-forum_id:required}
     } {
-        if {[ad_conn user_id] == 0} {
-            return false
-        } elseif {[can_moderate_forum_p \
-                       -forum_id $forum_id \
-                       -user_id  $user_id]} {
+        set user_id [expr {$user_id eq "" ? [ad_conn user_id] : $user_id}]
+
+        # Moderators can always post
+        if {[can_moderate_forum_p \
+                 -forum_id $forum_id \
+                 -user_id  $user_id]} {
             return true
-        } else {
-            forum::get -forum_id $forum_id -array forum
-            return [expr {$forum(posting_policy) ne "closed"}]
         }
+        
+        forum::get -forum_id $forum_id -array forum
+
+        # Others can post if forum is not closed. The public can post
+        # only if anonymous posting is enabled.
+        return [expr {$forum(posting_policy) ne "closed" &&
+                      ($user_id != 0 || $forum(anonymous_allowed_p))}]
     }
 
     ad_proc -public require_post_forum {

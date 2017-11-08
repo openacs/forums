@@ -173,12 +173,18 @@ ad_proc -public forums::form::forum {
       -help_text [_ forums.help_posting_policy] \
       -options [list [list [_ forums.open] open] [list [_ forums.moderated] moderated] [list [_ forums.closed] closed] ]
 
+    template::element create $form_name ${prefix}anonymous_allowed_p \
+      -label [_ forums.post_anonymously] \
+      -datatype text \
+      -widget radio \
+      -options [list [list [_ forums.Yes] t] [list [_ forums.No] f] ]
+
     template::element create $form_name ${prefix}new_threads_p \
       -label [_ forums.lt_Users_Can_Create_New_] \
-      -datatype integer \
+      -datatype text \
       -widget radio \
       -help_text [_ forums.help_new_threads] \
-      -options [list [list [_ forums.Yes] 1] [list [_ forums.No] 0] ] 
+      -options [list [list [_ forums.Yes] t] [list [_ forums.No] f] ]
 }
 
 # Local variables:

@@ -63,7 +63,13 @@ create table forums_forums (
                                     constraint forums_new_questions_allowed_p_nn
                                     not null
                                     constraint forums_new_questions_allowed_p_ck
-                                    check (enabled_p in ('t','f')),
+                                    check (new_questions_allowed_p in ('t','f')),
+    anonymous_allowed_p             char(1)
+                                    default 'f'
+                                    constraint forums_anonymous_allowed_p_nn
+                                    not null
+                                    constraint forums_anonymous_allowed_p_ck
+                                    check (anonymous_allowed_p in ('t','f')),
     package_id                      integer
                                     constraint forums_package_id_nn
                                     not null,
