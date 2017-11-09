@@ -9,7 +9,9 @@ ad_page_contract {
 }
 
 set user_id [ad_conn user_id]
-set screen_name [db_string select_screen_name { select screen_name from users where user_id = :user_id}]
+acs_user::get -user_id $user_id -array user
+set screen_name $user(screen_name)
+
 set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
 set pvt_home [ad_pvt_home]
 
@@ -91,7 +93,6 @@ ad_form -html {enctype multipart/form-data} \
         ##############################
         # Form initialisation
         #
-        set message_id [db_nextval acs_object_id_seq]
         if {$parent_id eq ""} {
             set parent_id ""
         } else {
@@ -128,10 +129,7 @@ ad_form -html {enctype multipart/form-data} \
             set action preview
         }
 
-        set displayed_user_id [ad_decode \
-                                   [expr {$anonymous_allowed_p && $anonymous_p}] \
-                                   0 $user_id \
-                                   0]
+        set displayed_user_id [expr {$anonymous_allowed_p && $anonymous_p ? 0 : $user_id}]
 
         if {$action eq "preview"} {
             
@@ -147,18 +145,19 @@ ad_form -html {enctype multipart/form-data} \
             set message(subject) $subject
             set message(content) $content
             set message(user_id) $displayed_user_id
-            set message(user_name) [db_string select_name {}]
+            set message(user_name) $user(name)
             set message(screen_name) $screen_name
-            set message(posting_date_ansi) [db_string select_date {}]
+            set message(posting_date_ansi) [clock format [clock seconds] -format "%Y-%m-%d %H:%M:%S"]
             set message(posting_date_pretty) [lc_time_fmt $message(posting_date_ansi) "%x %X"]
             
             # Let's check if this person is subscribed to the forum
             # in case we might want to subscribe them to the thread
             if {$parent_id eq ""} {
-                if {![empty_string_p [notification::request::get_request_id \
-                                          -type_id [notification::type::get_type_id -short_name forums_forum_notif] \
-                                          -object_id $forum_id \
-                                          -user_id [ad_conn user_id]]]} {
+                if {[notification::request::get_request_id \
+                         -type_id [notification::type::get_type_id \
+                                       -short_name forums_forum_notif] \
+                         -object_id $forum_id \
+                         -user_id   $user_id] ne ""} {
                     set forum_notification_p 1
                 } else {
                     set forum_notification_p 0
@@ -239,7 +238,7 @@ ad_form -html {enctype multipart/form-data} \
     }
 
 
-if {([info exists alt_template] && $alt_template ne "")} {
+if {[info exists alt_template] && $alt_template ne ""} {
     ad_return_template $alt_template
 }
 
