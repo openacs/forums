@@ -1,13 +1,38 @@
+begin;
 
---
--- The Forums Package
---
--- @author David Arroyo Menéndez darroyo@innova.uned.es
--- @creation-date 2007-05-30
---
--- The Package for Reading Info
---
---
+-- As it comes out, forums has some embedded views counter
+-- feature. This is not used upstream, but it is in some local
+-- installations we know of. As on these table forums_reading_info can
+-- grow very large, there were reports of bad performances. This
+-- update has the goal to optimize and streamline current reading
+-- count implementation. During this, some inconsistency between
+-- oracle and postgres and duplication was found and addressed.
+
+-- data model
+
+drop table forums_reading_info_user;
+
+alter table forums_reading_info
+      add column forum_id integer
+                    constraint forum_read_forum_id_fk
+                    references forums_forums (forum_id)
+                    on delete cascade                    
+                    constraint forums_read_forum_id_nn
+                    not null;
+
+create index forums_reading_info_forum_forum_index on forums_reading_info (forum_id);
+
+-- this was a sort of materialized view, but consistency checks made
+-- code complicated. Redefined as a view
+create or replace view forums_reading_info_user as
+   select forum_id,
+          user_id,
+          count(*) as threads_read
+     from forums_reading_info
+    group by forum_id, user_id;
+
+
+-- functions
 
 create or replace package forum_reading_info
 as
@@ -156,3 +181,6 @@ as
 end forum_reading_info;
 /
 show errors
+
+
+end;

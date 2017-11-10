@@ -13,5 +13,5 @@
 -- Tables to reading information
 
 drop package forum_reading_info;
-drop table forums_reading_info_user;
+drop view forums_reading_info_user;
 drop table forums_reading_info;

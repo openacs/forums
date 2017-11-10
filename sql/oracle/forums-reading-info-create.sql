@@ -31,20 +31,13 @@ create table forums_reading_info (
 );
 create index forums_reading_info_user_index on forums_reading_info (user_id);
 create index forums_reading_info_forum_idx on forums_reading_info (root_message_id);
+create index forums_reading_info_forum_forum_index on forums_reading_info (forum_id);
 
-create table forums_reading_info_user (
-    forum_id        integer
-                    constraint forums_read_iu_forum_id_fk
-                    references forums_forums (forum_id) on delete cascade,
-    user_id         integer
-                    constraint forums_read_iu_user_id_fk
-                    references users(user_id) on delete cascade
-                    constraint forums_read_iu_user_id_nn
-                    not null,
-    threads_read    integer 
-                    default 0 
-                    not null,
-    constraint forums_reading_info_user_pk primary key (forum_id,user_id)  
-);
-
-
+-- this was a sort of materialized view, but consistency checks made
+-- code complicated. Redefined as a view
+create or replace view forums_reading_info_user as
+   select forum_id,
+          user_id,
+          count(*) as threads_read
+     from forums_reading_info
+    group by forum_id, user_id;

@@ -1,30 +1,30 @@
-create table forums_reading_info (
-    root_message_id integer
-                    constraint forum_read_parent_id_fk
-                    references forums_messages (message_id)
-                    on delete cascade,
-    user_id         integer
-                    constraint forums_read_user_id_fk
-                    references users(user_id)
-                    constraint forums_read_user_id_nn
-                    not null,
-    reading_date    timestamp
-                    default current_timestamp
-                    constraint forum_read_datetime_nn
-                    not null,
-    forum_id        integer
+begin;
+
+-- As it comes out, forums has some embedded views counter
+-- feature. This is not used upstream, but it is in some local
+-- installations we know of. As on these table forums_reading_info can
+-- grow very large, there were reports of bad performances. This
+-- update has the goal to optimize and streamline current reading
+-- count implementation. During this, some inconsistency between
+-- oracle and postgres and duplication was found and addressed.
+
+-- data model
+
+drop table forums_reading_info_user;
+
+alter table forums_reading_info
+      add column forum_id integer
                     constraint forum_read_forum_id_fk
                     references forums_forums (forum_id)
                     on delete cascade                    
                     constraint forums_read_forum_id_nn
-                    not null,
-    constraint forums_reading_info_pk primary key (root_message_id,user_id)
-);
+                    not null;
 
-create index forums_reading_info_user_index on forums_reading_info (user_id);
-create index forums_reading_info_forum_message_index on forums_reading_info (root_message_id);
 create index forums_reading_info_forum_forum_index on forums_reading_info (forum_id);
 
+
+-- this was a sort of materialized view, but consistency checks made
+-- code complicated. Redefined as a view
 create or replace view forums_reading_info_user as
    select forum_id,
           user_id,
@@ -33,10 +33,7 @@ create or replace view forums_reading_info_user as
     group by forum_id, user_id;
 
 
--- mark message as unread
-
--- added
-select define_function_args('forums_reading_info__remove_msg','message_id');
+-- functions
 
 --
 -- procedure forums_reading_info__remove_msg/1
@@ -53,11 +50,9 @@ END;
 $$ LANGUAGE plpgsql;
 
 
--- mark all messages in forum as read
-
--- added
-select define_function_args('forums_reading_info__user_add_forum','forum_id,user_id');
-
+--
+-- procedure forums_reading_info__user_add_forum/2
+--
 --
 -- procedure forums_reading_info__user_add_forum/2
 --
@@ -91,11 +86,6 @@ END;
 $$ LANGUAGE plpgsql;
 
 
--- mark single message as read by user
-
--- added
-select define_function_args('forums_reading_info__user_add_msg','root_message_id,user_id');
-
 --
 -- procedure forums_reading_info__user_add_msg/2
 --
@@ -125,6 +115,23 @@ BEGIN
     return 0;
 END;
 $$ LANGUAGE plpgsql;
+
+
+-- These functions were defined with a name not conformant with
+-- package notation used to mimick oracle. They resulted also
+-- redundant once we eliminated the forums_reading_info_users table
+
+drop function forums_message__move_update_reading_info(integer, integer, integer);
+delete from acs_function_args
+ where function = upper('forums_message__move_update_reading_info');
+
+delete from acs_function_args
+ where function = upper('forums_message__move_thread_update_reading_info');
+drop function forums_message__move_thread_update_reading_info(integer, integer, integer);
+
+drop function forums_message__move_thread_thread_update_reading_info(integer, integer, integer);
+delete from acs_function_args
+ where function = upper('forums_message__move_thread_thread_update_reading_info');
 
 
 -- move thread to other thread
@@ -159,3 +166,8 @@ END;
 $$ LANGUAGE plpgsql;
 
 
+drop function forums_message__repair_reading_info();
+delete from acs_function_args
+ where function = upper('forums_message__repair_reading_info');
+
+end;
