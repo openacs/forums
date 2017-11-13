@@ -37,17 +37,19 @@ if {$action eq "no"} {
 }
 
 #get the name of forum where the thread will be moved
-db_0or1row get_forum_name "select name from forums_forums where forum_id=:selected_forum"
+forums::get -forum_id $selected_forum -array forum
+set name $forum(name)
 
 # Confirmed
 if {$confirm_p == 1} {    
     
     set forum_id $selected_forum
     
-    #update the initial father message: update forum_id and tree_sortkey. If in final forum there is no any thread then tree_sortkey is 0,
-    #else tree_sortkey=tree_sortkey+1  
-    db_0or1row forums::move_message::select_num_msg {}
-    if {$num_post == 0 } {
+    # update the initial father message: update forum_id and
+    # tree_sortkey. If in final forum there is no any thread then
+    # tree_sortkey is 0, else tree_sortkey=tree_sortkey+1
+    set has_posts_p [db_0or1row forums::move_message::has_posts_p {}]
+    if {!$has_posts_p} {
         db_dml forums::move_message::update_msg {}
     } else {
         db_foreach forums::move_message::select_tree_sortkey {} {
@@ -65,13 +67,26 @@ if {$confirm_p == 1} {
         db_dml forums::move_message::update_children {}        
     }
         
-    #update final forum: increase thread_count, approved_thread_count and max_child_sortkey, update last_post
-    db_0or1row forums::move_message::select_new_data_forums_forums {}    
+    # update final forum: increase thread_count, approved_thread_count
+    # and max_child_sortkey, update last_post
+    forums::get -forum_id $forum_id -array forum
+    set max_child_sortkey     $forum(max_child_sortkey)
+    set thread_count          $forum(thread_count)
+    set approved_thread_count $forum(approved_thread_count)
     db_dml forums::move_message::update_forums_final {}
     
-    #update initial forum: decrease thread_count, approved_thread_count and max_child_sortkey, update last_post 
-    db_0or1row forums::move_message::select_data_forum_initial {}    
-    db_dml forums::move_message::update_forum_initial {}        
+    # update initial forum: decrease thread_count,
+    # approved_thread_count and max_child_sortkey, update last_post
+    forums::get -forum_id $message(forum_id) -array forum
+    set max_child_sortkey     $forum(max_child_sortkey)
+    set thread_count          $forum(thread_count)
+    set approved_thread_count $forum(approved_thread_count)
+    db_dml forums::move_message::update_forum_initial {}
+
+    if { [forum::use_ReadingInfo_p] } {
+        ns_log Notice "updating reading info $message_id"
+        db_dml forums::move_message::update_reading_info {}
+    }
         
     # Redirect to the forum
    

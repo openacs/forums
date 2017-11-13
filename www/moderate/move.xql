@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <queryset>
 
-<fullquery name="forums::move_message::select_num_msg">
+<fullquery name="forums::move_message::has_posts_p">
 <querytext>
-        select count(forum_id) as num_post
-        from forums_messages
-        where forum_id = :forum_id
+  select 1 where exists (
+     select 1 from forums_messages
+      where forum_id = :forum_id)
 </querytext>
 </fullquery>
 
@@ -35,22 +35,6 @@
 </querytext>
 </fullquery>
 
-<fullquery name="forums::move_message::select_new_data_forums_forums">
-<querytext>
-	select ff.max_child_sortkey, ff.thread_count, ff.approved_thread_count
-	from forums_forums ff
-	where ff.forum_id = :forum_id
-</querytext>
-</fullquery>
-
-<fullquery name="forums::move_message::select_data_forum_initial">
-<querytext>
-         select ff.max_child_sortkey, ff.thread_count, ff.approved_thread_count
-         from forums_forums ff
-         where ff.forum_id = $message(forum_id)	 
-</querytext>
-</fullquery>
-
 <fullquery name="forums::move_message::update_forum_initial">
 <querytext>
         update forums_forums
@@ -59,6 +43,16 @@
           where fm.forum_id = $message(forum_id))
 	where forum_id = $message(forum_id)
 </querytext>
+</fullquery>
+
+<fullquery name="forums::move_message::update_reading_info">
+  <querytext>
+    update forums_reading_info set
+       forum_id (select forum_id from forums_messages
+          where message_id = $message(message_id))
+     where root_message_id = $message(message_id)
+  </querytext>
 </fullquery>         
+
 
 </queryset>
