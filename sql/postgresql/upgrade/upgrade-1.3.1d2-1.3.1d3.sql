@@ -10,18 +10,23 @@ begin;
 
 -- data model
 
-drop table forums_reading_info_user;
+drop table if exists forums_reading_info_user;
 
 alter table forums_reading_info
       add column forum_id integer
                     constraint forum_read_forum_id_fk
                     references forums_forums (forum_id)
-                    on delete cascade                    
-                    constraint forums_read_forum_id_nn
-                    not null;
+                    on delete cascade;
+
+-- populate reference to forum in table
+update forums_reading_info i set forum_id = (
+       select forum_id
+         from forums_messages
+        where message_id = i.root_message_id);
 
 create index forums_reading_info_forum_forum_index on forums_reading_info (forum_id);
 
+alter table forums_reading_info alter column forum_id set not null;
 
 -- this was a sort of materialized view, but consistency checks made
 -- code complicated. Redefined as a view
