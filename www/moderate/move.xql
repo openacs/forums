@@ -48,7 +48,7 @@
 <fullquery name="forums::move_message::update_reading_info">
   <querytext>
     update forums_reading_info set
-       forum_id (select forum_id from forums_messages
+       forum_id = (select forum_id from forums_messages
           where message_id = $message(message_id))
      where root_message_id = $message(message_id)
   </querytext>
