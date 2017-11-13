@@ -37,7 +37,7 @@ if {$action eq "no"} {
 }
 
 #get the name of forum where the thread will be moved
-forums::get -forum_id $selected_forum -array forum
+forum::get -forum_id $selected_forum -array forum
 set name $forum(name)
 
 # Confirmed
@@ -69,7 +69,7 @@ if {$confirm_p == 1} {
         
     # update final forum: increase thread_count, approved_thread_count
     # and max_child_sortkey, update last_post
-    forums::get -forum_id $forum_id -array forum
+    forum::get -forum_id $forum_id -array forum
     set max_child_sortkey     $forum(max_child_sortkey)
     set thread_count          $forum(thread_count)
     set approved_thread_count $forum(approved_thread_count)
@@ -77,7 +77,7 @@ if {$confirm_p == 1} {
     
     # update initial forum: decrease thread_count,
     # approved_thread_count and max_child_sortkey, update last_post
-    forums::get -forum_id $message(forum_id) -array forum
+    forum::get -forum_id $message(forum_id) -array forum
     set max_child_sortkey     $forum(max_child_sortkey)
     set thread_count          $forum(thread_count)
     set approved_thread_count $forum(approved_thread_count)
