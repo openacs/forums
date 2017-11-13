@@ -1,13 +1,6 @@
+begin;
 
---
--- The Forums Package
---
--- @author David Arroyo Menéndez darroyo@innova.uned.es
--- @creation-date 2007-05-30
---
--- The Package for Reading Info
---
---
+-- functions
 
 create or replace package forum_reading_info
 as
@@ -128,7 +121,6 @@ as
 
         end user_add_msg;
 
-
 -- move message to other thread
 	procedure move_thread_update (
 		p_source_message_id in forums_messages.message_id%TYPE,
@@ -163,7 +155,9 @@ as
 
 	end move_thread_update;
 
-
 end forum_reading_info;
 /
 show errors
+
+
+end;

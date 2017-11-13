@@ -51,5 +51,13 @@
 	    where message_id = :message_id
         </querytext>
     </fullquery>
+
+    <fullquery name="forums::move_thread::update_reading_info">
+      <querytext>
+        select forums_reading_info__move_thread_update($message(message_id), :selected_message)
+      </querytext>
+    </fullquery>
+
+
     
 </queryset>
