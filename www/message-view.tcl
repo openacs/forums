@@ -59,7 +59,7 @@ if { $message(parent_id) eq "" } {
     set message_url [export_vars -base [ad_conn url] {message_id $message(message_id)}]
 }
 
-if { [string is true [forum::use_ReadingInfo_p]] && $message(state) eq "approved" } {
+if { [string is true -strict [forum::use_ReadingInfo_p]] && $message(state) eq "approved" } {
     set msg_id $message(root_message_id)
     set db_antwort [db_exec_plsql forums_reading_info__user_add_msg {}]
 }
