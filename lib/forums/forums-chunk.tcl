@@ -18,7 +18,7 @@ set table_border_color [parameter::get -parameter table_border_color]
 set table_bgcolor [parameter::get -parameter table_bgcolor]
 set table_other_bgcolor [parameter::get -parameter table_other_bgcolor]
 
-set useReadingInfo [string is true -strict [forum::use_ReadingInfo_p]]
+set useReadingInfo [forum::use_ReadingInfo_p]
 if { $useReadingInfo } {
     set unread_or_new_query_clause [db_map unread_or_new_query]
 } else {

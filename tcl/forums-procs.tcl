@@ -193,7 +193,7 @@ ad_proc -public forum::disable {
 }
 
 ad_proc -public forum::use_ReadingInfo_p {} {
-    return [parameter::get_from_package_key -package_key forums -parameter UseReadingInfo]
+    return [string is true -strict [parameter::get_from_package_key -package_key forums -parameter UseReadingInfo -default f]]
 }
 
 ad_proc forum::valid_forum_id_p {

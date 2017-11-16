@@ -17,7 +17,7 @@ set user_id [ad_conn user_id]
 
 forum::get -forum_id $forum_id -array forum
 
-set useReadingInfo [string is true -strict [forum::use_ReadingInfo_p]]
+set useReadingInfo [forum::use_ReadingInfo_p]
 if { $useReadingInfo } {
     set unread_or_new_query_clause [db_map unread_query]
     set unread_join [db_map unread_join]
