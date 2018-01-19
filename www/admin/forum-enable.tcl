@@ -13,9 +13,7 @@ ad_page_contract {
 forum::enable -forum_id $forum_id
 
 ad_returnredirect "."
-
-
-
+ad_script_abort
 
 # Local variables:
 #    mode: tcl

@@ -19,9 +19,7 @@ forum::security::require_moderate_forum -forum_id $message(forum_id)
 forum::message::reject -message_id $message_id
 
 ad_returnredirect "$return_url?message_id=$message_id"
-
-
-
+ad_script_abort
 
 # Local variables:
 #    mode: tcl
