@@ -8,6 +8,7 @@ ad_page_contract {
 
 if {![array exists message]} {
     ad_return_complaint 1 "[_ forums.lt_need_to_provide_a_mes]"
+    ad_script_abort
 }
 
 if {(![info exists bgcolor] || $bgcolor eq "")} {
@@ -24,7 +25,7 @@ foreach attachment [attachments::get_attachments -object_id $message(message_id)
 
 set attachment_graphic [attachments::graphic_url]
 
-if {([info exists alt_template] && $alt_template ne "")} {
+if {[info exists alt_template] && $alt_template ne ""} {
   ad_return_template $alt_template
 }
 
