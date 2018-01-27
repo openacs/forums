@@ -201,7 +201,7 @@ ad_proc -public forum::message::set_format {
     set whether a message is HTML or not
 } {
     # Straight update to the DB
-    db_dml update_message_format
+    db_dml update_message_format {}
 }
 
 ad_proc -public forum::message::get {

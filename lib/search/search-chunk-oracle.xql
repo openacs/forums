@@ -38,39 +38,4 @@
         </querytext>
     </fullquery>
 
-    <fullquery name="search_all_forums_intermedia">
-        <querytext>
-            select forums_messages.*,
-                   person.name(forums_messages.user_id) as user_name,
-                   to_char(forums_messages.posting_date, 'YYYY-MM-DD HH24:MI:SS') as posting_date_ansi,
-                   score(1) as the_score
-            from forums_messages,
-                 forums_forums
-            where forums_messages.forum_id = forums_forums.forum_id
-            and forums_forums.package_id = :package_id
-            and forums_messages.state = 'approved'
-            and contains(forums_messages.content, :search_pattern , 1) > 0
-            order by the_score desc,
-                     forums_messages.posting_date desc
-        </querytext>
-    </fullquery>
-
-    <fullquery name="search_one_forum_intermedia">
-        <querytext>
-            select forums_messages.*,
-                   person.name(forums_messages.user_id) as user_name,
-                   to_char(forums_messages.posting_date, 'YYYY-MM-DD HH24:MI:SS') as posting_date_ansi,
-                   score(1) as the_score
-            from forums_messages,
-                 forums_forums
-            where forums_forums.forum_id = :forum_id
-            and forums_forums.package_id = :package_id
-            and forums_messages.forum_id = forums_forums.forum_id
-            and forums_messages.state = 'approved'
-            and contains(forums_messages.content, :search_pattern, 1) > 0
-            order by the_score desc,
-                     forums_messages.posting_date desc
-        </querytext>
-    </fullquery>
-
 </queryset>
