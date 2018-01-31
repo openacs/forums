@@ -103,7 +103,7 @@ ad_proc -public forum::message::do_notifications {
     set SecureOutboundP [parameter::get -parameter "SecureOutboundP" -default 0]
     if { $SecureOutboundP && [ns_conn isconnected] && [security::secure_conn_p] } {
 	set href ${url}message-view?message_id=$message(root_message_id)
-        set message_html "<p>#forums.Message_content_witheld# #forums.To_view_message_follow_link# <a href=\"[ns_quotehtml $href]\">[ns_quotehtml $href]</a></p>"
+        set message_html "<p>#forums.Message_content_withheld# #forums.To_view_message_follow_link# <a href=\"[ns_quotehtml $href]\">[ns_quotehtml $href]</a></p>"
         set message_text [ad_html_text_convert -from text/html -to text/plain -- $message_html]
     }
 
