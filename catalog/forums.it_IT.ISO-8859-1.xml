@@ -103,7 +103,7 @@
   <msg key="ManageModerate">Gestisci/Modera</msg>
   <msg key="mark_all_as_read">imposta tutti come letti</msg>
   <msg key="Message_awaiting_your_approval">Il messaggio attende la tua approvazione</msg>
-  <msg key="Message_content_witheld">Contenuto del messaggio trattenuto da questa notifica per motivi di sicurezza.</msg>
+  <msg key="Message_content_withheld">Contenuto del messaggio trattenuto da questa notifica per motivi di sicurezza.</msg>
   <msg key="Message_ID">ID Messaggio</msg>
   <msg key="message_moved">Messaggio Spostato</msg>
   <msg key="Message_sent_to_moderator">Il tuo messaggio è stato spedito al moderatore per la sua approvazione</msg>

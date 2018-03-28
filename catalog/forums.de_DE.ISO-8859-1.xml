@@ -106,7 +106,7 @@
   <msg key="ManageModerate">Verwalten/Moderieren</msg>
   <msg key="mark_all_as_read">alle als gelesen markieren</msg>
   <msg key="Message_awaiting_your_approval">Diese Nachricht wartet auf Ihre Bestätigung</msg>
-  <msg key="Message_content_witheld">Nachrichteninhalt aus Sicherheitsgründen von der Notifizierung zurückbehalten.</msg>
+  <msg key="Message_content_withheld">Nachrichteninhalt aus Sicherheitsgründen von der Notifizierung zurückbehalten.</msg>
   <msg key="Message_ID">Beitrags-ID</msg>
   <msg key="message_moved">Nachricht verschoben</msg>
   <msg key="Message_sent_to_moderator">Ihre Nachricht wurde an den Moderator zur Bestätigung gesendet</msg>

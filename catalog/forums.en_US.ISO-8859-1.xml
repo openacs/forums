@@ -102,7 +102,7 @@
   <msg key="ManageModerate">Manage/Moderate</msg>
   <msg key="mark_all_as_read">mark all as read</msg>
   <msg key="Message_awaiting_your_approval">The message is awaiting your approval</msg>
-  <msg key="Message_content_witheld">Message content witheld from this notification for security reasons.</msg>
+  <msg key="Message_content_withheld">Message content withheld from this notification for security reasons.</msg>
   <msg key="Message_ID">Message ID</msg>
   <msg key="Message_sent_to_moderator">Your message has been sent to the moderator for its approval</msg>
   <msg key="Message_Subject">Subject</msg>

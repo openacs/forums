@@ -104,7 +104,7 @@
   <msg key="ManageModerate">Administrar/Moderar</msg>
   <msg key="mark_all_as_read">Marcar todos como leídos</msg>
   <msg key="Message_awaiting_your_approval">El mensaje está en espera de aprobación</msg>
-  <msg key="Message_content_witheld">El contenido del mensaje ha sido ocultado por razones de seguridad.</msg>
+  <msg key="Message_content_withheld">El contenido del mensaje ha sido ocultado por razones de seguridad.</msg>
   <msg key="Message_ID">Mensaje ID</msg>
   <msg key="message_moved">Mensaje movido</msg>
   <msg key="Message_sent_to_moderator">Su message ha sido enviado al moderador para su aprobación</msg>

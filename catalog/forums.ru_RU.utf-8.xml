@@ -103,7 +103,7 @@
   <msg key="ManageModerate">Упрвлять/Модерировать</msg>
   <msg key="mark_all_as_read">отметить все как прочитанное</msg>
   <msg key="Message_awaiting_your_approval">Это сообщение ожидает вашего подтверждения</msg>
-  <msg key="Message_content_witheld">Содержание сообщения удалено из этого уведомления по соображениям безопасности. </msg>
+  <msg key="Message_content_withheld">Содержание сообщения удалено из этого уведомления по соображениям безопасности. </msg>
   <msg key="Message_ID">Идентификатор сообщения</msg>
   <msg key="message_moved">Сообщение перемещено</msg>
   <msg key="Message_sent_to_moderator">Ваше сообщение было отправлено на одобрение модератору</msg>
