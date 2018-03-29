@@ -123,7 +123,7 @@ $$ LANGUAGE plpgsql;
 
 
 -- These functions were defined with a name not conformant with
--- package notation used to mimick oracle. They resulted also
+-- package notation used to mimic oracle. They resulted also
 -- redundant once we eliminated the forums_reading_info_users table
 
 drop function forums_message__move_update_reading_info(integer, integer, integer);
