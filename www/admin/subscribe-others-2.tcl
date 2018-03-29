@@ -31,7 +31,7 @@ if {$package_id != $forum(package_id)} {
 
 set pretty_name $forum(name)
 
-# Check that the object can be subcribed to
+# Check that the object can be subscribed to
 notification::security::require_notify_object -object_id $forum_id
 
 ns_write "<html><title>Subscribing users</title><body>"
