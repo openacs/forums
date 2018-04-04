@@ -148,7 +148,7 @@ BEGIN
           last_child_post = current_timestamp
         where message_id = forums_message__root_message_id(v_message_id);
       else
-        -- dont update last_poster, last_child_post when not approved
+        -- don't update last_poster, last_child_post when not approved
         update forums_messages
         set reply_count = reply_count + 1
         where message_id = forums_message__root_message_id(v_message_id);
