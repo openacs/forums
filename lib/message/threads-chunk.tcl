@@ -183,7 +183,7 @@ db_multirow -extend {
     }
 }
 
-if {([info exists alt_template] && $alt_template ne "")} {
+if {[info exists alt_template] && $alt_template ne ""} {
     ad_return_template $alt_template
 }
 

@@ -11,7 +11,7 @@ ad_page_contract {
 # Get the threads that need approval
 db_multirow pending_threads select_pending_threads {}
 
-if {([info exists alt_template] && $alt_template ne "")} {
+if {[info exists alt_template] && $alt_template ne ""} {
   ad_return_template $alt_template
 }
 

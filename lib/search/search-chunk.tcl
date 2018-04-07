@@ -61,7 +61,7 @@ if {$searchbox_p} {
         set messages:rowcount 0
     }
 
-    if {([info exists alt_template] && $alt_template ne "")} {
+    if {[info exists alt_template] && $alt_template ne ""} {
         ad_return_template $alt_template
     }
 }

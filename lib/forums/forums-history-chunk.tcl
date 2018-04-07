@@ -43,7 +43,7 @@ template::list::create \
 
 db_multirow persons select_users_wrote_post {} 
 
-if {([info exists alt_template] && $alt_template ne "")} {
+if {[info exists alt_template] && $alt_template ne ""} {
   ad_return_template $alt_template
 }
 
