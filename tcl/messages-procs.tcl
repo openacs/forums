@@ -52,21 +52,21 @@ ad_proc -public forum::message::new {
     }  on_error {
 
         db_abort_transaction
-        
+
         # Check to see if the message with a message_id matching the
         # message_id argument was in the database before calling
         # this procedure.  If so, the error is due to a double click 
         # and we should continue without returning an error.
-        
+
         if {$original_message_id ne ""} {
-    	# The was a non-null message_id argument
+            # The was a non-null message_id argument
             if {[db_string message_exists_p {}]} {
                 return $message_id
             } else {
                 # OK - it wasn't a simple double-click, so bomb
                 ad_return_error \
                     "OACS Internal Error" \
-                    "Error in forums::message::new - $errmsg"
+                    "Error in forum::message::new - $errmsg"
                 ad_script_abort
             }
         }
@@ -74,7 +74,7 @@ ad_proc -public forum::message::new {
 
     return $message_id
 }
-    
+
 ad_proc -public forum::message::do_notifications {
     {-message_id:required}
     {-user_id ""}
@@ -307,7 +307,7 @@ ad_proc -public forum::message::open {
 } {
     db_exec_plsql thread_open {}
 }
-    
+
 ad_proc -public forum::message::get_attachments {
     {-message_id:required}
 } {
