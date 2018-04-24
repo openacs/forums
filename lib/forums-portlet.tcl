@@ -53,23 +53,20 @@ if { ![info exists show_empty_p] } {
 # obtain data (use list rather than multirow, as its easier to cache)
 # identification problems (need package_id + n as part of key)
 set new_topics_ds [db_list_of_lists -cache_key "new_topics_${n}_$package_id" \
-		       new_topics {}]
+    new_topics {}]
 set hot_topics_ds [db_list_of_lists -cache_key "hot_topics_${n}_$package_id" \
-		       hot_topics {}]
+    hot_topics {}]
 
 multirow create new_topics name url
 foreach row $new_topics_ds {
-    set name [lindex $row 0]
-    set thread_id [lindex $row 1]
+    lassign $row name thread_id
     set url "${base_url}message-view?message_id=$thread_id"
     multirow append new_topics $name $url
 }
 
 multirow create hot_topics name url
 foreach row $hot_topics_ds {
-    set name [lindex $row 0]
-    set thread_id [lindex $row 1]
-    set message_id [lindex $row 2]
+    lassign $row name thread_id message_id
     set url "${base_url}message-view?message_id=${thread_id}&\#${message_id}"
     multirow append hot_topics $name $url
 }
