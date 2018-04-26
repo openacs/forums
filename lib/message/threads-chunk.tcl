@@ -32,7 +32,7 @@ if {$moderate_p} {
     set replies approved_reply_count
 }
 
-set actions [list]
+set actions {}
 
 # new postings are allowed if
 # 0. The user has post-permissions

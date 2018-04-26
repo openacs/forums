@@ -27,7 +27,7 @@ if { $useReadingInfo } {
     }
 }
 
-set actions [list]
+set actions {}
 if { $admin_p } {
     lappend actions [_ forums.New_Forum] "admin/forum-new" {}
     lappend actions [_ forums.Administration] "admin/" {}
