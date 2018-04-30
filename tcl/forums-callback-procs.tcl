@@ -198,7 +198,7 @@ ad_proc -public -callback search::url -impl forums_message {} {
     @author dave@thedesignexperience.org
     @creation-date 2005-06-08
 
-    returns a url for a message to the search package
+    returns a URL for a message to the search package
 
 } {
     set message_id $object_id
@@ -229,7 +229,7 @@ ad_proc -public -callback search::datasource -impl forums_forum {} {
 
 ad_proc -public -callback search::url -impl forums_forum {} {
 
-    returns a url for a forum to the search package
+    returns a URL for a forum to the search package
 
     @author Jeff Davis davis@xarg.net
     @creation-date 2004-04-01

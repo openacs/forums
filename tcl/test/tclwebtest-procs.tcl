@@ -206,7 +206,7 @@ namespace eval forums::twt {
 
 	set response_url [tclwebtest::response url]
 
-	# Testing if the the message is not in the forum
+	# Testing if the message is not in the forum
 	if {[string first "forum-view" $response_url]!=-1 && [string first $forum_admin_page $response_url]!=-1 } {
 	    
 	    if {[catch {tclwebtest::link follow "Edited $subject"}]} { 

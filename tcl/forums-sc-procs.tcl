@@ -78,7 +78,7 @@ ad_proc -private forum::message::url { message_id } {
     @author dave@thedesignexperience.org
     @creation-date 2002-08-07
 
-    returns a url for a message to the search package
+    returns a URL for a message to the search package
 
 } {
     forum::message::get -message_id $message_id -array message
