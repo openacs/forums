@@ -45,7 +45,7 @@ ad_proc -private forum::message::datasource { message_id } {
     set tree_sortkey $message(tree_sortkey)
     set forum_id $message(forum_id)
     set combined_content ""
-    set subjects {}
+    set subjects [list]
     lappend subjects $message(subject)
 
     db_foreach messages "" {
