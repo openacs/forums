@@ -18,7 +18,8 @@ if {(![info exists bgcolor] || $bgcolor eq "")} {
 # get the attachments
 template::multirow create attachments url name
 foreach attachment [attachments::get_attachments -object_id $message(message_id)] {
-    lassign $attachment . name url
+    set name    [lindex $attachment 1]
+    set url     [lindex $attachment 2]
     template::multirow append attachments $url $name
 }
 
