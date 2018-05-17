@@ -139,7 +139,7 @@ set response_arrays_stub ""
 foreach one_parent_id [array names parent_message] {
     set one_children_list $parent_message($one_parent_id)
     if {[llength $one_children_list] == 1} {
-        # this is needed to make the javascript work
+        # this is needed to make the JavaScript work
         lappend one_children_list "null"
     }
     append response_arrays_stub "  forums_replies\[$one_parent_id\] = new Array([join $one_children_list ","]);\n"
