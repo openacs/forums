@@ -16,7 +16,7 @@ set table_bgcolor [parameter::get -parameter table_bgcolor]
 set table_other_bgcolor [parameter::get -parameter table_other_bgcolor]
 
 # provide screen_name functionality
-set screen_name [db_string select_screen_name { select screen_name from users where user_id = :user_id}]
+set screen_name [acs_user::get_element -user_id $user_id -element screen_name]
 set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
 
 template::list::create \
@@ -41,7 +41,21 @@ template::list::create \
 	}
     }
 
-db_multirow persons select_users_wrote_post {} 
+db_multirow -extend {
+    first_names
+    last_name
+} persons select_users_wrote_post {
+    select user_id,
+           count(*) as num_msg,
+           to_char(max(last_child_post), 'YYYY-MM-DD HH24:MI:SS') as last_post
+      from forums_messages
+     where forum_id = :forum_id 
+     group by user_id
+} {
+    acs_user::get -user_id $user_id -array user
+    set first_names $user(first_names)
+    set last_name   $user(last_name)
+}
 
 if {[info exists alt_template] && $alt_template ne ""} {
   ad_return_template $alt_template
