@@ -51,11 +51,7 @@ if {$searchbox_p} {
         set search_pattern "%${search_text}%"
         db_multirow -extend { author posting_date_pretty} messages $query {} {
             set posting_date_pretty [lc_time_fmt $posting_date_ansi "%x %X"]
-            if { $useScreenNameP } {
-                set author [db_string select_screen_name {select screen_name from users where user_id = :user_id}]
-            } else {
-                set author $user_name
-            }
+            set author [expr {$useScreenNameP ? [acs_user::get_element -user_id $user_id -element screen_name] : $user_name}]
         }
     } else {
         set messages:rowcount 0
