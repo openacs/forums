@@ -1,5 +1,5 @@
 <if @hot_topics:rowcount@ ne 0 and @new_topics:rowcount@ ne 0 or @show_empty_p;literal@ true>
-    <if @class;literal@ eq "portalElement">
+    <if @class@ eq "portalElement">
         <h3><a href="@base_url@">@title@</a></h3>
 
         <h4>Hot topics</h4>

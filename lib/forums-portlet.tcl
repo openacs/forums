@@ -1,56 +1,44 @@
-ad_page_contract {
-    <p>Include for displaying the latest threads/posts in a forums instance.
-    Note this takes the following parameters - not declared with
-    ad_page_contract because it's an include:
+ad_include_contract {
+    Display the latest threads/posts in a forums instance.
 
-    <ul>
-      <li>package_id - the ID of the forums instance to use
-      <li>base_url - absolute URL of the forums instance
-      <li>n - the maximum number of threads/posts to list (default 2)
-      <li>class - CSS class to wrap the include in (optional)
-      <li>id - CSS id to wrap the include in (optional)
-      <li>cache - cache interval, seconds, 0 for no cache (default)
-      <li>show_empty_p - if set, show even if there are no contents (default 1)
-    </ul>
-}
-
-# validate args
-if { (![info exists package_id] || $package_id eq "")
-     && (![info exists base_url] || $base_url eq "") } {
-    error "package_id and/or base_url must be given"
-}
-if { [info exists n] } {
-    # need to do a type check, as this is interpolated into the PG query
-    # (PG LIMIT clause doesn't accept bind vars)
-    if { ![string is integer $n] || $n > 0 } {
-        error "n must be an integer greater than 0"
+    @param package_id        the ID of the forums instance to use
+    @param base_url          absolute URL of the forums instance
+    @param n                 the maximum number of threads/posts to list (default 2)
+    @param class             CSS class to wrap the include in (default)
+    @param id                CSS id to wrap the include in (default)
+    @param cache             cache interval, seconds, 0 for no cache (default 0)
+    @param show_empty_p      if set, show even if there are no contents (default 1)
+} {
+    {package_id:integer ""}
+    {base_url:localurl ""}
+    {n:naturalnum,notnull 2}
+    {class:word ""}
+    {id:word ""}
+    {cache:naturalnum,notnull 0}
+    {show_empty_p:boolean,notnull 1}
+} -validate {
+    package_id_or_base_url {
+        if { $package_id eq "" && $base_url eq "" } {
+            ad_complain
+        }
     }
-} else {
-    set n 2
+} -errors {
+    package_id_or_base_url {package_id and/or base_url must be given}
 }
-if {![info exists class]} {
-    set class ""
-}
-if { ![info exists cache] || $cache < 0 } {
-    set cache 0
-}
-if { ![info exists package_id] || $package_id eq "" } {
+
+if { $package_id eq "" } {
     set package_id [site_node::get_element \
                         -url $base_url -element object_id]
 }
-if { ![info exists base_url] || $base_url eq "" } {
+if { $base_url eq "" } {
     set base_url [lindex [site_node::get_url_from_object_id \
                               -object_id $package_id] 0]
 }
 if { ![info exists title] } {
     set title [apm_instance_name_from_id $package_id]
 }
-if { ![info exists show_empty_p] } {
-    set show_empty_p 1
-}
 
-
-# obtain data (use list rather than multirow, as its easier to cache)
+# obtain data (use list rather than multirow, as it's easier to cache)
 # identification problems (need package_id + n as part of key)
 set new_topics_ds [db_list_of_lists -cache_key "new_topics_${n}_$package_id" \
     new_topics {}]
