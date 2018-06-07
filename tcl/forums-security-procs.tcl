@@ -13,17 +13,21 @@ namespace eval forum::security {
     ad_proc -private do_abort {} {
         do an abort if security violation
     } {
-        if { [ad_conn user_id] == 0 } { 
+        if { [ad_conn user_id] == 0 } {
             ad_redirect_for_registration
         } else {
             ad_returnredirect "not-allowed"
         }
         ad_script_abort
-    }    
+    }
 
-    ad_proc -public can_read_forum_p {
+    ad_proc -deprecated -public can_read_forum_p {
         {-user_id ""}
         {-forum_id:required}
+    } {
+        Deprecated: just another wrapper to permission::permission_p
+
+        @see permission::permission_p
     } {
         return [permission::permission_p -party_id $user_id -object_id $forum_id -privilege read]
     }
@@ -49,7 +53,7 @@ namespace eval forum::security {
                  -user_id  $user_id]} {
             return true
         }
-        
+
         forum::get -forum_id $forum_id -array forum
 
         # Others can post if forum is not closed. The public can post
@@ -67,9 +71,13 @@ namespace eval forum::security {
         }
     }
 
-    ad_proc -public can_moderate_forum_p {
+    ad_proc -deprecated -public can_moderate_forum_p {
         {-user_id ""}
         {-forum_id:required}
+    } {
+        Deprecated: just another wrapper to permission::permission_p
+
+        @see permission::permission_p
     } {
         return [permission::permission_p -party_id $user_id -object_id $forum_id -privilege forum_moderate]
     }
@@ -93,17 +101,17 @@ namespace eval forum::security {
         set array(admin_p)    [forum::security::can_moderate_forum_p -forum_id $forum_id]
         set array(moderate_p) $array(admin_p)
         set array(post_p)     [expr {$array(admin_p) || [forum::security::can_post_forum_p -forum_id $forum_id -user_id $user_id]}]
-    }    
+    }
 
     ### Deprecated procs ###
-    # 2017-09-26:    
+    # 2017-09-26:
     # we decided to simplify forums management and unwire dependency
     # with the registered_users group. This prevented forums package
     # to be ever used in a subsite aware context. Now posting policy
     # and new-threads-allowed won't be managed via setting
     # permsissions, but through plain table columns. Forum will also
     # decide for permissions on the messages.
-    
+
     ad_proc -deprecated -public can_read_message_p {
         {-user_id ""}
         {-message_id:required}
@@ -119,7 +127,7 @@ namespace eval forum::security {
         forum::message::get -message_id $message_id -array message
         return [require_read_forum -forum_id $message(forum_id) -user_id $user_id]
     }
-    
+
     ad_proc -deprecated -public can_post_message_p {
         {-user_id ""}
         {-message_id:required}
@@ -148,7 +156,7 @@ namespace eval forum::security {
         {-user_id ""}
         {-message_id:required}
     } {
-        forum::message::get -message_id $message_id -array message        
+        forum::message::get -message_id $message_id -array message
         return [require_moderate_forum -forum_id $message(forum_id) -user_id $user_id]
     }
 
