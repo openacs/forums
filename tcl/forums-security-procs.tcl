@@ -36,7 +36,8 @@ namespace eval forum::security {
         {-user_id ""}
         {-forum_id:required}
     } {
-        if {![can_read_forum_p -user_id $user_id -forum_id $forum_id]} {
+        # Probably this whole proc could be replaced by just permission::require_permission
+        if { ![permission::permission_p -party_id $user_id -object_id $forum_id -privilege "read"] } {
             do_abort
         }
     }
@@ -117,7 +118,7 @@ namespace eval forum::security {
         {-message_id:required}
     } {
         forum::message::get -message_id $message_id -array message
-        return [can_read_forum_p -forum_id $message(forum_id) -user_id $user_id]
+        return [permission::permission_p -party_id $user_id -object_id $forum_id -privilege "read"]
     }
 
     ad_proc -deprecated -public require_read_message {
