@@ -1,5 +1,5 @@
 ad_page_contract {
-    
+
     Form to create message and insert it
 
     @author Ben Adida (ben@openforce.net)
@@ -40,14 +40,14 @@ set user_id [auth::refresh_login]
 
 ##############################
 # Pull out required forum and parent data and
-# perform security checks 
+# perform security checks
 #
 if {$parent_id eq ""} {
     # no parent_id, therefore new thread
     # require thread creation privs
     forum::get -forum_id $forum_id -array forum
-    
-    if {![forum::security::can_moderate_forum_p -forum_id $forum_id]} {
+
+    if { ![permission::permission_p -object_id $forum_id -privilege "forum_moderate"] } {
         forum::security::require_post_forum -forum_id $forum_id
         # check if we can post new threads
         if {!$forum(new_questions_allowed_p)} {
@@ -59,7 +59,7 @@ if {$parent_id eq ""} {
     set parent_message(tree_level) 0
 
     # see if they're allowed to add to this thread
-    if {![forum::security::can_moderate_forum_p -forum_id $forum_id]} {
+    if { ![permission::permission_p -object_id $forum_id -privilege "forum_moderate"] } {
         forum::security::require_post_forum -forum_id $parent_message(forum_id)
     }
 

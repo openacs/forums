@@ -49,9 +49,10 @@ namespace eval forum::security {
         set user_id [expr {$user_id eq "" ? [ad_conn user_id] : $user_id}]
 
         # Moderators can always post
-        if {[can_moderate_forum_p \
-                 -forum_id $forum_id \
-                 -user_id  $user_id]} {
+        if { ![permission::permission_p \
+                -party_id  $user_id \
+                -object_id $forum_id \
+                -privilege "forum_moderate"] } {
             return true
         }
 
@@ -87,7 +88,11 @@ namespace eval forum::security {
         {-user_id ""}
         {-forum_id:required}
     } {
-        if {![can_moderate_forum_p -user_id $user_id -forum_id $forum_id]} {
+        # Probably this whole proc could be replaced by just permission::require_permission
+        if { ![permission::permission_p \
+                -party_id  $user_id \
+                -object_id $forum_id \
+                -privilege "forum_moderate"] } {
             do_abort
         }
     }
@@ -99,7 +104,7 @@ namespace eval forum::security {
     } {
         upvar $array_name array
 
-        set array(admin_p)    [forum::security::can_moderate_forum_p -forum_id $forum_id]
+        set array(admin_p)    [permission::permission_p -object_id $forum_id -privilege "forum_moderate"]
         set array(moderate_p) $array(admin_p)
         set array(post_p)     [expr {$array(admin_p) || [forum::security::can_post_forum_p -forum_id $forum_id -user_id $user_id]}]
     }
@@ -150,7 +155,7 @@ namespace eval forum::security {
         {-message_id:required}
     } {
         forum::message::get -message_id $message_id -array message
-        return [can_moderate_forum_p -forum_id $message(forum_id) -user_id $user_id]
+        return [permission::permission_p -party_id $user_id -object_id $message(forum_id) -privilege "forum_moderate"]
     }
 
     ad_proc -deprecated -public require_moderate_message {
@@ -173,7 +178,10 @@ namespace eval forum::security {
         {-user_id ""}
         {-forum_id:required}
     } {
-        if {![can_moderate_forum_p -user_id $user_id -forum_id $forum_id]} {
+        if { ![permission::permission_p \
+                -party_id  $user_id \
+                -object_id $forum_id \
+                -privilege "forum_moderate"] } {
             do_abort
         }
     }

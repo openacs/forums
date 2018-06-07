@@ -1,5 +1,5 @@
 ad_page_contract {
-    
+
     Form to create message and insert it
 
     @author Ben Adida (ben@openforce.net)
@@ -38,10 +38,10 @@ set max_subject_chars 200
 set form_elements {
     {message_id:key}
     {subject:text(text)
-        {html {maxlength $max_subject_chars size 60}}        
+        {html {maxlength $max_subject_chars size 60}}
         {label "[_ forums.Subject]"}
     }
-    {message_body:richtext(richtext) 
+    {message_body:richtext(richtext)
         {html {rows 20 cols 60}}
         {label "[_ forums.Body]"}
     }
@@ -99,7 +99,7 @@ ad_form -html {enctype multipart/form-data} \
             set forum_id $parent_message(forum_id)
             set subject [forum::format::reply_subject $parent_message(subject)]
         }
-        
+
         set confirm_p 0
         set subscribe_p 0
         set anonymous_p 0
@@ -118,9 +118,9 @@ ad_form -html {enctype multipart/form-data} \
             template::form::set_error message subject [_ acs-tcl.lt_name_is_too_long__Ple]
             break
         }
-        
+
         if { $anonymous_p eq "" } { set anonymous_p 0 }
-        
+
 
         set action [template::form::get_button message]
 
@@ -132,15 +132,15 @@ ad_form -html {enctype multipart/form-data} \
         set displayed_user_id [expr {$anonymous_allowed_p && $anonymous_p ? 0 : $user_id}]
 
         if {$action eq "preview"} {
-            
+
             set confirm_p 1
             set subject.spellcheck ":nospell:"
             set content.spellcheck ":nospell:"
             set content [template::util::richtext::get_property content $message_body]
             set format [template::util::richtext::get_property format $message_body]
-            
+
             set exported_vars [export_vars -form {message_id forum_id parent_id subject {message_body $content} {message_body.format $format} confirm_p subject.spellcheck content.spellcheck anonymous_p attach_p}]
-            
+
             set message(format) $format
             set message(subject) $subject
             set message(content) $content
@@ -149,7 +149,7 @@ ad_form -html {enctype multipart/form-data} \
             set message(screen_name) $screen_name
             set message(posting_date_ansi) [clock format [clock seconds] -format "%Y-%m-%d %H:%M:%S"]
             set message(posting_date_pretty) [lc_time_fmt $message(posting_date_ansi) "%x %X"]
-            
+
             # Let's check if this person is subscribed to the forum
             # in case we might want to subscribe them to the thread
             if {$parent_id eq ""} {
@@ -163,14 +163,14 @@ ad_form -html {enctype multipart/form-data} \
                     set forum_notification_p 0
                 }
             }
-            
+
             ad_return_template "/packages/forums/lib/message/post-confirm"
         }
 
         if {$action eq "post"} {
             set content [template::util::richtext::get_property content $message_body]
             set format [template::util::richtext::get_property format $message_body]
-            
+
             forum::message::new \
                 -forum_id $forum_id \
                 -message_id $message_id \
@@ -179,7 +179,7 @@ ad_form -html {enctype multipart/form-data} \
                 -content $content \
                 -format $format \
                 -user_id $displayed_user_id
-            
+
             # DRB: Black magic cache flush call which will disappear when list builder is
             # rewritten to paginate internally rather than use the template paginator.
             cache flush "messages,forum_id=$forum_id*"
@@ -189,7 +189,7 @@ ad_form -html {enctype multipart/form-data} \
                 set db_antwort [db_exec_plsql forums_reading_info__remove_msg {}]
             }
 
-            set permissions(moderate_p) [forum::security::can_moderate_forum_p -forum_id $forum_id]
+            set permissions(moderate_p) [permission::permission_p -object_id $forum_id -privilege "forum_moderate"]
 
             db_transaction {
                 if { $permissions(moderate_p) } {
@@ -199,8 +199,8 @@ ad_form -html {enctype multipart/form-data} \
 
             # VGUERRA Redirecting to the first message ALWAYS
             forum::message::get -message_id $message_id -array msg
-            set redirect_url "[ad_conn package_url]message-view?message_id=$msg(root_message_id)" 
-            
+            set redirect_url "[ad_conn package_url]message-view?message_id=$msg(root_message_id)"
+
             # Wrap the notifications URL
             if {$subscribe_p ne "" && $subscribe_p && $parent_id eq ""} {
                 set notification_url [notification::display::subscribe_url \
@@ -208,24 +208,24 @@ ad_form -html {enctype multipart/form-data} \
                                           -object_id $message_id \
                                           -url $redirect_url \
                                           -user_id $user_id]
-                
+
                 # redirect to notification stuff
                 set redirect_url $notification_url
             }
-            
+
             # Wrap the attachments URL
             if {$attachments_enabled_p} {
                 if { $attach_p ne "" && $attach_p} {
                     set redirect_url [attachments::add_attachment_url -object_id $message_id -return_url $redirect_url -pretty_name "[_ forums.Forum_Posting] \"$subject\""]
                 }
             }
-            
+
             # Do the redirection
             if { !$permissions(moderate_p) } {
                 forum::get -forum_id $forum_id -array forum
                 if { $forum(posting_policy) eq "moderated" } {
                     # if the forum is moderated, give some feedback to the user
-                    # to inform that the message has been sent and is pending                    
+                    # to inform that the message has been sent and is pending
                     set feedback_msg [_ forums.Message_sent_to_moderator]
                     ad_returnredirect -message $feedback_msg -- $redirect_url
                     ad_script_abort
