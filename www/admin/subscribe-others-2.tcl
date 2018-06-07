@@ -1,5 +1,5 @@
 ad_page_contract {
-    
+
     Subscribe a list of email addresses to a forum (process form)
 
     @author Jade Rubick (jade@rubick.com)
@@ -32,7 +32,7 @@ if {$package_id != $forum(package_id)} {
 set pretty_name $forum(name)
 
 # Check that the object can be subscribed to
-notification::security::require_notify_object -object_id $forum_id
+permission::require_permission -object_id $forum_id -privilege "read"
 
 ns_write "<html><title>Subscribing users</title><body>"
 
@@ -58,17 +58,17 @@ db_transaction {
     }
 
     foreach line $lines {
-	
+
 	set rows [split $line ","]
 	set length [llength $rows]
-	
+
 	set email [lindex $rows 0]
 	if {$length > 1} {
 	    set fname [lindex $rows 1]
 	} else {
 	    set fname "(no first name)"
 	}
-	
+
 	if {$length > 2} {
 	    set lname [lindex $rows 2]
 	} else {
@@ -83,7 +83,7 @@ db_transaction {
 	} else {
 
 	    if {[db_0or1row get_party_id {
-		select party_id, first_names as fname, last_name as lname 
+		select party_id, first_names as fname, last_name as lname
 		from   cc_users
 		where  lower(email) = lower(:email)
 		limit 1
@@ -97,7 +97,7 @@ db_transaction {
 	}
 
 	ns_write "<br>Name:$fname $lname"
-	
+
 
 	# user_id is blank if the account doesn't exist or if the
 	# email account looks invalid.
@@ -115,9 +115,9 @@ db_transaction {
 
 		    if {[string is false $user_exists_p]} {
 			set password [ad_generate_random_string]
-			
+
 			array set auth_status_array [auth::create_user -email $email -first_names $fname -last_name $lname -password $password]
-			
+
 			set user_id $auth_status_array(user_id)
 		    }
 		} else {
@@ -126,14 +126,14 @@ db_transaction {
 	    } else {
 		ns_write "<br>skipping user (not creating): $fname $lname ($email)"
 	    }
-	    
+
 	}
-	
+
 	if {$user_id ne ""} {
 
 	    # Check if subscribed
 	    set request_id [notification::request::get_request_id -type_id $type_id -object_id $forum_id -user_id $user_id]
-	    
+
 	    if {$request_id ne ""} {
 		ns_write "<br>already subscribed ($fname $lname ($email)<br />"
 	    } else {
@@ -146,7 +146,7 @@ db_transaction {
 		    -delivery_method_id $delivery_method
 	    }
 	}
-	
+
     }
 }
 
