@@ -94,7 +94,7 @@ template::list::create \
         }
         state_pretty {
             label "\#forums.Moderate\#"
-            hide_p {[ad_decode $moderate_p 1 0 1]}
+            hide_p {[expr {$moderate_p ne 1}]}
         }
         user_name {
             label "#forums.Author#"
@@ -131,8 +131,9 @@ template::list::create \
         }
         user_name {
             label "#forums.Author#"
-            orderby_asc_name "orderby_user_name_asc"
-            orderby_desc_name "orderby_user_name_desc"
+            orderby {(select first_names || last_name
+                      from persons where person_id = fm.user_id)}
+            default_direction asc
         }
         n_messages {
             label "#forums.Replies#"
@@ -145,7 +146,9 @@ template::list::create \
 
 set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
 
-db_multirow -extend { 
+db_multirow -extend {
+    user_name
+    screen_name
     last_child_post_pretty
     posting_date_pretty
     message_url
@@ -153,6 +156,10 @@ db_multirow -extend {
     n_messages_pretty
     state_pretty
 } messages messages_select {} {
+    set user [acs_user::get -user_id $user_id]
+    set screen_name [dict get $user screen_name]
+    set user_name   [dict get $user name]
+    
     set last_child_post_ansi [lc_time_system_to_conn $last_child_post_ansi]
     set last_child_post_pretty [lc_time_fmt $last_child_post_ansi "%x %X"]
 

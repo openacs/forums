@@ -1,17 +1,35 @@
 <?xml version="1.0"?>
 <queryset>
 
-  <partialquery name="orderby_user_name_desc">
+  <fullquery name="messages_select_paginate">
     <querytext>
-      user_name desc
+            select fm.message_id,
+                   fm.subject,
+                   $replies as n_messages
+            from forums_messages_approved fm
+            where fm.forum_id = :forum_id
+            and fm.parent_id is null
+            [template::list::orderby_clause -orderby -name messages]
     </querytext>
-  </partialquery>
+  </fullquery>
 
-  <partialquery name="orderby_user_name_asc">
+  <fullquery name="messages_select">
     <querytext>
-      user_name asc
+            select fm.message_id,
+                   fm.subject,
+                   fm.last_poster as user_id,
+                   to_char(fm.posting_date, 'YYYY-MM-DD HH24:MI:SS') as posting_date_ansi,
+                   fm.state,
+                   $replies as n_messages,
+                   to_char(fm.last_child_post, 'YYYY-MM-DD HH24:MI:SS') as last_child_post_ansi,
+		   $unread_or_new_query_clause
+            from   forums_messages_approved fm $unread_join
+            where fm.forum_id = :forum_id
+            and fm.parent_id is null
+            [template::list::page_where_clause -and -name messages -key fm.message_id]
+            [template::list::orderby_clause -orderby -name messages]
     </querytext>
-  </partialquery>
+  </fullquery>
 
   <partialquery name="unread_query">
     <querytext>
