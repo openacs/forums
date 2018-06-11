@@ -180,10 +180,6 @@ ad_form -html {enctype multipart/form-data} \
                 -format $format \
                 -user_id $displayed_user_id
 
-            # DRB: Black magic cache flush call which will disappear when list builder is
-            # rewritten to paginate internally rather than use the template paginator.
-            cache flush "messages,forum_id=$forum_id*"
-
             if { [forum::use_ReadingInfo_p] } {
                 # remove reading info for this thread for all users (mark it unread)
                 set db_antwort [db_exec_plsql forums_reading_info__remove_msg {}]

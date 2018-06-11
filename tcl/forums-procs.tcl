@@ -45,6 +45,9 @@ ad_proc -public forum::new {
         callback forum::forum_new -package_id $package_id -forum_id $forum_id
     }
 
+    forum::flush_templating_cache \
+        -forum_id $forum_id    
+
     return $forum_id
 }
 
@@ -76,13 +79,17 @@ ad_proc -public forum::edit {
     if {!$no_callback_p} {
         callback forum::forum_edit -package_id [ad_conn package_id] -forum_id $forum_id
     }
+
+    forum::flush_templating_cache \
+        -forum_id $forum_id
 }
 
 ad_proc -public forum::attachments_enabled_p {} {
     if {"forums" eq [ad_conn package_key]} { 
-      set return_value [site_node_apm_integration::child_package_exists_p -package_id [ad_conn package_id] -package_key attachments]
-    } else { 
-      set return_value 0
+        set return_value [site_node_apm_integration::child_package_exists_p \
+                              -package_id [ad_conn package_id] -package_key attachments]
+    } else {
+        set return_value 0
     }
     return $return_value
 }
@@ -116,6 +123,16 @@ ad_proc -public forum::get {
         }
         array set $global_varname [array get row]
     }
+}
+
+ad_proc -public forum::flush_templating_cache {
+    {-forum_id:required}
+} {
+    Flushes forum templating cache, created by template::paginator
+} {
+    # DRB: Black magic cache flush call which will disappear when list builder is
+    # rewritten to paginate internally rather than use the template paginator.
+    cache flush "messages,forum_id=$forum_id*"
 }
 
 ad_proc -deprecated -public forum::posting_policy_set {
