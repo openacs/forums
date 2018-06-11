@@ -132,7 +132,7 @@ ad_proc -public forum::flush_templating_cache {
 } {
     # DRB: Black magic cache flush call which will disappear when list builder is
     # rewritten to paginate internally rather than use the template paginator.
-    cache flush "messages,forum_id=$forum_id*"
+    template::cache flush "messages,forum_id=$forum_id*"
 }
 
 ad_proc -deprecated -public forum::posting_policy_set {
