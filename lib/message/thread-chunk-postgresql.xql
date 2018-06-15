@@ -21,18 +21,15 @@
                    t.subject,
                    t.content,
                    t.format,
-                   person__name(t.user_id) as user_name,
                    to_char(t.posting_date, 'YYYY-MM-DD HH24:MI:SS') as posting_date_ansi,
                    tree_level(t.tree_sortkey) as tree_level,
                    t.state,
                    t.user_id,
                    t.parent_id,
                    t.open_p,
-                   t.max_child_sortkey,
-                   u.screen_name
-            from   $table_name t, users u
+                   t.max_child_sortkey
+            from   $table_name t
             where  t.forum_id = :forum_id
-	    and	   u.user_id = t.user_id
             and    t.tree_sortkey between tree_left(:tree_sortkey) and tree_right(:tree_sortkey)
             order  by $order_by
         </querytext>
@@ -45,18 +42,15 @@
                    t.subject,
                    t.content,
                    t.format,
-                   person__name(t.user_id) as user_name,
                    to_char(t.posting_date, 'YYYY-MM-DD HH24:MI:SS') as posting_date_ansi,
                    tree_level(t.tree_sortkey) as tree_level,
                    t.state,
                    t.user_id,
                    t.parent_id,
                    t.open_p,
-                   t.max_child_sortkey,
-		   u.screen_name
-            from   $table_name t, users u
+                   t.max_child_sortkey
+            from   $table_name t
             where  t.forum_id = :forum_id
-	    and	   u.user_id = t.user_id
             and    t.tree_sortkey between tree_left(:tree_sortkey) and tree_right(:tree_sortkey)
             order  by $order_by
         </querytext>
