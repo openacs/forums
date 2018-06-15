@@ -5,6 +5,7 @@ ad_page_contract {
     @cvs-id $Id$
 
 }
+
 set package_id [ad_conn package_id]
 set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
 
@@ -33,15 +34,11 @@ if {$searchbox_p} {
             ad_script_abort
         }
 
-        set query search_all_forums
-        if {$forum_id ne ""} {
-            set query search_one_forum
-	    if {![string is integer -strict $forum_id]} {
-		ns_log warning "forum_id <$forum_id> is not an integer: probably a security check or an attempted injection"
-		set name forum_id
-                ad_page_contract_handle_datasource_error [_ acs-tcl.lt_name_is_not_an_intege]
-                ad_script_abort
-	    }
+        if {$forum_id ne "" && ![string is integer -strict $forum_id]} {
+            ns_log warning "forum_id <$forum_id> is not an integer: probably a security check or an attempted injection"
+            set name forum_id
+            ad_page_contract_handle_datasource_error [_ acs-tcl.lt_name_is_not_an_intege]
+            ad_script_abort
         }
         
         if { [parameter::get -parameter UseIntermediaForSearchP -default 0] } {
@@ -49,9 +46,10 @@ if {$searchbox_p} {
         }
 
         set search_pattern "%${search_text}%"
-        db_multirow -extend { author posting_date_pretty} messages $query {} {
+        db_multirow -extend { author posting_date_pretty } messages search_all_forums {} {
             set posting_date_pretty [lc_time_fmt $posting_date_ansi "%x %X"]
-            set author [expr {$useScreenNameP ? [acs_user::get_element -user_id $user_id -element screen_name] : $user_name}]
+            set author [acs_user::get_element -user_id $user_id \
+                            -element [expr {$useScreenNameP ? "screen_name" : "name"}]]
         }
     } else {
         set messages:rowcount 0
