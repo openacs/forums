@@ -83,15 +83,20 @@ ad_proc -public forum::message::do_notifications {
     forum::message::get -message_id $message_id -array message
 
     set forum_id $message(forum_id)
-    set url "[ad_url][db_string select_forums_package_url {}]"
+    set package_id [db_string get_package_id {
+        select package_id from forums_forums
+        where forum_id = :forum_id}]
+    set url [lindex [site_node::get_url_from_object_id -object_id $package_id] 0]
+    set url [ad_url]$url
 
     set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
-    if {($useScreenNameP eq 0) && ($user_id ne 0)} {
+    if {$useScreenNameP eq 0 && $user_id ne 0} {
         if { $user_id eq "" } {
             set user_id $message(user_id)
         }
     } else {
-        set user_id [party::get_by_email -email [parameter::get -package_id [ad_acs_kernel_id] -parameter HostAdministrator]]
+        set user_id [party::get_by_email \
+                         -email [ad_host_administrator]]
     }
     set notif_user $user_id
 
@@ -224,6 +229,14 @@ ad_proc -public forum::message::get {
             array unset row
         }
     } else {
+        set user [acs_user::get -user_id $row(user_id)]
+        set row(user_name)   [dict get $user name]
+        set row(user_email)  [dict get $user email]
+        set row(screen_name) [dict get $user screen_name]
+        
+        forum::get -forum_id $row(forum_id) -array forum
+        set row(forum_name) $forum(name)
+        
         # Convert to user's date/time format
         set row(posting_date_ansi) [lc_time_system_to_conn $row(posting_date_ansi)]
         set row(posting_date_pretty) [lc_time_fmt $row(posting_date_ansi) "%x %X"]
@@ -273,9 +286,11 @@ ad_proc -public forum::message::delete {
 	    callback forum::message_delete -package_id [ad_conn package_id] -message_id $message_id
 	}
 
-	if { [forum::use_ReadingInfo_p] 
-	     && [db_string is_root "select parent_id from forums_messages where message_id = :message_id" -default ""] eq ""
-	 } {
+	if { [forum::use_ReadingInfo_p] &&
+             [db_0or1row is_root {
+                 select 1 from forums_messages
+                 where message_id = :message_id
+                 and parent_id is null}]} {
 	    set db_antwort [db_string forums_reading_info__remove_msg {
 		select forums_reading_info__remove_msg (:message_id);
 	    }]
