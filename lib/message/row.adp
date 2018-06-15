@@ -24,11 +24,11 @@
     <div class="attribution">
 	#forums.Posted_by# 
 	<if @useScreenNameP;literal@ true>
-      	  @user_name@
+      	  @message.user_name@
 	</if>
 	<else>
 	  <a href="user-history?user_id=@message.user_id@" title="#forums.show_posting_history_message_username#">
-	    @user_name@
+	    @message.user_name@
 	  </a>
 	</else> #forums.on# <span class="post-date">@message.posting_date_pretty@</span>
   </div>
