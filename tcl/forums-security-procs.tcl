@@ -49,7 +49,7 @@ namespace eval forum::security {
         set user_id [expr {$user_id eq "" ? [ad_conn user_id] : $user_id}]
 
         # Moderators can always post
-        if { ![permission::permission_p \
+        if { [permission::permission_p \
                 -party_id  $user_id \
                 -object_id $forum_id \
                 -privilege "forum_moderate"] } {
