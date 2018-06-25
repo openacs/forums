@@ -4,7 +4,7 @@
   <msg key="Admin_for_all">Verwaltungsoptionen für alle Foren.</msg>
   <msg key="Administer">Forum verwalten</msg>
   <msg key="Administration">Diskussionsforen verwalten</msg>
-  <msg key="anonymious_posts_are_allowed">Sie koennen in diesem Forum Ihre Nachricht auch anonym senden.</msg>
+  <msg key="anonymious_posts_are_allowed">Sie können in diesem Forum Ihre Nachricht auch anonym senden.</msg>
   <msg key="Anonymous">Anonym</msg>
   <msg key="approve">Freigeben</msg>
   <msg key="Are_you_sure_you_want_to_delete_lt">Wollen Sie diesen Beitrag und &lt;strong&gt;alle zugehörigen Antworten &lt;/strong&gt; wirklich löschen?</msg>
@@ -37,7 +37,7 @@
   <msg key="disable_it">deaktivieren</msg>
   <msg key="disabled">Deaktiviert</msg>
   <msg key="display_as">Anzeige anpassen: </msg>
-  <msg key="display_full_posts">Zeige vollstaendige Nachrichten</msg>
+  <msg key="display_full_posts">Zeige vollständige Nachrichten</msg>
   <msg key="Edit">Bearbeiten</msg>
   <msg key="edit">Bearbeiten</msg>
   <msg key="Edit_again">Erneut bearbeiten</msg>
@@ -83,7 +83,7 @@
   <msg key="html">HTML</msg>
   <msg key="If_checked_create_users">Wenn ausgewählt, erstelle Benutzer die nicht existieren</msg>
   <msg key="in_this_forum_your_screename_is_used">In diesem Forum wird anstatt ihres Namens ihr Alias angezeigt:</msg>
-  <msg key="just_display_subjects">Zeige nur die Ueberschriften</msg>
+  <msg key="just_display_subjects">Zeige nur die Überschriften</msg>
   <msg key="Last_Post">Letzter Beitrag</msg>
   <msg key="Last_post_in_subject">Letzter Beitrag zum Thema</msg>
   <msg key="link_on_separate_page">Link zu diesem Posting auf einer neuen Seite</msg>
@@ -132,11 +132,11 @@
   <msg key="New_Forum">Neues Forum erstellen</msg>
   <msg key="No">Nein</msg>
   <msg key="No_Forums">Keine Diskussionsforen vorhanden</msg>
-  <msg key="no_indentation_for_replies">Zeige Nachrichten nicht eingerueckt</msg>
+  <msg key="no_indentation_for_replies">Zeige Nachrichten nicht eingerückt</msg>
   <msg key="No_Messages">Keine Beiträge vorhanden</msg>
   <msg key="No_Postings">Keine Beiträge vorhanden</msg>
   <msg key="None">Kein Forum vorhanden</msg>
-  <msg key="not_allowed">Entschuldigung, aber es scheint, dass Sie nicht die benoetigten Rechten besitzen.</msg>
+  <msg key="not_allowed">Entschuldigung, aber es scheint, dass Sie nicht die benötigten Rechten besitzen.</msg>
   <msg key="Number_of_Posts">Anzahl der Postings</msg>
   <msg key="of_forum">von Foren</msg>
   <msg key="on">am</msg>
@@ -203,7 +203,7 @@
   <msg key="Users_that_wrote_in_the_forum">Benutzer, die in das Forum geschrieben haben</msg>
   <msg key="View">Ansicht</msg>
   <msg key="view_message">Nachricht anzeigen:</msg>
-  <msg key="with_indentation_of_replies">Zeige Nachrichten eingerueckt</msg>
+  <msg key="with_indentation_of_replies">Zeige Nachrichten eingerückt</msg>
   <msg key="Yes">Ja</msg>
   <msg key="You_can">Sie können</msg>
   <msg key="You_may">Sie können es</msg>
