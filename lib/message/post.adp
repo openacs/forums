@@ -6,5 +6,5 @@
 </if>
 
 <if @useScreenNameP;literal@ true>#forums.in_this_forum_your_screename_is_used# "<a href="@pvt_home@">@screen_name@</a>"</if><br>
-<if @anonymous_allowed_p;literal@ true>#forums.anonymious_posts_are_allowed#</if>
+<if @anonymous_allowed_p;literal@ true>#forums.anonymous_posts_are_allowed#</if>
 <formtemplate id="message"></formtemplate>

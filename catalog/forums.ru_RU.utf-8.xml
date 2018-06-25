@@ -4,7 +4,7 @@
   <msg key="Admin_for_all">Административные опции для всех форумов</msg>
   <msg key="Administer">Администрировать</msg>
   <msg key="Administration">Администрирование</msg>
-  <msg key="anonymious_posts_are_allowed">Вы можете оставлять сообщения на этом форуме анонимно.</msg>
+  <msg key="anonymous_posts_are_allowed">Вы можете оставлять сообщения на этом форуме анонимно.</msg>
   <msg key="Anonymous">Аноним</msg>
   <msg key="approve">разрешить</msg>
   <msg key="Are_you_sure_you_want_to_delete_lt">Вы действительно хотите удалить это сообщение вместе со &lt;strong&gt;всеми ответами на него&lt;/strong&gt;?</msg>
