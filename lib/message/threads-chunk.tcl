@@ -146,6 +146,8 @@ template::list::create \
 
 set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
 
+set visitor_name [_ acs-kernel.Unregistered_Visitor]
+
 db_multirow -extend {
     user_name
     screen_name
@@ -156,9 +158,16 @@ db_multirow -extend {
     n_messages_pretty
     state_pretty
 } messages messages_select {} {
-    set user [acs_user::get -user_id $user_id]
-    set screen_name [dict get $user screen_name]
-    set user_name   [dict get $user name]
+    if {$user_id > 0} {
+        set user [acs_user::get -user_id $user_id]
+        set screen_name [dict get $user screen_name]
+        set user_name   [dict get $user name]
+        set user_url [export_vars -base "${base_url}user-history" { user_id }]
+    } else {
+        set screen_name $visitor_name
+        set user_name   $visitor_name
+        set user_url    ""
+    }
     
     set last_child_post_ansi [lc_time_system_to_conn $last_child_post_ansi]
     set last_child_post_pretty [lc_time_fmt $last_child_post_ansi "%x %X"]
@@ -170,10 +179,6 @@ db_multirow -extend {
     if { $useScreenNameP } {
 	set user_name $screen_name
 	set user_url ""
-    } elseif {$user_id eq ""} {
-        set user_url ""
-    } else {
-	set user_url [export_vars -base "${base_url}user-history" { user_id }]
     }
     set n_messages_pretty [lc_numeric $n_messages]
 

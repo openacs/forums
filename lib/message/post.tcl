@@ -9,7 +9,12 @@ ad_page_contract {
 }
 
 set user_id [ad_conn user_id]
-acs_user::get -user_id $user_id -array user
+if {$user_id > 0} {
+    acs_user::get -user_id $user_id -array user
+} else {
+    set user(screen_name) [_ acs-kernel.Unregistered_Visitor]
+    set user(name) $user(screen_name)
+}
 set screen_name $user(screen_name)
 
 set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
@@ -170,7 +175,7 @@ ad_form -html {enctype multipart/form-data} \
         if {$action eq "post"} {
             set content [template::util::richtext::get_property content $message_body]
             set format [template::util::richtext::get_property format $message_body]
-
+            
             forum::message::new \
                 -forum_id $forum_id \
                 -message_id $message_id \

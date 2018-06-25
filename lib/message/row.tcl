@@ -23,9 +23,15 @@ set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
 
 set message(content) [ad_html_text_convert -from $message(format) -to text/html -- $message(content)]
 
-set message(user_name) [acs_user::get_element \
-                            -user_id $message(user_id) \
-                            -element [expr {$useScreenNameP ? "screen_name" : "name"}]]
+if {$message(user_id) > 0} {
+    set message(user_name) [acs_user::get_element \
+                                -user_id $message(user_id) \
+                                -element [expr {$useScreenNameP ? "screen_name" : "name"}]]
+    set message(user_url) user-history?user_id=$message(user_id)
+} else {    
+    set message(user_name) [_ acs-kernel.Unregistered_Visitor]
+    set message(user_url)  ""
+}
 
 # convert emoticons to images if the parameter is set
 if { [string is true [parameter::get -parameter DisplayEmoticonsAsImagesP -default 0]] } {
