@@ -40,13 +40,14 @@ if {$searchbox_p} {
             ad_page_contract_handle_datasource_error [_ acs-tcl.lt_name_is_not_an_intege]
             ad_script_abort
         }
-        
+
+        set query "search_all_forums"
         if { [parameter::get -parameter UseIntermediaForSearchP -default 0] } {
             append query "_intermedia"
         }
 
         set search_pattern "%${search_text}%"
-        db_multirow -extend { author posting_date_pretty } messages search_all_forums {} {
+        db_multirow -extend { author posting_date_pretty } messages $query {} {
             set posting_date_pretty [lc_time_fmt $posting_date_ansi "%x %X"]
             set author [acs_user::get_element -user_id $user_id \
                             -element [expr {$useScreenNameP ? "screen_name" : "name"}]]
