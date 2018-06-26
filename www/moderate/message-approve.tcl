@@ -17,6 +17,8 @@ forum::security::require_moderate_forum -forum_id $message(forum_id)
 
 # Approve the message
 forum::message::approve -message_id $message_id
+# flush templating cache so if this was a new thread UI list will be rebuilt
+forum::flush_templating_cache -forum_id $message(forum_id)
 
 ad_returnredirect "$return_url?message_id=$message_id"
 ad_script_abort
