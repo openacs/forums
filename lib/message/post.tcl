@@ -9,13 +9,7 @@ ad_page_contract {
 }
 
 set user_id [ad_conn user_id]
-if {$user_id > 0} {
-    acs_user::get -user_id $user_id -array user
-} else {
-    set user(screen_name) [_ acs-kernel.Unregistered_Visitor]
-    set user(name) $user(screen_name)
-}
-set screen_name $user(screen_name)
+set screen_name [acs_user::get_user_info -user_id $user_id -element screen_name]
 
 set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
 set pvt_home [ad_pvt_home]
@@ -150,7 +144,7 @@ ad_form -html {enctype multipart/form-data} \
             set message(subject) $subject
             set message(content) $content
             set message(user_id) $displayed_user_id
-            set message(user_name) $user(name)
+            set message(user_name) [person::name -person_id $user_id]
             set message(screen_name) $screen_name
             set message(posting_date_ansi) [clock format [clock seconds] -format "%Y-%m-%d %H:%M:%S"]
             set message(posting_date_pretty) [lc_time_fmt $message(posting_date_ansi) "%x %X"]
