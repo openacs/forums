@@ -18,14 +18,11 @@ set package_id [ad_conn package_id]
 # provide screen_name functionality
 set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
 
-if {$useScreenNameP} {
+set message(screen_name) [expr {$useScreenNameP ?
+                                [acs_user::get_user_info \
+                                     -user_id $user_id \
+                                     -element "screen_name"] : ""}]
 
-   acs_user::get -user_id $user_id -array user_info
-   set message(screen_name) $user_info(screen_name)
-
-} else {
-   set message(screen_name) ""
-}
 set user_link [acs_community_member_link -user_id $user_id]
 
 
