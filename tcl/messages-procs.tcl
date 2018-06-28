@@ -229,16 +229,10 @@ ad_proc -public forum::message::get {
             array unset row
         }
     } else {
-        if {$row(user_id) > 0} {
-            set user [acs_user::get -user_id $row(user_id)]
-            set row(user_name)   [dict get $user name]
-            set row(user_email)  [dict get $user email]
-            set row(screen_name) [dict get $user screen_name]
-        } else {
-            set row(user_name)   [_ acs-kernel.Unregistered_Visitor]
-            set row(user_email)  ""
-            set row(screen_name) $row(user_name)
-        }
+        set user [acs_user::get -user_id $row(user_id)]
+        set row(user_name)   [dict get $user name]
+        set row(user_email)  [dict get $user email]
+        set row(screen_name) [dict get $user screen_name]
         
         forum::get -forum_id $row(forum_id) -array forum
         set row(forum_name) $forum(name)
