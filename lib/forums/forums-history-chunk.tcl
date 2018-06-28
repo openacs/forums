@@ -65,7 +65,7 @@ db_multirow -extend {
      group by user_id
 } {
     if {$user_id > 0} {
-        set user_name [acs_user::get_element -user_id $user_id -element name]
+        set user_name [person::name -person_id $user_id]
         set user_url user-history?user_id=$user_id
     } else {
         set user_name $visitor_name
