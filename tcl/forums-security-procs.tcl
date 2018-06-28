@@ -36,6 +36,8 @@ namespace eval forum::security {
         {-user_id ""}
         {-forum_id:required}
     } {
+        Abort if the user doesn't have 'read' permissions in the forum.
+    } {
         # Probably this whole proc could be replaced by just permission::require_permission
         if { ![permission::permission_p -party_id $user_id -object_id $forum_id -privilege "read"] } {
             do_abort
@@ -45,6 +47,8 @@ namespace eval forum::security {
     ad_proc -public can_post_forum_p {
         {-user_id ""}
         {-forum_id:required}
+    } {
+        @return 1 if the user can post in the forum, 0 otherwise.
     } {
         set user_id [expr {$user_id eq "" ? [ad_conn user_id] : $user_id}]
 
@@ -68,6 +72,8 @@ namespace eval forum::security {
         {-user_id ""}
         {-forum_id:required}
     } {
+        Abort if the user doesn't have permissions to post in the forum.
+    } {
         if {![can_post_forum_p -user_id $user_id -forum_id $forum_id]} {
             do_abort
         }
@@ -87,6 +93,8 @@ namespace eval forum::security {
     ad_proc -public require_moderate_forum {
         {-user_id ""}
         {-forum_id:required}
+    } {
+        Abort if the user doesn't have 'forum_moderate' permissions in the forum.
     } {
         # Probably this whole proc could be replaced by just permission::require_permission
         if { ![permission::permission_p \

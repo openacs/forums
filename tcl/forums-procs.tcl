@@ -85,6 +85,8 @@ ad_proc -public forum::edit {
 }
 
 ad_proc -public forum::attachments_enabled_p {} {
+    @return 1 if the attachments are enabled in the forums, 0 otherwise.
+} {
     if {"forums" eq [ad_conn package_key]} { 
         set return_value [site_node_apm_integration::child_package_exists_p \
                               -package_id [ad_conn package_id] -package_key attachments]
@@ -158,10 +160,12 @@ ad_proc -public forum::new_questions_allow {
     {-forum_id:required}
     {-party_id ""}
 } {
+    Allow the users to create new threads in the forum
+} {
     if { $party_id ne "" } {
         ad_log warning "Attribute party_id is deprecated and was ignored."
     }
-    
+
     db_dml query {
         update forums_forums set
         new_questions_allowed_p = true
@@ -173,10 +177,12 @@ ad_proc -public forum::new_questions_deny {
     {-forum_id:required}
     {-party_id ""}
 } {
+    Deny the users to create new threads in the forum
+} {
     if { $party_id ne "" } {
         ad_log warning "Attribute party_id is deprecated and was ignored."
     }
-    
+
     db_dml query {
         update forums_forums set
         new_questions_allowed_p = false
@@ -187,6 +193,8 @@ ad_proc -public forum::new_questions_deny {
 ad_proc -public forum::new_questions_allowed_p {
     {-forum_id:required}
     {-party_id ""}
+} {
+    Check if the users can create new threads in the forum
 } {
     if { $party_id ne "" } {
         ad_log warning "Attribute party_id is deprecated and was ignored."
@@ -199,6 +207,8 @@ ad_proc -public forum::new_questions_allowed_p {
 ad_proc -public forum::enable {
     {-forum_id:required}
 } {
+    Enable a forum
+} {
     # Enable the forum, no big deal
     db_dml update_forum_enabled_p {}
 }
@@ -206,10 +216,14 @@ ad_proc -public forum::enable {
 ad_proc -public forum::disable {
     {-forum_id:required}
 } {
+    Disable a forum
+} {
     db_dml update_forum_disabled_p {}
 }
 
 ad_proc -public forum::use_ReadingInfo_p {} {
+    @return 1 if the UseReadingInfo package parameter is true, 0 otherwise.
+} {
     return [string is true -strict [parameter::get_from_package_key -package_key forums -parameter UseReadingInfo -default f]]
 }
 
@@ -233,7 +247,7 @@ ad_proc forum::valid_forum_id_p {
 
     return $result
 }
-    
+
 # Local variables:
 #    mode: tcl
 #    tcl-indent-level: 4

@@ -79,6 +79,8 @@ ad_proc -public forum::message::do_notifications {
     {-message_id:required}
     {-user_id ""}
 } {
+    Perform the notifications
+} {
     # Select all the important information
     forum::message::get -message_id $message_id -array message
 
@@ -340,9 +342,9 @@ ad_proc -public forum::message::subject_sort_filter {
     -forum_id:required
     -order_by:required
 } {
-    Return a piece of HTML for toggling the sort order of threads (subjects)
-    in a forum. The user can either sort by the first postings in subjects
-    (the creation date of the subjects) or the last one.
+    @return a piece of HTML for toggling the sort order of threads (subjects)
+            in a forum. The user can either sort by the first postings in
+            subjects (the creation date of the subjects) or the last one.
 
     @author Peter Marklund
 } {
