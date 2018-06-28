@@ -18,12 +18,10 @@ ad_page_contract {
     }
 }
 
-# Get user information
-acs_user::get -user_id $user_id -array user
+# Get user name
+set user_name [person::name -person_id $user_id]
 
 set context [list [_ forums.Posting_History]]
-
-ad_return_template
 
 # Local variables:
 #    mode: tcl
