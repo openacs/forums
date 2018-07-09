@@ -80,7 +80,7 @@ ad_proc -public forum::edit {
         callback forum::forum_edit -package_id [ad_conn package_id] -forum_id $forum_id
     }
 
-    forum::flush_templating_cache \
+    forum::flush_cache \
         -forum_id $forum_id
 }
 
@@ -127,6 +127,15 @@ ad_proc -public forum::get {
     }
 }
 
+ad_proc -public forum::flush_cache {
+    {-forum_id:required}
+} {
+    Flushes all the forum caches.
+} {
+    forum::flush_templating_cache -forum_id $forum_id
+    forum::flush_namespaced_cache -forum_id $forum_id
+}
+
 ad_proc -public forum::flush_templating_cache {
     {-forum_id:required}
 } {
@@ -135,6 +144,14 @@ ad_proc -public forum::flush_templating_cache {
     # DRB: Black magic cache flush call which will disappear when list builder is
     # rewritten to paginate internally rather than use the template paginator.
     template::cache flush "messages,forum_id=$forum_id*"
+}
+
+ad_proc -public forum::flush_namespaced_cache {
+    {-forum_id:required}
+} {
+    Unsets namespaced thread variable holding the forum cache
+} {
+    unset -nocomplain ::forum_${forum_id}
 }
 
 ad_proc -deprecated -public forum::posting_policy_set {

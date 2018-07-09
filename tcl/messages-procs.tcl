@@ -72,6 +72,9 @@ ad_proc -public forum::message::new {
         }
     }
 
+    forum::flush_cache \
+        -forum_id $forum_id    
+
     return $message_id
 }
 
@@ -256,6 +259,10 @@ ad_proc -private forum::message::set_state {
         [list message_id $message_id] \
         [list state $state]]
     package_exec_plsql -var_list $var_list forums_message set_state
+    # flush the forum cache to update the thread count
+    forum::flush_cache -forum_id [db_string get_forum {
+        select forum_id from forums_messages where message_id = :message_id
+    }]
 }
 
 ad_proc -public forum::message::reject {
@@ -288,11 +295,11 @@ ad_proc -public forum::message::delete {
 	    callback forum::message_delete -package_id [ad_conn package_id] -message_id $message_id
 	}
 
-	if { [forum::use_ReadingInfo_p] &&
-             [db_0or1row is_root {
-                 select 1 from forums_messages
-                 where message_id = :message_id
-                 and parent_id is null}]} {
+        forum::message::get -message_id $message_id -array msg
+        set forum_id  $msg(forum_id)
+        set is_root_p [expr {$msg(parent_id) eq ""}]
+
+	if { $is_root_p && [forum::use_ReadingInfo_p] } {
 	    set db_antwort [db_string forums_reading_info__remove_msg {
 		select forums_reading_info__remove_msg (:message_id);
 	    }]
@@ -304,6 +311,9 @@ ad_proc -public forum::message::delete {
         # Remove the message
         set var_list [list [list message_id $message_id]]
         package_exec_plsql -var_list $var_list forums_message delete_thread
+
+        # flush the forum cache to update the thread count
+        forum::flush_cache -forum_id $forum_id
     }
 }
 
