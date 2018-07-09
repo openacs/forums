@@ -140,7 +140,16 @@ ad_proc -public forum::flush_templating_cache {
 ad_proc -deprecated -public forum::posting_policy_set {
     {-posting_policy:required}
     {-forum_id:required}
-} { 
+} {    
+    Set the posting policy. This used to happen by setting permissions
+    on the registered_users group, but was reformed to be just a flag
+    on the forum itself in order to support subsite
+    installation. Please use forum::edit instead.
+
+    @see forum::edit
+} {
+    forum::edit -forum_id $forum_id \
+        -posting_policy $posting_policy
     # # JCD: this is potentially bad since we are 
     # # just assuming registered_users is the 
     # # right group to be granting write to.
