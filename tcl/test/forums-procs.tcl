@@ -15,11 +15,13 @@ aa_register_case -cats {api smoke} forum_new {
     aa_run_with_teardown \
         -rollback \
         -test_code {
+
+            set package_id [subsite::main_site_id]
             
             # Create forum
             set forum_id [forum::new \
                               -name "foo" \
-                              -package_id [ad_conn package_id]]
+                              -package_id $package_id]
 
             set success_p [db_string success_p {
                 select 1 from forums_forums where forum_id = :forum_id
@@ -36,11 +38,13 @@ aa_register_case -cats {api smoke} forum_message_new {
     aa_run_with_teardown \
         -rollback \
         -test_code {
+
+            set package_id [subsite::main_site_id]
             
             # Create forum
             set forum_id [forum::new \
                               -name "foo" \
-                              -package_id [ad_conn package_id]]
+                              -package_id $package_id]
             
             # Create message
             set message_id [forum::message::new \
@@ -63,11 +67,13 @@ aa_register_case -cats {db smoke} forum_count_test {
     aa_run_with_teardown \
         -rollback \
         -test_code {
+
+            set package_id [subsite::main_site_id]
             
             # Create open forum
             set forum_id [forum::new \
                               -name foo \
-                              -package_id [ad_conn package_id]]
+                              -package_id $package_id]
 
             forum::get -forum_id $forum_id -array forum
             aa_equals "New forum has zero approved threads" $forum(approved_thread_count) 0
@@ -105,7 +111,7 @@ aa_register_case -cats {db smoke} forum_count_test {
             set forum_id [forum::new \
                               -name bar \
                               -posting_policy moderated \
-                              -package_id [ad_conn package_id]]
+                              -package_id $package_id]
             
             # Create message
             set message_id [forum::message::new \
