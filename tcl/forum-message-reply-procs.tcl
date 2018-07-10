@@ -13,20 +13,16 @@ namespace eval forum::message::notification {
     ad_proc -public get_url {
         object_id
     } {
-
-    }
+        NotificationType.GetURL Service Contract implementation.
+    } -
 
     ad_proc -public process_reply {
         reply_id
     } {
-
-    }
-        
+        NotificationType.ProcessReply Service Contract implementation.
+    } -
     
 }
-
-
-
 
 # Local variables:
 #    mode: tcl
