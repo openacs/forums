@@ -13,8 +13,8 @@ namespace eval forum::notification {
     ad_proc -public get_url {
         object_id
     } {
-        returns a full url to the object_id.
-        handles messages and forums.
+        Returns a full url to the object_id.<br>
+        Handles messages and forums.
     } { 
 
 	set object_type [db_string select_object_type {}]
@@ -40,6 +40,8 @@ namespace eval forum::notification {
 
     ad_proc -public process_reply {
         reply_id
+    } {
+        NotificationType.ProcessReply Service Contract implementation.
     } {
 
         # Get the data
