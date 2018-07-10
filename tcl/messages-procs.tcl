@@ -20,7 +20,7 @@ ad_proc -public forum::message::new {
     {-user_id ""}
     -no_callback:boolean
 } {
-    create a new message
+    Create a new message.
 } {
     # If no user_id is provided, we set it
     # to the currently logged-in user
@@ -82,7 +82,7 @@ ad_proc -public forum::message::do_notifications {
     {-message_id:required}
     {-user_id ""}
 } {
-    Perform the notifications
+    Perform the notifications.
 } {
     # Select all the important information
     forum::message::get -message_id $message_id -array message
@@ -208,7 +208,7 @@ ad_proc -public forum::message::set_format {
     {-message_id:required}
     {-format:required}
 } {
-    set whether a message is HTML or not
+    Set whether a message is HTML or not.
 } {
     # Straight update to the DB
     db_dml update_message_format {}
@@ -218,7 +218,7 @@ ad_proc -public forum::message::get {
     {-message_id:required}
     {-array:required}
 } {
-    get the fields for a message
+    Get the fields for a message.
 } {
     # Select the info into the upvar'ed Tcl Array
     upvar $array row
@@ -252,8 +252,8 @@ ad_proc -private forum::message::set_state {
     {-message_id:required}
     {-state:required}
 } {
-    Set the new state for a message
-    Usually used for approval
+    Set the new state for a message.<br>
+    Usually used for approval.
 } {
     set var_list [list \
         [list message_id $message_id] \
@@ -268,7 +268,7 @@ ad_proc -private forum::message::set_state {
 ad_proc -public forum::message::reject {
     {-message_id:required}
 } {
-    Reject a message
+    Reject a message.
 } {
     set_state -message_id $message_id -state rejected
 }
@@ -276,7 +276,7 @@ ad_proc -public forum::message::reject {
 ad_proc -public forum::message::approve {
     {-message_id:required}
 } {
-    approve a message
+    Approve a message.
 } {
     db_transaction {
         set_state -message_id $message_id -state approved
@@ -288,7 +288,7 @@ ad_proc -public forum::message::delete {
     {-message_id:required}
     -no_callback:boolean
 } {
-    delete a message and obviously all of its descendents
+    Delete a message and obviously all of its descendents.
 } {
     db_transaction {
 	if {!$no_callback_p} {
@@ -320,8 +320,8 @@ ad_proc -public forum::message::delete {
 ad_proc -public forum::message::close {
     {-message_id:required}
 } {
-    close a thread
-    This is not exactly a cheap operation if the thread is long
+    Close a thread.<br>
+    This is not exactly a cheap operation if the thread is long.
 } {
     db_exec_plsql thread_close {}
 }
@@ -329,8 +329,8 @@ ad_proc -public forum::message::close {
 ad_proc -public forum::message::open {
     {-message_id:required}
 } {
-    reopen a thread
-    This is not exactly a cheap operation if the thread is long
+    Reopen a thread.<br>
+    This is not exactly a cheap operation if the thread is long.
 } {
     db_exec_plsql thread_open {}
 }
@@ -338,7 +338,7 @@ ad_proc -public forum::message::open {
 ad_proc -public forum::message::get_attachments {
     {-message_id:required}
 } {
-    get the attachments for a message
+    Get the attachments for a message.
 } {
     # If attachments aren't enabled, then we stop
     if {![forum::attachments_enabled_p]} {
@@ -352,7 +352,7 @@ ad_proc -public forum::message::subject_sort_filter {
     -forum_id:required
     -order_by:required
 } {
-    @return a piece of HTML for toggling the sort order of threads (subjects)
+    @return A piece of HTML for toggling the sort order of threads (subjects)
             in a forum. The user can either sort by the first postings in
             subjects (the creation date of the subjects) or the last one.
 
