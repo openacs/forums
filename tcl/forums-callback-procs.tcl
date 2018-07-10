@@ -8,8 +8,61 @@ ad_library {
     @cvs-id $Id$
 }
 
+#
+## Callback hooks
+#
+
+ad_proc -public -callback forum::forum_new {
+    {-package_id:required}
+    {-forum_id:required}
+} {
+    Append extra logics to forum creation.
+} -
+
+ad_proc -public -callback forum::forum_edit {
+    {-package_id:required}
+    {-forum_id:required}
+} {
+    Append extra logics to forum editing.
+} -
+
+ad_proc -public -callback forum::forum_delete {
+    {-package_id:required}
+    {-forum_id:required}
+} {
+    Append extra logics to forum deletion.
+} -
+
+ad_proc -public -callback forum::message_new {
+    {-package_id:required}
+    {-message_id:required}
+} {
+    Append extra logics to forum message creation.
+} -
+
+ad_proc -public -callback forum::message_edit {
+    {-package_id:required}
+    {-message_id:required}
+} {
+    Append extra logics to forum message editing.
+} -
+
+ad_proc -public -callback forum::message_delete {
+    {-package_id:required}
+    {-message_id:required}
+} {
+    Append extra logics to forum message deletion.
+} -
+
+
+#
+## Callback implementations
+#
+
+# navigation callbacks
+
 ad_proc -public -callback navigation::package_admin -impl forums {} {
-    return the admin actions for the forum package.
+    Return the admin actions for the forum package.
 } {
     set actions {}
 
@@ -46,48 +99,15 @@ ad_proc -public -callback navigation::package_admin -impl forums {} {
     return $actions
 }
 
-ad_proc -public -callback forum::forum_new {
-    {-package_id:required}
-    {-forum_id:required}
-} {
-}
 
-ad_proc -public -callback forum::forum_edit {
-    {-package_id:required}
-    {-forum_id:required}
-} {
-}
-
-ad_proc -public -callback forum::forum_delete {
-    {-package_id:required}
-    {-forum_id:required}
-} {
-}
-
-ad_proc -public -callback forum::message_new {
-    {-package_id:required}
-    {-message_id:required}
-} {
-}
-
-ad_proc -public -callback forum::message_edit {
-    {-package_id:required}
-    {-message_id:required}
-} {
-}
-
-ad_proc -public -callback forum::message_delete {
-    {-package_id:required}
-    {-message_id:required}
-} {
-}
+# project-manager callbacks
 
 ad_proc -public -callback pm::project_new -impl forums {
     {-package_id:required}
     {-project_id:required}
     {-data:required}
 } {
-    create a new forum for each new project
+    Create a new forum for each new project.
 } {
     set pm_name [pm::project::name -project_item_id $project_id]
 
@@ -104,17 +124,20 @@ ad_proc -public -callback pm::project_new -impl forums {
     }
 }
 
+
+# search callbacks
+
 ad_proc -public -callback search::datasource -impl forums_message {} {
 
     @author dave@thedesignexperience.org
     @creation-date 2005-06-07
 
-    returns a datasource for the search package
+    Returns a datasource for the search package
     this is the content that will be indexed by the full text
     search engine.
 
     We expect message_id to be a root message of a thread only, 
-    and return the text of all the messages below
+    and return the text of all the messages below.
 
 } {
     set message_id $object_id
@@ -198,7 +221,7 @@ ad_proc -public -callback search::url -impl forums_message {} {
     @author dave@thedesignexperience.org
     @creation-date 2005-06-08
 
-    returns a URL for a message to the search package
+    Returns a URL for a message to the search package.
 
 } {
     set message_id $object_id
@@ -210,7 +233,7 @@ ad_proc -public -callback search::url -impl forums_message {} {
 
 ad_proc -public -callback search::datasource -impl forums_forum {} {
 
-    returns a datasource for the search package
+    Returns a datasource for the search package
     this is the content that will be indexed by the full text
     search engine.
 
@@ -229,7 +252,7 @@ ad_proc -public -callback search::datasource -impl forums_forum {} {
 
 ad_proc -public -callback search::url -impl forums_forum {} {
 
-    returns a URL for a forum to the search package
+    Returns a URL for a forum to the search package.
 
     @author Jeff Davis davis@xarg.net
     @creation-date 2004-04-01
@@ -239,74 +262,8 @@ ad_proc -public -callback search::url -impl forums_forum {} {
     return "[ad_url][db_string select_forums_package_url {}]forum-view?forum_id=$forum_id"
 }
 
-ad_proc -callback application-track::getApplicationName -impl forums {} { 
-        callback implementation 
-    } {
-        return "forums"
-    }    
-    
-    ad_proc -callback application-track::getGeneralInfo -impl forums {} { 
-        callback implementation 
-    } {
-	db_1row my_query {
-		SELECT count(1) as result
-    		from acs_objects o, forums_forums f, acs_objects o2, dotlrn_communities_full com
-		where f.forum_id=o.object_id   
-		      and com.community_id=:comm_id
-		      and o.package_id= o2.object_id
-		      and o2.context_id=com.package_id		
-					
-	}
-	
-	return "$result"
-    }
-    
-    ad_proc -callback application-track::getSpecificInfo -impl forums {} { 
-        callback implementation 
-    } {
-   	
-	upvar $query_name my_query
-	upvar $elements_name my_elements
 
-	set my_query {
-		SELECT 	f.name as name,f.thread_count as threads,
-			f.last_post, 
-		       	to_char(o.creation_date, 'YYYY-MM-DD HH24:MI:SS') as creation_date
-	from acs_objects o, forums_forums f, acs_objects o2, dotlrn_communities_full com
-		where f.forum_id=o.object_id   
-		      and com.community_id=:class_instance_id
-		      and o.package_id= o2.object_id
-		      and o2.context_id=com.package_id
- }
-		
-	set my_elements {
-    		name {
-	            label "Name"
-	            display_col name	                        
-	 	    html {align center}	 	    
-	 	                
-	        }
-	        threads {
-	            label "Threads"
-	            display_col threads 	      	              
-	 	    html {align center}	 	               
-	        }
-	        creation_date {
-	            label "creation_date"
-	            display_col creation_date 	      	               
-	 	    html {align center}	 	              
-	        }
-	        last_post  {
-	            label "last_post"
-	            display_col last_post 	      	               
-	 	    html {align center}	 	              
-	        }	        
-	        
-	        
-	}
-
-        return "OK"
-    }
+# merge callbacks
 
 ad_proc -callback merge::MergeShowUserInfo -impl forums {
     -user_id:required
@@ -354,35 +311,36 @@ ad_proc -callback merge::MergePackageUser -impl forums {
     return $result
 }
 
-#Callbacks for application-track 
+
+# application-track callbacks
 
 ad_proc -callback application-track::getApplicationName -impl forums {} { 
-        callback implementation 
-    } {
-        return "forums"
-    }    
+    Callback implementation.
+} {
+    return "forums"
+}    
     
 ad_proc -callback application-track::getGeneralInfo -impl forums {} { 
-        callback implementation 
-    } {
-	db_1row my_query {
+    Callback implementation.
+} {
+    db_1row my_query {
     		select count(f.forum_id) as result
 		FROM forums_forums f, dotlrn_communities_full com
 		WHERE com.community_id=:comm_id
 		and apm_package__parent_id(f.package_id) = com.package_id	
-	}
-	
-	return "$result"
     }
     
+    return $result
+}
+    
 ad_proc -callback application-track::getSpecificInfo -impl forums {} { 
-        callback implementation 
-    } {
-   	
-	upvar $query_name my_query
-	upvar $elements_name my_elements
+    Callback implementation.
+} {
+    
+    upvar $query_name my_query
+    upvar $elements_name my_elements
 
-	set my_query {
+    set my_query {
 		SELECT 	f.name as name,f.thread_count as threads,
 			f.last_post, 
 		       	to_char(o.creation_date, 'YYYY-MM-DD HH24:MI:SS') as creation_date
@@ -390,36 +348,34 @@ ad_proc -callback application-track::getSpecificInfo -impl forums {} {
 		WHERE com.community_id=:class_instance_id
 		and f.forum_id = o.object_id
 		and apm_package__parent_id(f.package_id) = com.package_id
- }
-		
-	set my_elements {
-    		name {
-	            label "Name"
-	            display_col name	                        
-	 	    html {align center}	 	    
-	 	                
-	        }
-	        threads {
-	            label "Threads"
-	            display_col threads 	      	              
-	 	    html {align center}	 	               
-	        }
-	        creation_date {
-	            label "creation_date"
-	            display_col creation_date 	      	               
-	 	    html {align center}	 	              
-	        }
-	        last_post  {
-	            label "last_post"
-	            display_col last_post 	      	               
-	 	    html {align center}	 	              
-	        }	        
-	        
-	        
-	}
-
-        return "OK"
     }
+    
+    set my_elements {
+        name {
+            label "Name"
+            display_col name	                        
+            html {align center}	 	    
+            
+        }
+        threads {
+            label "Threads"
+            display_col threads 	      	              
+            html {align center}	 	               
+        }
+        creation_date {
+            label "creation_date"
+            display_col creation_date 	      	               
+            html {align center}	 	              
+        }
+        last_post  {
+            label "last_post"
+            display_col last_post 	      	               
+            html {align center}	 	              
+        }	        
+    }
+
+    return "OK"
+}
 
 # Local variables:
 #    mode: tcl
