@@ -11,7 +11,7 @@ ad_library {
 namespace eval forum::security {
 
     ad_proc -private do_abort {} {
-        do an abort if security violation
+        Do an abort if security violation.
     } {
         if { [ad_conn user_id] == 0 } {
             ad_redirect_for_registration
@@ -109,10 +109,22 @@ namespace eval forum::security {
         {-forum_id:required}
         {-user_id ""}
         array_name
+    } {        
+        Retrieve all relevant forum permissions in a single array of
+        fields {admin_p moderate_p post_p}.
+        admin_p and moderate_p are in fact just synonyms and will have
+        the same value.
+
+        @param user_id user to check permissions for. Defaults to
+                       currently connected user.        
+        @param array_name name of array in the caller namespace that will
+                        contain proc results after the call.
     } {
         upvar $array_name array
 
-        set array(admin_p)    [permission::permission_p -object_id $forum_id -privilege "forum_moderate"]
+        set user_id [expr {$user_id eq "" ? [ad_conn user_id] : $user_id}]
+
+        set array(admin_p)    [permission::permission_p -object_id $forum_id -party_id $user_id -privilege "forum_moderate"]
         set array(moderate_p) $array(admin_p)
         set array(post_p)     [expr {$array(admin_p) || [forum::security::can_post_forum_p -forum_id $forum_id -user_id $user_id]}]
     }
