@@ -10,10 +10,12 @@ ad_library {
 namespace eval forums::twt {
 
     ad_proc new { name } {
+        Create a new forum from the UI.
+    } {
 	
 	set response 0
     
-	# The Faq Admin page url
+	# The Forum Admin page url
 	set forum_admin_page [aa_get_first_url -package_key forums]       
 	::twt::do_request $forum_admin_page
 	
@@ -50,10 +52,12 @@ namespace eval forums::twt {
     }						      
 
     ad_proc edit { name } {
+        Edit a forum from the UI.
+    } {
 
 	set response 0
     
-	# Call to the faq admin page
+	# Call to the forum admin page
 	set forum_admin_page [aa_get_first_url -package_key forums]       
 	::twt::do_request $forum_admin_page 
 
@@ -94,13 +98,15 @@ namespace eval forums::twt {
 	return $response
     }
 
-    ad_proc new_post {name subject} { 
+    ad_proc new_post {name subject} {
+       Post a message from the UI. 
+    } {
 
 	set response 0 
 	# Seting the Subject and Body of the new post 
 	set msgb "[ad_generate_random_string] [ad_generate_random_string 20]"  
  
-	# Call to the faq admin page 
+	# Call to the forum admin page 
 	set forum_admin_page [aa_get_first_url -package_key forums]        
 	::twt::do_request $forum_admin_page 
 
@@ -142,14 +148,16 @@ namespace eval forums::twt {
 	return $response
     }
 
-    ad_proc edit_post {name subject} {  
+    ad_proc edit_post {name subject} {
+        Edit a post from the UI
+    } {
   
 	set response 0
     
 	# Seting the new body of the message
 	set msgb2 "[ad_generate_random_string] [ad_generate_random_string 20]"  
  
-	# Call to the faq admin page  
+	# Call to the forum admin page  
 	set forum_admin_page [aa_get_first_url -package_key forums]        
 	::twt::do_request $forum_admin_page 
 
@@ -191,10 +199,12 @@ namespace eval forums::twt {
 	return $response 
     }
 
-    ad_proc delete_post {name subject} {   
+    ad_proc delete_post {name subject} {
+        Delete a post from the UI.
+    } {
    
 	set response 0 
-	# Call to the faq admin page   
+	# Call to the forum admin page   
 	set forum_admin_page [aa_get_first_url -package_key forums]        
 	::twt::do_request $forum_admin_page 
        
@@ -223,14 +233,16 @@ namespace eval forums::twt {
 	return $response
     } 
 
-    ad_proc reply_msg {name subject} {   
+    ad_proc reply_msg {name subject} {
+        Post a reply from the UI.
+    } {
    
 	set response 0
 	
 	# Seting the new body of the message 
 	set msgb_reply "[ad_generate_random_string] [ad_generate_random_string 20]"   
   
-	# Call to the faq admin page   
+	# Call to the forum admin page   
 	set forum_admin_page [aa_get_first_url -package_key forums]        
 	::twt::do_request $forum_admin_page 
 
