@@ -10,16 +10,26 @@ ad_library {
 
 namespace eval forum::message::notification {
 
-    ad_proc -public get_url {
+    ad_proc -deprecated -public get_url {
         object_id
     } {
-        NotificationType.GetURL Service Contract implementation.
+        NotificationType.GetURL Service Contract implementation..<br>
+        This proc was always empty and is currently not used anywhere
+        in upstream code. Is most likely superseded by its
+        forum::notification counterpart.
+
+        @see forum::notification::get_url
     } -
 
-    ad_proc -public process_reply {
+    ad_proc -deprecated -public process_reply {
         reply_id
     } {
-        NotificationType.ProcessReply Service Contract implementation.
+        NotificationType.ProcessReply Service Contract implementation.<br>
+        This proc was always empty and is currently not used anywhere
+        in upstream code. Is most likely superseded by its
+        forum::notification counterpart.
+
+        @see forum::notification::process_reply
     } -
     
 }
