@@ -383,7 +383,7 @@ ad_proc -public forum::message::initial_message {
     {-parent {}}
     {-message:required}
 } {
-    Create an array with values initialised for a new message.
+    Create an array with values initialized for a new message.
 } {
     upvar $message init_msg
 
