@@ -3,7 +3,7 @@
 </p>
 
 
-<if @persons:rowcount@ gt 0>
+<if @persons:rowcount;literal@ gt 0>
     <listtemplate name="persons"></listtemplate>
 </if>
 <else>

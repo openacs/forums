@@ -6,7 +6,7 @@
 <form name="input" action="move"  method="get">
 <div><input type="hidden" name="message_id" value="@message_id@"></div>
 <div><input type="hidden" name="confirm_p" value="@confirm_p@"></div>
-<if @forums:rowcount@ eq 0>
+<if @forums:rowcount;literal@ eq 0>
   <p>#forums.Sorry_you_can_not_move_this_thread_There_are_no_other_forums#
 </if>
 <else>

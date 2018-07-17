@@ -6,7 +6,7 @@
 <form name="input" action="move-thread-thread" method="get">
 <input type="hidden" name="msg_id" value="@msg_id@">
 <input type="hidden" name="confirm_p" value="@confirm_p@">
-<if @messages:rowcount@ eq 0>
+<if @messages:rowcount;literal@ eq 0>
     #forums.Sorry_you_can_not_move_this_thread_There_are_no_more_threads#
 </if>
 <else>

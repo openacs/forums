@@ -6,7 +6,7 @@
     post_p="@permissions.post_p;literal@"
     presentation_type="@forum.presentation_type;literal@"
     &message="message">
-    <if @responses:rowcount@ gt 0>
+    <if @responses:rowcount;literal@ gt 0>
       <multiple name="responses">
         <include src="row"
           rownum="@responses.rownum;literal@"

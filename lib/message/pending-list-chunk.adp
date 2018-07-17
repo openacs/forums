@@ -1,5 +1,5 @@
 <ul>
-<if @pending_threads:rowcount@ eq 0>
+<if @pending_threads:rowcount;literal@ eq 0>
 <em>#forums.None#</em>
 </if>
 <else>
