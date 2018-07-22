@@ -8,16 +8,19 @@ ad_library {
     @cvs-id $Id$
 }
 
-aa_register_case -cats {api smoke} forum_new {
+aa_register_case \
+    -cats {api smoke} \
+    -procs {forum::new} \
+    forum_new {
     Test the forum::new proc.
-} {    
+} {
 
     aa_run_with_teardown \
         -rollback \
         -test_code {
 
             set package_id [subsite::main_site_id]
-            
+
             # Create forum
             set forum_id [forum::new \
                               -name "foo" \
@@ -31,21 +34,27 @@ aa_register_case -cats {api smoke} forum_new {
         }
 }
 
-aa_register_case -cats {api smoke} forum_message_new {
+aa_register_case \
+    -cats {api smoke} \
+    -procs {
+        forum::message::new
+        forum::new
+    } \
+    forum_message_new {
     Test the forum::message::new proc.
-} {    
+} {
 
     aa_run_with_teardown \
         -rollback \
         -test_code {
 
             set package_id [subsite::main_site_id]
-            
+
             # Create forum
             set forum_id [forum::new \
                               -name "foo" \
                               -package_id $package_id]
-            
+
             # Create message
             set message_id [forum::message::new \
                                 -forum_id $forum_id \
@@ -60,16 +69,26 @@ aa_register_case -cats {api smoke} forum_message_new {
         }
 }
 
-aa_register_case -cats {db smoke} forum_count_test {
+aa_register_case \
+    -cats {db smoke} \
+    -procs {
+        forum::get
+        forum::message::delete
+        forum::message::get
+        forum::message::new
+        forum::message::set_state
+        forum::new
+    } \
+    forum_count_test {
     Test the thread count and reply count tracking code.
-} {    
+} {
 
     aa_run_with_teardown \
         -rollback \
         -test_code {
 
             set package_id [subsite::main_site_id]
-            
+
             # Create open forum
             set forum_id [forum::new \
                               -name foo \
@@ -78,7 +97,7 @@ aa_register_case -cats {db smoke} forum_count_test {
             forum::get -forum_id $forum_id -array forum
             aa_equals "New forum has zero approved threads" $forum(approved_thread_count) 0
             aa_equals "New forum has zero threads" $forum(thread_count) 0
-            
+
             # Create message
             set message_id [forum::message::new \
                                 -forum_id $forum_id \
@@ -112,7 +131,7 @@ aa_register_case -cats {db smoke} forum_count_test {
                               -name bar \
                               -posting_policy moderated \
                               -package_id $package_id]
-            
+
             # Create message
             set message_id [forum::message::new \
                                 -forum_id $forum_id \
@@ -154,157 +173,181 @@ aa_register_case -cats {db smoke} forum_count_test {
 }
 
 
-aa_register_case -cats {web smoke} -libraries tclwebtest web_forum_new {
+aa_register_case \
+    -cats {web smoke} \
+    -libraries tclwebtest \
+    -procs {[forums::twt::new} \
+    web_forum_new {
        Testing the creation of a forum via web
 } {
 
     aa_run_with_teardown -test_code {
 
-	tclwebtest::cookies clear 
-	
-	# Login user 
-	array set user_info [twt::user::create -admin]
-	twt::user::login $user_info(email) $user_info(password)
-    
-	# Create a new forum
-	set name [ad_generate_random_string]
-	set response [forums::twt::new "$name"]
-	aa_display_result -response $response -explanation {Webtest for the creation of a new Forum}
-    
+        tclwebtest::cookies clear
+
+        # Login user
+        array set user_info [twt::user::create -admin]
+        twt::user::login $user_info(email) $user_info(password)
+
+        # Create a new forum
+        set name [ad_generate_random_string]
+        set response [forums::twt::new "$name"]
+        aa_display_result -response $response -explanation {Webtest for the creation of a new Forum}
+
         twt::user::logout
     }
 
 }
 
-aa_register_case -cats {web smoke} -libraries tclwebtest web_forum_edit {
+aa_register_case \
+    -cats {web smoke} \
+    -libraries tclwebtest \
+    -procs {forums::twt::edit forums::twt::new} \
+    web_forum_edit {
         Testing the edition of an existing forum
 } {
 
-    aa_run_with_teardown -test_code { 
-        
-	tclwebtest::cookies clear 
-        
-	# Login user 
-        array set user_info [twt::user::create -admin] 
-        twt::user::login $user_info(email) $user_info(password) 
-        
-	# Create a forum
-        set name [ad_generate_random_string] 
-        forums::twt::new "$name" 
-        
-	# Edit the created forum
-        set response [forums::twt::edit "$name"]
+    aa_run_with_teardown -test_code {
+
+        tclwebtest::cookies clear
+
+        # Login user
+        array set user_info [twt::user::create -admin]
+        twt::user::login $user_info(email) $user_info(password)
+
+        # Create a forum
+        set name [ad_generate_random_string]
+        forums::twt::new $name
+
+        # Edit the created forum
+        set response [forums::twt::edit $name]
         aa_display_result -response $response -explanation {Webtest for the edition of a forum}
-        
-	twt::user::logout 
+
+        twt::user::logout
     }
 }
 
-aa_register_case -cats {web smoke} -libraries tclwebtest web_message_new {
+aa_register_case \
+    -cats {web smoke} \
+    -libraries tclwebtest \
+    -procs {[forums::twt::new forums::twt::new_post} \
+    web_message_new {
        Posting a new message to an existing forum
 } {
-    
+
 
     aa_run_with_teardown -test_code {
-	
-	tclwebtest::cookies clear 
-    
-	# Login user 
-	array set user_info [twt::user::create -admin] 
-	twt::user::login $user_info(email) $user_info(password) 
 
-	# Create a forum
-	set name [ad_generate_random_string]  
-	forums::twt::new "$name"
-    
-	# Post a message in the created forum
-	set subject [ad_generate_random_string]
-	set response [forums::twt::new_post "$name" "$subject"]
-	aa_display_result -response $response -explanation {Webtest for posting a message in a forum}
-	
-	twt::user::logout 
+        tclwebtest::cookies clear
+
+        # Login user
+        array set user_info [twt::user::create -admin]
+        twt::user::login $user_info(email) $user_info(password)
+
+        # Create a forum
+        set name [ad_generate_random_string]
+        forums::twt::new "$name"
+
+        # Post a message in the created forum
+        set subject [ad_generate_random_string]
+        set response [forums::twt::new_post "$name" "$subject"]
+        aa_display_result -response $response -explanation {Webtest for posting a message in a forum}
+
+        twt::user::logout
     }
 }
 
-aa_register_case -cats {web smoke} -libraries tclwebtest web_message_edit {
+aa_register_case \
+    -cats {web smoke} \
+    -libraries tclwebtest \
+    -procs {forums::twt::new_post forums::twt::new_post forums::twt::edit_post} \
+    web_message_edit {
  Editing a message of a forum
 } {
 
     aa_run_with_teardown -test_code {
-	
-	tclwebtest::cookies clear 
-    
-	# Login user 
-	array set user_info [twt::user::create -admin] 
-	twt::user::login $user_info(email) $user_info(password) 
 
-	# Create a forum
-	set name [ad_generate_random_string] 
-	forums::twt::new "$name" 
-    
-	# Post a message in the created forum
-	set subject [ad_generate_random_string]
-	forums::twt::new_post "$name" "$subject"
-    
-	# Edit the posted message
-	set response [forums::twt::edit_post "$name" "$subject"]
-	aa_display_result -response $response -explanation {Webtest for editing the message of a forum}
+        tclwebtest::cookies clear
 
-	twt::user::logout
-    } 
+        # Login user
+        array set user_info [twt::user::create -admin]
+        twt::user::login $user_info(email) $user_info(password)
+
+        # Create a forum
+        set name [ad_generate_random_string]
+        forums::twt::new "$name"
+
+        # Post a message in the created forum
+        set subject [ad_generate_random_string]
+        forums::twt::new_post "$name" "$subject"
+
+        # Edit the posted message
+        set response [forums::twt::edit_post "$name" "$subject"]
+        aa_display_result -response $response -explanation {Webtest for editing the message of a forum}
+
+        twt::user::logout
+    }
 }
 
-aa_register_case -cats {web smoke} -libraries tclwebtest web_message_reply { 
+aa_register_case \
+    -cats {web smoke} \
+    -libraries tclwebtest \
+    -procs {forums::twt::new forums::twt::new_post forums::twt::reply_msg} \
+    web_message_reply {
     Post a reply a message in the forum
-} { 
+} {
     aa_run_with_teardown -test_code {
-	
-	tclwebtest::cookies clear 
-	
-	# Login user 
-	array set user_info [twt::user::create -admin] 
-	twt::user::login $user_info(email) $user_info(password) 
 
-	# Create a forum  
-	set name [ad_generate_random_string]  
-	forums::twt::new "$name"  
-    
-	# Post a message in the created forum 
-	set subject [ad_generate_random_string]
-	forums::twt::new_post "$name" "$subject" 
-    
-	# Edit the posted message 
-	set response [forums::twt::reply_msg "$name" "$subject"]
-	aa_display_result -response $response -explanation {Webtest for posting a reply to a msg in the forum}
-	
-	twt::user::logout
-    } 
-} 
+        tclwebtest::cookies clear
 
-aa_register_case -cats {web smoke} -libraries tclwebtest web_message_delete {  
-    Delete a message in the forum 
-} {                                                                          
+        # Login user
+        array set user_info [twt::user::create -admin]
+        twt::user::login $user_info(email) $user_info(password)
+
+        # Create a forum
+        set name [ad_generate_random_string]
+        forums::twt::new "$name"
+
+        # Post a message in the created forum
+        set subject [ad_generate_random_string]
+        forums::twt::new_post "$name" "$subject"
+
+        # Edit the posted message
+        set response [forums::twt::reply_msg "$name" "$subject"]
+        aa_display_result -response $response -explanation {Webtest for posting a reply to a msg in the forum}
+
+        twt::user::logout
+    }
+}
+
+aa_register_case \
+    -cats {web smoke} \
+    -libraries tclwebtest \
+    -procs {forums::twt::new forums::twt::new_post forums::twt::delete_post} \
+    web_message_delete {
+    Delete a message in the forum
+} {
     aa_run_with_teardown -test_code {
-	
-	tclwebtest::cookies clear        
-    
-	# Login user                        
-	array set user_info [twt::user::create -admin] 
-	twt::user::login $user_info(email) $user_info(password) 
-                                
-	# Create a forum           
-	set name [ad_generate_random_string]                        
-	forums::twt::new "$name"                        
-    
-	# Post a message in the created forum  
-	set subject [ad_generate_random_string]
-	forums::twt::new_post "$name" "$subject"  
-    
-	# Edit the posted message  
-	set response [forums::twt::delete_post "$name" "$subject"]
-	aa_display_result -response $response -explanation {Webtest for deleting a message posted in the forum}
-    
-	twt::user::logout  
+
+        tclwebtest::cookies clear
+
+        # Login user
+        array set user_info [twt::user::create -admin]
+        twt::user::login $user_info(email) $user_info(password)
+
+        # Create a forum
+        set name [ad_generate_random_string]
+        forums::twt::new "$name"
+
+        # Post a message in the created forum
+        set subject [ad_generate_random_string]
+        forums::twt::new_post "$name" "$subject"
+
+        # Edit the posted message
+        set response [forums::twt::delete_post "$name" "$subject"]
+        aa_display_result -response $response -explanation {Webtest for deleting a message posted in the forum}
+
+        twt::user::logout
     }
 }
 # Local variables:
