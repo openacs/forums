@@ -187,14 +187,14 @@ aa_register_case \
         #
         # Create a new admin user
         #
-        set user_info [twt::user::create -admin]
+        set user_info [acs::test::user::create -admin]
         set user_id [dict get $user_info user_id]
 
         #
 	# Get the forums admin page url
         #
 	set forums_page [aa_get_first_url -package_key forums]
-        set d [aa_http \
+        set d [acs::test::http \
                    -user_id $user_id \
                    $forums_page/admin/forum-new]
         aa_equals "Status code valid" [dict get $d status] 200
@@ -202,17 +202,17 @@ aa_register_case \
         #
         # Get the form specific data (action, method and provided form-fields)
         #
-        aa_dom_html root [dict get $d body] {
+        acs::test::dom_html root [dict get $d body] {
             set n_form   [$root selectNodes {//form[@id="forum"]}]
             set f_action [lindex [$root selectNodes {//form[@id='forum']/@action}] 0 1]
             set f_method [lindex [$root selectNodes {//form[@id='forum']/@method}] 0 1]
-            set f_fields [::aa_xpath::get_form_values $root {//form[@id='forum']}]
+            set f_fields [::acs::test::xpath::get_form_values $root {//form[@id='forum']}]
         }
 
         #
         # Fill in a few values into the form
         #
-        set d [::aa_test::form_reply \
+        set d [::acs::test::form_reply \
                    -user_id $user_id \
                    -url $f_action \
                    -update [subst {
@@ -239,7 +239,7 @@ aa_register_case \
         forum::delete -forum_id [dict get $f_fields forum_id]
         
     } -teardown_code {
-        twt::user::delete -user_id [dict get $user_info user_id]
+        acs::test::user::delete -user_id [dict get $user_info user_id]
     }
 
 }
