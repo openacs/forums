@@ -174,27 +174,72 @@ aa_register_case \
 
 
 aa_register_case \
-    -cats {web smoke} \
-    -libraries tclwebtest \
-    -procs {[forums::twt::new} \
+    -cats {api web smoke} \
+    -procs {forum::delete} \
     web_forum_new {
        Testing the creation of a forum via web
 } {
 
     aa_run_with_teardown -test_code {
 
-        tclwebtest::cookies clear
+        #tclwebtest::cookies clear
 
-        # Login user
-        array set user_info [twt::user::create -admin]
-        twt::user::login $user_info(email) $user_info(password)
+        #
+        # Create a new admin user
+        #
+        set user_info [twt::user::create -admin]
+        set user_id [dict get $user_info user_id]
 
-        # Create a new forum
-        set name [ad_generate_random_string]
-        set response [forums::twt::new "$name"]
-        aa_display_result -response $response -explanation {Webtest for the creation of a new Forum}
+        #
+	# Get the forums admin page url
+        #
+	set forums_page [aa_get_first_url -package_key forums]
+        set d [aa_http \
+                   -user_id $user_id \
+                   $forums_page/admin/forum-new]
+        aa_equals "Status code valid" [dict get $d status] 200
 
-        twt::user::logout
+        #
+        # Get the form specific data (action, method and provided form-fields)
+        #
+        aa_dom_html root [dict get $d body] {
+            set n_form   [$root selectNodes {//form[@id="forum"]}]
+            set f_action [lindex [$root selectNodes {//form[@id='forum']/@action}] 0 1]
+            set f_method [lindex [$root selectNodes {//form[@id='forum']/@method}] 0 1]
+            set f_fields [::aa_xpath::get_form_values $root {//form[@id='forum']}]
+        }
+
+        #
+        # Fill in a few values into the form
+        #
+        set d [::aa_test::form_reply \
+                   -user_id $user_id \
+                   -url $f_action \
+                   -update [subst {
+                       name             "[ad_generate_random_string]"
+                       charter          "[ad_generate_random_string] [ad_generate_random_string]"
+                       charter.format    text/plain
+                       presentation_type flat
+                       posting_policy    open
+                   }] \
+                    $f_fields ]
+        set reply [dict get $d body]
+        #set F [open /tmp/REPLY.html w]; puts $F $reply; close $F
+
+        #
+        # Check, if the form was correctly validated
+        #
+        aa_false  "Reply contains form-error" [string match *form-error* $reply]
+        aa_equals "Status code valid" [dict get $d status] 302
+
+        #
+        # in order to be able to delete the user, we have first to
+        # delete the fresh forum (via API)
+        #
+        forum::delete -forum_id [dict get $f_fields forum_id]
+        
+    } -teardown_code {
+        twt::user::delete -user_id [dict get $user_info user_id]
     }
 
 }
@@ -230,7 +275,7 @@ aa_register_case \
 aa_register_case \
     -cats {web smoke} \
     -libraries tclwebtest \
-    -procs {[forums::twt::new forums::twt::new_post} \
+    -procs {forums::twt::new forums::twt::new_post} \
     web_message_new {
        Posting a new message to an existing forum
 } {

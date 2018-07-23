@@ -51,6 +51,14 @@ ad_proc -public forum::new {
     return $forum_id
 }
 
+ad_proc -public forum::delete {
+    {-forum_id ""}
+} {
+    delete a forum
+} {
+    db_exec_plsql forum_delete {}
+}
+
 ad_proc -public forum::edit {
     {-forum_id:required}
     -name
