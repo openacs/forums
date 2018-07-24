@@ -175,7 +175,7 @@ aa_register_case \
 
 aa_register_case \
     -cats {api web smoke} \
-    -procs {forum::delete} \
+    -procs {forum::new forum::delete} \
     -urls {
         /admin/forum-new
     } web_forum_new {
@@ -213,7 +213,7 @@ aa_register_case \
 
 aa_register_case \
     -cats {api web smoke} \
-    -procs {forum::delete} \
+    -procs {forum::new forum::get forum::delete} \
     -urls {
         /admin/forum-new
         /forum-view
@@ -263,13 +263,13 @@ aa_register_case \
 
 aa_register_case \
     -cats {web smoke} \
-    -procs {forums::twt::edit forums::twt::new} \
+    -procs {forum::new forum::get forum::edit forum::delete} \
     -urls {
         /admin/forum-new
         /admin/forum-edit
     } \
     web_forum_edit {
-        Testing the edition of an existing forum
+        Testing the editing of an existing forum.
 } {
     set forum_id 0
     aa_run_with_teardown -test_code {
