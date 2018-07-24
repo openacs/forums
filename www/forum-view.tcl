@@ -14,13 +14,17 @@ ad_page_contract {
     page_size:naturalnum,optional,notnull
 }
 
-
-# Get forum data
-if {[catch {forum::get -forum_id $forum_id -array forum} errMsg]} {
-    if {$::errorCode eq "NOT_FOUND"} {
-        ns_returnnotfound
-        ad_script_abort
-    }
+ad_try {
+    #
+    # Get forum data
+    #
+    forum::get -forum_id $forum_id -array forum
+    
+} trap NOT_FOUND {} {
+    ns_returnnotfound
+    ad_script_abort
+    
+} on error {errMsg} {
     error $errMsg $::errorInfo $::errorCode
 }
 
