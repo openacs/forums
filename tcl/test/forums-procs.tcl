@@ -176,13 +176,14 @@ aa_register_case \
 aa_register_case \
     -cats {api web smoke} \
     -procs {forum::delete} \
-    web_forum_new {
+    -urls {
+        /admin/forum-new
+    } web_forum_new {
        Testing the creation of a forum via web
 } {
 
+    set forum_id 0
     aa_run_with_teardown -test_code {
-
-        #tclwebtest::cookies clear
 
         #
         # Create a new admin user
@@ -191,84 +192,112 @@ aa_register_case \
         set user_id [dict get $user_info user_id]
 
         #
-	# Get the forums admin page url
+        # Create a new forum
         #
-	set forums_page [aa_get_first_url -package_key forums]
-        set d [acs::test::http \
-                   -user_id $user_id \
-                   $forums_page/admin/forum-new]
-        aa_equals "Status code valid" [dict get $d status] 200
-
-        #
-        # Get the form specific data (action, method and provided form-fields)
-        #
-        acs::test::dom_html root [dict get $d body] {
-            set n_form   [$root selectNodes {//form[@id="forum"]}]
-            set f_action [lindex [$root selectNodes {//form[@id='forum']/@action}] 0 1]
-            set f_method [lindex [$root selectNodes {//form[@id='forum']/@method}] 0 1]
-            set f_fields [::acs::test::xpath::get_form_values $root {//form[@id='forum']}]
-        }
-
-        #
-        # Fill in a few values into the form
-        #
-        set d [::acs::test::form_reply \
-                   -user_id $user_id \
-                   -url $f_action \
-                   -update [subst {
-                       name             "[ad_generate_random_string]"
-                       charter          "[ad_generate_random_string] [ad_generate_random_string]"
-                       charter.format    text/plain
-                       presentation_type flat
-                       posting_policy    open
-                   }] \
-                    $f_fields ]
-        set reply [dict get $d body]
-        #set F [open /tmp/REPLY.html w]; puts $F $reply; close $F
-
-        #
-        # Check, if the form was correctly validated
-        #
-        aa_false  "Reply contains form-error" [string match *form-error* $reply]
-        aa_equals "Status code valid" [dict get $d status] 302
-
-        #
-        # in order to be able to delete the user, we have first to
-        # delete the fresh forum (via API)
-        #
-        forum::delete -forum_id [dict get $f_fields forum_id]
+        set name [ad_generate_random_string]
+        set forum_id [forums::test::new -user_id $user_id $name]
+ 
         
     } -teardown_code {
+        #
+        # In order to be able to delete the user, we have first to
+        # delete the fresh forum (via API).
+        #
+        if {$forum_id != 0} {
+            forum::delete -forum_id $forum_id
+        }
         acs::test::user::delete -user_id [dict get $user_info user_id]
     }
 
 }
 
 aa_register_case \
+    -cats {api web smoke} \
+    -procs {forum::delete} \
+    -urls {
+        /admin/forum-new
+        /forum-view
+    } web_forum_view {
+       Testing the creation of a forum via web
+} {
+    set forum_id 0
+    aa_run_with_teardown -test_code {
+
+        #
+        # Create a new admin user
+        #
+        set user_info [acs::test::user::create -admin]
+        set user_id [dict get $user_info user_id]
+
+        #
+        # Create a new forum
+        #
+        set name [ad_generate_random_string]
+        set forum_id [forums::test::new -user_id $user_id $name]
+        aa_log "Created forum with id $forum_id"
+
+        #
+        # View a forum via name.
+        #
+        set response [forums::test::view \
+                          -user_id $user_id \
+                          -name $name ]
+        #
+        # View a forum via forum_id.
+        #
+        set response [forums::test::view \
+                          -user_id $user_id \
+                          -forum_id $forum_id ]
+        
+    } -teardown_code {
+        #
+        # Delete the forum.
+        #
+        if {$forum_id != 0} {
+            forum::delete -forum_id $forum_id
+        }
+        acs::test::user::delete -user_id [dict get $user_info user_id]
+    }
+}
+
+
+aa_register_case \
     -cats {web smoke} \
-    -libraries tclwebtest \
     -procs {forums::twt::edit forums::twt::new} \
+    -urls {
+        /admin/forum-new
+        /admin/forum-edit
+    } \
     web_forum_edit {
         Testing the edition of an existing forum
 } {
-
+    set forum_id 0
     aa_run_with_teardown -test_code {
+        #
+        # Create a new admin user
+        #
+        set user_info [acs::test::user::create -admin]
+        set user_id [dict get $user_info user_id]
 
-        tclwebtest::cookies clear
-
-        # Login user
-        array set user_info [twt::user::create -admin]
-        twt::user::login $user_info(email) $user_info(password)
-
-        # Create a forum
+        #
+        # Create a new forum
+        #
         set name [ad_generate_random_string]
-        forums::twt::new $name
+        set forum_id [forums::test::new -user_id $user_id $name]
 
+        #
         # Edit the created forum
-        set response [forums::twt::edit $name]
-        aa_display_result -response $response -explanation {Webtest for the edition of a forum}
-
-        twt::user::logout
+        #
+        set response [forums::test::edit \
+                          -user_id $user_id \
+                          -forum_id $forum_id \
+                         ]
+        
+    } -teardown_code {
+        if {$forum_id != 0} {
+            forum::delete -forum_id $forum_id
+        }
+        acs::test::user::delete -user_id [dict get $user_info user_id]
     }
 }
 
