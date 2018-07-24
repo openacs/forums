@@ -70,10 +70,11 @@ if {[llength $direct_children_list] == 0} {
 
 
 # Gets all the direct children of the main message
-set childs [db_list get_children "select message_id from $table_name \
-	where  parent_id = :parent_message_id or message_id = $parent_message_id  order by message_id"]
+set children [db_list get_children "select message_id from $table_name \
+	where parent_id = :parent_message_id or message_id = :parent_message_id \
+        order by message_id"]
 
-set is_direct_children [lsearch $childs $parent_message_id]
+set is_direct_children [lsearch $children $parent_message_id]
 if {$is_direct_children == -1 } {
     set is_direct_child 0
 } else {
