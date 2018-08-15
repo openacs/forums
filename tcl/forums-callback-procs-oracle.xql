@@ -4,7 +4,6 @@
 <!--  -->
 <!-- @author Dave Bauer (dave@thedesignexperience.org) -->
 <!-- @creation-date 2006-01-28 -->
-<!-- @arch-tag: 33e3dcb8-30e3-445e-a6f7-7fc8e00c2301 -->
 <!-- @cvs-id $Id$ -->
 
 <queryset>
