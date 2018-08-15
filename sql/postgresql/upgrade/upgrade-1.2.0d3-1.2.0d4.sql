@@ -3,7 +3,6 @@
 -- 
 -- @author Deds Castillo (deds@i-manila.com.ph)
 -- @creation-date 2006-05-10
--- @arch-tag: 3b12c94c-beed-4b92-a2bb-f07a2856154e
 -- @cvs-id $Id$
 --
 
