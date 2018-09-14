@@ -12,6 +12,7 @@ ad_include_contract {
     {base_url ""}
 }
 
+set package_id [ad_conn package_id]
 set user_id [ad_conn user_id]
 # Get forum data
 
@@ -47,7 +48,7 @@ if { $permissions(post_p) } {
   }
 }
 
-if { $permissions(admin_p) } {
+if { $permissions(admin_p) && $package_id == $forum(package_id) } {
     lappend actions [_ forums.Administer] \
 	[export_vars -base "${base_url}admin/forum-edit" {forum_id {return_url [ad_return_url]}}] [_ forums.Administer]
 }
