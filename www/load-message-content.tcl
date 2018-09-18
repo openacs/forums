@@ -1,10 +1,9 @@
 ad_page_contract {
-    
+
    Update the content of an specified message, for preloading purpuoses
 
     @author Veronica De La Cruz (veronica@viaro.net)
     @creation-date 2006-04-21
-    
 
 } {
     message_id:naturalnum,notnull
