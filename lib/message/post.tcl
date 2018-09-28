@@ -90,7 +90,7 @@ ad_form -html {enctype multipart/form-data} \
     -form $form_elements \
     -new_request {
         ##############################
-        # Form initialisation
+        # Form initialization
         #
         if {$parent_id eq ""} {
             set parent_id ""
