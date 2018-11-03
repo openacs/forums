@@ -34,7 +34,6 @@ ad_proc -private forum::message::datasource { message_id } {
     if { ![ad_conn isconnected] } {
         ad_conn -set locale [lang::system::site_wide_locale]
     }
-
     forum::message::get -message_id $message_id -array message
 
     if { $message(parent_id) ne "" } {
@@ -48,7 +47,7 @@ ad_proc -private forum::message::datasource { message_id } {
     set subjects [list]
     lappend subjects $message(subject)
 
-    db_foreach messages "" {
+    db_foreach messages {} {
 
         # include the subject in the text if it is different from the thread's subject
         set root_subject $message(subject)
@@ -71,6 +70,7 @@ ad_proc -private forum::message::datasource { message_id } {
                 keywords {} \
                 storage_type text \
                 mime text/plain ]
+    ns_log Notice "forum::message::datasource end"
 }
 
 ad_proc -private forum::message::url { message_id } {
