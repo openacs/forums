@@ -17,7 +17,7 @@
 <p>
 <include src="/packages/notifications/lib/notification-widget" type="forums_message_notif"
 	 object_id="@message.message_id;literal@"
-	 pretty_name="@message.subject@"
+	 pretty_name="@message.subject;literal@"
 	 url="@message_url;literal@" >
 </if>
 
