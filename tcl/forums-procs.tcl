@@ -255,10 +255,20 @@ ad_proc -public forum::disable {
     db_dml update_forum_disabled_p {}
 }
 
-ad_proc -public forum::use_ReadingInfo_p {} {
+ad_proc -public forum::use_ReadingInfo_p {{-package_id ""}} {
     @return 1 if the UseReadingInfo package parameter is true, 0 otherwise.
 } {
-    return [string is true -strict [parameter::get_from_package_key -package_key forums -parameter UseReadingInfo -default f]]
+    if {$package_id eq ""} {
+        if {[ns_conn isconnected]} {
+            set package_id [ad_conn package_id]
+        } else {
+            set package_id [lindex [apm_package_ids_from_key -package_key forums -mounted] 0]
+        }
+    }
+    return [string is true -strict [parameter::get \
+                                        -package_id $package_id \
+                                        -parameter UseReadingInfo \
+                                        -default f]]
 }
 
 ad_proc forum::valid_forum_id_p {
