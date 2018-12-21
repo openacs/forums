@@ -46,7 +46,7 @@ ad_proc -public forum::new {
     }
 
     forum::flush_templating_cache \
-        -forum_id $forum_id    
+        -forum_id $forum_id
 
     return $forum_id
 }
@@ -79,7 +79,7 @@ ad_proc -public forum::edit {
             set $var $forum($var)
         }
     }
-    
+
     # This is a straight DB update
     db_dml update_forum {}
     db_dml update_forum_object {}
@@ -95,7 +95,7 @@ ad_proc -public forum::edit {
 ad_proc -public forum::attachments_enabled_p {} {
     @return 1 if the attachments are enabled in the forums, 0 otherwise.
 } {
-    if {"forums" eq [ad_conn package_key]} { 
+    if {"forums" eq [ad_conn package_key]} {
         set return_value [site_node_apm_integration::child_package_exists_p \
                               -package_id [ad_conn package_id] -package_key attachments]
     } else {
@@ -117,8 +117,8 @@ ad_proc -public forum::get {
     {-array:required}
 } {
     get the fields for a forum
-    
-    @return 
+
+    @return
 } {
     # Select the info into the upvar'ed Tcl Array
     upvar $array row
@@ -165,7 +165,7 @@ ad_proc -public forum::flush_namespaced_cache {
 ad_proc -deprecated -public forum::posting_policy_set {
     {-posting_policy:required}
     {-forum_id:required}
-} {    
+} {
     Set the posting policy. This used to happen by setting permissions
     on the registered_users group, but was reformed to be just a flag
     on the forum itself in order to support subsite
@@ -175,20 +175,20 @@ ad_proc -deprecated -public forum::posting_policy_set {
 } {
     forum::edit -forum_id $forum_id \
         -posting_policy $posting_policy
-    # # JCD: this is potentially bad since we are 
-    # # just assuming registered_users is the 
+    # # JCD: this is potentially bad since we are
+    # # just assuming registered_users is the
     # # right group to be granting write to.
 
-    # if {"closed" ne $posting_policy } { 
+    # if {"closed" ne $posting_policy } {
     #     permission::grant -object_id $forum_id \
     #         -party_id [acs_magic_object registered_users] \
-    #         -privilege write 
-    # } else { 
+    #         -privilege write
+    # } else {
     #     permission::revoke -object_id $forum_id \
     #         -party_id [acs_magic_object registered_users] \
-    #         -privilege write 
+    #         -privilege write
     # }
-} 
+}
 
 ad_proc -public forum::new_questions_allow {
     {-forum_id:required}
@@ -234,7 +234,7 @@ ad_proc -public forum::new_questions_allowed_p {
         ad_log warning "Attribute party_id is deprecated and was ignored."
     }
 
-    forum::get -forum_id $forum_id -array forum    
+    forum::get -forum_id $forum_id -array forum
     return $forum(new_questions_allowed_p)
 }
 
