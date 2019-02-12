@@ -209,7 +209,7 @@ ad_proc -public -callback search::datasource -impl forums_message {} {
                 title $message(subject) \
                 content $combined_content \
                 relevant_date $relevant_date \
-                community_id [db_null] \
+                community_id "" \
                 keywords {} \
                 storage_type text \
                 mime text/plain \
