@@ -1,6 +1,6 @@
 ad_library {
     Forum callbacks.
-    
+
     Navigation callbacks.
 
     @author Jeff Davis <davis@xarg.net>
@@ -112,15 +112,15 @@ ad_proc -public -callback pm::project_new -impl forums {
     set pm_name [pm::project::name -project_item_id $project_id]
 
     foreach forum_package_id [application_link::get_linked -from_package_id $package_id -to_package_key "forums"] {
-	set forum_id [forum::new \
-			  -name $pm_name \
-			  -package_id $forum_package_id \
-			  -no_callback]
+        set forum_id [forum::new \
+            -name $pm_name \
+            -package_id $forum_package_id \
+            -no_callback]
 
-	# Automatically allow new threads on this forum
+        # Automatically allow new threads on this forum
         forum::new_questions_allow -forum_id $forum_id
 
-	application_data_link::new -this_object_id $project_id -target_object_id $forum_id
+        application_data_link::new -this_object_id $project_id -target_object_id $forum_id
     }
 }
 
@@ -136,7 +136,7 @@ ad_proc -public -callback search::datasource -impl forums_message {} {
     this is the content that will be indexed by the full text
     search engine.
 
-    We expect message_id to be a root message of a thread only, 
+    We expect message_id to be a root message of a thread only,
     and return the text of all the messages below.
 
 } {
@@ -181,23 +181,23 @@ ad_proc -public -callback search::datasource -impl forums_message {} {
             append combined_content "$subject\n\n"
         }
 
-	#
-	# GN: The standard conversion from "text/enhanced" to
-	# "text/plain" converts first from "text/enhanced" to
-	# "text/html" and then from "text/html" to "text/plain". This
-	# can take for large forums posting a long time (e.g a few
-	# minutes on openacs.org). Since this function is used just
-	# for the summarizer (when listing a short paragraph in the
-	# context of the search result), we can live here with a much
-	# simpler version, which computes the same in less than one
-	# ms.
-	#
-	if {$message(format) eq "text/enhanced"} {
-	    regsub -all {<p>} $content "\n\n" content
-	    regsub -all {(<?/[^>]*>)} $content "" content
-	} else {
-	    set content [ad_html_text_convert -from $format -to text/plain -- $content]
-	}
+        #
+        # GN: The standard conversion from "text/enhanced" to
+        # "text/plain" converts first from "text/enhanced" to
+        # "text/html" and then from "text/html" to "text/plain". This
+        # can take for large forums posting a long time (e.g a few
+        # minutes on openacs.org). Since this function is used just
+        # for the summarizer (when listing a short paragraph in the
+        # context of the search result), we can live here with a much
+        # simpler version, which computes the same in less than one
+        # ms.
+        #
+        if {$message(format) eq "text/enhanced"} {
+            regsub -all {<p>} $content "\n\n" content
+            regsub -all {(<?/[^>]*>)} $content "" content
+        } else {
+            set content [ad_html_text_convert -from $format -to text/plain -- $content]
+        }
         append combined_content $content
 
         # In case this text is not only used for indexing but also for display, beautify it
@@ -209,11 +209,11 @@ ad_proc -public -callback search::datasource -impl forums_message {} {
                 title $message(subject) \
                 content $combined_content \
                 relevant_date $relevant_date \
-                community_id [db_null] \
+                community_id "" \
                 keywords {} \
                 storage_type text \
                 mime text/plain \
-	        package_id $package_id]
+                package_id $package_id]
 }
 
 ad_proc -public -callback search::url -impl forums_message {} {
@@ -272,12 +272,12 @@ ad_proc -callback merge::MergeShowUserInfo -impl forums {
     The from_user_id is the user_id of the user
     that will be deleted and all the *forums*
     of this user will be mapped to the to_user_id.
-    
+
 } {
     set msg "Forums items of $user_id"
     ns_log Notice $msg
     set result [list $msg]
-    
+
     set last_poster [db_list_of_lists sel_poster {} ]
     set msg "Last Poster of $last_poster"
     lappend result $msg
@@ -297,12 +297,12 @@ ad_proc -callback merge::MergePackageUser -impl forums {
     The from_user_id is the user_id of the user
     that will be deleted and all the *forums*
     of this user will be mapped to the to_user_id.
-    
+
 } {
-    set msg "Merging forums" 
+    set msg "Merging forums"
     ns_log Notice $msg
     set result [list $msg]
-    
+
     db_dml upd_poster {}
     db_dml upd_user_id {}
 
@@ -314,64 +314,64 @@ ad_proc -callback merge::MergePackageUser -impl forums {
 
 # application-track callbacks
 
-ad_proc -callback application-track::getApplicationName -impl forums {} { 
+ad_proc -callback application-track::getApplicationName -impl forums {} {
     Callback implementation.
 } {
     return "forums"
-}    
-    
-ad_proc -callback application-track::getGeneralInfo -impl forums {} { 
+}
+
+ad_proc -callback application-track::getGeneralInfo -impl forums {} {
     Callback implementation.
 } {
     db_1row my_query {
-    		select count(f.forum_id) as result
-		FROM forums_forums f, dotlrn_communities_full com
-		WHERE com.community_id=:comm_id
-		and apm_package__parent_id(f.package_id) = com.package_id	
+        select count(f.forum_id) as result
+        FROM forums_forums f, dotlrn_communities_full com
+        WHERE com.community_id=:comm_id
+        and apm_package__parent_id(f.package_id) = com.package_id
     }
-    
+
     return $result
 }
-    
-ad_proc -callback application-track::getSpecificInfo -impl forums {} { 
+
+ad_proc -callback application-track::getSpecificInfo -impl forums {} {
     Callback implementation.
 } {
-    
+
     upvar $query_name my_query
     upvar $elements_name my_elements
 
     set my_query {
-		SELECT 	f.name as name,f.thread_count as threads,
-			f.last_post, 
-		       	to_char(o.creation_date, 'YYYY-MM-DD HH24:MI:SS') as creation_date
-		FROM forums_forums f,dotlrn_communities_full com,acs_objects o
-		WHERE com.community_id=:class_instance_id
-		and f.forum_id = o.object_id
-		and apm_package__parent_id(f.package_id) = com.package_id
+        SELECT  f.name as name,f.thread_count as threads,
+                f.last_post,
+                to_char(o.creation_date, 'YYYY-MM-DD HH24:MI:SS') as creation_date
+        FROM forums_forums f,dotlrn_communities_full com,acs_objects o
+        WHERE com.community_id=:class_instance_id
+        and f.forum_id = o.object_id
+        and apm_package__parent_id(f.package_id) = com.package_id
     }
-    
+
     set my_elements {
         name {
             label "Name"
-            display_col name	                        
-            html {align center}	 	    
-            
+            display_col name
+            html {align center}
+
         }
         threads {
             label "Threads"
-            display_col threads 	      	              
-            html {align center}	 	               
+            display_col threads
+            html {align center}
         }
         creation_date {
             label "creation_date"
-            display_col creation_date 	      	               
-            html {align center}	 	              
+            display_col creation_date
+            html {align center}
         }
         last_post  {
             label "last_post"
-            display_col last_post 	      	               
-            html {align center}	 	              
-        }	        
+            display_col last_post
+            html {align center}
+        }
     }
 
     return "OK"
