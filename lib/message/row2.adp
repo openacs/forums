@@ -9,7 +9,7 @@
       <li><a href="message-email?message_id=@message.message_id@" title="#forums.forward#" class="button">#forums.forward#</a></li>
       <if @moderate_p;literal@ true>
         <li><a href="moderate/message-edit?message_id=@message.message_id@" class="button">#forums.Edit#</a></li>
-        <li><a href="moderate/message-delete?message_id=@message.message_id@" class="button">#forums.delete#</a></li>	
+        <li><a href="@delete_url@" class="button">#forums.delete#</a></li>	
 	<if @message.parent_id@ nil>
 	  <li><a href="moderate/thread-move?message_id=@message.message_id@" class="button">#forums.Move_thread_to_other_forum#</a></li>
 	  <li><a href="moderate/thread-move-thread?message_id=@message.message_id@" class="button">#forums.Move_thread_to_other_thread#</a></li>

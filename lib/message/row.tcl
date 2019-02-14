@@ -59,6 +59,10 @@ if { $preview } {
     set notflat_p          [expr {$presentation_type ne "flat"}]
     set post_and_notflat_p [expr {$post_p && $notflat_p}]
     set any_action_p       [expr {$post_and_notflat_p || $viewer_id || $moderate_p}]
+
+    set delete_url [export_vars -base "moderate/message-delete" {
+        {message_id:sign(max_age=60) $message(message_id)}
+    }]
 }
 
 template::add_body_script -script [subst {
