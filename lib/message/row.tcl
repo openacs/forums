@@ -61,7 +61,7 @@ if { $preview } {
     set any_action_p       [expr {$post_and_notflat_p || $viewer_id || $moderate_p}]
 
     set delete_url [export_vars -base "moderate/message-delete" {
-        {message_id:sign(user) $message(message_id)}
+        {message_id:sign(csrf) $message(message_id)}
     }]
 }
 

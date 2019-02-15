@@ -25,7 +25,7 @@ set message_id $message(message_id)
 set message(tree_level) 0
 
 set confirm_url [export_vars -base "message-delete" {
-    {message_id:sign(user) $message(message_id)} return_url {confirm_p 1}
+    {message_id:sign(csrf) $message(message_id)} return_url {confirm_p 1}
 }]
 
 if {[info exists alt_template] && $alt_template ne ""} {
