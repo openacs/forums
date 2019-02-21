@@ -7,8 +7,8 @@
         @exported_vars;noquote@
         <if @parent_id@ nil>
           #forums.lt_Would_you_like_to_sub# 
-          <input type="radio" name="subscribe_p" value="0" checked>#forums.No#</input>
-          <input type="radio" name="subscribe_p" value="1">#forums.Yes#</input>
+          <input type="radio" name="subscribe_p" value="0" checked>#forums.No#
+          <input type="radio" name="subscribe_p" value="1">#forums.Yes#
 
           <if @forum_notification_p;literal@ true>
             <br><small>#forums.lt_Note_that_you_are_alr#</small>
