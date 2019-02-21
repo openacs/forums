@@ -118,9 +118,9 @@ ad_form -html {enctype multipart/form-data} \
             break
         }
 
-        if { $anonymous_p eq "" } { set anonymous_p 0 }
-
-
+        if { $anonymous_p eq "" } {
+            set anonymous_p 0
+        }
         set action [template::form::get_button message]
 
         # Make post the default action
