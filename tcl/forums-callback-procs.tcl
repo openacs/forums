@@ -87,7 +87,7 @@ ad_proc -public -callback navigation::package_admin -impl forums {} {
         if {[permission::permission_p -object_id $forum_id -privilege admin -party_id $user_id]} {
 
             lappend actions \
-                [list SECTION "Forum $name ([ad_decode $enabled_p t [_ forums.enabled] [_ forums.disabled]])" {}] \
+                [list SECTION "Forum $name ([expr {$enabled_p ? [_ forums.enabled] : [_ forums.disabled]}])" {}] \
                 [list LINK \
                      [export_vars -base admin/forum-edit forum_id] \
                      [_ forums.Edit_forum_name] {} {}] \

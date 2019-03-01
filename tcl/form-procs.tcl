@@ -75,7 +75,7 @@ ad_proc -public forums::form::post_message {
     template::element create $form_name ${prefix}anonymous_p \
         -label [_ forums.Anonymous] \
         -datatype integer \
-        -widget [ad_decode $show_anonymous_p 0 "hidden" "checkbox"] \
+        -widget [expr {$show_anonymous_p ? "checkbox" : "hidden"}] \
         -options $options \
         -optional
 
@@ -84,7 +84,7 @@ ad_proc -public forums::form::post_message {
     template::element create $form_name ${prefix}attach_p \
             -label [_ forums.Attach] \
             -datatype text \
-            -widget [ad_decode $show_attachments_p 0 "hidden" "radio"] \
+            -widget [expr {$show_attachments_p ? "radio" : "hidden"}] \
             -options $options
 
     if {$optional_p} {
