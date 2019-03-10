@@ -185,7 +185,7 @@ ad_proc -public -callback search::datasource -impl forums_message {} {
         # GN: The standard conversion from "text/enhanced" to
         # "text/plain" converts first from "text/enhanced" to
         # "text/html" and then from "text/html" to "text/plain". This
-        # can take for large forums posting a long time (e.g a few
+        # can take for large forums posting a long time (e.g. a few
         # minutes on openacs.org). Since this function is used just
         # for the summarizer (when listing a short paragraph in the
         # context of the search result), we can live here with a much

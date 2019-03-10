@@ -1,6 +1,6 @@
 ad_page_contract {
 
-    Update the content of an specified message, for preloading purposes
+    Update the content of a specified message, for preloading purposes
 
     @author Veronica De La Cruz (veronica@viaro.net)
     @creation-date 2006-04-21
