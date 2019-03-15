@@ -91,7 +91,18 @@ template::list::create \
         }
     }
 
-db_multirow -extend { forum_view_url last_modified_pretty n_threads_pretty forum_view_statistic statistic} forums select_forums {} {
+db_multirow -extend {
+    forum_view_url last_modified_pretty n_threads_pretty forum_view_statistic statistic
+} forums select_forums [subst {
+   select forums_forums_enabled.*,
+          approved_thread_count as n_threads,
+          to_char(last_post, 'YYYY-MM-DD HH24:MI:SS') as last_post_ansi,
+          $unread_or_new_query_clause
+   from forums_forums_enabled
+   where forums_forums_enabled.package_id = :package_id
+     and acs_permission.permission_p(forums_forums_enabled.forum_id, :user_id,'read') = 't'
+   order by forums_forums_enabled.name
+}] {
     set last_modified_pretty [lc_time_fmt $last_post_ansi "%x %X"]
     set forum_view_url [export_vars -base forum-view { forum_id }]
     set n_threads_pretty [lc_numeric $n_threads]
