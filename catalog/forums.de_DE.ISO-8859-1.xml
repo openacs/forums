@@ -4,8 +4,8 @@
   <msg key="Admin_for_all">Verwaltungsoptionen für alle Foren.</msg>
   <msg key="Administer">Forum verwalten</msg>
   <msg key="Administration">Diskussionsforen verwalten</msg>
-  <msg key="anonymous_posts_are_allowed">Sie können in diesem Forum Ihre Nachricht auch anonym senden.</msg>
   <msg key="Anonymous">Anonym</msg>
+  <msg key="anonymous_posts_are_allowed">Sie können in diesem Forum Ihre Nachricht auch anonym senden.</msg>
   <msg key="approve">Freigeben</msg>
   <msg key="Are_you_sure_you_want_to_delete_lt">Wollen Sie diesen Beitrag und &lt;strong&gt;alle zugehörigen Antworten &lt;/strong&gt; wirklich löschen?</msg>
   <msg key="Are_you_sure_you_want_to_move_this_message_and_obviously_all_of_its_descendents_lt">Sind Sie sicher, dass Sie diese Nachricht und alle ihre Nachfolger verschieben möchten?</msg>
