@@ -254,7 +254,8 @@ namespace eval forums::test {
 	#
 	# Delete the reply
 	#
-	set d [acs::test::http -user_id $user_id $forums_page/moderate/message-delete?message_id=$reply_message_id]
+        set request [export_vars -sign -base ${forums_page}/moderate/message-delete {{message_id $reply_message_id}}]
+	set d [acs::test::http -user_id $user_id $request]
 	aa_equals "Message overview: Status code valid" [dict get $d status] 200
 	acs::test::reply_contains $d message-delete?confirm_p
 
