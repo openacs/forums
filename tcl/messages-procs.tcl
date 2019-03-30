@@ -368,12 +368,11 @@ ad_proc -public forum::message::subject_sort_filter {
 
     @author Peter Marklund
 } {
-    set subject_label "[_ forums.lt_First_post_in_subject]"
-    set child_label "[_ forums.Last_post_in_subject]"
+    set subject_label [_ forums.lt_First_post_in_subject]
+    set child_label [_ forums.Last_post_in_subject]
     set new_order_by [expr {$order_by eq "posting_date" ? "last_child_post" : "posting_date"}]
 
-    set export_vars [export_vars -override [list [list order_by $new_order_by]] {order_by forum_id}]
-    set toggle_url "[ad_conn url]?${export_vars}"
+    set toggle_url [export_vars -base [ad_conn url] -override {{order_by $new_order_by}} {order_by forum_id}]
     if {$order_by eq "posting_date"} {
         # subject selected
         set subject_link "<b>$subject_label</b>"
