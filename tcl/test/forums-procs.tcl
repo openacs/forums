@@ -195,7 +195,8 @@ aa_register_case \
         # Create a new forum
         #
         set name [ad_generate_random_string]
-        set forum_id [forums::test::new -user_id $user_id $name]
+        set d [forums::test::new -user_id $user_id $name]
+        set forum_id [dict get $d payload forum_id]
 
 
     } -teardown_code {
@@ -233,19 +234,22 @@ aa_register_case \
         # Create a new forum
         #
         set name [ad_generate_random_string]
-        set forum_id [forums::test::new -user_id $user_id $name]
+        set d [forums::test::new -user_id $user_id $name]
+        set forum_id [dict get $d payload forum_id]
         aa_log "Created forum with id $forum_id"
 
         #
         # View a forum via name.
         #
         set response [forums::test::view \
+                          -last_request $d \
                           -user_id $user_id \
                           -name $name ]
         #
         # View a forum via forum_id.
         #
         set response [forums::test::view \
+                          -last_request $d \
                           -user_id $user_id \
                           -forum_id $forum_id ]
 
@@ -283,13 +287,14 @@ aa_register_case \
         # Create a new forum
         #
         set name [ad_generate_random_string]
-        set forum_id [forums::test::new -user_id $user_id $name]
+        set d [forums::test::new -user_id $user_id $name]
+        set forum_id [dict get $d payload forum_id]
 
         #
         # Edit the meta info of the created forum
         #
         set response [forums::test::edit \
-                          -user_id $user_id \
+                          -last_request $d \
                           -forum_id $forum_id ]
 
     } -teardown_code {
@@ -345,11 +350,12 @@ aa_register_case \
         # Create a new forum
         #
         set name [ad_generate_random_string]
-        set forum_id [forums::test::new -user_id $user_id $name]
+        set d [forums::test::new -user_id $user_id $name]
+        set forum_id [dict get $d payload forum_id]
 
         # Post a message in the created forum
         set message_id [forums::test::new_postings \
-                            -user_id $user_id \
+                            -last_request $d \
                             -forum_id $forum_id ]
 
 
