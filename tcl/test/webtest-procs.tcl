@@ -67,11 +67,13 @@ namespace eval forums::test {
     } {
 	set forums_page [aa_get_first_url -package_key forums]
 
+        set d $last_request
+
 	if {$name ne ""} {
 	    #
 	    # Call to the forums page
 	    #
-	    set d [::acs::test::http -last_request $last_request $forums_page]
+	    set d [::acs::test::http -last_request $d $forums_page]
 	    aa_equals "Status code valid" [dict get $d status] 200
 
 	    #
