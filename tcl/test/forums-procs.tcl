@@ -243,14 +243,12 @@ aa_register_case \
         #
         set response [forums::test::view \
                           -last_request $d \
-                          -user_id $user_id \
                           -name $name ]
         #
         # View a forum via forum_id.
         #
         set response [forums::test::view \
                           -last_request $d \
-                          -user_id $user_id \
                           -forum_id $forum_id ]
 
     } -teardown_code {
