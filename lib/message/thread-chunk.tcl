@@ -21,7 +21,7 @@ set table_other_bgcolor [parameter::get -parameter table_other_bgcolor]
 set forum_id $message(forum_id)
 set tree_sortkey $message(tree_sortkey)
 
-if {[forum::attachments_enabled_p]} {
+if {[forum::attachments_enabled_p -forum_id $forum_id]} {
     set query select_message_responses_attachments
 } else {
     set query select_message_responses

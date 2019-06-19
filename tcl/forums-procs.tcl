@@ -92,7 +92,17 @@ ad_proc -public forum::edit {
         -forum_id $forum_id
 }
 
-ad_proc -public forum::attachments_enabled_p {} {
+ad_proc -public forum::attachments_enabled_p {
+    {-forum_id ""}
+} {
+    Check if attachments are enabled in forums.
+
+    If 'forum_id' is not passed, check only if the attachments package is
+    mounted as a child of the current forums package instance.
+
+    Otherwise, check also if a particular forum's 'attachments_allowed_p' option
+    is true. In case the package is mounted and the option enabled, return 1.
+
     @return 1 if the attachments are enabled in the forums, 0 otherwise.
 } {
     if {"forums" eq [ad_conn package_key]} {
@@ -100,6 +110,13 @@ ad_proc -public forum::attachments_enabled_p {} {
                               -package_id [ad_conn package_id] -package_key attachments]
     } else {
         set return_value 0
+    }
+
+    if {$return_value && $forum_id ne ""} {
+        forum::get -forum_id $forum_id -array forum
+        if {! $forum(attachments_allowed_p)} {
+            set return_value 0
+        }
     }
     return $return_value
 }

@@ -75,8 +75,10 @@ set anonymous_allowed_p [expr {($forum_id eq ""
                                && ($parent_id eq ""
                                    || [forum::security::can_post_forum_p \
                                            -forum_id $parent_message(forum_id) -user_id 0])}]
-
-set attachments_enabled_p [forum::attachments_enabled_p]
+if {$forum_id eq ""} {
+    set forum_id $parent_message(forum_id)
+}
+set attachments_enabled_p [forum::attachments_enabled_p -forum_id $forum_id]
 
 ##############################
 # Template variables
