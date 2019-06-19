@@ -1,5 +1,5 @@
 ad_page_contract {
-    
+
     view a message (and its children)
 
     @author Ben Adida (ben@openforce.net)
@@ -84,7 +84,7 @@ db_multirow -extend {
     parent_direct_url
     reply_p
     viewed_p
-} responses $query {} {    
+} responses $query {} {
     set tree_level [expr {min($tree_level - $message(tree_level), 10)}]
     set posting_date_ansi [lc_time_system_to_conn $posting_date_ansi]
     set posting_date_pretty [lc_time_fmt $posting_date_ansi "%x %X"]
@@ -94,7 +94,7 @@ db_multirow -extend {
     set parent_direct_url "$direct_url_base\#msg_$parent_id"
     set parent_root_url [export_vars -base [ad_conn url] {{message_id $parent_id}}]
     set reply_p [expr {$user_id == [ad_conn user_id]}]
-    
+
     # DEDS: get the response ids the Tcl way or else we need to hit
     # the db for each response to count its children
     if {$tree_level == 1} {
@@ -113,7 +113,7 @@ db_multirow -extend {
             set message_ids [lreplace $message_ids $message_ids_last $message_ids_last]
         } else {
             foreach one_parent_id $message_ids {
-                lappend parent_message($one_parent_id) $message_id 
+                lappend parent_message($one_parent_id) $message_id
             }
         }
     }
