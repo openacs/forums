@@ -95,7 +95,7 @@
   <msg key="lt_Please_enter_a_messag">Please enter a message</msg>
   <msg key="lt_Please_enter_a_subjec">Please enter a subject</msg>
   <msg key="lt_Users_Can_Create_New_">Users Can Create New Threads</msg>
-  <msg key="lt_Users_Can_Add_Attachments">Users can add attachments to messages</msg>
+  <msg key="lt_Users_Can_Add_Attachments">Users Can Add Attachments To Messages</msg>
   <msg key="lt_Would_you_like_to_att">Would you like to attach a file to this message?</msg>
   <msg key="lt_Would_you_like_to_sub">Would you like to subscribe to responses?</msg>
   <msg key="lt_You_either_have_to">You either have to post to a forum or in reply to another message</msg>
