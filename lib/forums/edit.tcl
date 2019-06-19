@@ -1,5 +1,5 @@
 ad_page_contract {
-    
+
     Edit a Forum
 
     @author Ben Adida (ben@openforce.net)
@@ -36,7 +36,7 @@ if {[form is_valid forum]} {
             -anonymous_allowed_p     $anonymous_allowed_p \
             -attachments_allowed_p   $attachments_allowed_p
     }
-    
+
     ad_returnredirect $return_url
     ad_script_abort
 }

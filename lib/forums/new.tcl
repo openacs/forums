@@ -1,5 +1,5 @@
 ad_page_contract {
-    
+
     Create a Forum
     By default redirects to the level above as that is prolly where the index page is
 
@@ -42,7 +42,7 @@ if {[form is_valid forum]} {
                           -anonymous_allowed_p     $anonymous_allowed_p \
                           -attachments_allowed_p   $attachments_allowed_p]
     }
-    
+
     ad_returnredirect $return_url
     ad_script_abort
 }

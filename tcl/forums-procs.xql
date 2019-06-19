@@ -37,7 +37,7 @@
         </querytext>
     </fullquery>
 
-    <fullquery name="forum::get.select_forum">      
+    <fullquery name="forum::get.select_forum">
         <querytext>
             select forums_forums.*
             from forums_forums
@@ -51,7 +51,7 @@
             set enabled_p = 't'
             where forum_id = :forum_id
         </querytext>
-    </fullquery> 
+    </fullquery>
 
     <fullquery name="forum::disable.update_forum_disabled_p">
         <querytext>
