@@ -185,6 +185,12 @@ ad_proc -public forums::form::forum {
       -widget radio \
       -help_text [_ forums.help_new_threads] \
       -options [list [list [_ forums.Yes] t] [list [_ forums.No] f] ]
+
+    template::element create $form_name ${prefix}attachments_allowed_p \
+      -label  [_ forums.lt_Users_Can_Add_Attachments] \
+      -datatype text \
+      -widget radio \
+      -options [list [list [_ forums.Yes] t] [list [_ forums.No] f] ]
 }
 
 # Local variables:

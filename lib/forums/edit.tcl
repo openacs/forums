@@ -21,7 +21,7 @@ forums::form::forum forum
 
 if {[form is_valid forum]} {
     template::form get_values forum return_url forum_id \
-        name charter presentation_type posting_policy new_threads_p anonymous_allowed_p
+        name charter presentation_type posting_policy new_threads_p anonymous_allowed_p attachments_allowed_p
 
     # Users can create new threads?
     set new_questions_allowed_p [expr { $new_threads_p && $posting_policy ne "closed" ? t : f}]
@@ -33,7 +33,8 @@ if {[form is_valid forum]} {
             -presentation_type       $presentation_type \
             -posting_policy          $posting_policy \
             -new_questions_allowed_p $new_questions_allowed_p \
-            -anonymous_allowed_p     $anonymous_allowed_p
+            -anonymous_allowed_p     $anonymous_allowed_p \
+            -attachments_allowed_p   $attachments_allowed_p
     }
     
     ad_returnredirect $return_url
@@ -57,6 +58,8 @@ if { [form is_request forum] } {
         -value $forum(new_questions_allowed_p)
     element set_properties forum anonymous_allowed_p \
         -value $forum(anonymous_allowed_p)
+    element set_properties forum attachments_allowed_p \
+        -value $forum(attachments_allowed_p)
 }
 
 if {[info exists alt_template] && $alt_template ne ""} {

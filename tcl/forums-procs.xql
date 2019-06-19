@@ -9,8 +9,9 @@
              presentation_type       = :presentation_type,
              posting_policy          = :posting_policy,
              new_questions_allowed_p = :new_questions_allowed_p,
-             anonymous_allowed_p     = :anonymous_allowed_p
-          where forum_id = :forum_id
+             anonymous_allowed_p     = :anonymous_allowed_p,
+             attachments_allowed_p   = :attachments_allowed_p
+         where forum_id = :forum_id
         </querytext>
     </fullquery>
 

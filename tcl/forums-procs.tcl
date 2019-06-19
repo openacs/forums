@@ -20,6 +20,7 @@ ad_proc -public forum::new {
     {-package_id:required}
     {-new_questions_allowed_p t}
     {-anonymous_allowed_p f}
+    {-attachments_allowed_p t}
     -no_callback:boolean
 } {
     create a new forum
@@ -37,7 +38,8 @@ ad_proc -public forum::new {
     db_dml update_extra_cols {
         update forums_forums set
            new_questions_allowed_p = :new_questions_allowed_p,
-           anonymous_allowed_p     = :anonymous_allowed_p
+           anonymous_allowed_p     = :anonymous_allowed_p,
+           attachments_allowed_p   = :attachments_allowed_p
         where forum_id = :forum_id
     }
 
@@ -67,6 +69,7 @@ ad_proc -public forum::edit {
     -posting_policy
     -new_questions_allowed_p
     -anonymous_allowed_p
+    -attachments_allowed_p
     -no_callback:boolean
 } {
     Edit a forum
@@ -74,7 +77,7 @@ ad_proc -public forum::edit {
     forum::get -forum_id $forum_id -array forum
     foreach var {
         name charter presentation_type posting_policy
-        new_questions_allowed_p anonymous_allowed_p} {
+        new_questions_allowed_p anonymous_allowed_p attachments_allowed_p} {
         if {![info exists $var]} {
             set $var $forum($var)
         }

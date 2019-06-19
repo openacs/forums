@@ -97,7 +97,8 @@
   <msg key="lt_Please_confirm_the_fo">Bitte bestätigen Sie folgenden Beitrag:</msg>
   <msg key="lt_Please_enter_a_messag">Bitte geben Sie einen Text ein.</msg>
   <msg key="lt_Please_enter_a_subjec">Bitte geben Sie einen Betreff ein.</msg>
-  <msg key="lt_Users_Can_Create_New_">Benutzer dürfen ein neues Diskussionsthema beginnen</msg>
+  <msg key="lt_Users_Can_Create_New_">Benutzer/-innen dürfen ein neues Diskussionsthema beginnen</msg>
+  <msg key="lt_Users_Can_Add_Attachments">Benutzer/-innen dürfen Dateien hochladen</msg>
   <msg key="lt_Would_you_like_to_att">Möchten Sie dem Beitrag einen Anhang hinzufügen?</msg>
   <msg key="lt_Would_you_like_to_sub">Möchten Sie über Antworten benachrichtigt werden?</msg>
   <msg key="lt_You_either_have_to">Sie können eine Nachricht entweder als eigenständigen Forumsbeitrag posten oder als Antwort auf einen anderen Beitrag.</msg>
