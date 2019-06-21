@@ -28,6 +28,11 @@
 	display: inline;
 }
 
+#forum-thread .attachments ul {
+        padding-left: 0px;
+        list-style-type: none;
+}
+
 #forum-thread .dyncollapsed {
         padding: 0px;
 	display: none;
