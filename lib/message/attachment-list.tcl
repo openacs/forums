@@ -16,11 +16,15 @@ if {(![info exists bgcolor] || $bgcolor eq "")} {
 }
 
 # get the attachments
-template::multirow create attachments url name
+template::multirow create attachments url name content_size_pretty
 foreach attachment [attachments::get_attachments -object_id $message(message_id)] {
+    set id      [lindex $attachment 0]
     set name    [lindex $attachment 1]
     set url     [lindex $attachment 2]
-    template::multirow append attachments $url $name
+
+    set content_size_pretty [util::content_size_pretty -size [db_string size {select content_length from cr_revisions where item_id = :id}]]
+
+    template::multirow append attachments $url $name $content_size_pretty
 }
 
 set attachment_graphic [attachments::graphic_url]
