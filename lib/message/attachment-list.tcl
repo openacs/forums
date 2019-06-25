@@ -22,17 +22,25 @@ foreach attachment [attachments::get_attachments -object_id $message(message_id)
     set name    [lindex $attachment 1]
     set url     [lindex $attachment 2]
 
-    set content_size [db_string size {select content_length from cr_revisions where item_id = :id} -default ""]
+    set content_type [content::item::get_content_type -item_id $id]
 
-    if {$content_size ne ""} {
+    if {$content_type ne "content_extlink"} {
+        #
+        # File
+        #
+        set content_size [db_string size {select content_length from cr_revisions where item_id = :id} -default ""]
         set content_size_pretty "([util::content_size_pretty -size $content_size])"
         set icon "/resources/acs-subsite/attach.png"
     } else {
         #
-        # If the object does not have a size, we assume it is a URL
+        # URL
         #
         set content_size_pretty ""
         set icon "/resources/acs-subsite/url-button.gif"
+        #
+        # Avoid redirecting to external hosts made by "go-to-attachment" by just linking the original URL
+        #
+        set url [db_string url {select url from cr_extlinks where extlink_id = :id} -default ""]
     }
 
     template::multirow append attachments $url $name $content_size_pretty $icon
