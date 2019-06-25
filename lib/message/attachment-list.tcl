@@ -16,15 +16,26 @@ if {(![info exists bgcolor] || $bgcolor eq "")} {
 }
 
 # get the attachments
-template::multirow create attachments url name content_size_pretty
+template::multirow create attachments url name content_size_pretty icon
 foreach attachment [attachments::get_attachments -object_id $message(message_id)] {
     set id      [lindex $attachment 0]
     set name    [lindex $attachment 1]
     set url     [lindex $attachment 2]
 
-    set content_size_pretty [util::content_size_pretty -size [db_string size {select content_length from cr_revisions where item_id = :id}]]
+    set content_size [db_string size {select content_length from cr_revisions where item_id = :id} -default ""]
 
-    template::multirow append attachments $url $name $content_size_pretty
+    if {$content_size ne ""} {
+        set content_size_pretty "([util::content_size_pretty -size $content_size])"
+        set icon "/resources/acs-subsite/attach.png"
+    } else {
+        #
+        # If the object does not have a size, we assume it is a URL
+        #
+        set content_size_pretty ""
+        set icon "/resources/acs-subsite/url-button.gif"
+    }
+
+    template::multirow append attachments $url $name $content_size_pretty $icon
 }
 
 set attachment_graphic [attachments::graphic_url]
