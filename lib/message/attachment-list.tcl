@@ -29,7 +29,7 @@ foreach attachment [attachments::get_attachments -object_id $message(message_id)
         # File
         #
         set content_size [db_string size {select content_length from cr_revisions where item_id = :id} -default ""]
-        set content_size_pretty "([util::content_size_pretty -size $content_size])"
+        set content_size_pretty "([lc_content_size_pretty -size $content_size])"
         set icon "/resources/acs-subsite/attach.png"
     } else {
         #
