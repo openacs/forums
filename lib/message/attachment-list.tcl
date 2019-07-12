@@ -1,19 +1,15 @@
-ad_page_contract {
-    a message attachment chunk to be included to display attachments
+ad_include_contract {
+    A message attachment chunk to be included to display attachments
 
     @author ben (ben@openforce.net)
     @creation-date 2002-07-02
     @cvs-id $Id$
+} {
+    {preview:boolean 0}
+    {message}
+    {bgcolor "#ffffff"}
 }
 
-if {![array exists message]} {
-    ad_return_complaint 1 "[_ forums.lt_need_to_provide_a_mes]"
-    ad_script_abort
-}
-
-if {(![info exists bgcolor] || $bgcolor eq "")} {
-    set bgcolor "#ffffff"
-}
 #
 # Can the user detach?
 #
