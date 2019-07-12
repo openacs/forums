@@ -33,6 +33,10 @@
         list-style-type: none;
 }
 
+#forum-thread .attachments img {
+        vertical-align: middle;
+}
+
 #forum-thread .dyncollapsed {
         padding: 0px;
         display: none;
