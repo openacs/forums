@@ -8,6 +8,7 @@ ad_include_contract {
     {preview:boolean 0}
     {message}
     {bgcolor "#ffffff"}
+    {alt_template:token ""}
 }
 
 #
@@ -75,7 +76,7 @@ foreach attachment [attachments::get_attachments -object_id $message(message_id)
 
 set attachment_graphic [attachments::graphic_url]
 
-if {[info exists alt_template] && $alt_template ne ""} {
+if {$alt_template ne ""} {
     ad_return_template $alt_template
 }
 
