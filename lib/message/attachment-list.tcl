@@ -15,9 +15,14 @@ if {(![info exists bgcolor] || $bgcolor eq "")} {
     set bgcolor "#ffffff"
 }
 #
+# Can the user detach?
+#
+set detach_p [permission::permission_p -object_id $message(message_id) -privilege write]
+set detach_icon "/resources/acs-subsite/Delete16.gif"
+#
 # Get the attachments
 #
-template::multirow create attachments url name content_size_pretty icon
+template::multirow create attachments url name content_size_pretty icon detach_url
 foreach attachment [attachments::get_attachments -object_id $message(message_id)] {
     set id      [lindex $attachment 0]
     set name    [lindex $attachment 1]
@@ -60,8 +65,14 @@ foreach attachment [attachments::get_attachments -object_id $message(message_id)
             set content_size_pretty "([lc_content_size_pretty -size $content_size])"
         }
     }
-
-    template::multirow append attachments $url $name $content_size_pretty $icon
+    #
+    # Detach URL
+    #
+    set detach_url "[attachments::get_url]/detach?object_id=$message(message_id)&attachment_id=$id&return_url=[ns_urlencode [ad_return_url]]"
+    #
+    # Add to multirow
+    #
+    template::multirow append attachments $url $name $content_size_pretty $icon $detach_url
 }
 
 set attachment_graphic [attachments::graphic_url]
