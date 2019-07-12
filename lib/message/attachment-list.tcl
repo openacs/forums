@@ -17,7 +17,9 @@ if {(![info exists bgcolor] || $bgcolor eq "")} {
 #
 # Can the user detach?
 #
-set detach_p [permission::permission_p -object_id $message(message_id) -privilege write]
+# Only if the user can edit a message, which currently requires admin privileges
+#
+set detach_p [permission::permission_p -object_id $message(message_id) -privilege admin]
 set detach_icon "/resources/acs-subsite/Delete16.gif"
 #
 # Get the attachments
