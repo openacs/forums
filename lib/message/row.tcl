@@ -16,6 +16,7 @@ ad_include_contract {
     {preview:boolean 0}
     {alt_template:token ""}
     {message}
+    {attachment_multi ""}
 }
 
 set viewer_id [ad_conn user_id]
@@ -28,7 +29,7 @@ if {$message(user_id) > 0} {
                                 -user_id $message(user_id) \
                                 -element [expr {$useScreenNameP ? "screen_name" : "name"}]]
     set message(user_url) user-history?user_id=$message(user_id)
-} else {    
+} else {
     set message(user_name) [_ acs-kernel.Unregistered_Visitor]
     set message(user_url)  ""
 }

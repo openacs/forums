@@ -9,7 +9,7 @@
     <implements-subsite-p>f</implements-subsite-p>
     <inherit-templates-p>t</inherit-templates-p>
 
-    <version name="1.3.1d15" url="http://openacs.org/repository/download/apm/forums-1.3.1d15.apm">
+    <version name="1.3.1d16" url="http://openacs.org/repository/download/apm/forums-1.3.1d16.apm">
         <owner url="http://openacs.org">OpenACS</owner>
         <summary>Online discussion forums.</summary>
         <release-date>2017-08-06</release-date>
@@ -19,7 +19,7 @@
         <maturity>2</maturity>
         <package_instance_name>#forums.Forums#</package_instance_name>
 
-        <provides url="forums" version="1.3.1d15"/>
+        <provides url="forums" version="1.3.1d16"/>
         <requires url="acs-kernel" version="5.9.1"/>
         <requires url="acs-tcl" version="5.10.0d24"/>
         <requires url="acs-mail-lite" version="5.9.1"/>
@@ -44,6 +44,7 @@
             <parameter datatype="string"  min_n_values="1"  max_n_values="1"  name="table_bgcolor"  default="#eeeeee" description="This is the color of the first message / table row"/>
             <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="table_border_color"  default="#dddddd" description="The color of the table borders and between the cells, try #ffffff for a cool look"/>
             <parameter datatype="string"  min_n_values="1"  max_n_values="1"  name="table_other_bgcolor"  default="#d9e4f9" description="The bgcolor for the other table rows"/>
+            <parameter datatype="string"  min_n_values="1"  max_n_values="1"  name="AttachmentStyle"  default="simple" description="Style of attachments. Possible values are: - simple (default): just allow to attach new files to a message using the file widget during post, and using the attachments package API to 'attach' them to the message. - complex (legacy): attach URLs, new or already existing files, browse through folders and choose where to upload the files in the file storage, using the attachments package 'attach' pages"/>
         </parameters>
 
     </version>
