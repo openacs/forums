@@ -21,20 +21,6 @@ ad_include_contract {
     {attachments:multiple,verify ""}
     {attachment_cleanup_list:tmpfile,verify ""}
 }
-
-#
-# Debug form content
-#
-set form [ns_getform]
-if { $form eq "" } { return "" }
-set export_data ""
-for { set i 0 } { $i < [ns_set size $form] } { incr i } {
-    set key [ns_set key $form $i]
-    set value [ns_set value $form $i]
-    append export_data "$key: [ns_quotehtml $value]\n"
-}
-
-
 #
 # 'Simple' or 'Complex' (legacy) attachment style
 #
