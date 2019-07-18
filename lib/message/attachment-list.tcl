@@ -67,7 +67,7 @@ foreach attachment [attachments::get_attachments -object_id $message(message_id)
     #
     # Detach URL
     #
-    set detach_url "[attachments::get_url]/detach?object_id=$message(message_id)&attachment_id=$id&return_url=[ns_urlencode [ad_return_url]]"
+    set detach_url "[attachments::detach_url -object_id $message(message_id) -attachment_id $id -return_url [ad_return_url]]"
     #
     # Add to multirow
     #
