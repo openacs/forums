@@ -24,7 +24,7 @@ ad_include_contract {
 #
 # 'Simple' or 'Complex' (legacy) attachment style
 #
-# - Simple (default): just allow to attach new files to a message using the file
+# - Simple (default): just allow one to attach new files to a message using the file
 #   widget during post, and using the attachments package API to 'attach' them
 #   to the message.
 #

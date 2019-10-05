@@ -40,11 +40,12 @@ set user_id [auth::refresh_login]
 
 ##############################
 # Pull out required forum and parent data and
-# perform security checks
+# perform security checks.
 #
 if {$parent_id eq ""} {
-    # no parent_id, therefore new thread
-    # require thread creation privs
+    # No parent_id was specified, therefore, we need the forums info
+    # to check permissions ant to check the forums settings, whether
+    # new threads are allowed in general.
     forum::get -forum_id $forum_id -array forum
 
     if { ![permission::permission_p -object_id $forum_id -privilege "forum_moderate"] } {
