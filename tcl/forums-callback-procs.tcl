@@ -170,7 +170,20 @@ ad_proc -public -callback search::datasource -impl forums_message {} {
     array set forum [forum::get -forum_id $message(forum_id) -array forum]
     set package_id $forum(package_id)
 
-    db_foreach messages "" {
+    db_foreach messages {
+        with recursive thread(message_id, parent_id, subject, content, format) as (
+            select message_id, parent_id, subject, content, format
+            from forums_messages
+            where message_id = :message_id
+
+            union all
+
+            select m.message_id, m.parent_id, m.subject, m.content, m.format
+            from forums_messages m,
+                 thread t
+            where m.parent_id = t.message_id
+        ) select subject, content, format from thread
+    } {
 
         # include the subject in the text if it is different from the thread's subject
         set root_subject $message(subject)
@@ -225,10 +238,13 @@ ad_proc -public -callback search::url -impl forums_message {} {
 
 } {
     set message_id $object_id
-    forum::message::get -message_id $message_id -array message
-    set forum_id $message(forum_id)
-
-    return "[ad_url][db_string select_forums_package_url {}]message-view?message_id=$message_id"
+    set forum_package_id [db_string select_forums_package {
+        select package_id from forums_forums
+        where forum_id = (select forum_id from forums_messages
+                          where message_id = :message_id)
+    }]
+    set forum_package_url [site_node::get_url_from_object_id -object_id $forum_package_id]
+    return "[ad_url]${forum_package_url}message-view?message_id=$message_id"
 }
 
 ad_proc -public -callback search::datasource -impl forums_forum {} {
@@ -259,7 +275,12 @@ ad_proc -public -callback search::url -impl forums_forum {} {
 
 } {
     set forum_id $object_id
-    return "[ad_url][db_string select_forums_package_url {}]forum-view?forum_id=$forum_id"
+    set forum_package_id [db_string select_forums_package {
+        select package_id from forums_forums
+        where forum_id = :forum_id
+    }]
+    set forum_package_url [site_node::get_url_from_object_id -object_id $forum_package_id]
+    return "[ad_url]${forum_package_url}forum-view?forum_id=$forum_id"
 }
 
 
