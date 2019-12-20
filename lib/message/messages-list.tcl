@@ -12,7 +12,8 @@ db_multirow -extend {link} messages messages {
         from forums_forums f, forums_messages m
         where f.package_id = :package_id
         and m.forum_id = f.forum_id
-        and posting_date > now() - '5 days'::interval group by subject order by max(m.posting_date) desc
+        and posting_date > current_timestamp - cast('5 days' as interval)
+        group by subject order by max(m.posting_date) desc
 } {
         set posted [lc_time_fmt $posted "%x %X"]
         set link "message-view?message_id=$message_id"
