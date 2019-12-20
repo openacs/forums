@@ -1,3 +1,10 @@
+ad_include_contract {
+    Display recent messages
+
+    Note: this page does not seem to be mentioned by upstream code as
+    of 2019-12-20
+}
+
 set package_id [site_node::get_element -url $url -element package_id]
 
 db_multirow -extend {link} messages messages {

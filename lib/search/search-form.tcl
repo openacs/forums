@@ -1,10 +1,12 @@
-# packages/forums/lib/search/search-form.tcl
-#
-# Form for search box
-#
-# @author Emmanuelle Raffenne (eraffenne@gmail.com)
-# @creation-date 2007-12-23
-# @cvs-id $Id$
+ad_include_contract {
+    Form for search box
+
+    @author Emmanuelle Raffenne (eraffenne@gmail.com)
+    @creation-date 2007-12-23
+    @cvs-id $Id$
+} {
+    forum_id:naturalnum,optional
+}
 
 form create search -action search -has_submit 0
 forums::form::search search
