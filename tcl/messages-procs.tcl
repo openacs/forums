@@ -55,7 +55,7 @@ ad_proc -public forum::message::new {
 
         # Check to see if the message with a message_id matching the
         # message_id argument was in the database before calling
-        # this procedure.  If so, the error is due to a double click 
+        # this procedure.  If so, the error is due to a double click
         # and we should continue without returning an error.
 
         if {$original_message_id ne ""} {
@@ -73,7 +73,7 @@ ad_proc -public forum::message::new {
     }
 
     forum::flush_cache \
-        -forum_id $forum_id    
+        -forum_id $forum_id
 
     return $message_id
 }
@@ -136,7 +136,7 @@ ad_proc -public forum::message::do_notifications {
     # expression searching for the message keys fail....
     #
     regsub -all "#" $message_html "#\\&#8203;" message_html
-    
+
     append html_version $message_html
     append html_version "<p>   "
 
@@ -167,7 +167,7 @@ ad_proc -public forum::message::do_notifications {
 -----------------------------------------
 $message_text
 -----------------------------------------
-#forums.To_post_a_reply_to_this_email_or_view_this_message_go_to# 
+#forums.To_post_a_reply_to_this_email_or_view_this_message_go_to#
 ${url}message-view?message_id=$message(root_message_id)
 
 #forums.To_view_Forum_forum_name_go_to#
@@ -183,7 +183,7 @@ ${url}forum-view?forum_id=$message(forum_id)
         -notif_text $text_version \
         -notif_html $html_version
 
-    
+
     # Eventually we need notification for the root message too
     notification::new \
         -type_id [notification::type::get_type_id \
@@ -194,7 +194,7 @@ ${url}forum-view?forum_id=$message(forum_id)
         -notif_text $text_version \
         -notif_html $html_version
 }
-    
+
 ad_proc -public forum::message::edit {
     {-message_id:required}
     {-subject:required}
@@ -248,10 +248,10 @@ ad_proc -public forum::message::get {
         set row(user_name)   [dict get $user name]
         set row(user_email)  [dict get $user email]
         set row(screen_name) [dict get $user screen_name]
-        
+
         forum::get -forum_id $row(forum_id) -array forum
         set row(forum_name) $forum(name)
-        
+
         # Convert to user's date/time format
         set row(posting_date_ansi) [lc_time_system_to_conn $row(posting_date_ansi)]
         set row(posting_date_pretty) [lc_time_fmt $row(posting_date_ansi) "%x %X"]
@@ -406,7 +406,7 @@ ad_proc -deprecated forum::message::initial_message {
 
     if { $forum_id eq "" && $parent eq "" } {
         return -code error [_ forums.lt_You_either_have_to]
-    } 
+    }
 
     if { $parent ne "" } {
         upvar $parent parent_msg
