@@ -303,7 +303,7 @@ ad_proc -public forum::message::reject {
 } {
     Reject a message.
 } {
-    set_state -message_id $message_id -state rejected
+    forum::message::set_state -message_id $message_id -state rejected
 }
 
 ad_proc -public forum::message::approve {
