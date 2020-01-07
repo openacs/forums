@@ -233,24 +233,47 @@ ad_proc -public forum::message::get {
     # Select the info into the upvar'ed Tcl Array
     upvar $array row
 
-    set query select_message
+    # make sure array is empty
+    array unset row
 
-    if {[ad_conn isconnected] && [forum::attachments_enabled_p]} {
-        set query select_message_with_attachment
-    }
+    set attachments_sql [expr {[ad_conn isconnected] && [forum::attachments_enabled_p] ? {
+        (select count(*) from attachments
+         where object_id = message_id) as n_attachments,
+    } : ""}]
 
-    if {![db_0or1row $query {} -column_array row]} {
-        if {[array exists row]} {
-            array unset row
-        }
-    } else {
+    set sql [subst -nocommands {
+        with recursive message_hierarchy as (
+           select 1 as level, message_id, parent_id
+             from forums_messages
+            where message_id = :message_id
+
+           union all
+
+           select h.level + 1, m.message_id, m.parent_id
+             from forums_messages m,
+                  message_hierarchy h
+            where m.message_id = h.parent_id
+       )
+       select m.*,
+              $attachments_sql
+              root.level as tree_level,
+              root.message_id as root_message_id,
+              (select subject from forums_messages
+                where message_id = root.message_id) as root_subject,
+              to_char(m.posting_date, 'YYYY-MM-DD HH24:MI:SS') as posting_date_ansi,
+              (select name from forums_forums
+                where forum_id = m.forum_id) as forum_name
+        from forums_messages m,
+             (select level, message_id
+              from message_hierarchy
+              where parent_id is null) as root
+       where m.message_id = :message_id
+    }]
+    if {[db_0or1row select_message $sql -column_array row]} {
         set user [acs_user::get -user_id $row(user_id)]
         set row(user_name)   [dict get $user name]
         set row(user_email)  [dict get $user email]
         set row(screen_name) [dict get $user screen_name]
-
-        forum::get -forum_id $row(forum_id) -array forum
-        set row(forum_name) $forum(name)
 
         # Convert to user's date/time format
         set row(posting_date_ansi) [lc_time_system_to_conn $row(posting_date_ansi)]
