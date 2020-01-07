@@ -357,7 +357,26 @@ ad_proc -public forum::message::close {
     Close a thread.<br>
     This is not exactly a cheap operation if the thread is long.
 } {
-    db_exec_plsql thread_close {}
+    db_dml close_thread {
+        update forums_messages set
+           open_p = 'f'
+        where message_id in (
+           with recursive message_hierarchy as (
+              select message_id
+                from forums_messages
+               where message_id = :message_id
+
+              union all
+
+              select m.message_id
+                from forums_messages m,
+                     message_hierarchy h
+               where m.parent_id = h.message_id
+           )
+           select message_id
+             from message_hierarchy
+        )
+    }
 }
 
 ad_proc -public forum::message::open {
@@ -366,7 +385,26 @@ ad_proc -public forum::message::open {
     Reopen a thread.<br>
     This is not exactly a cheap operation if the thread is long.
 } {
-    db_exec_plsql thread_open {}
+    db_dml close_thread {
+        update forums_messages set
+           open_p = 't'
+        where message_id in (
+           with recursive message_hierarchy as (
+              select message_id
+                from forums_messages
+               where message_id = :message_id
+
+              union all
+
+              select m.message_id
+                from forums_messages m,
+                     message_hierarchy h
+               where m.parent_id = h.message_id
+           )
+           select message_id
+             from message_hierarchy
+        )
+    }
 }
 
 ad_proc -public forum::message::get_attachments {
