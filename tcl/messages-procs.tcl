@@ -331,14 +331,6 @@ ad_proc -public forum::message::delete {
 
         forum::message::get -message_id $message_id -array msg
         set forum_id  $msg(forum_id)
-        set is_root_p [expr {$msg(parent_id) eq ""}]
-
-	if { $is_root_p && [forum::use_ReadingInfo_p] } {
-            db_dml forums_reading_info_remove_msg {
-                delete from forums_reading_info
-                 where root_message_id = :message_id
-            }
-	}
 
         # Remove the notifications
         notification::request::delete_all -object_id $message_id
