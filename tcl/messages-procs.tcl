@@ -142,14 +142,13 @@ ad_proc -public forum::message::do_notifications {
     append html_version "<p>   "
 
     if {[llength $attachments] > 0} {
-    append html_version "#forums.Attachments#:
+        append html_version "#forums.Attachments#:
                             <ul> "
 
-    foreach attachment $attachments {
-       append html_version "<li><a href=\"[lindex $attachment 2]\">[lindex $attachment 1]</a></li>"
-            }
-    append html_version "</ul>"
-
+        foreach attachment $attachments {
+            append html_version "<li><a href=\"[lindex $attachment 2]\">[lindex $attachment 1]</a></li>"
+        }
+        append html_version "</ul>"
     }
 
     set html_version $html_version
