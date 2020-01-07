@@ -388,12 +388,19 @@ ad_proc -public forum::message::subject_sort_filter {
     return $sort_filter
 }
 
-ad_proc -public forum::message::initial_message {
+ad_proc -deprecated forum::message::initial_message {
     {-forum_id {}}
     {-parent {}}
     {-message:required}
 } {
     Create an array with values initialized for a new message.
+
+    DEPRECATED: this proc is not used in current upstream code, its
+                upvar juggling is questionable and most of the data
+                returned is already provided from the start.
+
+    @see direct idioms on the api used in here
+    @see forum::format::reply_subject
 } {
     upvar $message init_msg
 
