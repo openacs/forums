@@ -313,8 +313,8 @@ ad_proc -public forum::message::approve {
     Approve a message.
 } {
     db_transaction {
-        set_state -message_id $message_id -state approved
-        do_notifications -message_id $message_id
+        forum::message::set_state -message_id $message_id -state approved
+        forum::message::do_notifications -message_id $message_id
     }
 }
 
