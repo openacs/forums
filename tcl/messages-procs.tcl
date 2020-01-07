@@ -310,9 +310,10 @@ ad_proc -public forum::message::delete {
         set is_root_p [expr {$msg(parent_id) eq ""}]
 
 	if { $is_root_p && [forum::use_ReadingInfo_p] } {
-	    set db_antwort [db_string forums_reading_info__remove_msg {
-		select forums_reading_info__remove_msg (:message_id);
-	    }]
+            db_dml forums_reading_info_remove_msg {
+                delete from forums_reading_info
+                 where root_message_id = :message_id
+            }
 	}
 
         # Remove the notifications
