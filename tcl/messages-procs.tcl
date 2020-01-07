@@ -413,13 +413,20 @@ ad_proc -public forum::message::get_attachments {
     return [attachments::get_attachments -object_id $message_id]
 }
 
-ad_proc -public forum::message::subject_sort_filter {
+ad_proc -deprecated forum::message::subject_sort_filter {
     -forum_id:required
     -order_by:required
 } {
     @return A piece of HTML for toggling the sort order of threads (subjects)
             in a forum. The user can either sort by the first postings in
             subjects (the creation date of the subjects) or the last one.
+
+    DEPRECATED: this proc is not mentioned anywhere in current
+                upstream codebase. Furthermore, it refers to a very
+                specific UI (e.g. sorting properties, styling...) and
+                does therefore provide little value in general.
+
+    @see idioms in the specific UI
 
     @author Peter Marklund
 } {
