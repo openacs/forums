@@ -44,9 +44,10 @@ ad_proc -public forum::message::new {
 
         set message_id [package_instantiate_object -var_list $var_list forums_message]
 
-        get -message_id $message_id -array message
-        if {[info exists message(state)] && $message(state) eq "approved"} {
-            do_notifications -message_id $message_id -user_id $user_id
+        forum::message::get -message_id $message_id -array message
+        if {$message(state) eq "approved"} {
+            forum::message::do_notifications \
+                -message_id $message_id -user_id $user_id
         }
 
     }  on_error {
