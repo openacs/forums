@@ -238,7 +238,7 @@ ad_proc -public forum::message::get {
 
     set attachments_sql [expr {[ad_conn isconnected] && [forum::attachments_enabled_p] ? {
         (select count(*) from attachments
-         where object_id = message_id) as n_attachments,
+         where object_id = m.message_id) as n_attachments,
     } : ""}]
 
     set sql [subst -nocommands {
