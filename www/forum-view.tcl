@@ -47,7 +47,6 @@ set searchbox_p [parameter::get -parameter ForumsSearchBoxP -default 1]
 set forum_url [ad_conn url]?forum_id=$forum_id
 
 template::head::add_css -href /resources/forums/forums.css -media all
-template::head::add_css -href /resources/forums/print.css -media print
 
 set page_title "[_ forums.Forum_1] $forum(name)"
 set context [list $forum(name)]

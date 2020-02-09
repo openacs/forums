@@ -85,7 +85,6 @@ if {$forum(presentation_type) eq "flat"} {
 # stylesheets
 set lang [ad_conn language]
 template::head::add_css -href /resources/forums/forums.css -media all -lang $lang
-template::head::add_css -href /resources/forums/print.css -media print -lang $lang
  
 # set vars for i18n
 template::head::add_script -type "text/javascript" -script [subst {
