@@ -19,11 +19,11 @@ ad_try {
     # Get forum data
     #
     forum::get -forum_id $forum_id -array forum
-    
+
 } trap NOT_FOUND {} {
     ns_returnnotfound
     ad_script_abort
-    
+
 } on error {errMsg} {
     error $errMsg $::errorInfo $::errorCode
 }
@@ -53,8 +53,8 @@ set context [list $forum(name)]
 
 set type_id [notification::type::get_type_id -short_name forums_forum_notif]
 set notification_count [notification::request::request_count \
-			    -type_id $type_id \
-			    -object_id $forum_id]
+                            -type_id $type_id \
+                            -object_id $forum_id]
 
 # Local variables:
 #    mode: tcl
