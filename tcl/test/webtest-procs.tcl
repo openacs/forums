@@ -24,7 +24,7 @@ namespace eval forums::test {
         # Get Data and check status code
         #
         set d [acs::test::http -user_id $user_id $forums_page/admin/forum-new]
-        aa_equals "Status code valid" [dict get $d status] 200
+        acs::test::reply_has_status_code $d 200
 
         #
         # Get the form specific data (action, method and provided form-fields)
@@ -51,7 +51,7 @@ namespace eval forums::test {
         # Check, if the form was correctly validated.
         #
         acs::test::reply_contains_no $d form-error
-        aa_equals "Status code valid" [dict get $d status] 302
+        acs::test::reply_has_status_code $d 302
 
         dict set d payload forum_id [dict get $form_data fields forum_id]
 
@@ -74,7 +74,7 @@ namespace eval forums::test {
             # Call to the forums page
             #
             set d [::acs::test::http -last_request $d $forums_page]
-            aa_equals "Status code valid" [dict get $d status] 200
+            acs::test::reply_has_status_code $d 200
 
             #
             # Follow the link with the provided link label
@@ -83,7 +83,7 @@ namespace eval forums::test {
                        -last_request $d \
                        -base $forums_page \
                        -label $name]
-            aa_equals "Status code valid" [dict get $d status] 200
+            acs::test::reply_has_status_code $d 200
         }
 
         #
@@ -94,7 +94,7 @@ namespace eval forums::test {
             set d [::acs::test::http \
                        -last_request $d \
                        $forums_page/forum-view?forum_id=$forum_id]
-            aa_equals "Status code valid" [dict get $d status] 200
+            acs::test::reply_has_status_code $d 200
         }
         return $d
     }
@@ -110,7 +110,7 @@ namespace eval forums::test {
         set d [acs::test::http \
                    -last_request $last_request \
                    $forums_page/admin/forum-edit?forum_id=$forum_id]
-        aa_equals "Status code valid" [dict get $d status] 200
+        acs::test::reply_has_status_code $d 200
 
         #
         # Get the form specific data (action, method and provided form-fields)
@@ -154,7 +154,8 @@ namespace eval forums::test {
         set d [acs::test::http \
                    -last_request $last_request \
                    $forums_page/message-post?forum_id=$forum_id]
-        aa_equals "Edit Message: Status code valid" [dict get $d status] 200
+        aa_log "Edit message"
+        acs::test::reply_has_status_code $d 200
 
         #
         # Get form data from
@@ -179,7 +180,8 @@ namespace eval forums::test {
                    [dict get $form_data fields]]
 
         acs::test::reply_contains_no $d form-error
-        aa_equals "Updated message: Status code valid" [dict get $d status] 302
+        aa_log "Updated message"
+        acs::test::reply_has_status_code $d 302
 
         aa_log [dict get $form_data fields]
         set message_id [dict get $form_data fields message_id]
@@ -188,7 +190,8 @@ namespace eval forums::test {
         # Check on the forums overview page, if we find the new subject
         #
         set d [acs::test::http -last_request $d $forums_page/forum-view?forum_id=$forum_id]
-        aa_equals "View Forum: Status code valid" [dict get $d status] 200
+        aa_log "View forum"
+        acs::test::reply_has_status_code $d 200
 
         acs::test::reply_contains $d $subject
 
@@ -196,7 +199,8 @@ namespace eval forums::test {
         # Check on the forums view page, if we find the new subject and the new body
         #
         set d [acs::test::http -last_request $d $forums_page/message-view?message_id=$message_id]
-        aa_equals "View Message: Status code valid" [dict get $d status] 200
+        aa_log "View message"
+        acs::test::reply_has_status_code $d 200
 
         acs::test::reply_contains $d $subject
         acs::test::reply_contains $d $message_body
@@ -218,13 +222,15 @@ namespace eval forums::test {
                    }] \
                    [dict get $form_data fields]]
         acs::test::reply_contains_no $d form-error
-        aa_equals "Entered forums reply: Status code valid" [dict get $d status] 302
+        aa_log "Entered forums"
+        acs::test::reply_has_status_code $d 302
 
         #
         # The reply should show up on the forums thread page
         #
         set d [acs::test::http -last_request $d $forums_page/message-view?message_id=$message_id]
-        aa_equals "Message overview: Status code valid" [dict get $d status] 200
+        aa_log "Message overview"
+        acs::test::reply_has_status_code $d 200
         acs::test::reply_contains $d "REPLY $message_body"
 
         #
@@ -245,13 +251,15 @@ namespace eval forums::test {
                    }] \
                    [dict get $form_data fields]]
         acs::test::reply_contains_no $d form-error
-        aa_equals "Entered forums reply: Status code valid" [dict get $d status] 302
+        aa_log "Entered forums"
+        acs::test::reply_has_status_code $d 302
 
         #
         # The edited reply should show up on the forums thread page
         #
         set d [acs::test::http -last_request $d $forums_page/message-view?message_id=$message_id]
-        aa_equals "Message overview: Status code valid" [dict get $d status] 200
+        aa_log "Message overview"
+        acs::test::reply_has_status_code $d 200
         acs::test::reply_contains $d "$new_reply_message_body"
 
         #
@@ -259,20 +267,23 @@ namespace eval forums::test {
         #
         set request [export_vars -sign -base ${forums_page}/moderate/message-delete {{message_id $reply_message_id}}]
         set d [acs::test::http -last_request $d $request]
-        aa_equals "Message overview: Status code valid" [dict get $d status] 200
+        aa_log "Message overview"
+        acs::test::reply_has_status_code $d 200
         acs::test::reply_contains $d message-delete?confirm_p
 
         set d [::acs::test::follow_link \
                    -last_request $d \
                    -base $forums_page/moderate \
                    -label Yes]
-        aa_equals "Message overview: Status code valid" [dict get $d status] 302
+        aa_log "Message overview"
+        acs::test::reply_has_status_code $d 302
 
         #
         # The edited reply should no show up up on the forums thread page
         #
         set d [acs::test::http -last_request $d $forums_page/message-view?message_id=$message_id]
-        aa_equals "Message overview: Status code valid" [dict get $d status] 200
+        aa_log "Message overview"
+        acs::test::reply_has_status_code $d 200
         acs::test::reply_contains_no $d "$new_reply_message_body"
 
         return $message_id
