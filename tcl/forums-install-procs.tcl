@@ -11,13 +11,19 @@ namespace eval forum::install {}
 ad_proc -private forum::install::package_install {} { 
     package install callback
 } {
-    forum::sc::register_implementations
+    # Since before 5.5, search is implemented using callbacks. New
+    # installations will not register search service contract
+    # implementations. See forums-callback-procs.
+    # forum::sc::register_implementations
 }
 
 ad_proc -private forum::install::package_uninstall {} { 
     package uninstall callback
 } {
-    forum::sc::unregister_implementations
+    # Since before 5.5, search is implemented using callbacks. New
+    # installations will not register search service contract
+    # implementations. See forums-callback-procs.
+    # forum::sc::unregister_implementations
 }
 
 ad_proc -private forum::install::package_upgrade {
@@ -33,6 +39,11 @@ ad_proc -private forum::install::package_upgrade {
             1.1d3 1.1d4 {
                 # just need to install the forum_forum callback
                 forum::sc::register_forum_fts_impl
+            }
+            1.3.1d17 1.3.1d18 {
+                # Unregister search service contract implementation
+                # and rely on callbacks from now on.
+                forum::sc::unregister_implementations
             }
         }
 }

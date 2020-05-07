@@ -13,7 +13,7 @@ ad_library {
 
 namespace eval forum::message {}
 
-ad_proc -private forum::message::datasource { message_id } {
+ad_proc -private -deprecated forum::message::datasource { message_id } {
     @param message_id
     @author dave@thedesignexperience.org
     @creation-date 2002-08-07
@@ -25,6 +25,9 @@ ad_proc -private forum::message::datasource { message_id } {
     We expect message_id to be a root message of a thread only, 
     and return the text of all the messages below
 
+    DEPRECATED: search is implemented using callbacks now.
+
+    @see forums-callback-procs.tcl
 } {
 
     # If there is no connection than this proc is called from the
@@ -73,13 +76,16 @@ ad_proc -private forum::message::datasource { message_id } {
     ns_log Notice "forum::message::datasource end"
 }
 
-ad_proc -private forum::message::url { message_id } {
+ad_proc -private -deprecated forum::message::url { message_id } {
     @param message_id
     @author dave@thedesignexperience.org
     @creation-date 2002-08-07
 
     returns a URL for a message to the search package
 
+    DEPRECATED: search is implemented using callbacks now.
+
+    @see forums-callback-procs.tcl
 } {
     forum::message::get -message_id $message_id -array message
     set forum_id $message(forum_id)
@@ -92,7 +98,7 @@ ad_proc -private forum::message::url { message_id } {
 
 namespace eval forum::forum {}
 
-ad_proc -private forum::forum::datasource {
+ad_proc -private -deprecated forum::forum::datasource {
     forum_id
 } {
     Datasource for the FtsContentProvider contract.
@@ -101,6 +107,10 @@ ad_proc -private forum::forum::datasource {
 
     @author Jeff Davis davis@xarg.net
     @creation-date 2004-04-01
+
+    DEPRECATED: search is implemented using callbacks now.
+
+    @see forums-callback-procs.tcl
 } {
     if {![db_0or1row datasource {
         select
@@ -119,7 +129,7 @@ ad_proc -private forum::forum::datasource {
     return [array get datasource]
 }
 
-ad_proc -private forum::forum::url { 
+ad_proc -private -deprecated forum::forum::url { 
     forum_id
 } {
     url method for the FtsContentProvider contract
@@ -128,6 +138,10 @@ ad_proc -private forum::forum::url {
 
     @author Jeff Davis davis@xarg.net
     @creation-date 2004-04-01
+
+    DEPRECATED: search is implemented using callbacks now.
+
+    @see forums-callback-procs.tcl
 } {
 
      return "[db_string select_forums_package_url {}]forum-view?forum_id=$forum_id"
@@ -136,8 +150,12 @@ ad_proc -private forum::forum::url {
 
 namespace eval forum::sc {}
 
-ad_proc -private forum::sc::register_implementations {} {
+ad_proc -private -deprecated forum::sc::register_implementations {} {
     Register the forum_forum and forum_message content type fts contract
+
+    DEPRECATED: search is implemented using callbacks now.
+
+    @see forums-callback-procs.tcl
 } {
     db_transaction {
         forum::sc::register_forum_fts_impl
@@ -145,14 +163,22 @@ ad_proc -private forum::sc::register_implementations {} {
     }
 }
 
-ad_proc -private forum::sc::unregister_implementations {} {
+ad_proc -private -deprecated forum::sc::unregister_implementations {} {
+    DEPRECATED: search is implemented using callbacks now.
+
+    @see forums-callback-procs.tcl
+} {
     db_transaction { 
-        acs_sc::impl::delete -contract_name FtsContentProvider -impl_name forum_message
-        acs_sc::impl::delete -contract_name FtsContentProvider -impl_name forum_forum
+        acs_sc::impl::delete -contract_name FtsContentProvider -impl_name forums_message
+        acs_sc::impl::delete -contract_name FtsContentProvider -impl_name forums_forum
     }
 }
 
-ad_proc -private forum::sc::register_forum_fts_impl {} {
+ad_proc -private -deprecated forum::sc::register_forum_fts_impl {} {
+    DEPRECATED: search is implemented using callbacks now.
+
+    @see forums-callback-procs.tcl
+} {
     set spec {
         name "forums_forum"
         aliases {
@@ -167,7 +193,11 @@ ad_proc -private forum::sc::register_forum_fts_impl {} {
 }
 
 
-ad_proc -private forum::sc::register_message_fts_impl {} {
+ad_proc -private -deprecated forum::sc::register_message_fts_impl {} {
+    DEPRECATED: search is implemented using callbacks now.
+
+    @see forums-callback-procs.tcl
+} {
     set spec {
         name "forums_message"
         aliases {
