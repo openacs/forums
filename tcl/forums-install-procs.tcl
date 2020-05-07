@@ -15,6 +15,9 @@ ad_proc -private forum::install::package_install {} {
     # installations will not register search service contract
     # implementations. See forums-callback-procs.
     # forum::sc::register_implementations
+
+    # Create notification types
+    forum::install::create_notification_types
 }
 
 ad_proc -private forum::install::package_uninstall {} { 
@@ -24,6 +27,9 @@ ad_proc -private forum::install::package_uninstall {} {
     # installations will not register search service contract
     # implementations. See forums-callback-procs.
     # forum::sc::unregister_implementations
+
+    # Delete notification types
+    forum::install::delete_notification_types
 }
 
 ad_proc -private forum::install::package_upgrade {
@@ -46,6 +52,94 @@ ad_proc -private forum::install::package_upgrade {
                 forum::sc::unregister_implementations
             }
         }
+}
+
+ad_proc -private forum::install::create_notification_types {} {
+    Create the Forum Notification types used to notify users of forum
+    changes.
+} {
+    ## Forum user notifications
+
+    # Entire forum
+    set spec {
+        contract_name "NotificationType"
+        owner "forums"
+        name "forums_forum_notif_type"
+        pretty_name "forums_forum_notif_type"
+        aliases {
+            GetURL       forum::notification::get_url
+            ProcessReply forum::notification::process_reply
+        }
+    }
+    set sc_impl_id [acs_sc::impl::new_from_spec -spec $spec]
+
+    set type_id [notification::type::new \
+                     -sc_impl_id $sc_impl_id \
+                     -short_name "forums_forum_notif" \
+                     -pretty_name "Forum Notification" \
+                     -description "Notifications for Entire Forums"]
+
+    # Enable the various intervals and delivery methods
+    db_dml insert_intervals {
+        insert into notification_types_intervals
+        (type_id, interval_id)
+        select :type_id, interval_id
+        from notification_intervals where name in ('instant','hourly','daily')
+    }
+    db_dml insert_del_method {
+        insert into notification_types_del_methods
+        (type_id, delivery_method_id)
+        select :type_id, delivery_method_id
+        from notification_delivery_methods where short_name in ('email')
+    }
+
+    # Message
+    set spec {
+        contract_name "NotificationType"
+        owner "forums"
+        name "forums_message_notif_type"
+        pretty_name "forums_message_notif_type"
+        aliases {
+            GetURL       forum::notification::get_url
+            ProcessReply forum::notification::process_reply
+        }
+    }
+    set sc_impl_id [acs_sc::impl::new_from_spec -spec $spec]
+
+    set type_id [notification::type::new \
+                     -sc_impl_id $sc_impl_id \
+                     -short_name "forums_message_notif" \
+                     -pretty_name "Message Notification" \
+                     -description "Notifications for Message Thread"]
+
+    # Enable the various intervals and delivery methods
+    db_dml insert_intervals {
+        insert into notification_types_intervals
+        (type_id, interval_id)
+        select :type_id, interval_id
+        from notification_intervals where name in ('instant','hourly','daily')
+    }
+    db_dml insert_del_method {
+        insert into notification_types_del_methods
+        (type_id, delivery_method_id)
+        select :type_id, delivery_method_id
+        from notification_delivery_methods where short_name in ('email')
+    }
+}
+
+ad_proc -private forum::install::delete_notification_types {} {
+    Delete notification types on uninstall
+} {
+    foreach {short_name impl_name} {
+        "forums_forum_notif"   "forums_forum_notif_type"
+        "forums_message_notif" "forums_message_notif_type"
+    } {
+        notification::type::delete -short_name $short_name
+
+        acs_sc::impl::delete \
+            -contract_name "NotificationType" \
+            -impl_name $impl_name
+    }
 }
 
 ad_proc -private ::install::xml::action::forum-create { node } {
