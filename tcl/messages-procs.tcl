@@ -98,8 +98,9 @@ ad_proc -public forum::message::do_notifications {
     set message_url ${url}message-view?message_id=$message(root_message_id)
     set forum_url ${url}forum-view?forum_id=$message(forum_id)
 
+    set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
+
     # This computations are not used... just commented for now.
-    # set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
     # if {$useScreenNameP eq 0 && $user_id ne 0} {
     #     if { $user_id eq "" } {
     #         set user_id $message(user_id)
