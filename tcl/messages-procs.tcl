@@ -95,6 +95,9 @@ ad_proc -public forum::message::do_notifications {
     set url [lindex [site_node::get_url_from_object_id -object_id $package_id] 0]
     set url [ad_url]$url
 
+    set message_url ${url}message-view?message_id=$message(root_message_id)
+    set forum_url ${url}forum-view?forum_id=$message(forum_id)
+
     set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
     if {$useScreenNameP eq 0 && $user_id ne 0} {
         if { $user_id eq "" } {
@@ -113,14 +116,14 @@ ad_proc -public forum::message::do_notifications {
 
     set SecureOutboundP [parameter::get -parameter "SecureOutboundP" -default 0]
     if { $SecureOutboundP && [ns_conn isconnected] && [security::secure_conn_p] } {
-	set href ${url}message-view?message_id=$message(root_message_id)
-        set message_html "<p>#forums.Message_content_withheld# #forums.To_view_message_follow_link# <a href=\"[ns_quotehtml $href]\">[ns_quotehtml $href]</a></p>"
+        set href [ns_quotehtml $message_url]
+        set message_html "<p>#forums.Message_content_withheld# #forums.To_view_message_follow_link# <a href=\"$href\">$href</a></p>"
         set message_text [ad_html_text_convert -from text/html -to text/plain -- $message_html]
     }
 
     set html_version ""
-    append html_version "#forums.Forum#:  <a href=\"${url}forum-view?forum_id=$message(forum_id)\">$message(forum_name)</a><br>\n"
-    append html_version "#forums.Thread#: <a href=\"${url}message-view?message_id=$message(root_message_id)\">$message(root_subject)</a><br>\n"
+    append html_version "#forums.Forum#:  <a href=\"$forum_url\">$message(forum_name)</a><br>\n"
+    append html_version "#forums.Thread#: <a href=\"$message_url\">$message(root_subject)</a><br>\n"
     if {$useScreenNameP == 0} {
         append html_version "#forums.Author#: <a href=\"mailto:$message(user_email)\">$message(user_name)</a><br>\n"
     } else {
@@ -168,10 +171,10 @@ ad_proc -public forum::message::do_notifications {
 $message_text
 -----------------------------------------
 #forums.To_post_a_reply_to_this_email_or_view_this_message_go_to#
-${url}message-view?message_id=$message(root_message_id)
+$message_url
 
 #forums.To_view_Forum_forum_name_go_to#
-${url}forum-view?forum_id=$message(forum_id)
+$forum_url
 "
     # Do the notification for the forum
     notification::new \
