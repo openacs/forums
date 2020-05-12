@@ -44,11 +44,8 @@ ad_proc -public forum::message::new {
 
         set message_id [package_instantiate_object -var_list $var_list forums_message]
 
-        forum::message::get -message_id $message_id -array message
-        if {$message(state) eq "approved"} {
-            forum::message::do_notifications \
-                -message_id $message_id -user_id $user_id
-        }
+        forum::message::do_notifications \
+            -message_id $message_id -user_id $user_id
 
     }  on_error {
 
@@ -98,7 +95,15 @@ ad_proc -public forum::message::do_notifications {
     set message_url ${url}message-view?message_id=$message(root_message_id)
     set forum_url ${url}forum-view?forum_id=$message(forum_id)
 
-    set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
+    if {$message(state) eq "approved"} {
+        forum::message::notify_users \
+            -message_array message \
+            -forum_url $forum_url \
+            -message_url $message_url
+    }
+
+    # TODO: implement a moderator notification type that triggers also
+    # on unapproved messages.
 
     # This computations are not used... just commented for now.
     # if {$useScreenNameP eq 0 && $user_id ne 0} {
@@ -110,6 +115,20 @@ ad_proc -public forum::message::do_notifications {
     #                      -email [ad_host_administrator]]
     # }
     # set notif_user $user_id
+}
+
+ad_proc -private forum::message::notify_users {
+    -message_array:required
+    -forum_url:required
+    -message_url:required
+} {
+    Notify users of a new approved forum message.
+
+    @param message_array name of message array of forum info in the caller scope
+} {
+    upvar 1 $message_array message
+
+    set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
 
     set attachments [attachments::get_attachments -object_id $message(message_id)]
 
