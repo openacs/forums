@@ -13,7 +13,7 @@
 	 object_id="@forum_id;literal@"
 	 pretty_name="@forum.name;literal@"
 	 url="@forum_url;literal@" >
-
+</p>
 <include src="/packages/forums/lib/message/threads-chunk"
 	 &="forum_id"
 	 &="flush_p"
