@@ -51,6 +51,10 @@ ad_proc -private forum::install::package_upgrade {
                 # and rely on callbacks from now on.
                 forum::sc::unregister_implementations
             }
+            1.3.1d18 1.4.0d1 {
+                ## Forum moderator notifications
+                forum::install::create_moderator_notification_types
+            }
         }
 }
 
@@ -59,7 +63,16 @@ ad_proc -private forum::install::create_notification_types {} {
     changes.
 } {
     ## Forum user notifications
+    forum::install::create_user_notification_types
 
+    ## Forum moderator notifications
+    forum::install::create_moderator_notification_types
+}
+
+ad_proc -private forum::install::create_user_notification_types {} {
+    Create the Forum Notification types used to notify users of forum
+    changes.
+} {
     # Entire forum
     set spec {
         contract_name "NotificationType"
@@ -127,12 +140,85 @@ ad_proc -private forum::install::create_notification_types {} {
     }
 }
 
+ad_proc -private forum::install::create_moderator_notification_types {} {
+    Create the Forum Notification types used to notify usersmoderators
+    of forum changes.
+} {
+    # Entire forum
+    set spec {
+        contract_name "NotificationType"
+        owner "forums"
+        name "forums_forum_moderator_notif_type"
+        pretty_name "forums_forum_moderator_notif_type"
+        aliases {
+            GetURL       forum::notification::get_url
+            ProcessReply forum::notification::process_reply
+        }
+    }
+    set sc_impl_id [acs_sc::impl::new_from_spec -spec $spec]
+
+    set type_id [notification::type::new \
+                     -sc_impl_id $sc_impl_id \
+                     -short_name "forums_forum_moderator_notif" \
+                     -pretty_name "Forum Moderator Notification" \
+                     -description "Moderator notifications for Entire Forums"]
+
+    # Enable the various intervals and delivery methods
+    db_dml insert_intervals {
+        insert into notification_types_intervals
+        (type_id, interval_id)
+        select :type_id, interval_id
+        from notification_intervals where name in ('instant','hourly','daily')
+    }
+    db_dml insert_del_method {
+        insert into notification_types_del_methods
+        (type_id, delivery_method_id)
+        select :type_id, delivery_method_id
+        from notification_delivery_methods where short_name in ('email')
+    }
+
+    # Message
+    set spec {
+        contract_name "NotificationType"
+        owner "forums"
+        name "forums_message_moderator_notif_type"
+        pretty_name "forums_message_moderator_notif_type"
+        aliases {
+            GetURL       forum::notification::get_url
+            ProcessReply forum::notification::process_reply
+        }
+    }
+    set sc_impl_id [acs_sc::impl::new_from_spec -spec $spec]
+
+    set type_id [notification::type::new \
+                     -sc_impl_id $sc_impl_id \
+                     -short_name "forums_message_moderator_notif" \
+                     -pretty_name "Message Moderator Notification" \
+                     -description "Moderator notifications for Message Thread"]
+
+    # Enable the various intervals and delivery methods
+    db_dml insert_intervals {
+        insert into notification_types_intervals
+        (type_id, interval_id)
+        select :type_id, interval_id
+        from notification_intervals where name in ('instant','hourly','daily')
+    }
+    db_dml insert_del_method {
+        insert into notification_types_del_methods
+        (type_id, delivery_method_id)
+        select :type_id, delivery_method_id
+        from notification_delivery_methods where short_name in ('email')
+    }
+}
+
 ad_proc -private forum::install::delete_notification_types {} {
     Delete notification types on uninstall
 } {
     foreach {short_name impl_name} {
         "forums_forum_notif"   "forums_forum_notif_type"
         "forums_message_notif" "forums_message_notif_type"
+        "forums_forum_moderator_notif" "forums_forum_moderator_notif_type"
+        "forums_message_moderator_notif" "forums_message_moderator_notif_type"
     } {
         notification::type::delete -short_name $short_name
 

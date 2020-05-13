@@ -51,6 +51,13 @@ if {!$permissions(moderate_p) && $message(state) ne "approved" } {
 #
 ############################################
 
+# Users who subscribed to moderator notifications should be able to
+# unsubscribe even after their moderation privileges have been revoked.
+set type_id [notification::type::get_type_id -short_name forums_message_moderator_notif]
+set request_id [notification::request::get_request_id -type_id $type_id -object_id $message(message_id) -user_id $user_id]
+set moderator_notifications_p [expr {$request_id ne "" ||
+                                     ($forum(posting_policy) eq "moderated" && $permissions(moderate_p))}]
+
 # Show search box?
 set searchbox_p [parameter::get -parameter ForumsSearchBoxP -default 1]
 

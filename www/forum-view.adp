@@ -9,6 +9,13 @@
 </if>
 
 <p>
+  <if @moderator_notifications_p;literal@ true>
+    <include src="/packages/notifications/lib/notification-widget" type="forums_forum_moderator_notif"
+	     object_id="@forum_id;literal@"
+	     pretty_name="@forum.name;literal@ (#forums.moderated#)"
+             show_subscribers_p="false"
+	     url="@forum_url;literal@">
+  </if>
 <include src="/packages/notifications/lib/notification-widget" type="forums_forum_notif"
 	 object_id="@forum_id;literal@"
 	 pretty_name="@forum.name;literal@"

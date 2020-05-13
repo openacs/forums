@@ -163,3 +163,11 @@ h2.forum-heading {
         max-width: 50em;
     }
 }
+
+a.notifications-forums_forum_moderator_notif {
+    color: red;
+}
+
+a.notifications-forums_message_moderator_notif {
+    color: red;
+}

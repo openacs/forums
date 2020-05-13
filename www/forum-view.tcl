@@ -51,6 +51,13 @@ template::head::add_css -href /resources/forums/forums.css -media all
 set page_title "[_ forums.Forum_1] $forum(name)"
 set context [list $forum(name)]
 
+# Users who subscribed to moderator notifications should be able to
+# unsubscribe even after their moderation privileges have been revoked.
+set type_id [notification::type::get_type_id -short_name forums_forum_moderator_notif]
+set request_id [notification::request::get_request_id -type_id $type_id -object_id $forum_id -user_id [ad_conn user_id]]
+set moderator_notifications_p [expr {$request_id ne "" ||
+                                     ($forum(posting_policy) eq "moderated" && $permissions(moderate_p))}]
+
 set type_id [notification::type::get_type_id -short_name forums_forum_notif]
 set notification_count [notification::request::request_count \
                             -type_id $type_id \

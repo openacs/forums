@@ -102,8 +102,10 @@ ad_proc -public forum::message::do_notifications {
             -message_url $message_url
     }
 
-    # TODO: implement a moderator notification type that triggers also
-    # on unapproved messages.
+    forum::message::notify_moderators \
+        -message_array message \
+        -forum_url $forum_url \
+        -message_url $message_url
 
     # This computations are not used... just commented for now.
     # if {$useScreenNameP eq 0 && $user_id ne 0} {
@@ -215,6 +217,89 @@ $forum_url
         -object_id $message(root_message_id) \
         -response_id $message(message_id) \
         -notif_subject "\[$message(forum_name)\] $message(subject)" \
+        -notif_text $text_version \
+        -notif_html $html_version
+}
+
+ad_proc -private forum::message::notify_moderators {
+    -message_array:required
+    -forum_url:required
+    -message_url:required
+} {
+    Notify moderators of a new forum message
+
+    @param message_array name of message array of forum info in the caller scope
+} {
+    upvar 1 $message_array message
+
+    set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
+
+    # Moderated messages are never notified in full, as they might
+    # contain unsuitable content by definition.
+    set href [ns_quotehtml $message_url]
+    set message_html "<p>#forums.Message_content_withheld# #forums.To_view_message_follow_link# <a href=\"$href\">$href</a></p>"
+    set message_text [ad_html_text_convert -from text/html -to text/plain -- $message_html]
+
+    set html_version ""
+    append html_version "#forums.Forum#:  <a href=\"$forum_url\">$message(forum_name)</a><br>\n"
+    append html_version "#forums.Thread#: <a href=\"$message_url\">$message(root_subject)</a><br>\n"
+    if {$useScreenNameP == 0} {
+        append html_version "#forums.Author#: <a href=\"mailto:$message(user_email)\">$message(user_name)</a><br>\n"
+    } else {
+        append html_version "#forums.Author#: $message(screen_name)<br>\n"
+    }
+    append html_version "#forums.Posted#: $message(posting_date)<br>"
+    append html_version "\n<br>\n"
+    #
+    # The resulting HTML messages is sent in total by
+    # notifications::send through [lang::util::localize...].  In case
+    # a forums message contains something looking like a localized
+    # message key, it will be substituted. One rough attempt is to add
+    # a zero width space after the "#" signs to make the regular
+    # expression searching for the message keys fail....
+    #
+    regsub -all "#" $message_html "#\\&#8203;" message_html
+
+    append html_version $message_html
+    append html_version "<p>   "
+
+    set text_version ""
+    append text_version "
+#forums.Forum#: $message(forum_name)
+#forums.Thread#: $message(root_subject)\n"
+    if {$useScreenNameP == 0} {
+	append text_version "#forums.Author#: $message(user_name)"
+    } else {
+	append text_version "#forums.Author#: $message(screen_name)"
+    }
+    append text_version "
+#forums.Posted#: $message(posting_date)
+-----------------------------------------
+$message_text
+-----------------------------------------
+#forums.To_post_a_reply_to_this_email_or_view_this_message_go_to#
+$message_url
+
+#forums.To_view_Forum_forum_name_go_to#
+$forum_url
+"
+    # Do the notification for the forum
+    notification::new \
+        -type_id [notification::type::get_type_id \
+        -short_name forums_forum_moderator_notif] \
+        -object_id $message(forum_id) \
+        -response_id $message(message_id) \
+        -notif_subject "\[$message(forum_name)\] $message(subject) (#forums.moderated#)" \
+        -notif_text $text_version \
+        -notif_html $html_version
+
+    # Eventually we need notification for the root message too
+    notification::new \
+        -type_id [notification::type::get_type_id \
+        -short_name forums_message_moderator_notif] \
+        -object_id $message(root_message_id) \
+        -response_id $message(message_id) \
+        -notif_subject "\[$message(forum_name)\] $message(subject) (#forums.moderated#)" \
         -notif_text $text_version \
         -notif_html $html_version
 }
