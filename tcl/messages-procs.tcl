@@ -142,6 +142,16 @@ ad_proc -private forum::message::notify_users {
         set href [ns_quotehtml $message_url]
         set message_html "<p>#forums.Message_content_withheld# #forums.To_view_message_follow_link# <a href=\"$href\">$href</a></p>"
         set message_text [ad_html_text_convert -from text/html -to text/plain -- $message_html]
+    } else {
+        #
+        # The resulting HTML messages is sent in total by
+        # notifications::send through [lang::util::localize...].  In case
+        # a forums message contains something looking like a localized
+        # message key, it will be substituted. One rough attempt is to add
+        # a zero width space after the "#" signs to make the regular
+        # expression searching for the message keys fail....
+        #
+        regsub -all "#" $message_html "#\\&#8203;" message_html
     }
 
     set html_version ""
@@ -154,15 +164,6 @@ ad_proc -private forum::message::notify_users {
     }
     append html_version "#forums.Posted#: $message(posting_date)<br>"
     append html_version "\n<br>\n"
-    #
-    # The resulting HTML messages is sent in total by
-    # notifications::send through [lang::util::localize...].  In case
-    # a forums message contains something looking like a localized
-    # message key, it will be substituted. One rough attempt is to add
-    # a zero width space after the "#" signs to make the regular
-    # expression searching for the message keys fail....
-    #
-    regsub -all "#" $message_html "#\\&#8203;" message_html
 
     append html_version $message_html
     append html_version "<p>   "
