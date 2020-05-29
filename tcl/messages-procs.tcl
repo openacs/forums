@@ -250,15 +250,6 @@ ad_proc -private forum::message::notify_moderators {
     }
     append html_version "#forums.Posted#: $message(posting_date)<br>"
     append html_version "\n<br>\n"
-    #
-    # The resulting HTML messages is sent in total by
-    # notifications::send through [lang::util::localize...].  In case
-    # a forums message contains something looking like a localized
-    # message key, it will be substituted. One rough attempt is to add
-    # a zero width space after the "#" signs to make the regular
-    # expression searching for the message keys fail....
-    #
-    regsub -all "#" $message_html "#\\&#8203;" message_html
 
     append html_version $message_html
     append html_version "<p>   "
