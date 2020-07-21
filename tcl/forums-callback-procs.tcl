@@ -145,7 +145,7 @@ ad_proc -public -callback search::datasource -impl forums_message {} {
     # search indexer. In that case we set the locale to the
     # system-wide default locale, since locale is needed for some part
     # of the message formatting.
-    if { ![ad_conn isconnected] } {
+    if { ![ns_conn isconnected] } {
         ad_conn -set locale [lang::system::site_wide_locale]
     }
 

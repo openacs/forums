@@ -337,7 +337,7 @@ ad_proc -public forum::message::get {
     # make sure array is empty
     array unset row
 
-    set attachments_sql [expr {[ad_conn isconnected] && [forum::attachments_enabled_p] ? {
+    set attachments_sql [expr {[ns_conn isconnected] && [forum::attachments_enabled_p] ? {
         (select count(*) from attachments
          where object_id = m.message_id) as n_attachments,
     } : ""}]
