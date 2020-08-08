@@ -18,7 +18,7 @@ ad_page_contract {
     }
 }
 
-# Get user name
+# Get username
 set user_name [person::name -person_id $user_id]
 
 set context [list [_ forums.Posting_History]]
