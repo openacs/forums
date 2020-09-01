@@ -112,7 +112,9 @@ db_transaction {
 
 		    # create new user
 		    set user_exists_p [db_string user_id {
-                        select exists (select 1 from parties where email = lower(:email))
+                        select case when exists
+                        (select 1 from parties where email = lower(:email))
+                        then 1 else 0 end
                         from dual
                     }]
 
