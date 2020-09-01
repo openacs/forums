@@ -86,7 +86,7 @@ db_transaction {
 		select party_id, first_names as fname, last_name as lname
 		from   cc_users
 		where  lower(email) = lower(:email)
-		limit 1
+		fetch first 1 rows only
 	    }]} {
 		set user_id $party_id
 		ns_write "<br>account exists"
@@ -111,9 +111,12 @@ db_transaction {
 		    ns_write "creating new user: $fname $lname ($email)<br>"
 
 		    # create new user
-		    set user_exists_p [db_0or1row user_id "select party_id from parties where email = lower(:email) limit 1"]
+		    set user_exists_p [db_string user_id {
+                        select exists (select 1 from parties where email = lower(:email))
+                        from dual
+                    }]
 
-		    if {[string is false $user_exists_p]} {
+		    if {!$user_exists_p} {
 			set password [ad_generate_random_string]
 
 			array set auth_status_array [auth::create_user -email $email -first_names $fname -last_name $lname -password $password]
