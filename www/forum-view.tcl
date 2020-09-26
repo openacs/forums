@@ -44,8 +44,10 @@ set post_url [export_vars -base "message-post" { forum_id }]
 # Show search box?
 set searchbox_p [parameter::get -parameter ForumsSearchBoxP -default 1]
 
-set forum_url [ad_conn url]?forum_id=$forum_id
+# Show notification controls if the request is not from a bot.
+set show_notifications_p [expr {![ad_conn bot_p]}]
 
+set forum_url [ad_conn url]?forum_id=$forum_id
 template::head::add_css -href /resources/forums/forums.css -media all
 
 set page_title "[_ forums.Forum_1] $forum(name)"

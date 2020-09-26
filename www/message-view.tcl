@@ -1,5 +1,5 @@
 ad_page_contract {
-    
+
     view a message (and its children)
 
     @author Ben Adida (ben@openforce.net)
@@ -61,6 +61,9 @@ set moderator_notifications_p [expr {$request_id ne "" ||
 # Show search box?
 set searchbox_p [parameter::get -parameter ForumsSearchBoxP -default 1]
 
+# Show notification controls if the request is not from a bot.
+set show_notifications_p [expr {![ad_conn bot_p]}]
+
 # If this is a top-level thread, we allow subscriptions here
 if { $message(parent_id) eq "" } {
     set message_url [export_vars -base [ad_conn url] {message_id $message(message_id)}]
@@ -92,7 +95,7 @@ if {$forum(presentation_type) eq "flat"} {
 # stylesheets
 set lang [ad_conn language]
 template::head::add_css -href /resources/forums/forums.css -media all -lang $lang
- 
+
 # set vars for i18n
 template::head::add_script -type "text/javascript" -script [subst {
     var collapse_alt_text='[_ forums.collapse]';

@@ -14,20 +14,23 @@
   </ul>
 
 <if @message_url@ not nil>
-<p>
-  <if @moderator_notifications_p;literal@ true>
-    <include src="/packages/notifications/lib/notification-widget" type="forums_message_moderator_notif"
+  <if @show_notifications_p;literal@ true>
+    <p>
+    <if @moderator_notifications_p;literal@ true>
+      <include src="/packages/notifications/lib/notification-widget" type="forums_message_moderator_notif"
 	     object_id="@message.message_id;literal@"
 	     pretty_name="@message.subject;literal@ (#forums.moderated#)"
              show_subscribers_p="false"
 	     url="@message_url;literal@">
-  </if>
-<include src="/packages/notifications/lib/notification-widget" type="forums_message_notif"
+    </if>
+    <include src="/packages/notifications/lib/notification-widget" type="forums_message_notif"
 	 object_id="@message.message_id;literal@"
 	 pretty_name="@message.subject;literal@"
 	 url="@message_url;literal@" >
+    </p>
+  </if>
 </if>
-</p>
+
 <include src="/packages/forums/lib/message/thread-chunk"
       &message="message"
       &forum="forum"
