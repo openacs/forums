@@ -15,7 +15,7 @@ create table forums_reading_info (
     forum_id        integer
                     constraint forum_read_forum_id_fk
                     references forums_forums (forum_id)
-                    on delete cascade                    
+                    on delete cascade
                     constraint forums_read_forum_id_nn
                     not null,
     constraint forums_reading_info_pk primary key (root_message_id,user_id)
@@ -46,7 +46,7 @@ CREATE OR REPLACE FUNCTION forums_reading_info__remove_msg(
 ) RETURNS integer AS $$
 DECLARE
 BEGIN
-    delete from forums_reading_info 
+    delete from forums_reading_info
      where root_message_id = p_message_id;
     return 0;
 END;
@@ -68,7 +68,7 @@ CREATE OR REPLACE FUNCTION forums_reading_info__user_add_forum(
 DECLARE
    v_message_id integer;
 BEGIN
-    for v_message_id in 
+    for v_message_id in
      select message_id
        from forums_messages_approved m
       where forum_id = p_forum_id
@@ -119,7 +119,7 @@ BEGIN
                 p_user_id,
                 (select forum_id from forums_messages
                   where message_id = p_root_message_id)
-             );   
+             );
     end if;
 
     return 0;
@@ -145,7 +145,7 @@ BEGIN
    select root_message_id from forums_forums
     where forum_id = (select forum_id from forums_messages
                        where message_id = p_source_message_id) into v_source_root_message_id;
-   
+
    -- for all users that have read target, but not the source, remove
    -- target_info
    delete from forums_reading_info i
@@ -153,13 +153,12 @@ BEGIN
       and not exists (select 1 from forums_reading_info
                        where root_message_id = v_source_root_message_id
                          and user_id = i.user_id);
-                         
+
    -- for all users that have read source, remove reading info four
    -- source message since it no longer is root_message_id
    delete from forums_reading_info
     where root_message_id = p_source_message_id;
-    
+
     return 1;
 END;
 $$ LANGUAGE plpgsql;
-
