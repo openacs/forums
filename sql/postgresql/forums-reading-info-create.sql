@@ -24,6 +24,7 @@ create table forums_reading_info (
 create index forums_reading_info_user_index on forums_reading_info (user_id);
 create index forums_reading_info_forum_message_index on forums_reading_info (root_message_id);
 create index forums_reading_info_forum_forum_index on forums_reading_info (forum_id);
+create index forums_reading_info_user_id_root_message_id_idx on forums_reading_info(user_id,root_message_id);
 
 create or replace view forums_reading_info_user as
    select forum_id,
