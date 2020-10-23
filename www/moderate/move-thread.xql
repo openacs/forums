@@ -31,7 +31,7 @@
 <querytext>
 	update forums_messages
 	set reply_count = reply_count - 1, approved_reply_count = approved_reply_count - 1 
-	where message_id = $father_message_id
+	where message_id = :father_message_id
 </querytext>
 </fullquery>
 

@@ -35,9 +35,9 @@
 	    update forums_messages
 	    set last_child_post = (select max(last_child_post)
 	    	  from forums_messages 
-                  where forum_id = :forum_id and tree_sortkey between tree.left((select tree_sortkey from forums_messages where message_id = $father_message_id)) and tree.right((select tree_sortkey from forums_messages where message_id = $father_message_id)) 
+                  where forum_id = :forum_id and tree_sortkey between tree.left((select tree_sortkey from forums_messages where message_id = :father_message_id)) and tree.right((select tree_sortkey from forums_messages where message_id = :father_message_id)) 
 	    ) 
-	    where message_id = $father_message_id
+	    where message_id = :father_message_id
         </querytext>
     </fullquery>
     
