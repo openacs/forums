@@ -151,7 +151,7 @@ ad_proc -private forum::message::notify_users {
         # a zero width space after the "#" signs to make the regular
         # expression searching for the message keys fail....
         #
-        regsub -all "#" $message_html "#\\&#8203;" message_html
+        regsub -all -- "#" $message_html "#\\&#8203;" message_html
     }
 
     set html_version ""

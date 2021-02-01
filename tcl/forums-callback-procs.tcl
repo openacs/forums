@@ -206,8 +206,8 @@ ad_proc -public -callback search::datasource -impl forums_message {} {
         # ms.
         #
         if {$message(format) eq "text/enhanced"} {
-            regsub -all {<p>} $content "\n\n" content
-            regsub -all {(<?/[^>]*>)} $content "" content
+            regsub -all -- {<p>} $content "\n\n" content
+            regsub -all -- {(<?/[^>]*>)} $content "" content
         } else {
             set content [ad_html_text_convert -from $format -to text/plain -- $content]
         }
