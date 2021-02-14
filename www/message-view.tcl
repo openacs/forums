@@ -47,7 +47,7 @@ if {!$permissions(moderate_p) && $message(state) ne "approved" } {
 
 ############################################
 #
-# Ok we're not aborting so lets do some work
+# Ok we're not aborting so let's do some work
 #
 ############################################
 
