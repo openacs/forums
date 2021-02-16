@@ -32,7 +32,7 @@ ad_proc -public forums::form::message {
         -label [_ forums.Subject] \
         -datatype text \
         -widget text \
-        -html {size 60} \
+        -html {maxlength 200 size 60} \
         $optional_switch
 
     template::element create $form_name ${prefix}message_body \
