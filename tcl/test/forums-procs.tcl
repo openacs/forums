@@ -175,7 +175,15 @@ aa_register_case \
 
 aa_register_case \
     -cats {api web smoke} \
-    -procs {forum::new forum::delete} \
+    -procs {
+        forum::new
+        forum::delete
+
+        aa_get_first_url
+        acs_community_member_admin_url
+        ds_adp_start_box
+        ds_adp_end_box
+    } \
     -urls {
         /admin/forum-new
     } web_forum_new {
@@ -214,7 +222,14 @@ aa_register_case \
 
 aa_register_case \
     -cats {api web smoke} \
-    -procs {forum::new forum::get forum::delete} \
+    -procs {
+        forum::new
+        forum::get forum::delete
+
+        aa_get_first_url
+        acs_community_member_admin_url
+        ad_context_node_list
+    } \
     -urls {
         /admin/forum-new
         /forum-view
@@ -265,7 +280,18 @@ aa_register_case \
 
 aa_register_case \
     -cats {web smoke} \
-    -procs {forum::new forum::get forum::edit forum::delete} \
+    -procs {
+        forum::new
+        forum::get
+        forum::edit
+        forum::delete
+
+        aa_get_first_url
+        acs_community_member_admin_url
+        ad_context_node_list
+        ds_adp_start_box
+        ds_adp_end_box
+    } \
     -urls {
         /admin/forum-new
         /admin/forum-edit
@@ -317,6 +343,13 @@ aa_register_case \
         forum::message::set_state
         forum::new
         forum::security::require_post_forum
+
+        aa_get_first_url
+        acs_community_member_admin_url
+        ad_context_node_list
+        ds_adp_start_box
+        ds_adp_end_box
+        ad_form
     } \
     -urls {
         /message-post
