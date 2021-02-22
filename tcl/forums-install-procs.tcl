@@ -44,7 +44,9 @@ ad_proc -private forum::install::package_upgrade {
         -spec {
             1.1d3 1.1d4 {
                 # just need to install the forum_forum callback
-                forum::sc::register_forum_fts_impl
+                # This proc is deprecated, so we just skip it
+                # See acs-api-browser.graph__bad_calls automated test
+                # forum::sc::register_forum_fts_impl
             }
             1.3.1d17 1.3.1d18 {
                 # Unregister search service contract implementation

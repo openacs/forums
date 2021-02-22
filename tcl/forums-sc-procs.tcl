@@ -163,8 +163,10 @@ ad_proc -private -deprecated forum::sc::register_implementations {} {
     }
 }
 
-ad_proc -private -deprecated forum::sc::unregister_implementations {} {
-    DEPRECATED: search is implemented using callbacks now.
+ad_proc -private forum::sc::unregister_implementations {} {
+    This proc is de-facto deprecated, as search is implemented using
+    callbacks now, but we still need it to be there to support
+    upgrades from older versions.
 
     @see forums-callback-procs.tcl
 } {
