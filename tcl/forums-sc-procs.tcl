@@ -1,8 +1,8 @@
 ad_library {
 
     Forums Library - Search Service Contracts
-    
-    This library is DEPRECATED and NOT USED. search is implemented using 
+
+    This library is DEPRECATED and NOT USED. search is implemented using
     callbacks now. See forums-callback-procs.tcl
     This library will be definitely removed in 5.5
 
@@ -22,7 +22,7 @@ ad_proc -private -deprecated forum::message::datasource { message_id } {
     this is the content that will be indexed by the full text
     search engine.
 
-    We expect message_id to be a root message of a thread only, 
+    We expect message_id to be a root message of a thread only,
     and return the text of all the messages below
 
     DEPRECATED: search is implemented using callbacks now.
@@ -43,7 +43,7 @@ ad_proc -private -deprecated forum::message::datasource { message_id } {
         ns_log Notice "forum::message::datasource was called with a message_id that has a parent - skipping: $message_id"
         return {object_id {} name {} charter {} mime {} storage_type {}}
     }
-    
+
     set tree_sortkey $message(tree_sortkey)
     set forum_id $message(forum_id)
     set combined_content ""
@@ -129,7 +129,7 @@ ad_proc -private -deprecated forum::forum::datasource {
     return [array get datasource]
 }
 
-ad_proc -private -deprecated forum::forum::url { 
+ad_proc -private -deprecated forum::forum::url {
     forum_id
 } {
     url method for the FtsContentProvider contract
@@ -168,7 +168,7 @@ ad_proc -private -deprecated forum::sc::unregister_implementations {} {
 
     @see forums-callback-procs.tcl
 } {
-    db_transaction { 
+    db_transaction {
         acs_sc::impl::delete -contract_name FtsContentProvider -impl_name forums_message
         acs_sc::impl::delete -contract_name FtsContentProvider -impl_name forums_forum
     }
