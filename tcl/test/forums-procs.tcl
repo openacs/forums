@@ -203,7 +203,7 @@ aa_register_case \
         # Create a new forum
         #
         set name [ad_generate_random_string]
-        set d [forums::test::new -user_id $user_id $name]
+        set d [forums::test::new -user_info $user_info $name]
         set forum_id [dict get $d payload forum_id]
 
 
@@ -249,7 +249,7 @@ aa_register_case \
         # Create a new forum
         #
         set name [ad_generate_random_string]
-        set d [forums::test::new -user_id $user_id $name]
+        set d [forums::test::new -user_info $user_info $name]
         set forum_id [dict get $d payload forum_id]
         aa_log "Created forum with id $forum_id"
 
@@ -311,7 +311,7 @@ aa_register_case \
         # Create a new forum
         #
         set name [ad_generate_random_string]
-        set d [forums::test::new -user_id $user_id $name]
+        set d [forums::test::new -user_info $user_info $name]
         set forum_id [dict get $d payload forum_id]
 
         #
@@ -381,7 +381,7 @@ aa_register_case \
         # Create a new forum
         #
         set name [ad_generate_random_string]
-        set d [forums::test::new -user_id $user_id $name]
+        set d [forums::test::new -user_info $user_info $name]
         set forum_id [dict get $d payload forum_id]
 
         # Post a message in the created forum

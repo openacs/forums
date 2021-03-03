@@ -11,6 +11,7 @@ namespace eval forums::test {
         {-presentation_type flat}
         {-posting_policy open}
         {-user_id 0}
+        {-user_info ""}
         name
     } {
         Create a new forum via the web interface.
@@ -23,7 +24,11 @@ namespace eval forums::test {
         #
         # Get Data and check status code
         #
-        set d [acs::test::http -user_id $user_id $forums_page/admin/forum-new]
+        if {$user_info eq ""} {
+            set d [acs::test::http -user_id $user_id $forums_page/admin/forum-new]
+        } else {
+            set d [acs::test::http -user_info $user_info $forums_page/admin/forum-new]
+        }
         acs::test::reply_has_status_code $d 200
 
         #
