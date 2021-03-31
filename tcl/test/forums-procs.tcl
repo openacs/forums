@@ -10,7 +10,11 @@ ad_library {
 
 aa_register_case \
     -cats {api smoke} \
-    -procs {forum::new} \
+    -procs {
+        forum::new
+        callback::forum::forum_new::contract
+        forum::flush_templating_cache
+    } \
     forum_new {
     Test the forum::new proc.
 } {
@@ -39,6 +43,11 @@ aa_register_case \
     -procs {
         forum::message::new
         forum::new
+        forum::message::do_notifications
+        forum::message::get
+        forum::attachments_enabled_p
+        forum::message::notify_users
+        forum::message::notify_moderators
     } \
     forum_message_new {
     Test the forum::message::new proc.
@@ -75,7 +84,12 @@ aa_register_case \
         forum::get
         forum::message::delete
         forum::message::get
+        forum::flush_cache
+        forum::flush_namespaced_cache
         forum::message::new
+        forum::message::do_notifications
+        forum::message::notify_moderators
+        forum::message::notify_users
         forum::message::set_state
         forum::new
     } \
@@ -183,6 +197,8 @@ aa_register_case \
         acs_community_member_admin_url
         ds_adp_start_box
         ds_adp_end_box
+        forum::new_questions_allowed_p
+        forums::form::forum
     } \
     -urls {
         /admin/forum-new
@@ -223,12 +239,15 @@ aa_register_case \
 aa_register_case \
     -cats {api web smoke} \
     -procs {
-        forum::new
-        forum::get forum::delete
-
         aa_get_first_url
         acs_community_member_admin_url
         ad_context_node_list
+        forum::delete
+        forum::get
+        forum::new
+        forum::new_questions_allowed_p
+        forums::form::forum
+        forums::form::search
     } \
     -urls {
         /admin/forum-new
@@ -281,16 +300,18 @@ aa_register_case \
 aa_register_case \
     -cats {web smoke} \
     -procs {
-        forum::new
-        forum::get
-        forum::edit
-        forum::delete
-
         aa_get_first_url
         acs_community_member_admin_url
         ad_context_node_list
-        ds_adp_start_box
         ds_adp_end_box
+        ds_adp_start_box
+        forum::delete
+        forum::edit
+        forum::get
+        forum::new
+        forum::new_questions_allowed_p
+        forums::form::forum
+        forums::form::search
     } \
     -urls {
         /admin/forum-new
@@ -350,6 +371,18 @@ aa_register_case \
         ds_adp_start_box
         ds_adp_end_box
         ad_form
+        forum::format::emoticons
+        forum::new_questions_allowed_p
+        forum::security::can_post_forum_p
+        forum::security::permissions
+        forum::security::require_moderate_forum
+        forum::security::require_read_forum
+        forum::security::require_post_forum
+        forum::use_ReadingInfo_p
+        forum::valid_forum_id_p
+        forums::form::forum
+        forums::form::message
+        forums::form::search
     } \
     -urls {
         /message-post
