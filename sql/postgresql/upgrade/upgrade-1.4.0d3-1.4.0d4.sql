@@ -1,12 +1,7 @@
--- forums service contracts for Search package
--- dave bauer <dave@thedesignexperience.org>
--- August 7, 2002
+begin;
 
--- jcd: 2004-04-01 moved the sc create to the tcl callbacks, and added one for forum_forum objtype
--- TODO-JCD: trigger for forums_forums
-
--- til: only indexing full threads. changes to child messages will be treated as 
--- change to the thread.
+-- Account for moderation in the search package triggers: make sure we
+-- do not index unapproved threads and messages.
 
 CREATE OR REPLACE FUNCTION forums_message_search__itrg () RETURNS trigger AS $$
 DECLARE
@@ -105,51 +100,25 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- Schedule unindexing of all unapproved threads
+select search_observer__enqueue(message_id,'DELETE')
+from forums_messages
+where parent_id is null
+  and state <> 'approved';
 
-create trigger forums_message_search__itrg after insert on forums_messages
-for each row execute procedure forums_message_search__itrg (); 
+-- Schedule the reindexing of all threads that are themselves
+-- approved, but contain unapproved messages. The datasource callback
+-- will take care of not rendering the unapproved messages.
+select search_observer__enqueue(message_id,'UPDATE')
+from (
+select distinct thread.message_id
+    from forums_messages thread,
+         forums_messages messages
+    where thread.forum_id = messages.forum_id
+      and thread.parent_id is null
+      and thread.state = 'approved'
+      and thread.tree_sortkey = tree_ancestor_key(messages.tree_sortkey, 1)
+      and messages.parent_id is not null
+      and messages.state <> 'approved') as threads_with_unapproved_messages;
 
-create trigger forums_message_search__dtrg after delete on forums_messages
-for each row execute procedure forums_message_search__dtrg (); 
-
-create trigger forums_message_search__utrg after update on forums_messages
-for each row execute procedure forums_message_search__utrg (); 
-
-
-
--- forums_forums indexing trigger
-CREATE OR REPLACE FUNCTION forums_forums_search__itrg () RETURNS trigger AS $$
-BEGIN
-    perform search_observer__enqueue(new.forum_id,'INSERT');
-
-    return new;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION forums_forums_search__utrg () RETURNS trigger AS $$
-BEGIN
-    perform search_observer__enqueue(new.forum_id,'UPDATE');
-
-    return new;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION forums_forums_search__dtrg () RETURNS trigger AS $$
-BEGIN
-    perform search_observer__enqueue(old.forum_id,'DELETE');
-
-    return old;
-END;
-$$ LANGUAGE plpgsql;
-
-
-
-create trigger forums_forums_search__itrg after insert on forums_forums
-for each row execute procedure forums_forums_search__itrg (); 
-
-create trigger forums_forums_search__utrg after update on forums_forums
-for each row execute procedure forums_forums_search__utrg (); 
-
-create trigger forums_forums_search__dtrg after delete on forums_forums
-for each row execute procedure forums_forums_search__dtrg (); 
-
+end;

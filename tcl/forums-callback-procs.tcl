@@ -170,11 +170,13 @@ ad_proc -public -callback search::datasource -impl forums_message {} {
     array set forum [forum::get -forum_id $message(forum_id) -array forum]
     set package_id $forum(package_id)
 
+    # We only render the content of approved messages.
     db_foreach messages {
         with recursive thread(message_id, parent_id, subject, content, format) as (
             select message_id, parent_id, subject, content, format
             from forums_messages
             where message_id = :message_id
+              and m.state = 'approved'
 
             union all
 
@@ -182,6 +184,7 @@ ad_proc -public -callback search::datasource -impl forums_message {} {
             from forums_messages m,
                  thread t
             where m.parent_id = t.message_id
+              and m.state = 'approved'
         ) select subject, content, format from thread
     } {
 
