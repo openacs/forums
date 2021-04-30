@@ -176,7 +176,7 @@ ad_proc -public -callback search::datasource -impl forums_message {} {
             select message_id, parent_id, subject, content, format
             from forums_messages
             where message_id = :message_id
-              and m.state = 'approved'
+              and state = 'approved'
 
             union all
 
