@@ -434,6 +434,55 @@ aa_register_case \
     }
 }
 
+aa_register_case -cats {
+    api
+} -procs {
+    forum::new
+    forum::enable
+    forum::disable
+} forum_enable_disable {
+    Test forum enabling and disabling.
+} {
+    #
+    # Helper proc to check if the forum is enabled
+    #
+    proc forum_enabled_p {forum_id} {
+        return [db_string enabled_p {
+            select enabled_p
+              from forums_forums
+             where forum_id = :forum_id
+        } -default "0"]
+    }
+    #
+    # Start the tests
+    #
+    aa_run_with_teardown -rollback -test_code {
+        #
+        # Create forum
+        #
+        set package_id [subsite::main_site_id]
+        set forum_id [forum::new \
+                          -name "foo" \
+                          -package_id $package_id]
+        #
+        # Enable forum if it is disabled
+        #
+        if {![forum_enabled_p $forum_id]} {
+            forum::enable -forum_id $forum_id
+        }
+        aa_true "Forum $forum_id is enabled" [forum_enabled_p $forum_id]
+        #
+        # Disable
+        #
+        forum::disable -forum_id $forum_id
+        aa_false "Forum $forum_id is enabled" [forum_enabled_p $forum_id]
+        #
+        # Enable again
+        #
+        forum::enable -forum_id $forum_id
+        aa_true "Forum $forum_id is enabled" [forum_enabled_p $forum_id]
+    }
+}
 
 # Local variables:
 #    mode: tcl
