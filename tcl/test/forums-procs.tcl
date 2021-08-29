@@ -237,7 +237,7 @@ aa_register_case \
 }
 
 aa_register_case \
-    -cats {api web smoke} \
+    -cats {web smoke} \
     -procs {
         aa_get_first_url
         acs_community_member_admin_url
