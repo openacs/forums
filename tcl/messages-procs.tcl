@@ -372,7 +372,7 @@ ad_proc -public forum::message::get {
     }]
     if {[db_0or1row select_message $sql -column_array row]} {
         set user [acs_user::get -user_id $row(user_id)]
-        set row(user_name)   [dict get $username]
+        set row(user_name)   [dict get $user name]
         set row(user_email)  [dict get $user email]
         set row(screen_name) [dict get $user screen_name]
 
