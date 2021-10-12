@@ -39,6 +39,7 @@ set query select_messages
 if {$view eq "forum"} {
     set query select_messages_by_forum
     template::list::create \
+        -html {style "width: 50%; text-align: center; margin: auto"} \
         -name messages \
         -multirow messages \
         -no_data "#forums.No_Postings#" \
@@ -65,6 +66,7 @@ if {$view eq "forum"} {
         }
 } else {
     template::list::create \
+        -html {style "width: 50%; text-align: center; margin: auto"} \
         -name messages \
         -multirow messages \
         -no_data "#forums.No_Postings#" \
@@ -95,6 +97,7 @@ db_multirow -extend { posting_date_pretty } messages $query {} {
 
 template::list::create \
     -name posts \
+    -html {style "width: 50%; text-align: center; margin: auto"} \
     -multirow posts \
     -no_data "#forums.No_Postings#" \
     -key message_id \

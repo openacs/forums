@@ -1,3 +1,5 @@
+<div style="text-align: center; margin: auto;">
+
 <p>
   #forums.Posting_history_for#
   <strong>
@@ -12,3 +14,4 @@
 <p>#forums.Summary_Posting_history_for#</p>
 <listtemplate name="posts"></listtemplate>
 
+</div>

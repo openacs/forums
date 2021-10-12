@@ -23,6 +23,7 @@ set screen_name [expr {$user_id > 0 ?
 set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
 
 template::list::create \
+    -html {width 50%} \
     -name persons \
     -multirow persons \
     -key message_id \
