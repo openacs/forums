@@ -13,7 +13,12 @@ ad_page_contract {
 
 # Select the info
 set package_id [ad_conn package_id]
-forum::get -forum_id $forum_id -array forum
+try {
+    forum::get -forum_id $forum_id -array forum
+} trap {NOT_FOUND} {} {
+    ns_returnnotfound
+    ad_script_abort
+}
 
 # Proper scoping?
 if {$package_id != $forum(package_id)} {
