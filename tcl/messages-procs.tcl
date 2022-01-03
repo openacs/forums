@@ -194,7 +194,7 @@ ad_proc -private forum::message::notify_users {
 -----------------------------------------
 $message_text
 -----------------------------------------
-#forums.To_post_a_reply_to_this_email_or_view_this_message_go_to#
+#forums.To_view_message_follow_link#
 $message_url
 
 #forums.To_view_Forum_forum_name_go_to#
@@ -269,7 +269,7 @@ ad_proc -private forum::message::notify_moderators {
 -----------------------------------------
 $message_text
 -----------------------------------------
-#forums.To_post_a_reply_to_this_email_or_view_this_message_go_to#
+#forums.To_view_message_follow_link#
 $message_url
 
 #forums.To_view_Forum_forum_name_go_to#
