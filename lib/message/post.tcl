@@ -227,7 +227,21 @@ ad_form -html {enctype multipart/form-data} \
             #
             # Export vars
             #
-            set exported_vars [export_vars -form -sign {message_id forum_id parent_id subject {message_body $content} {message_body.format $format} confirm_p subject.spellcheck content.spellcheck anonymous_p attach_p attachments:multiple attachment_cleanup_list}]
+            set exported_vars [export_vars -form -sign {
+                message_id
+                forum_id
+                parent_id
+                subject
+                {message_body $content}
+                {message_body.format $format}
+                confirm_p
+                subject.spellcheck
+                content.spellcheck
+                anonymous_p
+                attach_p
+                attachments:multiple
+                attachment_cleanup_list
+            }]
 
             set message(format) $format
             set message(subject) $subject
