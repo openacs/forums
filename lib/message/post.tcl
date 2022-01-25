@@ -289,9 +289,11 @@ ad_form -html {enctype multipart/form-data} \
 
             set permissions(moderate_p) [permission::permission_p -object_id $forum_id -privilege "forum_moderate"]
 
-            db_transaction {
-                if { $permissions(moderate_p) } {
-                    forum::message::set_state -message_id $message_id -state "approved"
+            if { $permissions(moderate_p) } {
+                db_transaction {
+                    forum::message::set_state \
+                        -message_id $message_id \
+                        -state "approved"
                 }
             }
 
