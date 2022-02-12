@@ -13,7 +13,7 @@ begin;
 drop table forums_reading_info_user;
 
 alter table forums_reading_info
-      add column forum_id integer
+      add forum_id integer
                     constraint forum_read_forum_id_fk
                     references forums_forums (forum_id)
                     on delete cascade;
