@@ -7,9 +7,9 @@ ad_include_contract {
     @cvs-id $Id$
 
 } {
-    message_id:integer,optional,verify
-    forum_id:integer,notnull
-    {parent_id:integer,verify ""}
+    message_id:object_id,optional,verify
+    forum_id:object_id,notnull
+    {parent_id:object_id,verify ""}
     {subject:verify ""}
     {message_body:verify ""}
     {message_body.format:verify ""}
