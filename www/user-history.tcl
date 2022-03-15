@@ -7,7 +7,7 @@ ad_page_contract {
     @cvs-id $Id$
 
 } {
-    user_id:naturalnum,notnull
+    user_id:naturalnum,object_id,notnull
     {view:word "date"}
     {groupby "forum_name"}
 } -validate {
