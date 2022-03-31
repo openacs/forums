@@ -22,10 +22,9 @@ ad_proc -public forums::form::message {
     # Form definition
     #
 
+    set optional_switch [list]
     if { $optional_p } {
-        set optional_switch "-optional"
-    } else {
-        set optional_switch ""
+        lappend optional_switch -optional
     }
 
     template::element create $form_name ${prefix}subject \
@@ -33,14 +32,14 @@ ad_proc -public forums::form::message {
         -datatype text \
         -widget text \
         -html {maxlength 200 size 60} \
-        $optional_switch
+        {*}$optional_switch
 
     template::element create $form_name ${prefix}message_body \
         -label [_ forums.Body] \
         -datatype richtext \
         -widget richtext \
         -html {rows 20 cols 60 style {width:100%}} \
-        $optional_switch
+        {*}$optional_switch
 
 }
 
