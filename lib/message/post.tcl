@@ -7,19 +7,19 @@ ad_include_contract {
     @cvs-id $Id$
 
 } {
-    message_id:object_id,optional,verify
+    message_id:object_id,optional
     forum_id:object_id,notnull
-    {parent_id:object_id,verify ""}
-    {subject:verify ""}
-    {message_body:verify ""}
-    {message_body.format:verify ""}
-    {confirm_p:verify ""}
-    {subject.spellcheck:verify ""}
-    {content.spellcheck:verify ""}
-    {anonymous_p:boolean,verify ""}
-    {attach_p:boolean,verify ""}
-    {attachments:multiple,verify ""}
-    {attachment_cleanup_list:tmpfile,verify ""}
+    {parent_id:object_id ""}
+    {subject ""}
+    {message_body ""}
+    {message_body.format:token ""}
+    {confirm_p:boolean ""}
+    {subject.spellcheck:token ""}
+    {content.spellcheck:token ""}
+    {anonymous_p:boolean ""}
+    {attach_p:boolean ""}
+    {attachments:multiple ""}
+    {attachment_cleanup_list:tmpfile ""}
 }
 #
 # 'Simple' or 'Complex' (legacy) attachment style
