@@ -8,13 +8,21 @@ ad_page_contract {
 
 } {
     message_id:naturalnum,notnull
+} -validate {
+    valid_message_id -requires {message_id:naturalnum} {
+        # Load up the message information
+        forum::message::get -message_id $message_id -array message
+        if {![array exists message]} {
+            ad_complain "Invalid message_id"
+        }
+    }
 }
+
 
 # require login to avoid abuse from spammers
 auth::require_login
 
 # Get the message information
-forum::message::get -message_id $message_id -array message
 forum::security::require_read_forum -forum_id $message(forum_id)
 set message(tree_level) 0
 
