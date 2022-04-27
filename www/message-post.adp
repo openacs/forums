@@ -1,5 +1,5 @@
 <master>
-<property name="doc(title)">#forums.Post_to_Forum# @forum.name;noquote@</property>
+<property name="doc(title)">#forums.Post_to_Forum# @forum.name;literal@</property>
 <property name="context">@context;literal@</property>
 <property name="focus">message.subject</property>
 <property name="displayed_object_id">@forum_id;literal@</property>
