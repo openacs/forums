@@ -10,8 +10,8 @@ ad_include_contract {
     message_id:object_id,optional
     forum_id:object_id,notnull
     {parent_id:object_id ""}
-    {subject ""}
-    {message_body ""}
+    {subject:printable,string_length(max|200) ""}
+    {message_body:printable ""}
     {message_body.format:token ""}
     {confirm_p:boolean ""}
     {subject.spellcheck:token ""}
