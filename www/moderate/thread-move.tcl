@@ -6,7 +6,7 @@ ad_page_contract {
     @creation-date 2005-03-14    
 
 } {
-    message_id:naturalnum,notnull
+    message_id:object_type(forums_message)
     {return_url:localurl "../message-view"}
     {confirm_p:boolean 0}
 }

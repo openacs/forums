@@ -8,7 +8,7 @@ ad_include_contract {
     @cvs-id $Id$
 
 } {
-    {rownum:integer 1}
+    {rownum:naturalnum 1}
     {presentation_type:word ""}
     {forum_moderated_p:boolean 0}
     {moderate_p:boolean 0}

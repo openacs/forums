@@ -6,16 +6,12 @@ ad_page_contract {
     @creation-date 2006-04-21
 
 } {
-    message_id:naturalnum,notnull
+    message_id:object_type(forums_message)
 }
 
 
 # Get the message information
 forum::message::get -message_id $message_id -array message
-if {![array exists message]} {
-    ns_returnnotfound
-    ad_script_abort
-}
 
 set message(content) [ad_html_text_convert \
                           -from $message(format) \

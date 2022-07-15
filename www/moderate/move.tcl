@@ -6,8 +6,8 @@ ad_page_contract {
     @creation-date 2005-03-14   
 
 } {
-    message_id:naturalnum,notnull    
-    selected_forum:integer,notnull
+    message_id:object_type(forums_message)
+    selected_forum:object_type(forums_forum)
     {confirm_p:boolean 0}
 }
 

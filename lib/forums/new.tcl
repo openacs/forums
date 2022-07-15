@@ -1,4 +1,4 @@
-ad_page_contract {
+ad_include_contract {
 
     Create a Forum
     By default redirects to the level above as that is prolly where the index page is
@@ -7,10 +7,8 @@ ad_page_contract {
     @creation-date 2002-05-25
     @cvs-id $Id$
 
-}
-
-if { ![info exists name] } {
-    set name {}
+} {
+    {name ""}
 }
 
 set package_id [ad_conn package_id]

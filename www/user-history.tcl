@@ -7,15 +7,9 @@ ad_page_contract {
     @cvs-id $Id$
 
 } {
-    user_id:naturalnum,object_id,notnull
+    user_id:object_type(user)
     {view:word "date"}
     {groupby "forum_name"}
-} -validate {
-    valid_user -requires user_id {
-        if {$user_id == 0 || ![person::person_p -party_id $user_id]} {
-            ad_complain "Invalid user_id"
-        }
-    }
 }
 
 # Get username

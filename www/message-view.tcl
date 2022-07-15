@@ -7,16 +7,8 @@ ad_page_contract {
     @cvs-id $Id$
 
 } {
-    message_id:naturalnum,notnull
+    message_id:object_type(forums_message)
     {display_mode:word ""}
-} -validate {
-    valid_message_id -requires {message_id:naturalnum} {
-        # Load up the message information
-        forum::message::get -message_id $message_id -array message
-        if {![array exists message]} {
-            ad_complain "Invalid message_id"
-        }
-    }
 }
 
 #######################
@@ -25,6 +17,8 @@ ad_page_contract {
 #
 #######################
 
+# Load up the message information
+forum::message::get -message_id $message_id -array message
 
 # Load up the forum information
 forum::get -forum_id $message(forum_id) -array forum

@@ -7,26 +7,17 @@ ad_page_contract {
     @cvs-id $Id$
 
 } -query {
-    forum_id:naturalnum,notnull
+    forum_id:object_type(forums_forum)
     {orderby:token,notnull "last_child_post,desc"}
     {flush_p:boolean,notnull 0}
     page:naturalnum,optional,notnull
     page_size:naturalnum,optional,notnull
 }
 
-ad_try {
-    #
-    # Get forum data
-    #
-    forum::get -forum_id $forum_id -array forum
-
-} trap NOT_FOUND {} {
-    ns_returnnotfound
-    ad_script_abort
-
-} on error {errMsg} {
-    error $errMsg $::errorInfo $::errorCode
-}
+#
+# Get forum data
+#
+forum::get -forum_id $forum_id -array forum
 
 # If disabled!
 if {$forum(enabled_p) != "t"} {

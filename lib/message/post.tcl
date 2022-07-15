@@ -8,8 +8,8 @@ ad_include_contract {
 
 } {
     message_id:object_id,optional
-    forum_id:object_id,notnull
-    {parent_id:object_id ""}
+    forum_id:object_type(forums_forum)
+    {parent_id:object_type(forums_message) ""}
     {subject:printable,string_length(max|200) ""}
     {message_body:printable ""}
     {message_body.format:token ""}

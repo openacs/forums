@@ -1,6 +1,6 @@
 ad_page_contract {
 } {
-    cid:integer
+    cid:object_type(forums_message)
     {op noop}
     {sid nosid}
     {dynamicmode:integer}

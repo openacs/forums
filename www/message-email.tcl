@@ -7,20 +7,14 @@ ad_page_contract {
     @cvs-id $Id$
 
 } {
-    message_id:naturalnum,notnull
-} -validate {
-    valid_message_id -requires {message_id:naturalnum} {
-        # Load up the message information
-        forum::message::get -message_id $message_id -array message
-        if {![array exists message]} {
-            ad_complain "Invalid message_id"
-        }
-    }
+    message_id:object_type(forums_message)
 }
 
 
 # require login to avoid abuse from spammers
 auth::require_login
+
+forum::message::get -message_id $message_id -array message
 
 # Get the message information
 forum::security::require_read_forum -forum_id $message(forum_id)

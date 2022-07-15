@@ -7,14 +7,14 @@ ad_page_contract {
     @cvs-id $Id$
 
 } {
-    forum_id:naturalnum,notnull
-    type_id:naturalnum,notnull
+    forum_id:object_type(forums_forum)
+    type_id:object_type(notification_type)
     {lines}
     {return_url:localurl "."}
-    interval:notnull
-    delivery_method:notnull
+    interval:object_type(notification_interval)
+    delivery_method:object_type(notification_delivery_method)
     {emails ""}
-    {subscriber_ids:integer,multiple}
+    {subscriber_ids:object_type(user),multiple}
     {create_new_users_p:boolean "f"}
 }
 
