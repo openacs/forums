@@ -5,7 +5,7 @@ ad_include_contract {
     @creation-date 2007-12-23
     @cvs-id $Id$
 } {
-    forum_id:object_type(forums_forum)
+    forum_id:object_type(forums_forum),optional
 }
 
 form create search -action search -has_submit 0
