@@ -8,7 +8,7 @@ ad_include_contract {
 
 } {
     message_id:object_id,optional
-    forum_id:object_type(forums_forum)
+    forum_id:object_type(forums_forum),notnull
     {parent_id:object_type(forums_message) ""}
     {subject:printable,string_length(max|200) ""}
     {message_body:printable ""}

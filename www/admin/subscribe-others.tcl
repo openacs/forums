@@ -7,7 +7,7 @@ ad_page_contract {
     @cvs-id $Id$
 
 } {
-    forum_id:object_type(forums_forum)
+    forum_id:object_type(forums_forum),notnull
     {return_url:localurl "."}
 }
 

@@ -7,7 +7,7 @@ ad_page_contract {
     @cvs-id $Id$
 
 } {
-    message_id:object_type(forums_message),verify
+    message_id:object_type(forums_message),verify,notnull
     {return_url:localurl "../message-view"}
     {confirm_p:boolean 0}
 }

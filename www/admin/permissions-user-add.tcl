@@ -5,7 +5,7 @@ ad_page_contract {
     @creation-date 2003-06-13
     @cvs-id $Id$
 } {
-    object_id:object_type(apm_package|forums_forum)
+    object_id:object_type(apm_package|forums_forum),notnull
 }
 
 if { $object_id == [ad_conn package_id] } {

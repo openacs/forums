@@ -5,7 +5,7 @@ ad_include_contract {
     @creation-date 2002-05-24
     @cvs-id $Id$
 } {
-    forum_id:object_type(forums_forum)
+    forum_id:object_type(forums_forum),notnull
     {orderby:token,notnull "last_child_post,desc"}
     {flush_p:boolean,notnull 0}
     {page_size:naturalnum,notnull 30}

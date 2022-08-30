@@ -7,7 +7,7 @@ ad_page_contract {
     @cvs-id $Id$
 
 } -query {
-    forum_id:object_type(forums_forum)
+    forum_id:object_type(forums_forum),notnull
     {orderby:token,notnull "last_child_post,desc"}
     {flush_p:boolean,notnull 0}
     page:naturalnum,optional,notnull
