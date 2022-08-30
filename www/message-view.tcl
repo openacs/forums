@@ -7,7 +7,7 @@ ad_page_contract {
     @cvs-id $Id$
 
 } {
-    message_id:object_type(forums_message)
+    message_id:object_type(forums_message),notnull
     {display_mode:word ""}
 }
 
