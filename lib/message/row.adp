@@ -46,7 +46,7 @@
       <div class="attachments">
         <ul>
           <multiple name="attachment_multi">
-            <li><img src="/resources/acs-subsite/attach.png" alt="#attachments.Attachment#"/> @attachment_multi.name@</li>
+            <li><adp:icon name="paperclip" text="#attachments.Attachment#"> @attachment_multi.name@</li>
           </multiple>
         </ul>
       </div>
