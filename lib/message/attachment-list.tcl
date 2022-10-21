@@ -17,7 +17,7 @@ ad_include_contract {
 # Only if the user can edit a message, which currently requires admin privileges
 #
 set detach_p [permission::permission_p -object_id $message(message_id) -privilege admin]
-set detach_icon "/resources/acs-subsite/Delete16.gif"
+set detach_icon trash
 #
 # Get the attachments
 #
@@ -32,7 +32,7 @@ foreach attachment [attachments::get_attachments -object_id $message(message_id)
         #
         # URL
         #
-        set icon "/resources/acs-subsite/url-button.gif"
+        set icon link
         #
         # Avoid redirecting to external hosts made by "go-to-attachment" by just linking the original URL
         #
@@ -43,7 +43,7 @@ foreach attachment [attachments::get_attachments -object_id $message(message_id)
         # a 'content_revision' or a subtype of them.
         #
         set object_type [acs_object_type $id]
-        set icon "/resources/acs-subsite/attach.png"
+        set icon paperclip
         if {[content::item::is_subclass \
                 -object_type $object_type \
                 -supertype "content_item"]} {
