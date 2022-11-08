@@ -28,7 +28,8 @@ if {$forum(enabled_p) != "t"} {
 forum::security::require_read_forum -forum_id $forum_id
 forum::security::permissions -forum_id $forum_id -- permissions
 
-set admin_url [export_vars -base "admin/forum-edit" { forum_id {return_url [ad_return_url]}}]
+set return_url [ad_return_url]
+set admin_url [export_vars -base "admin/forum-edit" { forum_id return_url }]
 set moderate_url [export_vars -base "moderate/forum" { forum_id }]
 set post_url [export_vars -base "message-post" { forum_id }]
 
