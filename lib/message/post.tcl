@@ -14,12 +14,15 @@ ad_include_contract {
     {message_body:printable ""}
     {message_body.format:token ""}
     {confirm_p:boolean ""}
+    {subscribe_p:boolean ""}
     {subject.spellcheck:token ""}
     {content.spellcheck:token ""}
     {anonymous_p:boolean ""}
     {attach_p:boolean ""}
     {attachments:multiple ""}
     {attachment_cleanup_list:tmpfile ""}
+    {attachments_enabled_p:boolean,notnull false}
+    {anonymous_allowed_p:boolean,notnull false}
 }
 #
 # 'Simple' or 'Complex' (legacy) attachment style
@@ -80,9 +83,9 @@ set form_elements {
     }
     {parent_id:integer(hidden),optional
     }
-    {subscribe_p:text(hidden),optional
+    {subscribe_p:boolean(hidden),optional
     }
-    {confirm_p:text(hidden),optional
+    {confirm_p:boolean(hidden),optional
     }
 }
 
