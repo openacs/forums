@@ -108,20 +108,45 @@ ad_proc -public forum::attachments_enabled_p {
 
     @return 1 if the attachments are enabled in the forums, 0 otherwise.
 } {
-    if {"forums" eq [ad_conn package_key]} {
-        set return_value [site_node_apm_integration::child_package_exists_p \
-                              -package_id [ad_conn package_id] -package_key attachments]
+    if {$forum_id ne ""} {
+        #
+        # A forum was provided
+        #
+        forum::get -forum_id $forum_id -array forum
+
+        if {!$forum(attachments_allowed_p)} {
+            #
+            # Forum does not allow attachments. Exit immediately.
+            #
+            return 0
+        }
+
+        #
+        # We get the package from the forum
+        #
+        set package_id $forum(package_id)
+
+    } elseif {"forums" eq [ad_conn package_key]} {
+        #
+        # No forum provided, but the connection context tells us this
+        # is a forum package. We use the connection package_id.
+        #
+        set package_id [ad_conn package_id]
     } else {
-        set return_value 0
+        #
+        # No forum and no connection context to help us determine the
+        # package. Exit immediately.
+        #
+        ad_log warning "Cannot determine package_id. Returning 0"
+        return 0
     }
 
-    if {$return_value && $forum_id ne ""} {
-        forum::get -forum_id $forum_id -array forum
-        if {! $forum(attachments_allowed_p)} {
-            set return_value 0
-        }
-    }
-    return $return_value
+    #
+    # See if an instance of the attachments package is mounted
+    # underneath this forums instance.
+    #
+    return [site_node_apm_integration::child_package_exists_p \
+                -package_id $package_id -package_key attachments]
 }
 
 ad_proc -public forum::list_forums {
