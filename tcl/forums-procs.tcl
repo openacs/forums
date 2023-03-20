@@ -235,11 +235,15 @@ ad_proc -deprecated -public forum::posting_policy_set {
     # }
 }
 
-ad_proc -public forum::new_questions_allow {
+ad_proc -deprecated forum::new_questions_allow {
     {-forum_id:required}
     {-party_id ""}
 } {
     Allow the users to create new threads in the forum
+
+    DEPRECATED: either use forum::edit or inline this trivial query.
+
+    @see forum::edit
 } {
     if { $party_id ne "" } {
         ad_log warning "Attribute party_id is deprecated and was ignored."
@@ -252,11 +256,15 @@ ad_proc -public forum::new_questions_allow {
     }
 }
 
-ad_proc -public forum::new_questions_deny {
+ad_proc -deprecated forum::new_questions_deny {
     {-forum_id:required}
     {-party_id ""}
 } {
     Deny the users to create new threads in the forum
+
+    DEPRECATED: either use forum::edit or inline this trivial query.
+
+    @see forum::edit
 } {
     if { $party_id ne "" } {
         ad_log warning "Attribute party_id is deprecated and was ignored."

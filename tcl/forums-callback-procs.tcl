@@ -118,7 +118,11 @@ ad_proc -public -callback pm::project_new -impl forums {
             -no_callback]
 
         # Automatically allow new threads on this forum
-        forum::new_questions_allow -forum_id $forum_id
+        db_dml query {
+            update forums_forums set
+            new_questions_allowed_p = true
+            where forum_id = :forum_id
+        }
 
         application_data_link::new -this_object_id $project_id -target_object_id $forum_id
     }
