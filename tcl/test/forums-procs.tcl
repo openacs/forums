@@ -14,6 +14,8 @@ aa_register_case \
         forum::new
         callback::forum::forum_new::contract
         forum::flush_templating_cache
+        forum::list_forums
+        forum::valid_forum_id_p
     } \
     forum_new {
     Test the forum::new proc.
@@ -24,17 +26,50 @@ aa_register_case \
         -test_code {
 
             set package_id [subsite::main_site_id]
+            set no_package_id [db_string get_not_package_id {
+                select min(package_id) - 1 from apm_packages
+            }]
 
-            # Create forum
-            set forum_id [forum::new \
-                              -name "foo" \
-                              -package_id $package_id]
+            # Create a couple of forums
+            set forums [list]
+            lappend forums \
+                [list [forum::new \
+                           -name "foo" \
+                           -package_id $package_id] "foo"]
+            lappend forums \
+                [list [forum::new \
+                           -name "bar" \
+                           -package_id $package_id] "bar"]
 
-            set success_p [db_string success_p {
-                select 1 from forums_forums where forum_id = :forum_id
-            } -default "0"]
 
-            aa_equals "forum was created successfully" $success_p 1
+
+            set api_forums [list]
+            foreach s [forum::list_forums -package_id $package_id] {
+                aa_equals "Set has the expected keys" \
+                    [lsort [ns_set keys $s]] {forum_id name posting_policy presentation_type}
+
+                set forum_id [ns_set get $s forum_id]
+                lappend api_forums \
+                    [list $forum_id [ns_set get $s name]]
+
+                aa_true "Forum id '$forum_id' is valid (without package)" \
+                    [forum::valid_forum_id_p \
+                         -forum_id $forum_id]
+
+                aa_true "Forum id '$forum_id' is valid (with package)" \
+                    [forum::valid_forum_id_p \
+                         -forum_id $forum_id \
+                         -package_id $package_id]
+
+                aa_false "Forum id '$forum_id' is not valid (wrong package)" \
+                    [forum::valid_forum_id_p \
+                         -forum_id $forum_id \
+                         -package_id $no_package_id]
+            }
+
+            aa_equals "Api retrieves the expected forums" \
+                [lsort -index 0 $forums] [lsort -index 0 $api_forums]
+
         }
 }
 
