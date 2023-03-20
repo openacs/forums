@@ -5,7 +5,7 @@ ad_library {
 namespace eval forum::format {
 
     ad_proc -public reply_subject { parent_subject } {
-    
+
         Generates a subject string for a reply to an existing message.
 
         The prefix is always added using the system-wide locale to avoid
@@ -21,7 +21,7 @@ namespace eval forum::format {
         regsub "^($prefix)+" $parent_subject {} parent_subject
 
         set subject [concat $prefix $parent_subject]
-        
+
         return $subject
 
     }
@@ -29,13 +29,13 @@ namespace eval forum::format {
     ad_proc emoticons {
         {-content:required}
     } {
-        Convert smileys (emoticons) to img references. It constructs a relative 
+        Convert smileys (emoticons) to img references. It constructs a relative
         image reference to graphics/imagename.gif, so it will only work when
         used from pages that are directly under the forums/www/ directory.
 
         <p>
 
-        If you change the images make sure to also adapt the image sizes in 
+        If you change the images make sure to also adapt the image sizes in
         the img tag that gets constructed here.
     } {
         set emoticons_map [list]
@@ -43,7 +43,7 @@ namespace eval forum::format {
         # if you change this list, consider changing
         # www/doc/emoticons.adp as well
         foreach { emoticon image } {
-            ":-)" "smile" 
+            ":-)" "smile"
             ";-)" "wink"
             ":-D" "bigsmile"
             "8-)" "smile8"
