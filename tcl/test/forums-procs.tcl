@@ -41,7 +41,8 @@ aa_register_case \
                            -name "bar" \
                            -package_id $package_id] "bar"]
 
-
+            aa_equals "No forums retrieved for an invalid package" \
+                [forum::list_forums -package_id $no_package_id] ""
 
             set api_forums [list]
             foreach s [forum::list_forums -package_id $package_id] {
