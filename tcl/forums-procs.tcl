@@ -269,11 +269,17 @@ ad_proc -public forum::new_questions_deny {
     }
 }
 
-ad_proc -public forum::new_questions_allowed_p {
+ad_proc -deprecated forum::new_questions_allowed_p {
     {-forum_id:required}
     {-party_id ""}
 } {
     Check if the users can create new threads in the forum
+
+    DEPRECATED: the forum::get api already retrieves this information
+                and there is normally no need to invoke this api
+                specifically.
+
+    @see forum::get
 } {
     if { $party_id ne "" } {
         ad_log warning "Attribute party_id is deprecated and was ignored."

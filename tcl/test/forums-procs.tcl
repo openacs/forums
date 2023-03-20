@@ -232,7 +232,6 @@ aa_register_case \
         acs_community_member_admin_url
         ds_adp_start_box
         ds_adp_end_box
-        forum::new_questions_allowed_p
         forums::form::forum
     } \
     -urls {
@@ -280,7 +279,6 @@ aa_register_case \
         forum::delete
         forum::get
         forum::new
-        forum::new_questions_allowed_p
         forums::form::forum
         forums::form::search
     } \
@@ -344,7 +342,6 @@ aa_register_case \
         forum::edit
         forum::get
         forum::new
-        forum::new_questions_allowed_p
         forums::form::forum
         forums::form::search
     } \
@@ -407,7 +404,6 @@ aa_register_case \
         ds_adp_end_box
         ad_form
         forum::format::emoticons
-        forum::new_questions_allowed_p
         forum::security::can_post_forum_p
         forum::security::permissions
         forum::security::require_moderate_forum
