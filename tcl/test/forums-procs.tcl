@@ -84,6 +84,11 @@ aa_register_case \
         forum::attachments_enabled_p
         forum::message::notify_users
         forum::message::notify_moderators
+        forum::message::approve
+        forum::message::reject
+        forum::message::open
+        forum::message::close
+        forum::message::set_format
     } \
     forum_message_new {
     Test the forum::message::new proc.
@@ -93,12 +98,33 @@ aa_register_case \
         -rollback \
         -test_code {
 
-            set package_id [subsite::main_site_id]
+            set main_site [site_node::get -url "/test"]
+            set package_id [dict get $main_site object_id]
+
+            aa_log "Require the attachments package"
+            if {![site_node_apm_integration::child_package_exists_p \
+                      -package_id $package_id \
+                      -package_key attachments]} {
+                site_node::instantiate_and_mount \
+                    -package_key attachments \
+                    -parent_node_id [dict get $main_site node_id]
+            }
 
             # Create forum
             set forum_id [forum::new \
                               -name "foo" \
+                              -posting_policy "moderated" \
+                              -attachments_allowed_p false \
                               -package_id $package_id]
+
+            aa_false "Attachments are disabled" \
+                [forum::attachments_enabled_p -forum_id $forum_id]
+
+            aa_log "Enable attachments on the forum"
+            forum::edit -forum_id $forum_id -attachments_allowed_p true
+
+            aa_true "Attachments are enabled" \
+                [forum::attachments_enabled_p -forum_id $forum_id]
 
             # Create message
             set message_id [forum::message::new \
@@ -106,11 +132,80 @@ aa_register_case \
                                 -subject "foo" \
                                 -content "foo"]
 
-            set success_p [db_string success_p {
-                select 1 from forums_messages where message_id = :message_id
-            } -default "0"]
+            set child_message_id [forum::message::new \
+                                      -forum_id $forum_id \
+                                      -parent_id $message_id \
+                                      -format text/plain \
+                                      -subject "bar" \
+                                      -content "bar"]
 
-            aa_equals "message was created successfully" $success_p 1
+            aa_equals "There are no attachments on message '$message_id'" \
+                [forum::message::get_attachments -message_id $message_id] \
+                ""
+            set attachments [db_list any_objects {
+                select object_id from acs_objects
+                where object_id not in (:message_id, :child_message_id, :forum_id, :package_id)
+                order by object_id desc
+                fetch first 3 rows only
+            }]
+            foreach attachment_id $attachments {
+                attachments::attach \
+                    -object_id $message_id \
+                    -attachment_id $attachment_id \
+                    -approved_p true
+            }
+            aa_equals "There are now 3 attachments on message '$message_id'" \
+                [llength [attachments::get_attachments -object_id $message_id]] 3
+
+            forum::message::get -message_id $message_id -array m
+            aa_equals "Message '$message_id' is waiting for approval" \
+                $m(state) "pending"
+
+            forum::message::get -message_id $child_message_id -array cm
+            aa_equals "Message '$child_message_id' is waiting for approval" \
+                $cm(state) "pending"
+            aa_equals "Message '$child_message_id' is child of '$message_id'" \
+                $cm(parent_id) $message_id
+            aa_equals "Message '$child_message_id' is in format 'text/plain'" \
+                $cm(format) text/plain
+
+            aa_log "Change the format of message '$child_message_id'"
+            forum::message::set_format -message_id $child_message_id -format text/html
+            forum::message::get -message_id $child_message_id -array cm
+            aa_equals "Message '$child_message_id' is now in format 'text/html'" \
+                $cm(format) text/html
+
+            aa_log "Reject message '$message_id'"
+            forum::message::reject -message_id $message_id
+            forum::message::get -message_id $message_id -array m
+            aa_equals "Message '$message_id' is rejected" \
+                $m(state) "rejected"
+            forum::message::get -message_id $child_message_id -array cm
+            aa_equals "Message '$child_message_id' is still waiting for approval" \
+                $cm(state) "pending"
+
+            aa_log "Approve message '$message_id'"
+            forum::message::approve -message_id $message_id
+            forum::message::get -message_id $message_id -array m
+            aa_equals "Message '$message_id' is approved" \
+                $m(state) "approved"
+            forum::message::get -message_id $child_message_id -array cm
+            aa_equals "Message '$child_message_id' is still waiting for approval" \
+                $cm(state) "pending"
+
+            aa_log "Close message '$message_id' (meant as subthread)"
+            forum::message::close -message_id $message_id
+            forum::message::get -message_id $message_id -array m
+            aa_false "Message '$message_id' is closed" $m(open_p)
+            forum::message::get -message_id $child_message_id -array cm
+            aa_false "Message '$child_message_id' is also closed" $cm(open_p)
+
+            aa_log "Open message '$message_id' (meant as subthread)"
+            forum::message::open -message_id $message_id
+            forum::message::get -message_id $message_id -array m
+            aa_true "Message '$message_id' is open" $m(open_p)
+            forum::message::get -message_id $child_message_id -array cm
+            aa_true "Message '$child_message_id' is also open" $cm(open_p)
         }
 }
 

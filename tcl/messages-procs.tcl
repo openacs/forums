@@ -500,10 +500,19 @@ ad_proc -public forum::message::open {
     }
 }
 
-ad_proc -public forum::message::get_attachments {
+ad_proc -deprecated forum::message::get_attachments {
     {-message_id:required}
 } {
     Get the attachments for a message.
+
+    DEPRECATED: this proc requires a connection context in a forums
+    package instance to work as expected. An alternative could be to
+    retrieve the forum_id from the message instead, but as this proc
+    is not used anywhere and its logics are not difficult to inline,
+    we just deprecate it.
+
+    @see forum::attachments_enabled_p
+    @see attachments::get_attachments
 } {
     # If attachments aren't enabled, then we stop
     if {![forum::attachments_enabled_p]} {
