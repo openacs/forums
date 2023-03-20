@@ -29,31 +29,24 @@ namespace eval forum::format {
     ad_proc emoticons {
         {-content:required}
     } {
-        Convert smileys (emoticons) to img references. It constructs a relative
-        image reference to graphics/imagename.gif, so it will only work when
-        used from pages that are directly under the forums/www/ directory.
+        Convert smileys (emoticons) in supplied content into emoji
+        HTML entities.
 
-        <p>
-
-        If you change the images make sure to also adapt the image sizes in
-        the img tag that gets constructed here.
+        @see https://unicode.org/emoji/charts/full-emoji-list.html
     } {
         set emoticons_map [list]
 
         # if you change this list, consider changing
         # www/doc/emoticons.adp as well
-        foreach { emoticon image } {
-            ":-)" "smile"
-            ";-)" "wink"
-            ":-D" "bigsmile"
-            "8-)" "smile8"
-            ":-(" "sad"
-            ";-(" "cry"
-            ":-O" "scream"
-            ":-/" "think"
-        } {
-            lappend emoticons_map $emoticon
-            lappend emoticons_map "<img style=\"vertical-align:text-bottom\" src=\"/resources/forums/${image}.gif\" alt=\"$emoticon\" width=\"19\" height=\"19\">"
+        set emoticons_map {
+            ":-)" "&#x1F60A;"
+            ";-)" "&#x1F609;"
+            ":-D" "&#x1F603;"
+            "8-)" "&#x1F60E;"
+            ":-(" "&#x1F61F;"
+            ";-(" "&#x1F622;"
+            ":-O" "&#x1F631;"
+            ":-/" "&#x1F914;"
         }
         return [string map $emoticons_map $content]
     }

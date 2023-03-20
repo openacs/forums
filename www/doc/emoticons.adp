@@ -4,35 +4,36 @@ Currently the following emoticons (smileys) are available:
 
 <table>
   <tr>
-    <td>:-)</td><td><img src="/resources/forums/smile.gif"></td>
+    <td>:-)</td>
+    <td>&#x1F60A;</td>
   </tr>
   <tr>
     <td>;-)</td>
-    <td><img src="/resources/forums/wink.gif"></td>
-  </tr>
-  <tr>    
-   <td>:-D</td>
-   <td><img src="/resources/forums/bigsmile.gif"></td>
+    <td>&#x1F609;</td>
   </tr>
   <tr>
-    <td>8-)</td>
-   <td><img src="/resources/forums/smile8.gif"></td>
+   <td>:-D</td>
+   <td>&#x1F603;</td>
+  </tr>
+  <tr>
+   <td>8-)</td>
+   <td>&#x1F60E;</td>
   </tr>
   <tr>
     <td>:-(</td>
-    <td><img src="/resources/forums/sad.gif"></td>
+    <td>&#x1F61F;</td>
   </tr>
   <tr>
     <td>;-(</td>
-    <td><img src="/resources/forums/cry.gif"></td>
+    <td>&#x1F622;</td>
   </tr>
   <tr>
     <td>:-O</td>
-    <td><img src="/resources/forums/scream.gif"></td>
+    <td>&#x1F631;</td>
   </tr>
   <tr>
     <td>:-/</td>
-    <td><img src="/resources/forums/think.gif"></td>
+    <td>&#x1F914;</td>
   </tr>
 </table>
 
