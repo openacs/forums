@@ -140,8 +140,7 @@ aa_register_case \
                                       -content "bar"]
 
             aa_equals "There are no attachments on message '$message_id'" \
-                [forum::message::get_attachments -message_id $message_id] \
-                ""
+                [llength [attachments::get_attachments -object_id $message_id]] 0
             set attachments [db_list any_objects {
                 select object_id from acs_objects
                 where object_id not in (:message_id, :child_message_id, :forum_id, :package_id)
