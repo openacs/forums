@@ -36,8 +36,8 @@ ad_proc -public forum::new {
     set forum_id [package_instantiate_object -var_list $var_list forums_forum]
 
     db_dml update_extra_cols {
-        update forums_forums set
-           new_questions_allowed_p = :new_questions_allowed_p,
+        update forums_forums
+       set new_questions_allowed_p = :new_questions_allowed_p,
            anonymous_allowed_p     = :anonymous_allowed_p,
            attachments_allowed_p   = :attachments_allowed_p
         where forum_id = :forum_id
@@ -76,8 +76,7 @@ ad_proc -public forum::edit {
 } {
     forum::get -forum_id $forum_id -array forum
     foreach var {
-        name charter presentation_type posting_policy
-        new_questions_allowed_p anonymous_allowed_p attachments_allowed_p} {
+        name charter presentation_type posting_policy new_questions_allowed_p anonymous_allowed_p attachments_allowed_p} {
         if {![info exists $var]} {
             set $var $forum($var)
         }
@@ -250,8 +249,7 @@ ad_proc -deprecated forum::new_questions_allow {
     }
 
     db_dml query {
-        update forums_forums set
-        new_questions_allowed_p = true
+        update forums_forums set new_questions_allowed_p = true
         where forum_id = :forum_id
     }
 }
@@ -271,8 +269,7 @@ ad_proc -deprecated forum::new_questions_deny {
     }
 
     db_dml query {
-        update forums_forums set
-        new_questions_allowed_p = false
+        update forums_forums set new_questions_allowed_p = false
         where forum_id = :forum_id
     }
 }
