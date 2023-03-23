@@ -266,16 +266,31 @@ ad_proc -private forum::install::before-uninstantiate {
    @author realfsen@km.co.at
    @creation-date 2009.03.24
 } {
-  # Delete each message in the each forum
-  foreach set_id [forum::list_forums -package_id $package_id] {
-    ad_ns_set_to_tcl_vars $set_id ;# get the forum_id
-    foreach message_id [db_list _ "select message_id from forums_messages where forum_id = :forum_id"] {
-      forum::message::delete -message_id $message_id
+    #
+    # For all forums in this package...
+    #
+    db_foreach get_forums {
+        select forum_id from forums_forums where package_id = :package_id
+    } {
+        #
+        # ...delete each message,...
+        #
+        db_foreach get_messages {
+            select message_id from forums_messages where forum_id = :forum_id
+        } {
+            forum::message::delete -message_id $message_id
+        }
+
+        #
+        # ...delete the forum,...
+        #
+        forum::delete -forum_id $forum_id
+
+        #
+        # ...and invoke the deletion callback.
+        #
+        callback::forum::forum_delete::contract -package_id $package_id -forum_id $forum_id
     }
-    db_exec_plsql _ "select forums_forum__delete(:forum_id)"
-    # ÃR: is this really necessary  ??
-    callback::forum::forum_delete::contract -package_id $package_id -forum_id $forum_id
-  }
 }
 
 # Local variables:
