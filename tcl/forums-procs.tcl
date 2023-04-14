@@ -144,8 +144,10 @@ ad_proc -public forum::attachments_enabled_p {
     # See if an instance of the attachments package is mounted
     # underneath this forums instance.
     #
-    return [site_node_apm_integration::child_package_exists_p \
-                -package_id $package_id -package_key attachments]
+    set node_id [site_node::get_node_id_from_object_id -object_id $package_id]
+    set nodes [site_node::get_children -package_key attachments -node_id $node_id]
+
+    return [expr {[llength $nodes] > 0}]
 }
 
 ad_proc -public forum::list_forums {
