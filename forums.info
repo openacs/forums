@@ -12,7 +12,7 @@
     <version name="1.4.0d5" url="http://openacs.org/repository/download/apm/forums-1.4.0d5.apm">
         <owner url="http://openacs.org">OpenACS</owner>
         <summary>Online discussion forums.</summary>
-        <release-date>2021-09-15</release-date>
+        <release-date>2022-08-30</release-date>
         <vendor url="http://openacs.org">OpenACS</vendor>
         <description format="text/plain">This online discussion board software is the successor of the original bboard package. The biggest improvement is a scalable datamodel. Forums supports threaded and flat view, moderation, a stand alone search function as well as integration with the OpenACS search package and integration with the notifications package for email alerts. It also supports reply via email.</description>
         <license>GPL version 2</license>
@@ -20,13 +20,13 @@
         <package_instance_name>#forums.Forums#</package_instance_name>
 
         <provides url="forums" version="1.4.0d5"/>
-        <requires url="acs-kernel" version="5.10.0"/>
-        <requires url="acs-tcl" version="5.10.1d18"/>
-        <requires url="acs-mail-lite" version="5.10.0"/>
-        <requires url="acs-subsite" version="5.10.0"/>
+        <requires url="acs-kernel" version="5.10.1b1"/>
+        <requires url="acs-tcl" version="5.10.1b1"/>
+        <requires url="acs-mail-lite" version="5.10.1b1"/>
+        <requires url="acs-subsite" version="5.10.1b1"/>
         <requires url="attachments" version="0.11"/>
-        <requires url="notifications" version="5.10.0"/>
-        <requires url="acs-automated-testing" version="5.10.0"/>
+        <requires url="notifications" version="5.10.1b1"/>
+        <requires url="acs-automated-testing" version="5.10.1b1"/>
 
         <callbacks>
             <callback type="before-upgrade"  proc="forum::install::package_upgrade"/>
