@@ -8,7 +8,7 @@ ad_page_contract {
 
 } {
     forum_id:object_type(forums_forum),notnull
-    {return_url:localurl "."}
+    {return_url:localurl,notnull "."}
 }
 
 # Select the info

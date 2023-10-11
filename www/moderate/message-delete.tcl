@@ -9,7 +9,7 @@ ad_page_contract {
 } {
     message_id:object_type(forums_message),verify,notnull
     {return_url:localurl "../message-view"}
-    {confirm_p:boolean 0}
+    {confirm_p:boolean,notnull 0}
 }
 
 #
