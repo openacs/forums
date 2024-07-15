@@ -283,7 +283,7 @@ ad_proc -deprecated forum::new_questions_allowed_p {
     Check if the users can create new threads in the forum
 
     DEPRECATED: the forum::get api already retrieves this information
-                and there is normally no need to invoke this api
+                and there is normally no need to invoke this API
                 specifically.
 
     @see forum::get
