@@ -124,6 +124,17 @@ ad_proc -public forum::attachments_enabled_p {
         # We get the package from the forum
         #
         set package_id $forum(package_id)
+        
+    } elseif {![ns_conn isconnected]} {
+        #
+        # All the next tests require an active connection.  The
+        # messages with "ad_log warning" are not helpful and might be
+        # overwhelming, especially when called via the search
+        # callback. So, provide a shorter message.
+        
+        ns_log notice "forum::attachments_enabled_p must receive a" \
+            "valid -forum_id when called in the background"
+        return 0
 
     } elseif {"forums" eq [ad_conn package_key]} {
         #
