@@ -185,9 +185,9 @@ ad_proc -private forum::message::notify_users {
 #forums.Forum#: $message(forum_name)
 #forums.Thread#: $message(root_subject)\n"
     if {$useScreenNameP == 0} {
-	append text_version "#forums.Author#: $message(user_name)"
+        append text_version "#forums.Author#: $message(user_name)"
     } else {
-	append text_version "#forums.Author#: $message(screen_name)"
+        append text_version "#forums.Author#: $message(screen_name)"
     }
     append text_version "
 #forums.Posted#: $message(posting_date)
@@ -260,9 +260,9 @@ ad_proc -private forum::message::notify_moderators {
 #forums.Forum#: $message(forum_name)
 #forums.Thread#: $message(root_subject)\n"
     if {$useScreenNameP == 0} {
-	append text_version "#forums.Author#: $message(user_name)"
+        append text_version "#forums.Author#: $message(user_name)"
     } else {
-	append text_version "#forums.Author#: $message(screen_name)"
+        append text_version "#forums.Author#: $message(screen_name)"
     }
     append text_version "
 #forums.Posted#: $message(posting_date)
@@ -311,7 +311,7 @@ ad_proc -public forum::message::edit {
     db_dml update_message_title {}
 
     if {!$no_callback_p} {
-	callback forum::message_edit -package_id [ad_conn package_id] -message_id $message_id
+        callback forum::message_edit -package_id [ad_conn package_id] -message_id $message_id
     }
 }
 
@@ -337,7 +337,10 @@ ad_proc -public forum::message::get {
     # make sure array is empty
     array unset row
 
-    set attachments_sql [expr {[ns_conn isconnected] && [forum::attachments_enabled_p] ? {
+    set forum_id [::xo::dc list -prepare integer get_forum_id_from_message_id {
+        select forum_id from forums_messages where message_id = :message_id
+    }]
+    set attachments_sql [expr {[ns_conn isconnected] && [forum::attachments_enabled_p -forum_id $forum_id] ? {
         (select count(*) from attachments
          where object_id = m.message_id) as n_attachments,
     } : ""}]
@@ -425,9 +428,9 @@ ad_proc -public forum::message::delete {
     Delete a message and obviously all of its descendents.
 } {
     db_transaction {
-	if {!$no_callback_p} {
-	    callback forum::message_delete -package_id [ad_conn package_id] -message_id $message_id
-	}
+        if {!$no_callback_p} {
+            callback forum::message_delete -package_id [ad_conn package_id] -message_id $message_id
+        }
 
         forum::message::get -message_id $message_id -array msg
         set forum_id  $msg(forum_id)
@@ -515,7 +518,11 @@ ad_proc -deprecated forum::message::get_attachments {
     @see attachments::get_attachments
 } {
     # If attachments aren't enabled, then we stop
-    if {![forum::attachments_enabled_p]} {
+    set forum_id [::xo::dc list -prepare integer get_forum_id_from_message_id {
+        select forum_id from forums_messages where message_id = :message_id
+    }]
+
+    if {![forum::attachments_enabled_p -forum_id $forum_id]} {
         return [list]
     }
 
