@@ -4,8 +4,8 @@
   <msg key="Admin_for_all">Verwaltungsoptionen für alle Foren.</msg>
   <msg key="Administer">Forum verwalten</msg>
   <msg key="Administration">Diskussionsforen verwalten</msg>
-  <msg key="anonymous_posts_are_allowed">Sie können in diesem Forum Ihre Nachricht auch anonym senden.</msg>
   <msg key="Anonymous">Anonym</msg>
+  <msg key="anonymous_posts_are_allowed">Sie können in diesem Forum Ihre Nachricht auch anonym senden.</msg>
   <msg key="approve">Freigeben</msg>
   <msg key="Are_you_sure_you_want_to_delete_lt">Wollen Sie diesen Beitrag und &lt;strong&gt;alle zugehörigen Antworten &lt;/strong&gt; wirklich löschen?</msg>
   <msg key="Are_you_sure_you_want_to_move_this_message_and_obviously_all_of_its_descendents_lt">Sind Sie sicher, dass Sie diese Nachricht und alle ihre Nachfolger verschieben möchten?</msg>
@@ -97,7 +97,8 @@
   <msg key="lt_Please_confirm_the_fo">Bitte bestätigen Sie folgenden Beitrag:</msg>
   <msg key="lt_Please_enter_a_messag">Bitte geben Sie einen Text ein.</msg>
   <msg key="lt_Please_enter_a_subjec">Bitte geben Sie einen Betreff ein.</msg>
-  <msg key="lt_Users_Can_Create_New_">Benutzer dürfen ein neues Diskussionsthema beginnen</msg>
+  <msg key="lt_Users_Can_Create_New_">Benutzer/-innen dürfen ein neues Diskussionsthema beginnen</msg>
+  <msg key="lt_Users_Can_Add_Attachments">Benutzer/-innen dürfen Dateien hochladen</msg>
   <msg key="lt_Would_you_like_to_att">Möchten Sie dem Beitrag einen Anhang hinzufügen?</msg>
   <msg key="lt_Would_you_like_to_sub">Möchten Sie über Antworten benachrichtigt werden?</msg>
   <msg key="lt_You_either_have_to">Sie können eine Nachricht entweder als eigenständigen Forumsbeitrag posten oder als Antwort auf einen anderen Beitrag.</msg>

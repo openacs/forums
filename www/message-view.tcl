@@ -1,5 +1,5 @@
 ad_page_contract {
-    
+
     view a message (and its children)
 
     @author Ben Adida (ben@openforce.net)
@@ -7,16 +7,8 @@ ad_page_contract {
     @cvs-id $Id$
 
 } {
-    message_id:naturalnum,notnull
+    message_id:object_type(forums_message),notnull
     {display_mode:word ""}
-} -validate {
-    valid_message_id -requires {message_id:naturalnum} {
-        # Load up the message information
-        forum::message::get -message_id $message_id -array message
-        if {![array exists message]} {
-            ad_complain "Invalid message_id"
-        }
-    }
 }
 
 #######################
@@ -25,6 +17,8 @@ ad_page_contract {
 #
 #######################
 
+# Load up the message information
+forum::message::get -message_id $message_id -array message
 
 # Load up the forum information
 forum::get -forum_id $message(forum_id) -array forum
@@ -47,12 +41,22 @@ if {!$permissions(moderate_p) && $message(state) ne "approved" } {
 
 ############################################
 #
-# Ok we're not aborting so lets do some work
+# Ok we're not aborting so let's do some work
 #
 ############################################
 
+# Users who subscribed to moderator notifications should be able to
+# unsubscribe even after their moderation privileges have been revoked.
+set type_id [notification::type::get_type_id -short_name forums_message_moderator_notif]
+set request_id [notification::request::get_request_id -type_id $type_id -object_id $message(message_id) -user_id $user_id]
+set moderator_notifications_p [expr {$request_id ne "" ||
+                                     ($forum(posting_policy) eq "moderated" && $permissions(moderate_p))}]
+
 # Show search box?
 set searchbox_p [parameter::get -parameter ForumsSearchBoxP -default 1]
+
+# Show notification controls if the request is not from a bot.
+set show_notifications_p [expr {![ad_conn bot_p]}]
 
 # If this is a top-level thread, we allow subscriptions here
 if { $message(parent_id) eq "" } {
@@ -85,8 +89,7 @@ if {$forum(presentation_type) eq "flat"} {
 # stylesheets
 set lang [ad_conn language]
 template::head::add_css -href /resources/forums/forums.css -media all -lang $lang
-template::head::add_css -href /resources/forums/print.css -media print -lang $lang
- 
+
 # set vars for i18n
 template::head::add_script -type "text/javascript" -script [subst {
     var collapse_alt_text='[_ forums.collapse]';

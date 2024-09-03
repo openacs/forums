@@ -96,6 +96,7 @@
   <msg key="lt_Please_enter_a_messag">Por favor, entre su mensaje</msg>
   <msg key="lt_Please_enter_a_subjec">Por favor, ingrese título de mensaje</msg>
   <msg key="lt_Users_Can_Create_New_">Los usuarios pueden crear nuevos hilos</msg>
+  <msg key="lt_Users_Can_Add_Attachments">Los usuarios pueden añadir adjuntos a los mensajes</msg>
   <msg key="lt_Would_you_like_to_att">¿Desea adjuntar archivo a este mensaje?</msg>
   <msg key="lt_Would_you_like_to_sub">¿Desea suscribirse para recibir respuestas?</msg>
   <msg key="lt_You_either_have_to">Debe enviar un mensaje al foro de discusión o contestar a otro mensaje</msg>

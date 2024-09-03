@@ -39,8 +39,16 @@
   <div id="content@message.message_id@" class="dynexpanded">@message.content;literal@
     <if @message.n_attachments@ not nil and @message.n_attachments@ gt 0>
       <div class="attachments">
-        #forums.Attachments#
-        <include src="attachment-list" &message="message">
+        <include src="attachment-list" &message="message" &=preview>
+      </div>
+    </if>
+    <if @attachment_multi:rowcount@ not nil and @attachment_multi:rowcount@ gt 0>
+      <div class="attachments">
+        <ul>
+          <multiple name="attachment_multi">
+            <li><adp:icon name="paperclip" text="#attachments.Attachment#"> @attachment_multi.name@</li>
+          </multiple>
+        </ul>
       </div>
     </if>
   </div>
@@ -57,7 +65,7 @@
       </if>
       <if @moderate_p;literal@ true>
         <li><a href="moderate/message-edit?message_id=@message.message_id@" class="button" title="#forums.edit#">#forums.edit#</a></li>
-        <li><a href="moderate/message-delete?message_id=@message.message_id@" class="button" title="#forums.delete#">#forums.delete#</a></li>	
+        <li><a href="@delete_url@" class="button" title="#forums.delete#">#forums.delete#</a></li>	
 	<if @message.parent_id@ nil>
 	  <li><a href="moderate/thread-move?message_id=@message.message_id@" class="button" title="#forums.Move_thread_to_other_forum#">#forums.Move_thread_to_other_forum#</a></li>
 	  <li><a href="moderate/thread-move-thread?message_id=@message.message_id@" class="button" title="#forums.Move_thread_to_other_thread#">#forums.Move_thread_to_other_thread#</a></li>

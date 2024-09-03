@@ -20,9 +20,6 @@
 -- tree stuff
 \i forums-tree-create.sql
 
--- notifications
-\i forums-notifications-init.sql
-
 -- Search
 \i forums-sc-create.sql
 

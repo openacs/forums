@@ -1,4 +1,4 @@
-#forum-thread { 
+#forum-thread {
         max-width: 95%;
         text-align: left;
         margin-bottom: 5px;
@@ -6,8 +6,8 @@
 }
 
 #forum-thread .action-list {
-        position: absolute; 
-        right: 0.2em; 
+        position: absolute;
+        right: 0.2em;
         top: 0.2em;
 }
 
@@ -25,12 +25,21 @@
         padding-top: 3px;
         padding-bottom: 3px;
         border: 0px;
-	display: inline;
+        display: inline;
+}
+
+#forum-thread .attachments ul {
+        padding-left: 0px;
+        list-style-type: none;
+}
+
+#forum-thread .attachments img {
+        vertical-align: middle;
 }
 
 #forum-thread .dyncollapsed {
         padding: 0px;
-	display: none;
+        display: none;
 }
 
 #forum-thread .subject {
@@ -39,7 +48,7 @@
         padding: 0.5em;
 }
 
-#forum-thread .subject a.title { 
+#forum-thread .subject a.title {
         color: blue;
         font-weight: bold;
         text-decoration:none;
@@ -52,16 +61,16 @@
         font-weight: normal;
 }
 
-#forum-thread .subject .response { 
-       
+#forum-thread .subject .response {
+
 }
-#forum-thread .subject .reference { 
+#forum-thread .subject .reference {
         color: #006f00;
 }
 
 #forum-thread .attribution {
-  padding-top: 0.5em;
-  padding-left: 0.5em;
+        padding-top: 0.5em;
+        padding-left: 0.5em;
 }
 
 #forum-thread .attribution a {
@@ -113,10 +122,52 @@
 }
 
 .details img {
-  border-style: none;
+        border-style: none;
 }
 
 h2.forum-heading {
-  font-size: 1.0em; 
-  font-weight: normal;
+        font-size: 1.0em;
+        font-weight: normal;
+}
+
+
+@media print {
+    /* 
+     * Make it white and pick a better print font 
+     */
+    body {
+        background: white;
+        font-family: "Bitstream vera serif", Georgia,"Times new roman",Times,Serif;
+        font-size: 12pt;
+    }
+    /* suppress all the nav elements */
+    #context-bar,
+    #searchbox,
+    #side,
+    #cop-side,
+    #site-header .action-list,
+    #site-header .user-greeting,
+    #cop-footer { display: none; }
+    #content-body { margin-left: 2em; }
+    #site-header .system-name { 
+        float: none;
+        text-align: left;
+    }
+    #forum-thread .action-list { display: none }
+    #forum-thread .details img { display: none }
+
+    /* remove banding */
+    #forum-thread div.even, #forum-thread div.odd { 
+        background: white; 
+        margin-bottom: 2em;
+        max-width: 50em;
+    }
+}
+
+a.notifications-forums_forum_moderator_notif {
+    color: red;
+}
+
+a.notifications-forums_message_moderator_notif {
+    color: red;
 }

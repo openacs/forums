@@ -1,5 +1,5 @@
 <master>
-<property name="doc(title)">Edit Forum: @forum.name;noquote@</property>
+<property name="doc(title)">Edit Forum: @forum.name;literal@</property>
 <property name="context">@context;literal@</property>
 <property name="focus">forum.name</property>
 

@@ -4,8 +4,8 @@
   <msg key="Admin_for_all">Opzioni amministrative per tutti i forum</msg>
   <msg key="Administer">Amministra</msg>
   <msg key="Administration">Amministrazione</msg>
-  <msg key="anonymous_posts_are_allowed">Puoi postare in questo forum in modo anonimo</msg>
   <msg key="Anonymous">Anonimo</msg>
+  <msg key="anonymous_posts_are_allowed">Puoi postare in questo forum in modo anonimo</msg>
   <msg key="approve">approva</msg>
   <msg key="Are_you_sure_you_want_to_delete_lt">Sei sicuro di voler cancellare questo messaggio e &lt;strong&gt;tutte le risposte collegate&lt;/strong&gt;? </msg>
   <msg key="Are_you_sure_you_want_to_move_this_message_and_obviously_all_of_its_descendents_lt">Sei sicuro/a di voler spostare questo messaggio e tutti i suoi discendenti?</msg>
@@ -94,6 +94,7 @@
   <msg key="lt_Please_confirm_the_fo">Conferma il seguente messaggio:</msg>
   <msg key="lt_Please_enter_a_messag">Inserisci un messaggio</msg>
   <msg key="lt_Please_enter_a_subjec">Inserisci un oggetto</msg>
+  <msg key="lt_Users_Can_Add_Attachments">Gli utenti possono allegare file ai messaggi</msg>
   <msg key="lt_Users_Can_Create_New_">Gli utenti possono aprire nuove discussioni</msg>
   <msg key="lt_Would_you_like_to_att">Vuoi associare un file in attach a questo messaggio?</msg>
   <msg key="lt_Would_you_like_to_sub">Vuoi ricevere un mail di notifica per eventuali risposte?</msg>

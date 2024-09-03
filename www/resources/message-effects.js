@@ -1,5 +1,5 @@
 /*
-- Script for collapse or expand the parent message and all his childs
+- Script for collapse or expand the parent message and all his children
 - It uses the scriptaculous libraries for the effects
 
 Author: Veronica De La Cruz
@@ -169,7 +169,7 @@ function collapseChilds(parentID, childrenString){
  
 
    // Make that the parent message and all his children 
-   // take part on the efect
+   // take part on the effect
  
    
 	   for (var i=0;i< childArray.length;i++){    	       		 

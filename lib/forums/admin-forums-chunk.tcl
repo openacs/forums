@@ -57,7 +57,7 @@ db_multirow -extend {
     enable_url
     disable_url
 }  forums select_forums {} {
-    if { [template::util::is_true $enabled_p] } {
+    if { [string is true -strict $enabled_p] } {
         set view_url [export_vars -base "[ad_conn package_url]forum-view" { forum_id }]
     } else {
         set view_url {}

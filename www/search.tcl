@@ -6,7 +6,7 @@ ad_page_contract {
     @cvs-id $Id$
 
 } -query {
-    {forum_id:integer ""}
+    {forum_id:object_type(forums_forum) ""}
 }
 
 set page_title [_ forums.Search_Forums]

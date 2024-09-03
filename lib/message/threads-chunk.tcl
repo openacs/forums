@@ -5,7 +5,7 @@ ad_include_contract {
     @creation-date 2002-05-24
     @cvs-id $Id$
 } {
-    forum_id:naturalnum,notnull
+    forum_id:object_type(forums_forum),notnull
     {orderby:token,notnull "last_child_post,desc"}
     {flush_p:boolean,notnull 0}
     {page_size:naturalnum,notnull 30}
@@ -40,9 +40,7 @@ set actions [list]
 # 1. Users can create new threads or user is a moderator
 
 if { $permissions(post_p) } {
-    if {($permissions(moderate_p) ||
-         [forum::new_questions_allowed_p -forum_id $forum_id])
-  } {
+    if { $permissions(moderate_p) || $forum(new_questions_allowed_p) } {
     lappend actions [_ forums.Post_a_New_Message] \
 	[export_vars -base "${base_url}message-post" { forum_id }] [_ forums.Post_a_New_Message]
   }

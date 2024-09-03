@@ -87,7 +87,7 @@ ad_proc -public -callback navigation::package_admin -impl forums {} {
         if {[permission::permission_p -object_id $forum_id -privilege admin -party_id $user_id]} {
 
             lappend actions \
-                [list SECTION "Forum $name ([ad_decode $enabled_p t [_ forums.enabled] [_ forums.disabled]])" {}] \
+                [list SECTION "Forum $name ([expr {$enabled_p ? [_ forums.enabled] : [_ forums.disabled]}])" {}] \
                 [list LINK \
                      [export_vars -base admin/forum-edit forum_id] \
                      [_ forums.Edit_forum_name] {} {}] \
@@ -118,7 +118,11 @@ ad_proc -public -callback pm::project_new -impl forums {
             -no_callback]
 
         # Automatically allow new threads on this forum
-        forum::new_questions_allow -forum_id $forum_id
+        db_dml query {
+            update forums_forums set
+            new_questions_allowed_p = true
+            where forum_id = :forum_id
+        }
 
         application_data_link::new -this_object_id $project_id -target_object_id $forum_id
     }
@@ -145,7 +149,7 @@ ad_proc -public -callback search::datasource -impl forums_message {} {
     # search indexer. In that case we set the locale to the
     # system-wide default locale, since locale is needed for some part
     # of the message formatting.
-    if { ![ad_conn isconnected] } {
+    if { ![ns_conn isconnected] } {
         ad_conn -set locale [lang::system::site_wide_locale]
     }
 
@@ -170,7 +174,23 @@ ad_proc -public -callback search::datasource -impl forums_message {} {
     array set forum [forum::get -forum_id $message(forum_id) -array forum]
     set package_id $forum(package_id)
 
-    db_foreach messages "" {
+    # We only render the content of approved messages.
+    db_foreach messages {
+        with recursive thread(message_id, parent_id, subject, content, format) as (
+            select message_id, parent_id, subject, content, format
+            from forums_messages
+            where message_id = :message_id
+              and state = 'approved'
+
+            union all
+
+            select m.message_id, m.parent_id, m.subject, m.content, m.format
+            from forums_messages m,
+                 thread t
+            where m.parent_id = t.message_id
+              and m.state = 'approved'
+        ) select subject, content, format from thread
+    } {
 
         # include the subject in the text if it is different from the thread's subject
         set root_subject $message(subject)
@@ -185,7 +205,7 @@ ad_proc -public -callback search::datasource -impl forums_message {} {
         # GN: The standard conversion from "text/enhanced" to
         # "text/plain" converts first from "text/enhanced" to
         # "text/html" and then from "text/html" to "text/plain". This
-        # can take for large forums posting a long time (e.g a few
+        # can take for large forums posting a long time (e.g. a few
         # minutes on openacs.org). Since this function is used just
         # for the summarizer (when listing a short paragraph in the
         # context of the search result), we can live here with a much
@@ -193,8 +213,8 @@ ad_proc -public -callback search::datasource -impl forums_message {} {
         # ms.
         #
         if {$message(format) eq "text/enhanced"} {
-            regsub -all {<p>} $content "\n\n" content
-            regsub -all {(<?/[^>]*>)} $content "" content
+            regsub -all -- {<p>} $content "\n\n" content
+            regsub -all -- {(<?/[^>]*>)} $content "" content
         } else {
             set content [ad_html_text_convert -from $format -to text/plain -- $content]
         }
@@ -225,10 +245,13 @@ ad_proc -public -callback search::url -impl forums_message {} {
 
 } {
     set message_id $object_id
-    forum::message::get -message_id $message_id -array message
-    set forum_id $message(forum_id)
-
-    return "[ad_url][db_string select_forums_package_url {}]message-view?message_id=$message_id"
+    set forum_package_id [db_string select_forums_package {
+        select package_id from forums_forums
+        where forum_id = (select forum_id from forums_messages
+                          where message_id = :message_id)
+    }]
+    set forum_package_url [site_node::get_url_from_object_id -object_id $forum_package_id]
+    return "[ad_url]${forum_package_url}message-view?message_id=$message_id"
 }
 
 ad_proc -public -callback search::datasource -impl forums_forum {} {
@@ -259,7 +282,12 @@ ad_proc -public -callback search::url -impl forums_forum {} {
 
 } {
     set forum_id $object_id
-    return "[ad_url][db_string select_forums_package_url {}]forum-view?forum_id=$forum_id"
+    set forum_package_id [db_string select_forums_package {
+        select package_id from forums_forums
+        where forum_id = :forum_id
+    }]
+    set forum_package_url [site_node::get_url_from_object_id -object_id $forum_package_id]
+    return "[ad_url]${forum_package_url}forum-view?forum_id=$forum_id"
 }
 
 

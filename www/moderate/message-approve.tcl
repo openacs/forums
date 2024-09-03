@@ -7,7 +7,7 @@ ad_page_contract {
     @cvs-id $Id$
 
 } {
-    message_id:naturalnum,notnull
+    message_id:object_type(forums_message),notnull
     {return_url:localurl "../message-view"}
 }
 

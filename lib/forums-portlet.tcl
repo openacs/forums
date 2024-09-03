@@ -9,7 +9,7 @@ ad_include_contract {
     @param cache             cache interval, seconds, 0 for no cache (default 0)
     @param show_empty_p      if set, show even if there are no contents (default 1)
 } {
-    {package_id:integer ""}
+    {package_id:object_type(apm_package) ""}
     {base_url:localurl ""}
     {n:naturalnum,notnull 2}
     {class:word ""}

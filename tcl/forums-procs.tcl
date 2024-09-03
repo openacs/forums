@@ -20,6 +20,7 @@ ad_proc -public forum::new {
     {-package_id:required}
     {-new_questions_allowed_p t}
     {-anonymous_allowed_p f}
+    {-attachments_allowed_p t}
     -no_callback:boolean
 } {
     create a new forum
@@ -35,9 +36,10 @@ ad_proc -public forum::new {
     set forum_id [package_instantiate_object -var_list $var_list forums_forum]
 
     db_dml update_extra_cols {
-        update forums_forums set
-           new_questions_allowed_p = :new_questions_allowed_p,
-           anonymous_allowed_p     = :anonymous_allowed_p
+        update forums_forums
+       set new_questions_allowed_p = :new_questions_allowed_p,
+           anonymous_allowed_p     = :anonymous_allowed_p,
+           attachments_allowed_p   = :attachments_allowed_p
         where forum_id = :forum_id
     }
 
@@ -67,14 +69,14 @@ ad_proc -public forum::edit {
     -posting_policy
     -new_questions_allowed_p
     -anonymous_allowed_p
+    -attachments_allowed_p
     -no_callback:boolean
 } {
     Edit a forum
 } {
     forum::get -forum_id $forum_id -array forum
     foreach var {
-        name charter presentation_type posting_policy
-        new_questions_allowed_p anonymous_allowed_p} {
+        name charter presentation_type posting_policy new_questions_allowed_p anonymous_allowed_p attachments_allowed_p} {
         if {![info exists $var]} {
             set $var $forum($var)
         }
@@ -92,16 +94,71 @@ ad_proc -public forum::edit {
         -forum_id $forum_id
 }
 
-ad_proc -public forum::attachments_enabled_p {} {
+ad_proc -public forum::attachments_enabled_p {
+    {-forum_id ""}
+} {
+    Check if attachments are enabled in forums.
+
+    If 'forum_id' is not passed, check only if the attachments package is
+    mounted as a child of the current forums package instance.
+
+    Otherwise, check also if a particular forum's 'attachments_allowed_p' option
+    is true. In case the package is mounted and the option enabled, return 1.
+
     @return 1 if the attachments are enabled in the forums, 0 otherwise.
 } {
-    if {"forums" eq [ad_conn package_key]} {
-        set return_value [site_node_apm_integration::child_package_exists_p \
-                              -package_id [ad_conn package_id] -package_key attachments]
+    if {$forum_id ne ""} {
+        #
+        # A forum was provided
+        #
+        forum::get -forum_id $forum_id -array forum
+
+        if {!$forum(attachments_allowed_p)} {
+            #
+            # Forum does not allow attachments. Exit immediately.
+            #
+            return 0
+        }
+
+        #
+        # We get the package from the forum
+        #
+        set package_id $forum(package_id)
+        
+    } elseif {![ns_conn isconnected]} {
+        #
+        # All the next tests require an active connection.  The
+        # messages with "ad_log warning" are not helpful and might be
+        # overwhelming, especially when called via the search
+        # callback. So, provide a shorter message.
+        
+        ns_log notice "forum::attachments_enabled_p must receive a" \
+            "valid -forum_id when called in the background"
+        return 0
+
+    } elseif {"forums" eq [ad_conn package_key]} {
+        #
+        # No forum provided, but the connection context tells us this
+        # is a forum package. We use the connection package_id.
+        #
+        set package_id [ad_conn package_id]
     } else {
-        set return_value 0
+        #
+        # No forum and no connection context to help us determine the
+        # package. Exit immediately.
+        #
+        ad_log warning "Cannot determine package_id. Returning 0"
+        return 0
     }
-    return $return_value
+
+    #
+    # See if an instance of the attachments package is mounted
+    # underneath this forums instance.
+    #
+    set node_id [site_node::get_node_id_from_object_id -object_id $package_id]
+    set nodes [site_node::get_children -package_key attachments -node_id $node_id]
+
+    return [expr {[llength $nodes] > 0}]
 }
 
 ad_proc -public forum::list_forums {
@@ -190,45 +247,57 @@ ad_proc -deprecated -public forum::posting_policy_set {
     # }
 }
 
-ad_proc -public forum::new_questions_allow {
+ad_proc -deprecated forum::new_questions_allow {
     {-forum_id:required}
     {-party_id ""}
 } {
     Allow the users to create new threads in the forum
+
+    DEPRECATED: either use forum::edit or inline this trivial query.
+
+    @see forum::edit
 } {
     if { $party_id ne "" } {
         ad_log warning "Attribute party_id is deprecated and was ignored."
     }
 
     db_dml query {
-        update forums_forums set
-        new_questions_allowed_p = true
+        update forums_forums set new_questions_allowed_p = true
         where forum_id = :forum_id
     }
 }
 
-ad_proc -public forum::new_questions_deny {
+ad_proc -deprecated forum::new_questions_deny {
     {-forum_id:required}
     {-party_id ""}
 } {
     Deny the users to create new threads in the forum
+
+    DEPRECATED: either use forum::edit or inline this trivial query.
+
+    @see forum::edit
 } {
     if { $party_id ne "" } {
         ad_log warning "Attribute party_id is deprecated and was ignored."
     }
 
     db_dml query {
-        update forums_forums set
-        new_questions_allowed_p = false
+        update forums_forums set new_questions_allowed_p = false
         where forum_id = :forum_id
     }
 }
 
-ad_proc -public forum::new_questions_allowed_p {
+ad_proc -deprecated forum::new_questions_allowed_p {
     {-forum_id:required}
     {-party_id ""}
 } {
     Check if the users can create new threads in the forum
+
+    DEPRECATED: the forum::get api already retrieves this information
+                and there is normally no need to invoke this API
+                specifically.
+
+    @see forum::get
 } {
     if { $party_id ne "" } {
         ad_log warning "Attribute party_id is deprecated and was ignored."

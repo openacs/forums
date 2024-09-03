@@ -6,7 +6,7 @@ ad_page_contract {
     @creation-date 2005-03-17    
 
 } {
-    forum_id:naturalnum,notnull    
+    forum_id:object_type(forums_forum),notnull
 }
 
 # Get user information

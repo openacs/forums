@@ -7,15 +7,15 @@ ad_page_contract {
     @cvs-id $Id$
 
 } {
-    forum_id:naturalnum,notnull
-    type_id:naturalnum,notnull
+    forum_id:object_type(forums_forum),notnull
+    type_id:object_type(notification_type),notnull
     {lines}
     {return_url:localurl "."}
-    interval:notnull
-    delivery_method:notnull
+    interval:object_type(notification_interval),notnull
+    delivery_method:object_type(notification_delivery_method),notnull
     {emails ""}
-    {subscriber_ids:integer,multiple}
-    {create_new_users_p:boolean "f"}
+    {subscriber_ids:object_type(user),multiple}
+    {create_new_users_p:boolean,notnull "f"}
 }
 
 # Select the info
@@ -86,7 +86,7 @@ db_transaction {
 		select party_id, first_names as fname, last_name as lname
 		from   cc_users
 		where  lower(email) = lower(:email)
-		limit 1
+		fetch first 1 rows only
 	    }]} {
 		set user_id $party_id
 		ns_write "<br>account exists"
@@ -111,9 +111,14 @@ db_transaction {
 		    ns_write "creating new user: $fname $lname ($email)<br>"
 
 		    # create new user
-		    set user_exists_p [db_0or1row user_id "select party_id from parties where email = lower(:email) limit 1"]
+		    set user_exists_p [db_string user_id {
+                        select case when exists
+                        (select 1 from parties where email = lower(:email))
+                        then 1 else 0 end
+                        from dual
+                    }]
 
-		    if {[string is false $user_exists_p]} {
+		    if {!$user_exists_p} {
 			set password [ad_generate_random_string]
 
 			array set auth_status_array [auth::create_user -email $email -first_names $fname -last_name $lname -password $password]

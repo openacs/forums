@@ -8,7 +8,7 @@ ad_include_contract {
     @cvs-id $Id$
 
 } {
-    {rownum:integer 1}
+    {rownum:naturalnum 1}
     {presentation_type:word ""}
     {forum_moderated_p:boolean 0}
     {moderate_p:boolean 0}
@@ -16,6 +16,7 @@ ad_include_contract {
     {preview:boolean 0}
     {alt_template:token ""}
     {message}
+    {attachment_multi ""}
 }
 
 set viewer_id [ad_conn user_id]
@@ -28,7 +29,7 @@ if {$message(user_id) > 0} {
                                 -user_id $message(user_id) \
                                 -element [expr {$useScreenNameP ? "screen_name" : "name"}]]
     set message(user_url) user-history?user_id=$message(user_id)
-} else {    
+} else {
     set message(user_name) [_ acs-kernel.Unregistered_Visitor]
     set message(user_url)  ""
 }
@@ -59,6 +60,10 @@ if { $preview } {
     set notflat_p          [expr {$presentation_type ne "flat"}]
     set post_and_notflat_p [expr {$post_p && $notflat_p}]
     set any_action_p       [expr {$post_and_notflat_p || $viewer_id || $moderate_p}]
+
+    set delete_url [export_vars -base "moderate/message-delete" {
+        {message_id:sign(csrf) $message(message_id)}
+    }]
 }
 
 template::add_body_script -script [subst {

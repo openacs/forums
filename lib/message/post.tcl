@@ -1,4 +1,4 @@
-ad_page_contract {
+ad_include_contract {
 
     Form to create message and insert it
 
@@ -6,13 +6,48 @@ ad_page_contract {
     @creation-date 2003-12-09
     @cvs-id $Id$
 
+} {
+    message_id:object_id,optional
+    forum_id:object_type(forums_forum),notnull
+    {parent_id:object_type(forums_message) ""}
+    {subject:printable,string_length(max|200) ""}
+    {message_body:printable ""}
+    {message_body.format:token ""}
+    {confirm_p:boolean ""}
+    {subscribe_p:boolean ""}
+    {subject.spellcheck:token ""}
+    {content.spellcheck:token ""}
+    {anonymous_p:boolean ""}
+    {attach_p:boolean ""}
+    {attachments:multiple ""}
+    {attachment_cleanup_list:tmpfile ""}
+    {attachments_enabled_p:boolean,notnull false}
+    {anonymous_allowed_p:boolean,notnull false}
+}
+#
+# 'Simple' or 'Complex' (legacy) attachment style
+#
+# - Simple (default): just allow one to attach new files to a message using the file
+#   widget during post, and using the attachments package API to 'attach' them
+#   to the message.
+#
+# - Complex (legacy): attach URLs, new or already existing files, browse
+#   through folders and choose where to upload the files in the file storage,
+#   using the attachments package 'attach' pages.
+#
+set complex_attachments_p false
+set attachmentStyle [parameter::get -parameter "AttachmentStyle" -default "simple"]
+if {$attachmentStyle eq "complex"} {
+    set complex_attachments_p true
 }
 
-set user_id [ad_conn user_id]
-set screen_name [acs_user::get_user_info -user_id $user_id -element screen_name]
+set peeraddr   [ad_conn peeraddr]
+set user_id    [ad_conn user_id]
+set package_id [ad_conn package_id]
 
-set useScreenNameP [parameter::get -parameter "UseScreenNameP" -default 0]
-set pvt_home [ad_pvt_home]
+set screen_name     [acs_user::get_user_info -user_id $user_id -element screen_name]
+set useScreenNameP  [parameter::get -parameter "UseScreenNameP" -default 0]
+set pvt_home        [ad_pvt_home]
 
 if {[array exists parent_message]} {
     set parent_id $parent_message(message_id)
@@ -48,9 +83,9 @@ set form_elements {
     }
     {parent_id:integer(hidden),optional
     }
-    {subscribe_p:text(hidden),optional
+    {subscribe_p:boolean(hidden),optional
     }
-    {confirm_p:text(hidden),optional
+    {confirm_p:boolean(hidden),optional
     }
 }
 
@@ -68,18 +103,42 @@ if {$user_id != 0 && $anonymous_allowed_p} {
         }
     }
 }
-
+#
 # Attachments
-if {$user_id != 0 & $attachments_enabled_p} {
-    append form_elements {
-        {attach_p:integer(radio),optional
-            {options {{[_ acs-kernel.common_No] 0} {[_ acs-kernel.common_Yes] 1}}}
-            {label "[_ forums.Attach]"}
+#
+if {$complex_attachments_p} {
+    #
+    # Legacy 'complex' attachments
+    #
+    if {$user_id != 0 & $attachments_enabled_p} {
+        append form_elements {
+            {attach_p:integer(radio),optional
+                {options {{[_ acs-kernel.common_No] 0} {[_ acs-kernel.common_Yes] 1}}}
+                {label "[_ forums.Attach]"}
+            }
+        }
+    } else {
+        append form_elements {
+            {attach_p:integer(hidden),optional
+            }
         }
     }
 } else {
-    append form_elements {
-        {attach_p:integer(hidden),optional
+    #
+    # New 'simple' attachments
+    #
+    if {$user_id != 0 & $attachments_enabled_p} {
+        append form_elements {
+            {attachments:file(file),multiple,optional
+                {label "[_ forums.Attach]"}
+            }
+            {attachment_cleanup_list:text(hidden),optional
+            }
+        }
+    } else {
+        append form_elements {
+            {attach_p:integer(hidden),optional
+            }
         }
     }
 }
@@ -103,6 +162,8 @@ ad_form -html {enctype multipart/form-data} \
         set subscribe_p 0
         set anonymous_p 0
         set attach_p 0
+        set attachments [list]
+        set attachment_cleanup_list [list]
     } -on_submit {
 
         ##############################
@@ -118,9 +179,9 @@ ad_form -html {enctype multipart/form-data} \
             break
         }
 
-        if { $anonymous_p eq "" } { set anonymous_p 0 }
-
-
+        if { $anonymous_p eq "" } {
+            set anonymous_p 0
+        }
         set action [template::form::get_button message]
 
         # Make post the default action
@@ -137,8 +198,53 @@ ad_form -html {enctype multipart/form-data} \
             set content.spellcheck ":nospell:"
             set content [template::util::richtext::get_property content $message_body]
             set format [template::util::richtext::get_property format $message_body]
+            #
+            # Attachments during the 'preview' action:
+            #
+            # 1) Create a multirow to show the files during the preview.
+            #
+            # 2) As the temporal files are deleted on submit, we need to
+            #    preserve them. We copy and delete them after the insertion into
+            #    the content repository.
+            #
+            if {$attachments ne ""} {
+                set attachment_list [list]
+                foreach attachment_file $attachments {
+                    set attachment_data [dict create]
+                    dict set attachment_data name [lindex $attachment_file 0]
+                    dict set attachment_data file [lindex $attachment_file 1]
+                    dict set attachment_data type [lindex $attachment_file 2]
+                    lappend attachment_list $attachment_data
+                    #
+                    # Replace tmpfile with the new one
+                    #
+                    set new_file [ad_tmpnam]
+                    set old_file [dict get $attachment_data file]
+                    file copy -- $old_file $new_file
+                    set attachments [regsub " $old_file " $attachments " $new_file "]
+                    lappend attachment_cleanup_list $new_file
+                }
 
-            set exported_vars [export_vars -form {message_id forum_id parent_id subject {message_body $content} {message_body.format $format} confirm_p subject.spellcheck content.spellcheck anonymous_p attach_p}]
+                template::util::list_to_multirow attachment_multi $attachment_list
+            }
+            #
+            # Export vars
+            #
+            set exported_vars [export_vars -form -sign {
+                message_id
+                forum_id
+                parent_id
+                subject
+                {message_body $content}
+                {message_body.format $format}
+                confirm_p
+                subject.spellcheck
+                content.spellcheck
+                anonymous_p
+                attach_p
+                attachments:multiple
+                attachment_cleanup_list
+            }]
 
             set message(format) $format
             set message(subject) $subject
@@ -169,15 +275,15 @@ ad_form -html {enctype multipart/form-data} \
         if {$action eq "post"} {
             set content [template::util::richtext::get_property content $message_body]
             set format [template::util::richtext::get_property format $message_body]
-            
+
             forum::message::new \
-                -forum_id $forum_id \
-                -message_id $message_id \
-                -parent_id $parent_id \
-                -subject $subject \
-                -content $content \
-                -format $format \
-                -user_id $displayed_user_id
+                    -forum_id $forum_id \
+                    -message_id $message_id \
+                    -parent_id $parent_id \
+                    -subject $subject \
+                    -content $content \
+                    -format $format \
+                    -user_id $displayed_user_id
 
             if { [forum::use_ReadingInfo_p] } {
                 # remove reading info for this thread for all users (mark it unread)
@@ -186,9 +292,11 @@ ad_form -html {enctype multipart/form-data} \
 
             set permissions(moderate_p) [permission::permission_p -object_id $forum_id -privilege "forum_moderate"]
 
-            db_transaction {
-                if { $permissions(moderate_p) } {
-                    forum::message::set_state -message_id $message_id -state "approved"
+            if { $permissions(moderate_p) } {
+                db_transaction {
+                    forum::message::set_state \
+                        -message_id $message_id \
+                        -state "approved"
                 }
             }
 
@@ -208,10 +316,77 @@ ad_form -html {enctype multipart/form-data} \
                 set redirect_url $notification_url
             }
 
-            # Wrap the attachments URL
             if {$attachments_enabled_p} {
-                if { $attach_p ne "" && $attach_p} {
-                    set redirect_url [attachments::add_attachment_url -object_id $message_id -return_url $redirect_url -pretty_name "[_ forums.Forum_Posting] \"$subject\""]
+                if {$complex_attachments_p} {
+                    #
+                    # Wrap the attachments URL
+                    #
+                    if { $attach_p ne "" && $attach_p} {
+                        set redirect_url [attachments::add_attachment_url \
+                                            -object_id $message_id \
+                                            -return_url $redirect_url \
+                                            -pretty_name "[_ forums.Forum_Posting] \"$subject\""]
+                    }
+                } else {
+                    #
+                    # Create and attach the new items (we assume we have the
+                    # right permissions, as we were able to create the message)
+                    #
+                    # Root folder
+                    #
+                    set root_folder_id [content::item::get_id \
+                                            -root_folder_id $forum_id \
+                                            -item_path "attachments"]
+                    if {$root_folder_id eq ""} {
+                        set root_folder_id [content::item::new \
+                                                -parent_id $forum_id \
+                                                -name "attachments"]
+                    }
+                    #
+                    # Create revision and attach
+                    #
+                    foreach attachment $attachments {
+                        set name $message_id-[clock clicks -microseconds]
+                        set item_id [content::item::new \
+                                         -name            $name \
+                                         -parent_id       $root_folder_id \
+                                         -context_id      $message_id \
+                                         -creation_user   $user_id \
+                                         -creation_ip     $peeraddr \
+                                         -item_subtype    "content_item" \
+                                         -storage_type    "file" \
+                                         -package_id      $package_id]
+
+                        #
+                        # Create a revision for the fresh content_item
+                        #
+                        set revision_id [db_nextval acs_object_id_seq]
+                        content::revision::new \
+                            -revision_id     $revision_id \
+                            -item_id         $item_id \
+                            -title           [lindex $attachment 0] \
+                            -is_live         t \
+                            -creation_user   $user_id \
+                            -creation_ip     $peeraddr \
+                            -content_type    "content_revision" \
+                            -package_id      $package_id \
+                            -tmp_filename    [lindex $attachment 1] \
+                            -mime_type       [lindex $attachment 2]
+
+                        #
+                        # Attach the file to the object via the attachments API
+                        #
+                        attachments::attach \
+                            -object_id $message_id \
+                            -attachment_id $item_id
+                    }
+                    #
+                    # Cleanup the possible attachment temporal files that still
+                    # exist, created during the 'preview' action.
+                    #
+                    if {$attachment_cleanup_list ne ""} {
+                        file delete -- {*}$attachment_cleanup_list
+                    }
                 }
             }
 

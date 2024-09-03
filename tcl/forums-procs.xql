@@ -9,8 +9,9 @@
              presentation_type       = :presentation_type,
              posting_policy          = :posting_policy,
              new_questions_allowed_p = :new_questions_allowed_p,
-             anonymous_allowed_p     = :anonymous_allowed_p
-          where forum_id = :forum_id
+             anonymous_allowed_p     = :anonymous_allowed_p,
+             attachments_allowed_p   = :attachments_allowed_p
+         where forum_id = :forum_id
         </querytext>
     </fullquery>
 
@@ -36,7 +37,7 @@
         </querytext>
     </fullquery>
 
-    <fullquery name="forum::get.select_forum">      
+    <fullquery name="forum::get.select_forum">
         <querytext>
             select forums_forums.*
             from forums_forums
@@ -50,7 +51,7 @@
             set enabled_p = 't'
             where forum_id = :forum_id
         </querytext>
-    </fullquery> 
+    </fullquery>
 
     <fullquery name="forum::disable.update_forum_disabled_p">
         <querytext>

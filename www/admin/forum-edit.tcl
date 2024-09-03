@@ -7,13 +7,18 @@ ad_page_contract {
     @cvs-id $Id$
 
 } {
-    forum_id:naturalnum,notnull
+    forum_id:object_type(forums_forum),notnull
     {return_url:localurl "."}
 }
 
 # Select the info
 set package_id [ad_conn package_id]
-forum::get -forum_id $forum_id -array forum
+try {
+    forum::get -forum_id $forum_id -array forum
+} trap {NOT_FOUND} {} {
+    ns_returnnotfound
+    ad_script_abort
+}
 
 # Proper scoping?
 if {$package_id != $forum(package_id)} {

@@ -4,8 +4,8 @@
   <msg key="Admin_for_all">Administrative options for all forums.</msg>
   <msg key="Administer">Administer</msg>
   <msg key="Administration">Administration</msg>
-  <msg key="anonymous_posts_are_allowed">You can post in this forum anonymously.</msg>
   <msg key="Anonymous">Anonymous</msg>
+  <msg key="anonymous_posts_are_allowed">You can post in this forum anonymously.</msg>
   <msg key="approve">approve</msg>
   <msg key="Are_you_sure_you_want_to_delete_lt">Are you sure you want to delete this message and &lt;strong&gt;all replies to it&lt;/strong&gt;?</msg>
   <msg key="Are_you_sure_you_want_to_move_this_message_and_obviously_all_of_its_descendents_lt">Are you sure you want to move this message and all of its descendents?</msg>
@@ -16,7 +16,7 @@
   <msg key="Available_Forums">Available Forums</msg>
   <msg key="Available_Messages">Available Messages</msg>
   <msg key="Back_to_thread_label">Back to %forum.name%</msg>
-  <msg key="Back_to_thread_link">&lt;a href=&quot;%thread_url%&quot;&gt;Back&lt;/a&gt; to %forum.name%</msg>
+  <msg key="Back_to_thread_link">&lt;a href=&#34;%thread_url%&#34;&gt;Back&lt;/a&gt; to %forum.name%</msg>
   <msg key="Body">Body</msg>
   <msg key="by_Date">by Date</msg>
   <msg key="by_Forum">by Forum</msg>
@@ -42,7 +42,7 @@
   <msg key="edit">Edit</msg>
   <msg key="Edit_again">Edit again</msg>
   <msg key="Edit_forum">Edit forum</msg>
-  <msg key="Edit_forum_name">Edit forum &quot;%name%&quot;</msg>
+  <msg key="Edit_forum_name">Edit forum &#34;%name%&#34;</msg>
   <msg key="Edit_Message">Edit Message:</msg>
   <msg key="Email">Email</msg>
   <msg key="email_alert_body_header">On %posting_date%, %user_name% wrote:</msg>
@@ -72,12 +72,13 @@
   <msg key="Forums_Posting_hist_lt">Forums: Posting history for</msg>
   <msg key="forward">Forward</msg>
   <msg key="Fwd">Fwd:</msg>
+  <msg key="go_to_forum">Go to Forum:</msg>
   <msg key="goto_thread_subject">Go to thread %messages.subject%</msg>
   <msg key="help_new_threads">If &lt;b&gt;No&lt;/b&gt;, users may only reply to existing posts not create new threads.</msg>
   <msg key="help_posting_policy">&lt;b&gt;Open&lt;/b&gt; allows any users to post and have posts appear immediately, &lt;b&gt;moderated&lt;/b&gt; means posts must be approved by a moderator before others can see them, and &lt;b&gt;closed&lt;/b&gt; means only administrators may post.</msg>
   <msg key="help_presentation">&lt;b&gt;Flat&lt;/b&gt; only allows replies at the end of a thread with no nesting or threading, &lt;b&gt;Threaded&lt;/b&gt; allows replies to be made to any post in the thread and the reply will be indented under the post they are associated with.</msg>
   <msg key="html">HTML</msg>
-  <msg key="If_checked_create_users">If checked, create users that don't exist:</msg>
+  <msg key="If_checked_create_users">If checked, create users that don&#39;t exist:</msg>
   <msg key="in_this_forum_your_screename_is_used">In this forum your screenname is used instead of your realname as follows:</msg>
   <msg key="just_display_subjects">Just display subjects</msg>
   <msg key="Last_Post">Last Post</msg>
@@ -94,6 +95,7 @@
   <msg key="lt_Please_enter_a_messag">Please enter a message</msg>
   <msg key="lt_Please_enter_a_subjec">Please enter a subject</msg>
   <msg key="lt_Users_Can_Create_New_">Users Can Create New Threads</msg>
+  <msg key="lt_Users_Can_Add_Attachments">Users Can Add Attachments To Messages</msg>
   <msg key="lt_Would_you_like_to_att">Would you like to attach a file to this message?</msg>
   <msg key="lt_Would_you_like_to_sub">Would you like to subscribe to responses?</msg>
   <msg key="lt_You_either_have_to">You either have to post to a forum or in reply to another message</msg>
@@ -104,6 +106,7 @@
   <msg key="Message_awaiting_your_approval">The message is awaiting your approval</msg>
   <msg key="Message_content_withheld">Message content withheld from this notification for security reasons.</msg>
   <msg key="Message_ID">Message ID</msg>
+  <msg key="message_moved">Message Moved</msg>
   <msg key="Message_sent_to_moderator">Your message has been sent to the moderator for its approval</msg>
   <msg key="Message_Subject">Subject</msg>
   <msg key="Moderate">Moderate</msg>
@@ -131,7 +134,7 @@
   <msg key="No_Messages">No Messages</msg>
   <msg key="No_Postings">No Postings.</msg>
   <msg key="None">None</msg>
-  <msg key="not_allowed">We're sorry, but it appears that you do not have the permission to perform this operation.</msg>
+  <msg key="not_allowed">We&#39;re sorry, but it appears that you do not have the permission to perform this operation.</msg>
   <msg key="Number_of_Posts">Number of Posts</msg>
   <msg key="of_forum">of forum</msg>
   <msg key="on">on</msg>
@@ -142,7 +145,7 @@
   <msg key="parent_ID">parent ID</msg>
   <msg key="Pending">Pending</msg>
   <msg key="Pending_Threads">Pending Threads</msg>
-  <msg key="Permission_forum_name">Permissions for &quot;%name%&quot;</msg>
+  <msg key="Permission_forum_name">Permissions for &#34;%name%&#34;</msg>
   <msg key="Permissions_for_all">Permissions for all forums.</msg>
   <msg key="Post">Post</msg>
   <msg key="Post_a_Message">Post a Message</msg>
@@ -197,12 +200,10 @@
   <msg key="User">User</msg>
   <msg key="Users_that_wrote_in_the_forum">Users that wrote in the forum</msg>
   <msg key="View">View</msg>
+  <msg key="view_message">View Message:</msg>
   <msg key="with_indentation_of_replies">With indentation of replies</msg>
   <msg key="Yes">Yes</msg>
   <msg key="You_can">You can</msg>
   <msg key="You_may">You may</msg>
   <msg key="Your_Note">A Note</msg>
-  <msg key="go_to_forum">Go to Forum:</msg>
-  <msg key="view_message">View Message:</msg>
-  <msg key="message_moved">Message Moved</msg>
 </message_catalog>

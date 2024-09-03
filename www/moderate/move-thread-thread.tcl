@@ -6,9 +6,9 @@ ad_page_contract {
     @creation-date 2005-03-29   
 
 } {
-    msg_id:naturalnum,notnull    
-    selected_message:integer,notnull    
-    {confirm_p:boolean 0}
+    msg_id:object_type(forums_message),notnull
+    selected_message:object_type(forums_message),notnull
+    {confirm_p:boolean,notnull 0}
 }
 
 set table_border_color [parameter::get -parameter table_border_color]

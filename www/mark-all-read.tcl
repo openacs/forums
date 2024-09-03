@@ -6,11 +6,25 @@ ad_page_contract {
     @creation-date 2004-09-06
 
 } {
-    forum_id:naturalnum,notnull
+    forum_id:object_type(forums_forum),notnull
 }
 
-    set user_id [ad_conn user_id]
-    set db_antwort [db_exec_plsql forums_reading_info__user_add_forum {}]
+set user_id [ad_conn user_id]
+
+db_dml forums_reading_info_user_add_forum {
+    insert into forums_reading_info (
+                                     root_message_id,
+                                     user_id,
+                                     forum_id
+                                     )
+    select message_id, :user_id, m.forum_id
+    from forums_messages_approved m
+    where m.forum_id = :forum_id
+      and m.parent_id is null
+      and not exists (select 1 from forums_reading_info
+                       where user_id = :user_id
+                         and root_message_id = m.message_id)
+}
 
 
 ad_returnredirect forum-view?forum_id=$forum_id

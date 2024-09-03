@@ -40,7 +40,7 @@ create table forums_forums (
     name                            varchar(200)
                                     constraint forums_name_nn
                                     not null,
-    charter                         varchar(4000),
+    charter                         text,
     presentation_type               varchar(100) 
                                     constraint forums_presentation_type_nn
                                     not null
@@ -61,7 +61,10 @@ create table forums_forums (
                                     not null,
     anonymous_allowed_p             boolean
                                     default false
-                                    not null,                                    
+                                    not null,
+    attachments_allowed_p           boolean
+                                    default true
+                                    not null,
     package_id                      integer
                                     constraint forums_package_id_nn
                                     not null,
@@ -78,8 +81,22 @@ CREATE INDEX forums_forums_pkg_enable_idx
 
 create view forums_forums_enabled
 as
-    select *
-    from forums_forums
+    select forum_id,
+           name,
+           charter,
+           presentation_type,
+           posting_policy,
+           max_child_sortkey,
+           enabled_p,
+           new_questions_allowed_p,
+           anonymous_allowed_p,
+           attachments_allowed_p,
+           package_id,
+           thread_count,
+           approved_thread_count,
+           forums_forums,
+           last_post
+ from forums_forums
     where enabled_p = true;
 
 

@@ -10,12 +10,16 @@ ad_library {
 
 namespace eval forum::notification {
 
-    ad_proc -public get_url {
+    ad_proc -private get_url {
         object_id
     } {
         Returns a full url to the object_id.<br>
         Handles messages and forums.
-    } { 
+
+        This proc implements the GetURL operation of the
+        NotificationType Service Contract and should not be invoked
+        directly.
+    } {
 
 	set object_type [db_string select_object_type {}]
 
@@ -38,10 +42,12 @@ namespace eval forum::notification {
         }
     }
 
-    ad_proc -public process_reply {
+    ad_proc -private process_reply {
         reply_id
     } {
-        NotificationType.ProcessReply Service Contract implementation.
+        This proc implements the ProcessReply operation of the
+        NotificationType Service Contract and should not be invoked
+        directly.
     } {
 
         # Get the data

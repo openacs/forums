@@ -142,6 +142,9 @@ namespace eval forum::security {
         {-user_id ""}
         {-message_id:required}
     } {
+        DEPRECATED: permissions will now be checked on the forum itself
+        @see permission::permission_p
+    } {
         forum::message::get -message_id $message_id -array message
         return [permission::permission_p -party_id $user_id -object_id $forum_id -privilege "read"]
     }
@@ -149,6 +152,9 @@ namespace eval forum::security {
     ad_proc -deprecated -public require_read_message {
         {-user_id ""}
         {-message_id:required}
+    } {
+        DEPRECATED: permissions will now be checked on the forum itself
+        @see forum::security::require_read_forum
     } {
         forum::message::get -message_id $message_id -array message
         return [require_read_forum -forum_id $message(forum_id) -user_id $user_id]
@@ -158,6 +164,9 @@ namespace eval forum::security {
         {-user_id ""}
         {-message_id:required}
     } {
+        DEPRECATED: permissions will now be checked on the forum itself
+        @see forum::security::can_post_forum_p
+    } {
         forum::message::get -message_id $message_id -array message
         return [can_post_forum_p -forum_id $message(forum_id) -user_id $user_id]
     }
@@ -165,6 +174,9 @@ namespace eval forum::security {
     ad_proc -deprecated -public require_post_message {
         {-user_id ""}
         {-message_id:required}
+    } {
+        DEPRECATED: permissions will now be checked on the forum itself
+        @see forum::security::require_post_forum
     } {
         forum::message::get -message_id $message_id -array message
         return [require_post_forum -forum_id $message(forum_id) -user_id $user_id]
@@ -174,6 +186,9 @@ namespace eval forum::security {
         {-user_id ""}
         {-message_id:required}
     } {
+        DEPRECATED: permissions will now be checked on the forum itself
+        @see forum::security::can_moderate_forum_p
+    } {
         forum::message::get -message_id $message_id -array message
         return [permission::permission_p -party_id $user_id -object_id $message(forum_id) -privilege "forum_moderate"]
     }
@@ -182,14 +197,20 @@ namespace eval forum::security {
         {-user_id ""}
         {-message_id:required}
     } {
+        DEPRECATED: permissions will now be checked on the forum itself
+        @see forum::security::require_moderate_forum
+    } {
         forum::message::get -message_id $message_id -array message
         return [require_moderate_forum -forum_id $message(forum_id) -user_id $user_id]
     }
 
-    # admin == moderate!
     ad_proc -deprecated -public can_admin_forum_p {
         {-user_id ""}
         {-forum_id:required}
+    } {
+        DEPRECATED: admin == moderate!
+
+        @see forum::security::can_moderate_p
     } {
         return [can_moderate_p -user_id $user_id -forum_id $forum_id]
     }
@@ -197,6 +218,10 @@ namespace eval forum::security {
     ad_proc -deprecated -public require_admin_forum {
         {-user_id ""}
         {-forum_id:required}
+    } {
+        DEPRECATED: admin == moderate!
+
+        @see forum::security::can_moderate_p
     } {
         if { ![permission::permission_p \
                 -party_id  $user_id \

@@ -85,6 +85,10 @@ if {$is_direct_children == -1 } {
 set allow_edit_own_p [parameter::get -parameter AllowUsersToEditOwnPostsP -default 0]
 set own_p [expr {$message(user_id) eq $viewer_id && $allow_edit_own_p}]
 
+set delete_url [export_vars -base "moderate/message-delete" {
+    {message_id:sign(csrf) $message(message_id)}
+}]
+
 template::add_event_listener -id "toggle$message(message_id)" -script [subst {
     dynamicExpand('$message(message_id)');
 }]

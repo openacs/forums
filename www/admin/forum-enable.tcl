@@ -7,7 +7,7 @@ ad_page_contract {
     @cvs-id $Id$
 
 } {
-    forum_id:naturalnum,notnull
+    forum_id:object_type(forums_forum),notnull
 }
 
 forum::enable -forum_id $forum_id

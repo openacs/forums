@@ -7,8 +7,8 @@ ad_page_contract {
     @cvs-id $Id$
 
 } {
-    forum_id:naturalnum,notnull
-    {return_url:localurl "."}
+    forum_id:object_type(forums_forum),notnull
+    {return_url:localurl,notnull "."}
 }
 
 # Select the info

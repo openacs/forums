@@ -7,7 +7,7 @@ ad_include_contract {
     @cvs-id $Id$
 
 } {
-    user_id:naturalnum,notnull
+    user_id:object_type(user),notnull
     {groupby:word "forum_name"}
     {view:word "date"}
     {alt_template ""}
