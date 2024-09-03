@@ -14,9 +14,6 @@
 -- Search
 \i forums-sc-drop.sql
 
--- notifications
-\i forums-notifications-sanitize.sql
-
 -- tree stuff
 \i forums-tree-drop.sql
 

@@ -9,9 +9,6 @@
 -- lifted from Gilbert's UBB forums. Thanks Orchard Labs.
 --
 
--- notifications
-@ forums-notifications-sanitize.sql
-
 -- tree stuff
 @ forums-tree-drop.sql
 

@@ -20,9 +20,6 @@
 -- tree stuff
 @ forums-tree-create.sql
 
--- notifications
-@ forums-notifications-init.sql
-
 -- reading info
 @ forums-reading-info-create.sql
 @ forums-reading-info-package-create.sql
