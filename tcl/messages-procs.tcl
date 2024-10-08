@@ -335,7 +335,7 @@ ad_proc -public forum::message::get {
     upvar $array row
 
     # make sure array is empty
-    array unset row
+    unset -nocomplain row
 
     set forum_id [::xo::dc list -prepare integer get_forum_id_from_message_id {
         select forum_id from forums_messages where message_id = :message_id
