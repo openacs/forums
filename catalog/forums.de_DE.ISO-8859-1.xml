@@ -209,4 +209,7 @@
   <msg key="You_can">Sie können</msg>
   <msg key="You_may">Sie können es</msg>
   <msg key="Your_Note">Ihr Kommentar</msg>
+  <msg key="Allow_file_attachments">Dateianhänge erlauben</msg>
+  <msg key="Allow_image_paste">Einfügen von Bildern erlauben</msg>
+  <msg key="Image_paste_help">Angemeldete Autoren dürfen PNG-, JPEG- und GIF-Bilder in Beiträge einfügen. richtext-markdown muss installiert und als Editor ausgewählt sein; das Inhaltsformat muss HTML sein. Diese Einstellung aktiviert den Editor nicht. Dateianhänge werden separat erlaubt.</msg>
 </message_catalog>

@@ -206,4 +206,7 @@
   <msg key="You_can">You can</msg>
   <msg key="You_may">You may</msg>
   <msg key="Your_Note">A Note</msg>
+  <msg key="Allow_file_attachments">Allow file attachments</msg>
+  <msg key="Allow_image_paste">Allow image paste</msg>
+  <msg key="Image_paste_help">Allow signed-in authors to paste PNG, JPEG and GIF images into messages. Requires richtext-markdown to be installed and selected as the editor, with HTML as the content format. This setting does not activate the editor. File attachments are enabled separately.</msg>
 </message_catalog>

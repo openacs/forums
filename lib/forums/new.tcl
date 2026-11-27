@@ -22,18 +22,25 @@ element create forum forum_id \
 
 forums::form::forum forum
 
-# Check if the attachments package is mounted under the forum package instance
+# Check availability of each attachment interface
 set attachments_p [forum::attachments_enabled_p]
+set image_paste_p [forum::image_paste_enabled_p]
 
 if {[form is_valid forum]} {
     template::form get_values forum \
         forum_id name charter presentation_type posting_policy new_threads_p anonymous_allowed_p
 
-    # Display the option only if the attachments package is mounted
+    # Only read fields that were included in the form
     if {$attachments_p} {
         template::form get_values forum attachments_allowed_p
     } else {
-        set attachments_allowed_p t
+        set attachments_allowed_p f
+    }
+
+    if {$image_paste_p} {
+        template::form get_values forum image_paste_allowed_p
+    } else {
+        set image_paste_allowed_p f
     }
 
     # Users can create new threads?
@@ -48,7 +55,8 @@ if {[form is_valid forum]} {
                           -package_id              $package_id \
                           -new_questions_allowed_p $new_questions_allowed_p \
                           -anonymous_allowed_p     $anonymous_allowed_p \
-                          -attachments_allowed_p   $attachments_allowed_p]
+                          -attachments_allowed_p   $attachments_allowed_p \
+                          -image_paste_allowed_p   $image_paste_allowed_p]
     }
 
     ad_returnredirect $return_url
@@ -62,9 +70,12 @@ if { [form is_request forum] } {
     element set_value forum new_threads_p t
     element set_value forum anonymous_allowed_p f
     element set_value forum name $name
-    # Display the option only if the attachments package is mounted
+    # Only read fields that were included in the form
     if {$attachments_p} {
-        element set_value forum attachments_allowed_p t
+        element set_value forum attachments_allowed_p f
+    }
+    if {$image_paste_p} {
+        element set_value forum image_paste_allowed_p f
     }
 }
 

@@ -63,7 +63,10 @@ create table forums_forums (
                                     default false
                                     not null,
     attachments_allowed_p           boolean
-                                    default true
+                                    default false
+                                    not null,
+    image_paste_allowed_p           boolean
+                                    default false
                                     not null,
     package_id                      integer
                                     constraint forums_package_id_nn
@@ -95,7 +98,8 @@ as
            thread_count,
            approved_thread_count,
            forums_forums,
-           last_post
+           last_post,
+           image_paste_allowed_p
  from forums_forums
     where enabled_p = true;
 

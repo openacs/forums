@@ -44,6 +44,8 @@ if {$attachmentStyle eq "complex"} {
 set peeraddr   [ad_conn peeraddr]
 set user_id    [ad_conn user_id]
 set package_id [ad_conn package_id]
+set attachments_enabled_p [forum::attachments_enabled_p -forum_id $forum_id]
+set image_paste_enabled_p [forum::image_paste_enabled_p -forum_id $forum_id]
 
 set screen_name     [acs_user::get_user_info -user_id $user_id -element screen_name]
 set useScreenNameP  [parameter::get -parameter "UseScreenNameP" -default 0]
@@ -191,13 +193,23 @@ ad_form -html {enctype multipart/form-data} \
 
         set displayed_user_id [expr {$anonymous_allowed_p && $anonymous_p ? 0 : $user_id}]
 
+        set content [template::util::richtext::get_property content $message_body]
+        set format [template::util::richtext::get_property format $message_body]
+        set inline_images {}
+        if {$action in {preview post}} {
+            try {
+                set inline_images [forum::markdown_image::drafts $forum_id $message_id $content $format]
+            } trap {FORUM IMAGE UNAVAILABLE} {message} {
+                template::form::set_error message message_body $message
+                break
+            }
+        }
+
         if {$action eq "preview"} {
 
             set confirm_p 1
             set subject.spellcheck ":nospell:"
             set content.spellcheck ":nospell:"
-            set content [template::util::richtext::get_property content $message_body]
-            set format [template::util::richtext::get_property format $message_body]
             #
             # Attachments during the 'preview' action:
             #
@@ -273,17 +285,23 @@ ad_form -html {enctype multipart/form-data} \
         }
 
         if {$action eq "post"} {
-            set content [template::util::richtext::get_property content $message_body]
-            set format [template::util::richtext::get_property format $message_body]
 
-            forum::message::new \
-                    -forum_id $forum_id \
-                    -message_id $message_id \
-                    -parent_id $parent_id \
-                    -subject $subject \
-                    -content $content \
-                    -format $format \
-                    -user_id $displayed_user_id
+            set create_message [list forum::message::new \
+                                    -forum_id $forum_id \
+                                    -message_id $message_id \
+                                    -parent_id $parent_id \
+                                    -subject $subject \
+                                    -content $content \
+                                    -format $format \
+                                    -user_id $displayed_user_id]
+            if {[dict size $inline_images] == 0} {
+                {*}$create_message
+            } else {
+                db_transaction {
+                    {*}$create_message
+                    forum::markdown_image::attach $forum_id $message_id $inline_images
+                }
+            }
 
             if { [forum::use_ReadingInfo_p] } {
                 # remove reading info for this thread for all users (mark it unread)
@@ -406,6 +424,15 @@ ad_form -html {enctype multipart/form-data} \
             ad_script_abort
         }
     }
+
+
+if {$image_paste_enabled_p && $user_id != 0} {
+    set draft_message_id [template::element::get_value message message_id]
+    set upload_url [forum::markdown_image::upload_url $forum_id $draft_message_id post]
+    if {$upload_url ne ""} {
+        template::element::set_properties message message_body -options [list image_upload_url $upload_url]
+    }
+}
 
 
 if {[info exists alt_template] && $alt_template ne ""} {

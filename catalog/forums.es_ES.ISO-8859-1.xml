@@ -207,4 +207,7 @@
   <msg key="You_can">Puede</msg>
   <msg key="You_may">Puedes</msg>
   <msg key="Your_Note">Su commentario</msg>
+  <msg key="Allow_file_attachments">Permitir archivos adjuntos</msg>
+  <msg key="Allow_image_paste">Permitir pegar imágenes</msg>
+  <msg key="Image_paste_help">Permitir que los autores autenticados peguen imágenes PNG, JPEG y GIF en los mensajes. richtext-markdown debe estar instalado y seleccionado como editor, con HTML como formato del contenido. Esta opción no activa el editor. Los archivos adjuntos se habilitan por separado.</msg>
 </message_catalog>

@@ -19,18 +19,25 @@ element create forum forum_id \
 
 forums::form::forum forum
 
-# Check if the attachments package is mounted under the forum package instance
+# Check availability of each attachment interface
 set attachments_p [forum::attachments_enabled_p]
+set image_paste_p [forum::image_paste_enabled_p]
 
 if {[form is_valid forum]} {
     template::form get_values forum return_url forum_id \
         name charter presentation_type posting_policy new_threads_p anonymous_allowed_p
 
-    # Display the option only if the attachments package is mounted
+    # Only read fields that were included in the form
     if {$attachments_p} {
         template::form get_values forum attachments_allowed_p
     } else {
         set attachments_allowed_p [db_string att_p {select attachments_allowed_p from forums_forums where forum_id=:forum_id}]
+    }
+
+    if {$image_paste_p} {
+        template::form get_values forum image_paste_allowed_p
+    } else {
+        set image_paste_allowed_p $forum(image_paste_allowed_p)
     }
 
     # Users can create new threads?
@@ -44,7 +51,8 @@ if {[form is_valid forum]} {
             -posting_policy          $posting_policy \
             -new_questions_allowed_p $new_questions_allowed_p \
             -anonymous_allowed_p     $anonymous_allowed_p \
-            -attachments_allowed_p   $attachments_allowed_p
+            -attachments_allowed_p   $attachments_allowed_p \
+                          -image_paste_allowed_p   $image_paste_allowed_p
     }
 
     ad_returnredirect $return_url
@@ -68,10 +76,14 @@ if { [form is_request forum] } {
         -value $forum(new_questions_allowed_p)
     element set_properties forum anonymous_allowed_p \
         -value $forum(anonymous_allowed_p)
-    # Display the option only if the attachments package is mounted
+    # Only read fields that were included in the form
     if {$attachments_p} {
         element set_properties forum attachments_allowed_p \
             -value $forum(attachments_allowed_p)
+    }
+    if {$image_paste_p} {
+        element set_properties forum image_paste_allowed_p \
+            -value $forum(image_paste_allowed_p)
     }
 }
 

@@ -10,7 +10,8 @@
              posting_policy          = :posting_policy,
              new_questions_allowed_p = :new_questions_allowed_p,
              anonymous_allowed_p     = :anonymous_allowed_p,
-             attachments_allowed_p   = :attachments_allowed_p
+             attachments_allowed_p   = :attachments_allowed_p,
+             image_paste_allowed_p   = :image_paste_allowed_p
          where forum_id = :forum_id
         </querytext>
     </fullquery>

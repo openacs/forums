@@ -20,7 +20,8 @@ ad_proc -public forum::new {
     {-package_id:required}
     {-new_questions_allowed_p t}
     {-anonymous_allowed_p f}
-    {-attachments_allowed_p t}
+    {-attachments_allowed_p f}
+    {-image_paste_allowed_p f}
     -no_callback:boolean
 } {
     create a new forum
@@ -39,7 +40,8 @@ ad_proc -public forum::new {
         update forums_forums
        set new_questions_allowed_p = :new_questions_allowed_p,
            anonymous_allowed_p     = :anonymous_allowed_p,
-           attachments_allowed_p   = :attachments_allowed_p
+           attachments_allowed_p   = :attachments_allowed_p,
+           image_paste_allowed_p   = :image_paste_allowed_p
         where forum_id = :forum_id
     }
 
@@ -70,13 +72,14 @@ ad_proc -public forum::edit {
     -new_questions_allowed_p
     -anonymous_allowed_p
     -attachments_allowed_p
+    -image_paste_allowed_p
     -no_callback:boolean
 } {
     Edit a forum
 } {
     forum::get -forum_id $forum_id -array forum
     foreach var {
-        name charter presentation_type posting_policy new_questions_allowed_p anonymous_allowed_p attachments_allowed_p} {
+        name charter presentation_type posting_policy new_questions_allowed_p anonymous_allowed_p attachments_allowed_p image_paste_allowed_p} {
         if {![info exists $var]} {
             set $var $forum($var)
         }
@@ -99,11 +102,11 @@ ad_proc -public forum::attachments_enabled_p {
 } {
     Check if attachments are enabled in forums.
 
-    If 'forum_id' is not passed, check only if the attachments package is
-    mounted as a child of the current forums package instance.
+    Simple attachment style uses the enabled shared attachments service.
+    Complex style requires an attachments instance mounted beneath Forums.
 
-    Otherwise, check also if a particular forum's 'attachments_allowed_p' option
-    is true. In case the package is mounted and the option enabled, return 1.
+    When forum_id is supplied, also require that forum's attachments_allowed_p
+    option. Otherwise, determine the Forums instance from the current request.
 
     @return 1 if the attachments are enabled in the forums, 0 otherwise.
 } {
@@ -152,13 +155,39 @@ ad_proc -public forum::attachments_enabled_p {
     }
 
     #
-    # See if an instance of the attachments package is mounted
-    # underneath this forums instance.
+    # Simple attachments use the shared singleton service directly. They do
+    # not require the legacy per-Forums child mount.
+    #
+    if {[parameter::get -package_id $package_id -parameter AttachmentStyle -default simple] eq "simple"} {
+        return [expr {[apm_package_enabled_p attachments]
+                      && [namespace which ::attachments::attach] ne ""}]
+    }
+
+    #
+    # The complex workflow still uses its child-mounted attachment pages.
     #
     set node_id [site_node::get_node_id_from_object_id -object_id $package_id]
     set nodes [site_node::get_children -package_key attachments -node_id $node_id]
 
     return [expr {[llength $nodes] > 0}]
+}
+
+ad_proc -public forum::image_paste_enabled_p {
+    {-forum_id ""}
+} {
+    Check availability of image paste independently of general file attachments.
+    When forum_id is supplied, also require its image_paste_allowed_p setting.
+    Existing inline images remain readable when new pastes are disabled.
+} {
+    if {![apm_package_enabled_p attachments]
+        || [namespace which ::attachments::attach] eq ""} {
+        return 0
+    }
+    if {$forum_id ne ""} {
+        forum::get -forum_id $forum_id -array forum
+        return [expr {$forum(image_paste_allowed_p) ? 1 : 0}]
+    }
+    return 1
 }
 
 ad_proc -public forum::list_forums {

@@ -9,23 +9,23 @@
     <implements-subsite-p>f</implements-subsite-p>
     <inherit-templates-p>t</inherit-templates-p>
 
-    <version name="1.4.3d1" url="http://openacs.org/repository/download/apm/forums-1.4.3d1.apm">
+    <version name="1.4.3d2" url="http://openacs.org/repository/download/apm/forums-1.4.3d2.apm">
         <owner url="http://openacs.org">OpenACS</owner>
         <summary>Online discussion forums.</summary>
-        <release-date>2026-11-25</release-date>
+        <release-date>2026-11-27</release-date>
         <vendor url="http://openacs.org">OpenACS</vendor>
         <description format="text/plain">This online discussion board software is the successor of the original bboard package. The biggest improvement is a scalable datamodel. Forums supports threaded and flat view, moderation, a stand alone search function as well as integration with the OpenACS search package and integration with the notifications package for email alerts. It also supports reply via email.</description>
         <license>GPL version 2</license>
         <maturity>2</maturity>
         <package_instance_name>#forums.Forums#</package_instance_name>
 
-        <provides url="forums" version="1.4.3d1"/>
+        <provides url="forums" version="1.4.3d2"/>
         <requires url="acs-kernel" version="5.10.1"/>
         <requires url="acs-templating" version="6.0.0d12"/>
         <requires url="acs-tcl" version="5.10.1"/>
         <requires url="acs-mail-lite" version="5.10.1"/>
         <requires url="acs-subsite" version="6.0.0d7"/>
-        <requires url="attachments" version="0.11"/>
+        <requires url="attachments" version="0.14.2"/>
         <requires url="notifications" version="5.10.1"/>
         <requires url="acs-automated-testing" version="5.10.1"/>
 
@@ -46,7 +46,7 @@
             <parameter datatype="string"  min_n_values="1"  max_n_values="1"  name="table_bgcolor"  default="#eeeeee" description="This is the color of the first message / table row"/>
             <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="table_border_color"  default="#dddddd" description="The color of the table borders and between the cells, try #ffffff for a cool look"/>
             <parameter datatype="string"  min_n_values="1"  max_n_values="1"  name="table_other_bgcolor"  default="#d9e4f9" description="The bgcolor for the other table rows"/>
-            <parameter datatype="string"  min_n_values="1"  max_n_values="1"  name="AttachmentStyle"  default="simple" description="Style of attachments. Possible values are: - simple (default): just allow one to attach new files to a message using the file widget during post, and using the attachments package API to 'attach' them to the message. - complex (legacy): attach URLs, new or already existing files, browse through folders and choose where to upload the files in the file storage, using the attachments package 'attach' pages"/>
+            <parameter datatype="string"  min_n_values="1"  max_n_values="1"  name="AttachmentStyle"  default="simple" description="Attachment interface used when Allow file attachments is enabled for a forum. simple (default): signed-in users upload files directly in the posting form, using the shared Attachments service; no child mount is required. complex (legacy): users attach URLs or files through separate attachment pages, including existing files in File Storage; requires an Attachments instance mounted beneath Forums. This parameter selects the interface, not an allowed-file-type policy. Simple uploads accept general files, not only images; Markdown image paste has a separate per-forum Allow image paste setting and is restricted to PNG, JPEG and GIF. It requires richtext-markdown to be installed and selected as the editor, with HTML as the content format; enabling image paste does not activate the editor."/>
         </parameters>
 
     </version>

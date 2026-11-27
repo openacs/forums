@@ -206,4 +206,7 @@
   <msg key="You_can">Puoi</msg>
   <msg key="You_may">Puoi</msg>
   <msg key="Your_Note">Tua nota</msg>
+  <msg key="Allow_file_attachments">Consenti allegati di file</msg>
+  <msg key="Allow_image_paste">Consenti immagini dagli appunti</msg>
+  <msg key="Image_paste_help">Consenti agli autori autenticati di incollare immagini PNG, JPEG e GIF nei messaggi. richtext-markdown deve essere installato e selezionato come editor, con HTML come formato del contenuto. Questa impostazione non attiva l'editor. Gli allegati di file si abilitano separatamente.</msg>
 </message_catalog>

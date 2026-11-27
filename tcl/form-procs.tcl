@@ -185,9 +185,18 @@ ad_proc -public forums::form::forum {
       -help_text [_ forums.help_new_threads] \
       -options [list [list [_ forums.Yes] t] [list [_ forums.No] f] ]
 
+    if {[forum::image_paste_enabled_p]} {
+        template::element create $form_name ${prefix}image_paste_allowed_p \
+          -label [_ forums.Allow_image_paste] \
+          -help_text [_ forums.Image_paste_help] \
+          -datatype text \
+          -widget radio \
+          -options [list [list [_ forums.Yes] t] [list [_ forums.No] f]]
+    }
+
     if {[forum::attachments_enabled_p]} {
         template::element create $form_name ${prefix}attachments_allowed_p \
-          -label  [_ forums.lt_Users_Can_Add_Attachments] \
+          -label  [_ forums.Allow_file_attachments] \
           -datatype text \
           -widget radio \
           -options [list [list [_ forums.Yes] t] [list [_ forums.No] f] ]
